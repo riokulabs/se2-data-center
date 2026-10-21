@@ -18,7 +18,7 @@ Automation > Data Center.
   blocks; Compute, Storage, Network Switch and Blanking Panel are decorative.
 - 38 cable trays in 4 cable densities, with Drops, Reducers, a Long Drop Chute and Hanger Rods.
 - 19 room pieces: raised floor, an in-row cooler (CRAC), a PDU cabinet, rack PDU strips, aisle containment doors and
-  roofs, aisle signs and rack labels.
+  roofs, aisle signs and rack labels. The CRAC's fans spin up over 2 s when it turns on and coast down over 4 s.
 - Building and damage like the game's own blocks: a construction cage until 30 %, damaged models, sparks, smoke and
   fire. A broken section shows a solid inside with torn wiring and the big parts you would expect there, never an
   empty box.
