@@ -21,7 +21,7 @@ stay just below the frame front, so the frame reads as a border round a recessed
 import math
 
 from .. import server
-from ..style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, YELLOW, lamp, louvre_panel, oct_pts, stencil
+from ..style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, YELLOW, louvre_panel, oct_pts, stencil
 from se2model.config import EM
 
 try:
