@@ -81,8 +81,10 @@ VRage.Analytics), decompiled 2026-10-20 the same way (`ilspycmd -p -r Game2/`). 
 (VRage.Audio, [assembly: ClientAssembly]) is an unknown type, and the validator fails rather than guesses.
 """
 import copy
+import hashlib
 import json
 import os
+import pickle
 import re
 import sys
 from collections import defaultdict
@@ -95,6 +97,13 @@ DECOMPILED = os.path.join(WS_TOOLS, "decompiled-current")
 DECOMPILED_ROOTS = [DECOMPILED, os.path.realpath(DECOMPILED) + "-extra"]
 SDK_ASSETS = os.environ.get("SE2_SDK_ASSETS") or os.path.expanduser(
     "~/.steam/debian-installation/steamapps/common/Space Engineers 2 - Mod SDK/GameData/Vanilla/Assets")
+
+# The vanilla root's parsed files are cached on disk (_load_root): parsing its ~19,000 definition files is ~2 s and the
+# suite builds a Universe over it a dozen times. Outside the repo; DC_TEST_NO_CACHE=1 turns it off.
+CACHE_DIR = os.path.join(os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"), "rioku-se2", "dc-tests")
+_CACHE_FORMAT = 1
+with open(os.path.abspath(__file__), "rb") as _fh:
+    _LOADER_DIGEST = hashlib.sha256(_fh.read()).hexdigest()   # the loader's own source is part of every cache key
 
 sys.path.insert(0, os.path.join(WS_TOOLS, "scripts"))
 try:
@@ -135,28 +144,21 @@ class Universe:
     in-memory definition files ({"$Type", "$Value"} dicts, .def or PartialDefinitionDiff), applied last (fixtures)."""
 
     def __init__(self, roots=(), extra=()):
-        files = {}
+        files = {}                        # rel -> (d, error, abstract): later roots replace earlier ones per rel
         for root in roots:
-            for dp, _, fs in os.walk(root):
-                for f in fs:
-                    if f.endswith((".def", ".partialdef")):
-                        p = os.path.join(dp, f)
-                        files[os.path.relpath(p, root)] = p
+            files.update(_load_root(root))
         self.entries = {}                 # guid -> (kind, type, raw, base, origin)
         self.full_types = {}              # guid -> full definition class name
         self.overrides = defaultdict(list)
         self.abstract = set()             # DefinitionFlags.Abstract: a Copy base only, never pushed or validated
         self.load_errors = []             # (code, None, guid or None, detail): "unparseable", "duplicate-guid"
-        for rel, p in sorted(files.items()):
-            try:
-                with open(p, encoding="utf-8-sig") as fh:
-                    d = json.load(fh)
-            except (OSError, ValueError) as ex:
+        for rel, (p, d, err, abstract) in sorted(files.items()):
+            if err is not None:
                 # The content pipeline would fail the build on it; silently dropping it would hide its definitions
                 # from the walk (a reference to them then reads as "not live" and is not followed: a false pass).
-                self.load_errors.append(("unparseable", None, None, (f"{p}: {ex}",)))
+                self.load_errors.append(("unparseable", None, None, (err,)))
                 continue
-            self._add(d, p, _abstract(p + ".meta"), check_duplicate=True)
+            self._add(d, p, abstract, check_duplicate=True)
         for i, d in enumerate(extra):
             self._add(d, f"<extra {i}>")
         self._resolved = {}
@@ -278,6 +280,61 @@ class Universe:
     def guids_of_type(self, t):
         """The live definitions of a type (DefinitionManager.GetDefinitionsOfType)."""
         return sorted(g for g in self.entries if g not in self.abstract and self.type_of(g) == t)
+
+
+def _read_def(p):
+    """(path, parsed file, None, abstract) or (path, None, "<path>: <error>", False) for an unreadable one."""
+    try:
+        with open(p, encoding="utf-8-sig") as fh:
+            d = json.load(fh)
+    except (OSError, ValueError) as ex:
+        return p, None, f"{p}: {ex}", False
+    return p, d, None, _abstract(p + ".meta")
+
+
+def _load_root(root):
+    """rel -> _read_def(path) for every .def / .partialdef under root. The Mod SDK's vanilla root (SDK_ASSETS, which
+    nothing here writes) comes from a pickle in CACHE_DIR when one exists for exactly these inputs: the key hashes the
+    root as given and resolved, every file's relative path with the mtime and size of it and of its .meta (present or
+    not), this module's source and the Python version, so any change to what the loader reads or how it reads it
+    misses the cache. Other roots (the mod's, the staging, fixtures) are always read."""
+    files = {}
+    for dp, _, fs in os.walk(root):
+        for f in fs:
+            if f.endswith((".def", ".partialdef")):
+                p = os.path.join(dp, f)
+                files[os.path.relpath(p, root)] = p
+    if os.environ.get("DC_TEST_NO_CACHE") == "1" or not os.path.isdir(SDK_ASSETS) \
+            or os.path.realpath(root) != os.path.realpath(SDK_ASSETS):
+        return {rel: _read_def(p) for rel, p in files.items()}
+    h = hashlib.sha256(repr((_CACHE_FORMAT, sys.version_info[:3], root, os.path.realpath(root))).encode())
+    h.update(_LOADER_DIGEST.encode())
+    for rel in sorted(files):
+        for q in (files[rel], files[rel] + ".meta"):
+            try:
+                st = os.stat(q)
+                h.update(f"\0{rel}\0{q[-5:]}\0{st.st_mtime_ns}\0{st.st_size}".encode())
+            except OSError:
+                h.update(f"\0{rel}\0{q[-5:]}\0-".encode())
+    path = os.path.join(CACHE_DIR, f"universe-{h.hexdigest()[:40]}.pickle")
+    try:
+        with open(path, "rb") as fh:
+            return pickle.load(fh)
+    except (OSError, EOFError, pickle.UnpicklingError, ValueError, TypeError, AttributeError):
+        pass
+    out = {rel: _read_def(p) for rel, p in files.items()}
+    try:
+        os.makedirs(CACHE_DIR, exist_ok=True)
+        tmp = f"{path}.{os.getpid()}.tmp"
+        with open(tmp, "wb") as fh:
+            pickle.dump(out, fh, protocol=pickle.HIGHEST_PROTOCOL)
+        os.replace(tmp, path)            # atomic: a parallel worker never reads a half-written cache
+        for f in os.listdir(CACHE_DIR):  # keep only the current entry (a new SDK or loader leaves the old one stale)
+            if f.startswith("universe-") and f.endswith(".pickle") and f != os.path.basename(path):
+                os.remove(os.path.join(CACHE_DIR, f))
+    except OSError:
+        pass
+    return out
 
 
 def _abstract(meta_path):
