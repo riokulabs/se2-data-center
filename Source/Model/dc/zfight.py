@@ -1,4 +1,4 @@
-"""Z-fight audit (visual fix pass, in-game report: rack side labels flickering, door edges "fighting").
+"""Z-fight check (in-game report: rack side labels flickering, door edges "fighting").
 
 Two faults make two surfaces fight for the same pixels:
   (a) two DECAL ELEMENTS (a stencil line, an atlas sticker, a stripe band) overlap in-plane at (nearly) the same depth;
@@ -6,7 +6,7 @@ Two faults make two surfaces fight for the same pixels:
 
 The build tags every decal quad with the element it belongs to (install(): a face int layer written by
 se2model.decals._quad, the element = one outermost call of a decal API: decals.element / text / trim / stripes,
-style.stencil / hazard_triangle, tray_kit._stencil), measures the built models (audit_built), strips the tag again
+style.stencil / hazard_triangle, tray_kit._stencil), measures the built models (check_built), strips the tag again
 before export, and records the result in build_report.json ("zfight"). Tests/test_zfight.py re-checks the recorded
 element boxes with the bpy-free rules below.
 
@@ -373,7 +373,7 @@ def leaf_frame_check(spec, built):
 
 
 # ------------------------------------------------------------------------------------------------ model faces
-# In game (2026-10-20, DC_Rack42_Open seen from below): the containment rail's clamp pads were exactly as tall as the
+# In game (DC_Rack42_Open seen from below) the containment rail's clamp pads were exactly as tall as the
 # rail (their top / bottom faces in the rail's top / bottom planes) and the Feed A tag band stood exactly as proud as
 # the PDU face plate: same-facing coplanar faces of different boxes, the Darker / Yellow and the Colorable flicker.
 # The decal rules never saw them (neither is a decal); this checks every mesh face of the close LODs.
@@ -512,7 +512,7 @@ def subpart_frame_check(spec, built):
     return out
 
 
-def audit_built(spec, built):
+def check_built(spec, built):
     """build_report "zfight" entry for one built block; strips the element tags from every mesh afterwards."""
     from . import doors
     rep = {"elements": [], "decal_geometry": [], "leaf_coplanar": [], "leaf_frame": []}

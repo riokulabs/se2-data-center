@@ -1,8 +1,8 @@
-// KvmMotionPaths: the two motions the scripted KVM can run, behind one interface (Plan 4 Rulings P4-3, P4-12).
+// KvmMotionPaths: the two motions the scripted KVM can run, behind one interface.
 //   Sequenced: KvmMotion, the spring-eased slide, beat, fold (everywhere but one slot).
 //   DataOnly:  KvmLinearMotion, the data's own simultaneous linear slide and fold at the vanilla speed. It runs in the
-//              top slot of a full (42U) rack, where the sequenced lid's arc would rise into Plan 3's containment rail
-//              (Task 6: dc/kvm_motion.motion_path_for_slot; the clearances there model exactly this linear motion, so it
+//              top slot of a full (42U) rack, where the sequenced lid's arc would rise into the containment rail
+//              (dc/kvm_motion.motion_path_for_slot; the clearances there model exactly this linear motion, so it
 //              must stay un-eased unless the trajectories are re-dumped and the checks re-run).
 //
 // Game APIs: none (game-free; compiled by Tests/CoreTests and inside DataCenter.Client).
@@ -11,7 +11,7 @@ using System;
 
 namespace DataCenter.Kvm.Core;
 
-/// <summary>Which motion a KVM runs (Ruling P4-12).</summary>
+/// <summary>Which motion a KVM runs (chosen per rack slot by KvmRackSlot).</summary>
 public enum KvmMotionPath
 {
     /// <summary>The spring-eased slide, beat, fold (<see cref="KvmMotion"/>).</summary>
@@ -45,7 +45,7 @@ public interface IKvmMotion
 /// <see cref="KvmMotionTuning.DataOnlyStroke"/> seconds, which is the data's TranslationAnimation / RotationAnimation
 /// pair (0.45 m at 0.45 m/s, 100 degrees at 100 degrees/s). Like vanilla it reverses on the spot. A fast stow runs at
 /// the same speed: with the drawer heading home at once (no lid-first gate) it already beats the closing leaves by
-/// at least 86 mm (Task 6). Allocation-free; never throws.
+/// at least 86 mm (Tests/test_kvm_sequence.py). Allocation-free; never throws.
 /// </summary>
 public sealed class KvmLinearMotion : IKvmMotion
 {

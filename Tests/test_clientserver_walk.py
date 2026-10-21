@@ -1,13 +1,13 @@
-"""Plan 5 Task 12a: the offline client/server composition walk (Tests/clientserver_walk.py) gates the racks' Path A.
+"""The offline client/server composition walk (Tests/clientserver_walk.py) gates the racks' Path A.
 
-The 2026-10-18 world-load failure ("Client component ... should not be on server compositions") came from
+The world-load failure seen in game ("Client component ... should not be on server compositions") came from
 BindingsBasedClientServerInfo's SERVER walk reaching an unbound client prefab (the fan rotor) through the door's
 DoorBlockCollider -> DoorPartsProvider -> ConditionalSubParts chain, and ConveyorGraphPostProcessor.ValidateClientTypes
 rejecting its render components. clientserver_walk ports that walk over fully resolved definitions (vanilla SDK
 Assets + the mod's Assets + this run's staging) and the validator; here it must:
   (a) pass the DataCenter package as staged today,
-  (b) FAIL the 10-18 structure and the other server-side mistakes Path A could make,
-  (c) pass the Path A rack structure (task-12-spike.md Q1 (a)-(d)),
+  (b) FAIL the structure that broke the world load and the other server-side mistakes Path A could make,
+  (c) pass the Path A rack structure,
   (d) pass vanilla (the whole SDK, and SlidingDoorNarrow250 / Gyroscope50 / Reactor250 walked explicitly), so the
       port is not over-strict.
 """
@@ -105,7 +105,7 @@ def has(u, name, suffix):
 
 
 def guid(*parts):
-    return str(uuid.uuid5(uuid.NAMESPACE_URL, "dc-t12a/" + "/".join(parts)))
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, "dc-walk/" + "/".join(parts)))
 
 
 def as_def(type_, value):
@@ -148,7 +148,7 @@ def test_type_classification_follows_the_decompiled_attributes(types):
 
 
 def test_missing_decompile_fails_with_a_named_cause(tmp_path):
-    """I1: a missing decompile root (decompiled-current or its -extra tree) raises MissingDecompile naming the path and
+    """A missing decompile root (decompiled-current or its -extra tree) raises MissingDecompile naming the path and
     the README recipe, instead of silently classifying fewer types."""
     gone = str(tmp_path / "decompiled-9.9-extra")
     with pytest.raises(csw.MissingDecompile, match="decompiled-9.9-extra.*README"):
@@ -156,7 +156,7 @@ def test_missing_decompile_fails_with_a_named_cause(tmp_path):
 
 
 def test_unparseable_and_duplicate_definition_files_are_errors(tmp_path, vanilla):
-    """I2 / M1: a definition file that is not JSON, and a GUID defined by two files, are load errors (the pipeline
+    """A definition file that is not JSON, and a GUID defined by two files, are load errors (the pipeline
     rejects the first; DefinitionLoader throws "already contained" on the second), never silently dropped or
     last-wins."""
     root = tmp_path / "Assets"
@@ -175,7 +175,7 @@ def test_unparseable_and_duplicate_definition_files_are_errors(tmp_path, vanilla
 
 
 def test_unresolved_references_are_counted(package_walk):
-    """M6: GUIDs the walk meets that resolve to no loaded definition are not followed (an under-approximation); they
+    """GUIDs the walk meets that resolve to no loaded definition are not followed (an under-approximation); they
     are counted per (side, referring type, field) so a game update that moves definitions out of the SDK shows up."""
     counts = csw.unresolved(package_walk)
     report = csw.unresolved_report(package_walk)
@@ -247,7 +247,7 @@ def test_datacenter_door_racks_are_walked_through_the_door_chain(package, packag
 
 
 # ----------------------------------------------------------------------------------------------------- (b) must FAIL
-FIX_1018 = "028c11723f133d7fabb3d7a664c50d90136e623c"   # DataCenter: rotors out of the door ConditionalSubParts
+ROTOR_FIX = "028c11723f133d7fabb3d7a664c50d90136e623c"   # the commit that took the rotors out of the door ConditionalSubParts
 
 
 def committed_assets(tmp_path, rev):
@@ -262,25 +262,25 @@ def committed_assets(tmp_path, rev):
     return os.path.join(tmp_path, "Assets")
 
 
-@pytest.mark.slow   # ~15 s: extracts the 10-18 package from git and walks it twice
-def test_the_real_10_18_package_fails_and_its_fix_passes(tmp_path, types):
-    """The package exactly as committed when the world load failed (028c1172^) fails with the in-game message
+@pytest.mark.slow   # ~15 s: extracts the failing package from git and walks it twice
+def test_the_real_failing_package_fails_and_its_fix_passes(tmp_path, types):
+    """The package exactly as committed when the world load failed (the fix commit's parent) fails with the in-game message
     ("Client component ... should not be on server compositions") on the rotor composites, reached through
     DoorBlockCollider -> DoorPartsProvider -> ConditionalSubParts; the fix commit itself passes."""
-    before = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "before", FIX_1018 + "^")])
+    before = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "before", ROTOR_FIX + "^")])
     w, errs = run(before, types)
     assert errs and {e[0] for e in errs} == {"client-type-on-server"}, csw.format_errors(errs, before)
     rotors = {e[2] for e in errs}
     assert len(rotors) == 2 and all(before.origin(r).endswith("_RackFan_Composite.partialdef") for r in rotors)
     assert all(any("ConditionalSubPartsDefinition" in step for step in e[3]) for e in errs)
-    after = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "after", FIX_1018)])
+    after = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "after", ROTOR_FIX)])
     w, errs = run(after, types)
     assert not errs, csw.format_errors(errs, after)
 
 
 @pytest.mark.parametrize("rack", FAN_DOOR_RACKS)
-def test_10_18_unbound_rotor_in_door_conditional_subparts_fails(package, types, rack):
-    """The 2026-10-18 structure (DataCenter 028c1172 removed it): the unbound RackFan client prefab as a door-rack
+def test_unbound_rotor_in_door_conditional_subparts_fails(package, types, rack):
+    """The failing structure (since removed): the unbound RackFan client prefab as a door-rack
     ConditionalSubParts entry. The server walk reaches its render composite -> "Client component ... should not be on
     server compositions"."""
     csp = res(package, own(package, rack, "Client_ConditionalSubPartsDefinition.def"))
@@ -312,7 +312,7 @@ def test_binding_without_server_prefab_fails(package, types):
 
 
 # ------------------------------------------------------------------------------------------------------ (c) Path A
-# Task 12 shipped the Path A structure (task-12-spike.md Q1 (a)-(d), Q3): RackSide (one entry, two dummies) and the
+# The Path A structure: RackSide (one entry, two dummies) and the
 # full racks' RackFanTray are bound ConditionalSubParts entries with a server composition (Model + ChildTransform +
 # Hierarchy) and a server prefab with Children []; the rotors are children of the tray's CLIENT prefab only; door
 # racks list them in the door's ConditionalSubParts (walked by the server), open racks in a client-only

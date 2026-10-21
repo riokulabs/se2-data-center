@@ -1,12 +1,12 @@
-"""The scripted KVM motion, checked in geometry (Plan 4 Task 6). Plain Python, no bpy.
+"""The scripted KVM motion, checked in geometry. Plain Python, no bpy.
 
 Tests/CoreTests (`dotnet run -c Release -- --dump ...`) writes the game-free sequencer's trajectories
-(Scripts/Client/Core/KvmMotion.cs, 240 Hz) to Source/Model/preview/plan4/traj/<name>.csv as `t,slide,fold,target`
+(Scripts/Client/Core/KvmMotion.cs, 240 Hz) to Source/Model/preview/scripts/traj/<name>.csv as `t,slide,fold,target`
 (slide and fold normalised 0..1). This module places the KVM's two moving parts at those poses and measures them
 against everything they could hit:
 
   - the KVM's own upper panel (`self_intrusion`, the `subparts.transient_intrusion` rule; `min_safe_fold_gate`);
-  - the rack's closing door leaves (`leaf_clearance`, Ruling P4-4: the fast stow must beat them);
+  - the rack's closing door leaves (`leaf_clearance`: the fast stow must beat them);
   - the rack frame and the servers in the neighbouring slots (`obstacle_clearance`).
 
 Frames. The KVM model's Blender frame (centred, +Y = front, Z up; dc/subparts.py). A KVM in rack slot k (1-based)
@@ -34,9 +34,9 @@ on the true clearance (exact for the sagitta; the slack is a second-difference e
 over-estimating at kinks, so on the safe side). `swept=False` measures at the instants only (the other side of the
 bracket); test_swept_bounds_hold_when_decimated checks that the pads keep a 10 Hz bound on the safe side.
 
-Per-slot paths (Ruling P4-12): `motion_path_for_slot(rack, slot)` says which motion a slot runs ("data_only" in a
-full rack's top slot, under Plan 3's containment rail; "sequenced" elsewhere) and `path_runs(path)` lists every run
-of that path the checks cover; Task 8's sequencer routes on the same function's rule.
+Per-slot paths: `motion_path_for_slot(rack, slot)` says which motion a slot runs ("data_only" in a
+full rack's top slot, under the containment rail; "sequenced" elsewhere) and `path_runs(path)` lists every run
+of that path the checks cover; the runtime sequencer (KvmRackSlot.cs) routes on the same rule.
 """
 import csv
 import glob
@@ -52,7 +52,7 @@ from . import subparts as S
 HERE = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.dirname(HERE)                                  # Source/Model
 MOD_DIR = os.path.normpath(os.path.join(MODEL_DIR, "..", ".."))
-TRAJ_DIR = os.path.join(MODEL_DIR, "preview", "plan4", "traj")
+TRAJ_DIR = os.path.join(MODEL_DIR, "preview", "scripts", "traj")
 CORE_DIR = os.path.join(MOD_DIR, "Scripts", "Client", "Core")
 # The game-free shared rules CoreTests also compiles (the surgery and scripting rules): part of the same digest.
 SHARED_CORE_DIR = os.path.join(MOD_DIR, "Scripts", "Simulation", "Shared", "Core")
@@ -253,7 +253,7 @@ def leaf_box(spec, leaf, open_fraction):
 
 
 def leaf_grid(spec, leaf, open_fraction, nu=41, nz=9):
-    """The leaf's mid-plane sampled as an nu x nz grid (the brief's sampling; see test_grid_agrees_with_hulls)."""
+    """The leaf's mid-plane sampled as an nu x nz grid (a uniform sampling; see test_grid_agrees_with_hulls)."""
     s = 1 if leaf["model"] == doors.LEAF_R else -1
     z0, z1 = doors.z_range(spec)
     yaw = doors.swing_yaw(leaf, open_fraction)
@@ -561,8 +561,7 @@ def obstacle_clearance(traj, spec, slot, facing=1, swept=True):
 
 def rest_clearance(spec, slot, facing=1, slide=1.0, fold=1.0):
     """obstacle clearances of a single resting pose (the data-only open pose by default): the reference the sequence
-    is compared with where the rest pose itself already touches (the top slot's lid in the tray, core Task 8
-    concern 7)."""
+    is compared with where the rest pose itself already touches (the top slot's lid in the tray)."""
     obs = {k: _corners(*v) for k, v in obstacles(spec, slot, facing).items()}
     parts = [to_rack(v, spec, slot, facing) for v in kvm_parts(slide, fold).values()]
     return {k: min(convex_distance(K, O) for K in parts) for k, O in obs.items()}
@@ -588,7 +587,7 @@ def _swept_sections(traj, parts=("drawer", "lid"), swept=True):
 
 def max_y_above(traj, z_cut, swept=True):
     """Over the swept trajectory: the largest KVM-frame y of any drawer or lid point above z_cut (KVM frame), or -inf
-    (Plan 3's containment-rail rule, test_kvm_clear_of_rail). Exact per (y, z) section, padded by the slacks."""
+    (the containment-rail rule, test_kvm_clear_of_rail). Exact per (y, z) section, padded by the slacks."""
     worst = -math.inf
     for sec, pad in _swept_sections(traj, swept=swept):
         part = _clip(sec, lambda p: (z_cut - pad) - p[1])
@@ -599,7 +598,7 @@ def max_y_above(traj, z_cut, swept=True):
 
 def max_z_beyond(traj, y_cut, swept=True):
     """Over the swept trajectory: the highest KVM-frame z of any drawer or lid point in front of y_cut (KVM frame), or
-    -inf (Plan 3's roof rule, test_roof_clears_kvm_and_rack_doors: over the aisle, under the roof)."""
+    -inf (the roof rule, test_roof_clears_kvm_and_rack_doors: over the aisle, under the roof)."""
     worst = -math.inf
     for sec, pad in _swept_sections(traj, swept=swept):
         part = _clip(sec, lambda p: (y_cut - pad) - p[0])
@@ -608,25 +607,25 @@ def max_z_beyond(traj, y_cut, swept=True):
     return worst
 
 
-# ================================================================================================ per-slot paths (P4-12)
+# ================================================================================================ per-slot paths
 
 SEQUENCED, DATA_ONLY = "sequenced", "data_only"
 
-# Plan 3's room values (dims.py there, Task 1), used until Plan 3 merges into this branch; afterwards dims' own.
-PLAN3_RAIL_Y = getattr(DM, "CONTAIN_RAIL_Y", (0.600, 0.624))
-PLAN3_ROOF_CLEAR = getattr(DM, "ROOF_CLEAR", 0.004)
+# The room's containment values: dims' own when it defines them, else these fallbacks.
+ROOM_RAIL_Y = getattr(DM, "CONTAIN_RAIL_Y", (0.600, 0.624))
+ROOM_ROOF_CLEAR = getattr(DM, "ROOF_CLEAR", 0.004)
 AISLE_Y = 0.625                     # the rack's cell plane: beyond it, the aisle (under a containment roof)
 
 
 def has_containment_above(spec):
-    """Plan 3 puts the aisle-containment rail and roof on the FULL racks' tray band only (front and back); a half rack
-    gets top-rim label pads, no containment (Plan 3 Task 1). So only a full rack has anything above its top slot's
+    """The room puts the aisle-containment rail and roof on the FULL racks' tray band only (front and back); a half
+    rack gets top-rim label pads, no containment. So only a full rack has anything above its top slot's
     front for the lid to hit."""
     return spec.family == "rack" and doors.rack_dims(spec)[2]
 
 
 def motion_path_for_slot(rack, slot):
-    """Ruling P4-12: which motion the scripted KVM runs in rack slot `slot` (1-based, from the bottom) of `rack` (a
+    """Which motion the scripted KVM runs in rack slot `slot` (1-based, from the bottom) of `rack` (a
     BlockSpec or its name): "data_only" in a full rack's top slot (the slide-then-fold arc would rise into the
     containment rail there; the simultaneous data-only path stays behind it), "sequenced" everywhere else. Facing
     plays no part: the rail runs along both the front and the back."""
@@ -657,8 +656,8 @@ def data_only_trajectory(steps, hz=240):
 def path_runs(path, sweep=None):
     """[(name, trajectory, door t0 or None)] of everything the KVM can do on `path`; door t0 = when its sequencer is
     told the door is closing (the leaf race starts LATENCY before it), None for runs without a door race.
-    sequenced: Task 5's six trajectories plus the reversal sweep; the door runs are door_close_while_out (t0 = 0,
-    the brief's strict reading) and every FastStow sweep run (t0 = its reversal).
+    sequenced: the six tuned trajectories plus the reversal sweep; the door runs are door_close_while_out (t0 = 0,
+    the strictest reading) and every FastStow sweep run (t0 = its reversal).
     data_only: open, close, the door race (out for 0.1 s, then home: on this path the script still stows on a closing
     door, along the same simultaneous path at the vanilla speed) and reversals every 0.1 of a stroke."""
     if path == SEQUENCED:

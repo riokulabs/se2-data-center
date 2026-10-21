@@ -1,15 +1,15 @@
 """Icon contact sheets: our build-menu icons side by side with vanilla icons (read-only), at 200 px on the dark
 G-screen tone and on a light tone, plus 64 px toolbar-size rows (distinguishable at a glance?).
 
-    python3 Source/Model/icon_sheet.py          core: the 16 rack and server icons -> preview/task-10/
+    python3 Source/Model/icon_sheet.py          core: the 16 rack and server icons -> preview/icons/
     python3 Source/Model/icon_sheet.py trays    the 38 cable-tray icons, one row per menu group, against vanilla
-                                                structural icons and our core icons -> preview/p2-task-9/
+                                                structural icons and our core icons -> preview/tray-icons/
     python3 Source/Model/icon_sheet.py room     the 19 room-piece icons, one row per menu group, against the vanilla
-                                                clone sources' icons -> preview/plan3-task-10/ (Plan 3 Task 10)
-    python3 Source/Model/icon_sheet.py room_menu  the G-screen mock-ups with the room groups -> preview/plan3-task-10/
+                                                clone sources' icons -> preview/room-icons/
+    python3 Source/Model/icon_sheet.py room_menu  the G-screen mock-ups with the room groups -> preview/room-icons/
     python3 Source/Model/icon_sheet.py menu     a G-screen mock-up of the "Data Center" subcategory: every group
                                                 tile in Order, its kinds by priority, each kind's sizes
-                                                -> preview/p2-task-9/menu_structure.png
+                                                -> preview/tray-icons/menu_structure.png
 (needs Pillow)
 """
 import os
@@ -26,7 +26,7 @@ VANILLA = ("Timer/50/Timer50_Icon.png", "EventController/100/Models/EventControl
            "Batteries/Battery/50/Icon/Battery50_Icon.png", "ControlPanel/25/ControlPanel25_Icon.png",
            "Walls/Inserts/Panel/WallInsertPanel_Icon.png", "Lockers/Locker/200/Locker200_Icon.png",
            "Batteries/Battery/250/Icon/Battery250_Icon.png", "LCDPanels/LCD/50/LCD50_Icon.png")
-OUT = os.path.join(config.PREVIEW_DIR, "task-10", "icons_contact_sheet.png")
+OUT = os.path.join(config.PREVIEW_DIR, "icons", "icons_contact_sheet.png")
 
 
 def font(size):
@@ -89,7 +89,7 @@ TRAY_VANILLA = ("Walls/Inserts/Pipes/WallInsertPipes_Icon.png", "Truss/Struts/Lo
                 "Catwalks/CatwalkNarrowBase/250/CatwalkNarrowBase_250_Icon.png",
                 "Handrail/Straight/250/HandRailLongSection_250_Icon.png",
                 "Catwalks/CatwalkCornerBase/250/CatwalkCornerBase_250_Icon.png")
-TRAY_OUT = os.path.join(config.PREVIEW_DIR, "p2-task-9", "icons_contact_sheet_trays.png")
+TRAY_OUT = os.path.join(config.PREVIEW_DIR, "tray-icons", "icons_contact_sheet_trays.png")
 
 
 def tray_rows():
@@ -150,7 +150,7 @@ ROOM_VANILLA = ("Catwalks/CatwalkSquareBase/250/CatwalkSquareBase_250_Icon.png",
                 "Doors/SlideDoorNarrow/250/NarrowSlidingDoor.png", "LCDPanels/NarrowLCD/50/NarrowLCD50_Icon.png",
                 "Walls/Inserts/Panel/WallInsertPanel_Icon.png", "Batteries/Battery/250/Icon/Battery250_Icon.png",
                 "LCDPanels/LCD/50/LCD50_Icon.png")
-ROOM_OUT = os.path.join(config.PREVIEW_DIR, "plan3-task-10", "icons_contact_sheet_room.png")
+ROOM_OUT = os.path.join(config.PREVIEW_DIR, "room-icons", "icons_contact_sheet_room.png")
 ROOM_GROUPS = ("floor", "roompower", "contain", "signs")
 
 
@@ -180,7 +180,7 @@ def group_rows(keys):
 
 
 def room():
-    """Plan 3 Task 10: the 19 room-piece icons, one row per menu group, against the vanilla clone sources' icons and
+    """The 19 room-piece icons, one row per menu group, against the vanilla clone sources' icons and
     our core icons, on both tones, then at 64 px."""
     van = [(p, "vanilla " + os.path.basename(p).replace("_Icon.png", "")) for p in map(_vanilla_icon, ROOM_VANILLA)
            if p]
@@ -216,7 +216,7 @@ def room():
     print("WROTE", ROOM_OUT)
 
 
-MENU_OUT = os.path.join(config.PREVIEW_DIR, "p2-task-9", "menu_structure.png")
+MENU_OUT = os.path.join(config.PREVIEW_DIR, "tray-icons", "menu_structure.png")
 
 
 def menu_sheet(keys=None, out=None):
@@ -267,10 +267,10 @@ def menu_sheet(keys=None, out=None):
 
 
 def room_menu():
-    """Plan 3 Task 10: the G-screen mock-up of the whole Data Center subcategory (every tile, the four room groups
+    """The G-screen mock-up of the whole Data Center subcategory (every tile, the four room groups
     last) and of the four room groups alone."""
-    menu_sheet(out=os.path.join(config.PREVIEW_DIR, "plan3-task-10", "menu_structure_all.png"))
-    menu_sheet(ROOM_GROUPS, os.path.join(config.PREVIEW_DIR, "plan3-task-10", "menu_structure_room.png"))
+    menu_sheet(out=os.path.join(config.PREVIEW_DIR, "room-icons", "menu_structure_all.png"))
+    menu_sheet(ROOM_GROUPS, os.path.join(config.PREVIEW_DIR, "room-icons", "menu_structure_room.png"))
 
 
 if __name__ == "__main__":

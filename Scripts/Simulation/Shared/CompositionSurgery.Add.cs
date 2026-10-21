@@ -1,5 +1,5 @@
 // CompositionSurgery.Add: preparing to append a component to a prefab's composition, with its object-builder slot
-// (Task 8: the KVM's sequencer on its client prefab). See CompositionSurgery.cs for the class and the transaction.
+// (used for the KVM's sequencer on its client prefab). See CompositionSurgery.cs for the class and the transaction.
 //
 // Game APIs (decompiled 2.4.0.95, tools/decompiled/...; "N [2.4: M]" = line N in 4.0.0.3151, tools/decompiled-current/...):
 //   PrefabDefinition._entity (through CompositionReflection)   REFLECTION: re-check after a game update

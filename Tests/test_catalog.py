@@ -10,7 +10,7 @@ def test_names_unique_and_prefixed():
 
 
 def test_sizes():
-    # Plan 2 §Piece table: (along X, up Z, across Y)
+    # cable tray piece table: (along X, up Z, across Y)
     tray_cells = {"StraightS": (2, 1, 2), "StraightL": (6, 1, 2), "TurnH": (3, 1, 3), "TurnUp": (2, 2, 2),
                   "TurnDown": (2, 2, 2), "Tee": (4, 1, 3), "Cross": (4, 1, 4), "Reducer": (2, 1, 2),
                   "Drop": (4, 3, 3), "Chute": (4, 5, 1)}
@@ -33,7 +33,7 @@ def test_sizes():
             assert b.cells == tray_cells[b.variant], b.name
         elif b.family == "trayrods":
             assert b.cells == (2, rods[b.name], 2), b.name
-        else:   # Plan 3 room pieces: the brief's table (Tests/test_room_layout.py checks the whole row)
+        else:   # room pieces (Tests/test_room_layout.py checks the whole row)
             assert b.cells == room_cells[b.family](b), b.name
     assert catalog.BY_NAME["DC_Srv_UPS"].cells[1] == 2
 
@@ -70,7 +70,7 @@ def test_copy_from_matches_vanilla():
 
 
 def test_expand_globs():
-    """R12: check_placement.py takes one name or glob per argument."""
+    """check_placement.py takes one name or glob per argument."""
     import pytest
     from dc import catalog
     assert catalog.expand(["DC_*"]) == [b.name for b in catalog.CATALOGUE]

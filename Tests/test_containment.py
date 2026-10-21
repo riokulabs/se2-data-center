@@ -1,14 +1,14 @@
-"""Plan 3 Task 4: the containment roof panels (dc/contain.py), DC_Contain_Roof_{100,150,200}.
+"""The containment roof panels (dc/contain.py), DC_Contain_Roof_{100,150,200}.
 
 Pure tests check the builder's numbers (collision, hints, the bay layout, the up-face rule, the clamps on the rack's
 rail pads). The build-marked tests check the MEASURED blocks (build_report.json geometry / placement / lods, the
 export manifests) against the measured racks, placed as dc/room.reference_room places them:
   * the roof spans the aisle on the racks' containment rails: its +-y edge mounts overlap the facing racks' rail
-    band, its clamps face the rail pads, its x extent is one rack's (Review Focus 2, every in-row unit built so far);
+    band, its clamps face the rail pads, its x extent is one rack's (every in-row unit built so far);
   * it sits flush with the rack tops and tiles along the row at the 1.0 m pitch (no gap, no overlap);
-  * nothing that moves into the aisle reaches it: a KVM popped out of the top slot, rack doors open (Review Focus 3);
-  * faces: nothing mounts Up or Down, the edges mount; Keen's limits; breakable, a fracture zone per bay (the main
-    merge: dc/fracture.py _roof; the files are checked with every breakable block in test_fracture_refine.py).
+  * nothing that moves into the aisle reaches it: a KVM popped out of the top slot, rack doors open;
+  * faces: nothing mounts Up or Down, the edges mount; Keen's limits; breakable, a fracture zone per bay
+    (dc/fracture.py _roof; the files are checked with every breakable block in test_fracture_refine.py).
 """
 import json
 import math
@@ -21,7 +21,7 @@ from dc import dims as DM
 
 ROOFS = ("DC_Contain_Roof_100", "DC_Contain_Roof_150", "DC_Contain_Roof_200")
 FULL = ("DC_Rack42_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear")
-INROW = FULL + ("DC_CRAC", "DC_PDU_Cabinet")   # every in-row unit so far (T6: the CRAC; T7: the PDU cabinet)
+INROW = FULL + ("DC_CRAC", "DC_PDU_Cabinet")   # every in-row unit so far (full racks, the CRAC, the PDU cabinet)
 DOOR_RACKS = ("DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear")
 MM = 0.001
 LOD_MATERIALS = (8, 6, 4, 1)     # per-LOD material caps (the last LOD: 1), as the floor
@@ -58,7 +58,7 @@ def test_roof_catalogue_and_staging():
     assert [contain.width(s) for s in specs] == list(DM.AISLE_WIDTHS)
     assert [room.aisle_width(s) for s in specs] == list(DM.AISLE_WIDTHS)
     assert "contain_roof" in catalog.STAGED_ROOM_FAMILIES
-    assert all(s in catalog.STAGED and s in catalog.BLOCKS for s in specs)   # wired with Task 10
+    assert all(s in catalog.STAGED and s in catalog.BLOCKS for s in specs)   # wired into the menu
     import build_dc
     assert build_dc.BUILDERS["contain_roof"] is build_dc.build_contain_roof
 
@@ -231,7 +231,7 @@ def test_roof_spans_aisle_on_rack_rails(w, aisle):
 @pytest.mark.parametrize("w", DM.AISLE_WIDTHS)
 @pytest.mark.parametrize("unit", INROW)
 def test_roof_mounts_on_every_inrow_unit(unit, w, aisle):
-    """Review Focus 2: every 1.0 m roof panel mounts on whatever unit is under it, on both rows."""
+    """Every 1.0 m roof panel mounts on whatever unit is under it, on both rows."""
     _check_on_rails(unit, w, aisle)
 
 
@@ -262,9 +262,9 @@ def test_roof_flush_and_tiles_along_row(w):
 @pytest.mark.build
 @pytest.mark.parametrize("w", DM.AISLE_WIDTHS)
 def test_roof_clears_kvm_and_rack_doors(w):
-    """Review Focus 3: the roof's underside is >= ZT + ROOF_CLEAR everywhere; over the aisle a KVM popped out of the
+    """The roof's underside is >= ZT + ROOF_CLEAR everywhere; over the aisle a KVM popped out of the
     top slot (lid and drawer, every animation fraction) and the rack doors (open at any angle) stay under it.
-    Plan 3 T11 (the T6 review's minor 4): every in-row unit, not only the full racks: the CRAC and the PDU cabinet
+    Every in-row unit, not only the full racks: the CRAC and the PDU cabinet
     take the rack's top plane, and nothing of theirs reaches into the aisle (their render mesh stays in the box)."""
     from dc import subparts
     name = room.roof_name(w)
@@ -350,7 +350,7 @@ def test_roof_measured_parts(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", ROOFS)
 def test_roof_breakable_export(name):
-    """docs/guides/vanilla-fracture-models.md 10.4 (the main merge): split IN PLANE by 0.5 m bays within Keen's table
+    """Vanilla-style fracture: split IN PLANE by 0.5 m bays within Keen's table
     for the measured panel (1.0 m aisle: 3, the -y row one zone; 1.5 m: 4; 2.0 m: a zone per bay), each with its pane, caps and frame segment (glazing AND frame materials), break faces
     where the seams cut the beams and caps, no critical zone; its own Damaged model, whose panes map to vanilla's
     WindowGlassBroken (fracture.DAMAGED_SLOTS)."""
@@ -401,19 +401,19 @@ def test_roof_staged(staged):
         pl = [f for f in integration._block_files(catalog.BY_NAME[n], "_PlacementDefinition")]
         assert len(pl) == 1 and bd["PlacerDefinition"] == integration.own_guid(_staged(pl[0]))
         assert body(_staged(pl[0]))["AutoRotateFace"] is None
-        kind = body(_staged(info["kind_file"]))   # Task 10: a size of a multi-size kind (its own clone kind inert)
+        kind = body(_staged(info["kind_file"]))   # a size of a multi-size kind (its own clone kind inert)
         assert (kind["Name"], kind["Description"]) == (menu.kind_text(catalog.BY_NAME[n]) if menu.owns_kind(
             catalog.BY_NAME[n]) else names.NAMES[n])
         comp = body(_staged(f"{config.NAME}/{n}/{n}_ServerComposition.partialdef"))
         assert integration.BREAKABLE_KEY in comp["Components"]["Keys"]
         bmd = body(_staged(info["model_def_file"]))
         assert any((c.get("Value") or {}).get("Name") == "ParticleEffects" for c in bmd["Dummies"]["Changed"])
-        assert n in [b.name for b in catalog.BLOCKS]       # menu / unlock since Task 10
+        assert n in [b.name for b in catalog.BLOCKS]       # in the menu / unlock
     assert {"FrostedGlass", "EmissiveWhite", "FracturedMaterial01"} <= set(MATERIAL_GUIDS)
 
 
 # =================================================================================================================
-# Plan 3 Task 5: the containment end-of-aisle sliding doors DC_Contain_Door_{100,150,200}
+# The containment end-of-aisle sliding doors DC_Contain_Door_{100,150,200}
 # =================================================================================================================
 DOORS = ("DC_Contain_Door_100", "DC_Contain_Door_150", "DC_Contain_Door_200")
 H2C = DM.CELL / 2
@@ -428,7 +428,7 @@ def test_door_catalogue_and_staging():
     assert all(s.family == "contain_door" and s.copy_from == "SlidingDoorNarrow250" for s in specs)
     assert [contain.door_w(s) for s in specs] == list(DM.AISLE_WIDTHS) == [room.aisle_width(s) for s in specs]
     assert "contain_door" in catalog.STAGED_ROOM_FAMILIES
-    assert all(s in catalog.STAGED and s in catalog.BLOCKS for s in specs)   # wired with Task 10
+    assert all(s in catalog.STAGED and s in catalog.BLOCKS for s in specs)   # wired into the menu
     import build_dc
     assert build_dc.BUILDERS["contain_door"] is build_dc.build_contain_door
     assert contain.ZH + contain.DH == pytest.approx(rack.dims(catalog.BY_NAME["DC_Rack42_Open"])["ZT"])
@@ -436,7 +436,7 @@ def test_door_catalogue_and_staging():
 
 @pytest.mark.parametrize("name", DOORS)
 def test_door_leaves_slide(name):
-    """P3-2 + P3-16: two leaves, each W/2 + 2 x 15 mm wide, meeting at x = 0 (15 mm past the centre line each); open =
+    """Two leaves, each W/2 + 2 x 15 mm wide, meeting at x = 0 (15 mm past the centre line each); open =
     the closed transform translated by W/2 - 15 mm along x (identity orientation: the vanilla slide), which parks a
     leaf inside its pocket and inside the block (|x| <= W)."""
     spec = _dspec(name)
@@ -539,7 +539,7 @@ def _doors_and_ends(placed):
 @pytest.mark.parametrize("aisle", ("cold", "hot"))
 @pytest.mark.parametrize("w", DM.AISLE_WIDTHS)
 def test_door_on_both_ends_and_aisles(w, aisle):
-    """Review Focus 1: a door at either end of the aisle, cold (rack fronts) or hot (rack backs): its -Y back-plate
+    """A door at either end of the aisle, cold (rack fronts) or hot (rack backs): its -Y back-plate
     mount rects over each pocket lie on the end unit's side plane and overlap that side face by >= 0.25 m^2; the
     measured frame stays >= 1 mm off the side plane (frame_min_y), and the end racks' sides mount (100 %)."""
     name = room.door_name(w)
@@ -628,8 +628,8 @@ def test_roof_meets_door_header(w, aisle):
 @pytest.mark.parametrize("aisle", ("cold", "hot"))
 @pytest.mark.parametrize("w", DM.AISLE_WIDTHS)
 def test_door_on_floor_under_roof(w, aisle):
-    """Over the floor (T3): the door stands on the raised floor's top plane (its render bottom 0..1 mm above it) with
-    tiles under its whole footprint; under the roof (T4): its header is the roof band (ZT .. rack top) and its top is
+    """Over the floor: the door stands on the raised floor's top plane (its render bottom 0..1 mm above it) with
+    tiles under its whole footprint; under the roof: its header is the roof band (ZT .. rack top) and its top is
     flush with the roof panels' top (1 mm)."""
     dname, rname = room.door_name(w), room.roof_name(w)
     de = _entry(dname)
@@ -700,11 +700,11 @@ def test_door_measured_leaves(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", DOORS)
 def test_door_breakable_export(name):
-    """docs/guides/vanilla-fracture-models.md applied through the shared pipeline (dc/fracture.py _door, the main
-    merge; recognition, connectivity, cap UVs, hull fill and the Damaged model's parity are test_fracture_refine.py's,
+    """Vanilla-style fracture applied through the shared pipeline (dc/fracture.py _door;
+    recognition, connectivity, cap UVs, hull fill and the Damaged model's parity are test_fracture_refine.py's,
     on the files): the 8 zones of the plan, the door's frame members cut and capped at every seam (each pocket piece,
     the lintel and the sill carry FracturedMaterial01 break faces), the 7 frame zones critical, the closed leaves
-    supported by the lintel, its own Damaged model (Task 5's dent), and each leaf model its own box collider."""
+    supported by the lintel, its own dented Damaged model, and each leaf model its own box collider."""
     from dc import fracture as FR
     spec = _dspec(name)
     m = _manifest(name)
@@ -856,6 +856,6 @@ def test_door_definitions(staged):
         sw = body(_staged(integration._block_files(spec, "_BlockMaterialSwapperDefinition")[0]))
         m = integration.manifest(spec)
         assert sw["WorkingReplacementsMeshParts"] == [] and len(sw["WorkingReplacementModels"]) == 3
-        assert n in [b.name for b in catalog.BLOCKS]          # menu / unlock / recipe since Task 10
+        assert n in [b.name for b in catalog.BLOCKS]          # in the menu / unlock / recipe
         assert m["subparts"]
     assert "WindowGlassThin" in __import__("dc.material_guids", fromlist=["x"]).MATERIAL_GUIDS

@@ -1,19 +1,19 @@
-"""Plan 3 Task 2: the room catalogue, names and clones, and the pure-Python room layout (dc/room.py).
+"""The room catalogue, names and clones, and the pure-Python room layout (dc/room.py).
 
 dc/room.py places every block of the reference room in world cells (Blender axes, metres: x along the rows, y across
 the aisle with the aisle centred on y = 0, z up from the deck under the raised floor). These tests need no Blender:
 the occupancy of a block is its full cell box, except
   * racks: the box minus rack.FREE_CELLS (the server slots and the rear PDU columns), and
-  * Plan 2 tray pieces: the box minus the cells their cable plan leaves empty (tray_plan.occupied_cells), which is
-    what lets a rack label stand between a Drop's two waterfalls (Review Focus 4).
-Later tasks re-run the same layout on the measured geometry (build_report.json free_cells)."""
+  * tray pieces: the box minus the cells their cable plan leaves empty (tray_plan.occupied_cells), which is
+    what lets a rack label stand between a Drop's two waterfalls.
+Other tests re-run the same layout on the measured geometry (build_report.json free_cells)."""
 import os
 
 import pytest
 
 from dc import catalog, clone, config, dims as DM, names, rack, room
 
-ROOM_TABLE = {   # name: (family, cells, vanilla source, copy_from, variant) -- the brief's table, verbatim
+ROOM_TABLE = {   # name: (family, cells, vanilla source, copy_from, variant)
     "DC_Floor_Solid_050": ("floor", (2, 1, 2), "Blocks/Catwalks/CatwalkSquareBase/250", "CatwalkSquareBase250", "Solid"),
     "DC_Floor_Perf_050": ("floor", (2, 1, 2), "Blocks/Catwalks/CatwalkSquareBase/250", "CatwalkSquareBase250", "Perf"),
     "DC_Floor_Solid_100": ("floor", (4, 1, 4), "Blocks/Catwalks/CatwalkSquareBase/250", "CatwalkSquareBase250", "Solid"),
@@ -65,14 +65,14 @@ def test_room_catalogue():
 
 
 def test_room_blocks_in_the_pipeline():
-    """Catalogue gating (Plan 2 Task 2 pattern): a room family joins PIPELINE_FAMILIES in its definitions task; Plan 3
-    Task 10 wired them all (menu, icons, recipes, unlock), so the whole-catalogue loops see every room block."""
+    """Catalogue gating: a room family joins PIPELINE_FAMILIES once it has definitions; all of them are
+    wired (menu, icons, recipes, unlock), so the whole-catalogue loops see every room block."""
     assert set(catalog.ROOM_FAMILIES) <= set(catalog.PIPELINE_FAMILIES)
     assert [b for b in catalog.BLOCKS if b.family in catalog.ROOM_FAMILIES] == catalog.ROOM
 
 
 def test_room_clone_prefixes():
-    """Every second file prefix in a room source folder has a clone.ALSO rename (P3-17, P3-18), so no cloned file
+    """Every second file prefix in a room source folder has a clone.ALSO rename, so no cloned file
     keeps a vanilla name."""
     assert clone.ALSO["CatwalkSquareBase250"]("X") == ["CatwalkSquareBase_250=X"]
     assert clone.ALSO["LCDNarrow50"]("X") == ["NarrowLCD50=X"]
@@ -268,7 +268,7 @@ def test_room_clones():
         assert not [f for f in files if " " in f], b.name
     crac = os.path.join(config.MOD_ASSETS, config.NAME, "DC_CRAC")
     subs = os.listdir(os.path.join(crac, "Subparts"))
-    # Plan 3 T11 (the T6 review's minor 1): the vanilla gimbal's dead subpart chain is dropped (clone.DROP), only the
+    # the vanilla gimbal's dead subpart chain is dropped (clone.DROP), only the
     # CracFan rotor's files and the ConditionalSubParts definition stay
     every = [f for _, _, fs in os.walk(crac) for f in fs if not f.endswith(".meta")]
     assert not [f for f in every if f.endswith(clone.GIMBAL)], every
@@ -276,9 +276,9 @@ def test_room_clones():
     assert not [f for f in every if "Gyroscope250" in f]
 
 
-# ---------------------------------------------------------------------------------------------------- T12 hall
+# ---------------------------------------------------------------------------------------------------- hero hall
 def test_shared_row_doors_fit():
-    """Plan 3 Task 12 finding: a row between a contained cold and a contained hot aisle carries both aisles' end doors
+    """A row between a contained cold and a contained hot aisle carries both aisles' end doors
     on its end racks; each door's leaves park W/2 beyond its aisle, so the two pockets share row B's 1.25 m depth.
     1.5 + 1.0 (and 1.0 + 1.0, 1.0 + 1.5) fit; two 1.5 m aisles or any 2.0 m aisle do not."""
     fits = {(c, h) for c in DM.AISLE_WIDTHS for h in DM.AISLE_WIDTHS if room.shared_row_doors_fit(c, h)}
@@ -289,7 +289,7 @@ def test_shared_row_doors_fit():
 
 @pytest.mark.parametrize("cold,hot", [(1.5, 1.0), (1.0, 1.0), (1.0, 1.5)])
 def test_two_aisle_hall(cold, hot):
-    """The T12 hero hall: three rows (A and B face the cold aisle, B and C turn their backs to the hot one), both
+    """The hero hall: three rows (A and B face the cold aisle, B and C turn their backs to the hot one), both
     aisles contained (a roof over every unit, a door at each end), no cell conflicts anywhere (doors included), and
     one gap-free raised floor."""
     placed = room.two_aisle_room(cold, hot)

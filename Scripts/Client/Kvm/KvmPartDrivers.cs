@@ -1,4 +1,4 @@
-// KvmPartDrivers: the KVM's two subpart drivers (Plan 4 Rulings P4-3, P4-10; Task 8): the drawer slides, the screen
+// KvmPartDrivers: the KVM's two subpart drivers: the drawer slides, the screen
 // folds, each from its rest transform by the sequencer's pose (KvmPartComponent.cs), every frame in the rigid
 // animation update, where the vanilla Translation/RotationAnimation they replace ran.
 //
@@ -26,7 +26,7 @@ namespace DataCenter.Kvm;
 /// <summary>The drawer: slides <c>Translation x Slide</c> from its rest position.</summary>
 public sealed partial class KvmDrawerPart : KvmPartComponent
 {
-    /// <summary>The data's travel (P4-10: our own definition type).</summary>
+    /// <summary>The data's travel (in our own definition type).</summary>
     [Definition]
     public readonly KvmDrawerPartDefinition Definition = null!;
 
@@ -55,7 +55,7 @@ public sealed partial class KvmDrawerPart : KvmPartComponent
 /// <summary>The screen: folds <c>Angle x Fold</c> about its hinge axis from its rest orientation.</summary>
 public sealed partial class KvmScreenPart : KvmPartComponent
 {
-    /// <summary>The data's fold (P4-10: our own definition type).</summary>
+    /// <summary>The data's fold (in our own definition type).</summary>
     [Definition]
     public readonly KvmScreenPartDefinition Definition = null!;
 

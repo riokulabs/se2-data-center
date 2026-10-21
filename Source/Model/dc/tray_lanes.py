@@ -1,4 +1,4 @@
-"""The cable continuity contract of the cable trays (Plan 2, §The cable continuity contract). Pure Python (numpy).
+"""The cable continuity contract of the cable trays. Pure Python (numpy).
 
 Every tray piece meets its neighbours at **ports**. A port is a frame on a face of the piece's cell box:
 
@@ -35,7 +35,7 @@ BUNDLE_STEP = 0.02            # bundle polylines are sampled at most this far ap
 # ---------------------------------------------------------------------------------------------------- the basket
 WALL_S = 0.21                 # wall wire centres at s = +-WALL_S
 WALL_H = 0.10                 # the top (safety-edge) wire centre above the floor top
-JUNCTION_WALL_H = 0.15        # T / X walls round the junction (Task 3)
+JUNCTION_WALL_H = 0.15        # T / X walls round the junction
 WIRE_R = 0.004                # basket wires (floor, U-wires, lower wall wire)
 EDGE_WIRE_R = 0.005           # the top safety-edge wire
 U_LEG_S = WALL_S + 2 * WIRE_R # the transverse U-wires' legs stand on the outside of the longitudinal wall wires
@@ -63,7 +63,7 @@ TOUCH_TOL = 0.001             # bundles keep centreline distance >= r1 + r2 - 1 
 
 
 def split_zone(peel_r):
-    """... within this distance, measured along the parent, of their SPLIT point (Ruling P2-16): the collar plus one
+    """... within this distance, measured along the parent, of their SPLIT point: the collar plus one
     bend radius of the child's peel. A child that leaves its parent on an arc of radius `peel_r` (in plan, or rising)
     is still partly inside the parent's envelope until about that far along, as real cables are where they fan out of
     a collar."""

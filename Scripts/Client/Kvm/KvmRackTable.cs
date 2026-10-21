@@ -1,5 +1,5 @@
-// KvmRackTable: the Data Center racks the KVM can sit in, by block definition GUID (Plan 4 Rulings P4-6, P4-12,
-// P4-13): which are full (42U) or half (24U) racks, and which of their sides carry door leaves. Every GUID and every
+// KvmRackTable: the Data Center racks the KVM can sit in, by block definition GUID:
+// which are full (42U) or half (24U) racks, and which of their sides carry door leaves. Every GUID and every
 // side set is generated from the data into DcGuids (dc/script_guids.py; door sides from dc/doors.py door_sides), so
 // the runtime cannot name a rack the package does not ship. Tests/test_kvm_runtime.py checks KindOf covers every rack.
 //

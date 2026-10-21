@@ -1,12 +1,12 @@
-"""Plan 2 Task 9b fix round 1: Keen's two silent fracture rules on every EXPORTED fractured model (dc/fracture_rules.py).
+"""Keen's two silent fracture rules on every EXPORTED fractured model (dc/fracture_rules.py).
 
 I-1  ColliderMeshGroups / fracture groups (ModelProcessorLoader.CollectBreakableCollider): one ColliderMeshGroups entry
      naming no LOD0 group drops EVERY fracture of the model; a Fracture* collider needs a LOD0 group of its name.
 I-2  Havok connectivity (RootConnectivityGraph): a breakable block's fracture colliders form ONE graph, joining
      colliders within BreakableColliderArgs.MaxEdgeDistance (0.1 m), or the build fails.
-Both on the Fractured and the Damaged model of every block (racks, servers, trays; since the Plan 3 merge the room's
+Both on the Fractured and the Damaged model of every block (racks, servers, trays; also the room's
 staged floors, roofs and doors), LOD0 FBX + collision glTF.
-(Task 9c: test_fracture_refine.py checks the colliders' real convex shapes, the box gap here is their bounding boxes.)
+(test_fracture_refine.py checks the colliders' real convex shapes, the box gap here is their bounding boxes.)
 """
 import os
 from collections import Counter
@@ -34,14 +34,14 @@ def _models():
     return out
 
 
-N_BLOCKS = 69   # after Plan 3 T6 + T7 + T8 (the per-family split is test_fracture_refine's ROOM_EXPECT)
+N_BLOCKS = 69   # with the CRAC, the PDUs and the signs (the per-family split is test_fracture_refine's ROOM_EXPECT)
 MODELS = _models()
 FRACTURED = [m for m in MODELS if m[4] >= 2]
 
 
 def test_every_breakable_block_covered():
     """Every breakable pipeline block (racks / servers / trays) and every staged room block, each a Fractured and
-    (Task 9c: the racks too; the Plan 3 merge: the floors and roofs) a Damaged model: 2 x N_BLOCKS models."""
+    (the racks, floors and roofs too) a Damaged model: 2 x N_BLOCKS models."""
     blocks = {m[0] for m in FRACTURED}
     fam = Counter(catalog.BY_NAME[n].family for n in blocks)
     room = Counter({f: c for f, c in fam.items() if f in catalog.STAGED_ROOM_FAMILIES})
@@ -74,7 +74,7 @@ def test_fracture_colliders_connected(name, kind, fbx, gltf, zones):
 
 def test_exceptions_have_no_fracture_colliders():
     """The 4 non-breakable blocks (fracture.UNFRACTURED) export plain colliders only: nothing for either rule, in
-    their Fractured model and (Plan 5 Task 7) their dented Damaged debris."""
+    their Fractured model and their dented Damaged debris."""
     from dc import fracture as FR
     ex = [m for m in MODELS if FR.unfractured_reason(catalog.BY_NAME[m[0]])]
     names = ["DC_TrayRods_025", "DC_TrayRods_100", "DC_TrayRods_200", "DC_Tray_Chute"]

@@ -1,4 +1,4 @@
-"""Cable-tray blocks (Plan 2): the Blender build of every tray shape from its cable plan, and its collision.
+"""Cable-tray blocks: the Blender build of every tray shape from its cable plan, and its collision.
 
     build(spec, lod) -> [Part]      the LOD's Parts in the centred block frame (dc/tray_kit.py dresses the plan)
     collision(spec) -> dict         {"regular": [(name, lo, hi)], "occupancy": [...], "mount": [...]} (rack format)
@@ -79,7 +79,7 @@ def build(spec, lod):
 
 def mid_parts(spec):
     """The kit's mid detail (1) in the centred block frame: an extra LOD the Fractured / Damaged models of a light
-    piece take when their cut LOD0 needs one more LOD than the NonFractured (Plan 2 Task 9b, dc/fracture.py)."""
+    piece take when their cut LOD0 needs one more LOD than the NonFractured (dc/fracture.py)."""
     pl = plan_of(spec)
     shift = tuple(-v for v in pl.size / 2)
     return [p for p in dress(pl, 1) if _move(p, shift)]
@@ -121,7 +121,7 @@ def _move(p, shift):
 def last_lod(spec, pl, shift):
     """An open U channel along each basket path (floor and walls, both faces) and, when the piece carries cables,
     one quad at the bundle-bed top: <= 19 triangles in the interim LastLOD material (material_guids.LASTLOD_FALLBACK,
-    the paint: under Ruling P2-21 the silver basket pops to the cable paint at this last switch; a baked
+    the paint: by design the silver basket pops to the cable paint at this last switch; a baked
     <name>_LastLOD material is the follow-up)."""
     from mathutils import Matrix, Vector
     p = Part("lastlod")
@@ -204,7 +204,7 @@ def _last_lod_bend(p, mi, path, bed):
 
 
 def _last_lod_columns(p, mi, pl):
-    """The Chute's and the rod hangers' last LOD (Task 8): per ladder (bundle and rails) or per rod, an open
+    """The Chute's and the rod hangers' last LOD: per ladder (bundle and rails) or per rod, an open
     four-sided column round its solids (8 triangles each, 16 in all; seen from every side at range)."""
     from mathutils import Vector
     cols = []
@@ -348,8 +348,8 @@ def _straight(pts):
 
 
 def _junction_boxes(pl):
-    """A junction's physics boxes (Task 7), each path's trough at the plain 0.10 m wall height (the step-down at its
-    ports: a neighbour's trough meets it flush, Ruling P2-20) plus one raised box: the Tee's run between its two
+    """A junction's physics boxes, each path's trough at the plain 0.10 m wall height (the step-down at its
+    ports: a neighbour's trough meets it flush) plus one raised box: the Tee's run between its two
     step-downs at the junction walls' 0.15 m, the Cross's crossing up to the walls' 0.15 m or the c-d stack's top over
     the saddle, whichever is higher. Each
     trough s +-0.25 (its two cells), from 1 mm over the cell plane; a branch's from the run's trough on (the Tee's
@@ -436,14 +436,14 @@ def _cell_face_hint(name, xy, z0, z1):
 
 
 def _landing_hints(pl):
-    """The Drop's landing collars (Task 8): each seats on a rack's brush plate (or a Chute's top plate), so the
+    """The Drop's landing collars: each seats on a rack's brush plate (or a Chute's top plate), so the
     waterfall column's bottom cell under it mounts (Down)."""
     return [_cell_face_hint(f"landing_{k}", f.frame.o[:2], 0.0, HINT_T)
             for k, f in enumerate(f for f in pl.fittings if f.kind == "brush_collar")]
 
 
 def _column_collision(pl):
-    """The Chute and the rod hangers (Task 8). Physics: one thin box per ladder (its rails, rungs, plates and the
+    """The Chute and the rod hangers. Physics: one thin box per ladder (its rails, rungs, plates and the
     bundle) or per rod (round the rod and its coupler): players walk round them, nothing else is solid. Occupancy:
     the cells they pass through. Mounts: the Chute's foot plates (Down, on the half rack's roof) and top plates (Up,
     under the Drop's landing collars); a rod hanger's coupler footprints (Down, on a tray's rod plates: the same
@@ -487,13 +487,13 @@ def _support_hints(sp, size, k):
         return out
     a = np.asarray(sp.axis, float)
     if abs(abs(a[1]) - 1.0) > 1e-6:
-        return out                              # a turned strut (bends): its piece task adds its hints
+        return out                              # a turned strut (bends): its piece's builder adds its hints
     x = float(sp.position[0])
     zb = float(sp.position[2]) - TP.STRUT_H / 2 - TP.STRUT_LIFT       # the cell plane under the strut
     reach, keep = _hint_reach()
     lo_x, hi_x = (x - reach, x + keep), (x - keep, x + reach)
     y0, y1 = (float(sp.position[1]) + e for e in sp.extent)
-    # only hardware ON a block face mounts (Task 8: the Drop's strut sits on an inner plane, over its waterfall
+    # only hardware ON a block face mounts (the Drop's strut sits on an inner plane, over its waterfall
     # column's open bottom, and its +y end plate is inside the block)
     if abs(zb) < 1e-6:
         out.append((f"strut_bottom_{k}", np.array([x - reach, 0.001, zb]), np.array([x + reach, size[1] - 0.001,
@@ -566,7 +566,7 @@ def ports_block(spec):
 
 def run_length(spec):
     """The centreline length a piece adds to a run (the basket paths' length; 0 for rods and the Chute). A junction
-    (Task 7): its arms, each port to the junction's centre (the Tee 3 x 0.5 = 1.5 m, the Cross 4 x 0.5 = 2.0 m; its
+    has its arms, each port to the junction's centre (the Tee 3 x 0.5 = 1.5 m, the Cross 4 x 0.5 = 2.0 m; its
     branch path itself starts at the run's wall line)."""
     pl = plan_of(spec)
     if _junction(pl):

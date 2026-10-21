@@ -1,5 +1,5 @@
 // KvmPose: what the KVM motion is asked to do (KvmTarget) and where it is (KvmPose, normalised), shared by both
-// motion paths, the sequencer core and the game's part drivers (Plan 4 Ruling P4-3).
+// motion paths, the sequencer core and the game's part drivers.
 //
 // Game APIs: none (game-free; compiled by Tests/CoreTests and inside DataCenter.Client).
 #nullable enable

@@ -1,4 +1,4 @@
-"""Plan 3 Task 7: the PDU cabinet (DC_PDU_Cabinet) and the zero-U rack PDU strips (DC_PDU_Rack{42,24}_{A,B}),
+"""The PDU cabinet (DC_PDU_Cabinet) and the zero-U rack PDU strips (DC_PDU_Rack{42,24}_{A,B}),
 dc/pdu.py.
 
 Pure tests check the builder's numbers (catalogue, collision and hints, mount directions, the single-sourced outlet /
@@ -6,11 +6,12 @@ inlet positions, the fracture plans). The build-marked tests check the MEASURED 
 placement / lods, the export manifests) against the measured racks:
   * each strip fits its rack's freed rear PDU column (dims.PDU_ENVELOPE x rack.pdu_band, both feeds, both heights),
     occupies exactly rack.PDU_CELLS, conflicts with nothing in a fully populated rack, mounts on the rack's pdu_seat
-    hint (Down only since final review I1) with its back on the pdu_bracket plane, and its inlet plug seats in the rack's plinth receptacle (1 mm);
+    hint (Down only) with its back on the pdu_bracket plane, and its inlet plug seats in the rack's plinth
+    receptacle (1 mm);
   * a strip stays clear of the rear door leaves and of the UPS's rear bay;
   * the cabinet shares the full rack's interface (footprint, plinth, side and top mounts, the containment rail, the
-    top-entry brush plates: a Plan 2 Drop lands in it, Tests/test_tray_build.py LANDINGS; the roof panels mount on it,
-    Tests/test_containment.py INROW);
+    top-entry brush plates: a cable tray Drop lands in it, Tests/test_tray_build.py LANDINGS; the roof panels mount
+    on it, Tests/test_containment.py INROW);
   * limits, materials, breakable exports (dc/fracture.py _pdu_cabinet / _pdu_strip) and the staged definitions.
 """
 import json
@@ -87,7 +88,7 @@ def test_pdu_catalogue_and_staging():
         assert pdu.strip_feed(s) == n[-1]
         assert pdu.strip_rack(s).cells[1] == (10 if "42" in n else 5)
     assert {"pdu_cabinet", "pdu_strip"} <= set(catalog.STAGED_ROOM_FAMILIES)
-    assert all(_spec(n) in catalog.STAGED and _spec(n) in catalog.BLOCKS for n in ALL)   # T10
+    assert all(_spec(n) in catalog.STAGED and _spec(n) in catalog.BLOCKS for n in ALL)   # wired into the menu
     import build_dc
     assert build_dc.BUILDERS["pdu_cabinet"] is build_dc.build_pdu and build_dc.BUILDERS["pdu_strip"] is build_dc.build_pdu
     with pytest.raises(ValueError):
@@ -97,7 +98,7 @@ def test_pdu_catalogue_and_staging():
 @pytest.mark.parametrize("name", STRIPS)
 def test_strip_collision_and_hints(name):
     """One physics box inside the envelope (mirrored for B), one occupancy box over the whole column, one mount hint:
-    the plug seat (Down, the whole bottom face). No bracket (Forward) hint since final review I1."""
+    the plug seat (Down, the whole bottom face). No bracket (Forward) hint."""
     s = _spec(name)
     b = pdu.strip_collision(s)
     (nm, lo, hi), = b["regular"]
@@ -106,7 +107,7 @@ def test_strip_collision_and_hints(name):
     assert lo[2] == pytest.approx(-pdu.h2(s)) and hi[2] == pytest.approx(pdu.strip_top(s))
     assert len(b["occupancy"]) == 1
     hints = {n: (lo, hi) for n, lo, hi in b["mount"]}
-    assert set(hints) == {"plug_seat"}      # final review I1: no bracket (Forward) mount, Tests/test_pdu_targeting.py
+    assert set(hints) == {"plug_seat"}      # no bracket (Forward) mount, Tests/test_pdu_targeting.py
     lo, hi = hints["plug_seat"]
     assert lo[2] == pytest.approx(-pdu.h2(s)) and hi[2] - lo[2] < 0.01
     assert pdu.strip_directions(s) == "Down"
@@ -148,7 +149,7 @@ def test_strip_slots_layout(name):
 
 
 def test_outlets_and_inlets_single_sourced():
-    """The live-cabling hook (WS/docs/ideas/README.md): the strip's outlets and the server's power inlets come from
+    """A hook for possible live cabling later: the strip's outlets and the server's power inlets come from
     dims only. dims.pdu_outlets moved into the strip's frame is pdu.outlets_local; the server builder's PSU bays and
     inlet shells read dims (dc/server.py _rear)."""
     import inspect
@@ -275,8 +276,8 @@ def test_pdu_column_fit(strip, rk):
 @pytest.mark.parametrize("strip,rk", FIT)
 def test_pdu_mounts_on_rack_hints(strip, rk):
     """The strip's Down (plug seat) mount rect lies on the rack's pdu_seat plane and overlaps that hint by >= 50 % of
-    the strip's face; its back face (the brackets) lies on the pdu_bracket plane but does not mount (final review I1:
-    a Forward mount let a raised strip validate on the bulkhead, Tests/test_pdu_targeting.py)."""
+    the strip's face; its back face (the brackets) lies on the pdu_bracket plane but does not mount (a Forward
+    mount let a raised strip validate on the bulkhead, Tests/test_pdu_targeting.py)."""
     rs, ss = _spec(rk), _spec(strip)
     feed = _feed(strip)
     o = _strip_origin(strip, rk)
@@ -386,7 +387,7 @@ def test_pdu_limits_and_materials(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", ALL)
 def test_pdu_breakable_export(name):
-    """Breakable through the planned pipeline (guide docs/guides/vanilla-fracture-models.md): the plan's zones, cut
+    """Breakable through the planned pipeline: the plan's zones, cut
     and capped (FracturedMaterial01), no critical zone, its own Damaged model (the lamps -> EmissiveOffBroken)."""
     m = _manifest(name)
     zones = [z["id"] for z in m["fractured"]["zones"]]
@@ -412,7 +413,7 @@ def _staged(rel):
 
 @pytest.mark.build
 def test_pdu_staged(staged):
-    """Staged as breakable decorative blocks: PCU 5; mount directions All (cabinet) / Down (strips; final review I1); a
+    """Staged as breakable decorative blocks: PCU 5; mount directions All (cabinet) / Down (strips); a
     strip's placer AutoRotateFace off; our names; the BreakableBlockComponent kept; the effects dummy at the centre."""
     from dc import clone, names
     from dc.assetio import body

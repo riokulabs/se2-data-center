@@ -1,8 +1,8 @@
-"""Task 7: the UPS (12U, two OPEN Power Cell bays) behaves as Battery50 with two cells.
+"""The UPS (12U, two OPEN Power Cell bays) behaves as Battery50 with two cells.
 
 Vanilla values are read with json from tools/vanilla-ref (read-only hard links) and the SDK, never copied.
 
-Capacity semantics (Ruling 3, verified in the decompiled game, tools/decompiled/Game2.Simulation/
+Capacity semantics (verified in the decompiled game, tools/decompiled/Game2.Simulation/
 Keen.Game2.Simulation.WorldObjects.CubeBlocks.ResourceDistribution.Resources/ResourceContainerInventoryComponent.cs):
 the definition's MaxCapacity only seeds the resource entity (ResourceContainerComponent: MaxCapacity =
 _definition.MaxCapacity); on add-to-scene and on every inventory change RecalculateCapacity overwrites it with
@@ -12,7 +12,7 @@ read from the block definition and cap the flow. Battery50's block value (180000
 consistent block value for two slots is 2 x 180000 = 360000, and the rates double so two cells charge and discharge as
 fast as two Battery50s.
 
-Slot mass (deviation from the brief's "MaxMass == 50", see the report): a slot is one InventoryComponent and every
+Slot mass (not "MaxMass == 50"): a slot is one InventoryComponent and every
 slot uses the SAME InventoryDefinition (InventorySlotsServerDefinition.SlotDefinition; vanilla Battery250: four
 InventoryComponents of one definition). MaxMass is per InventoryComponent and MaxStacks = 1, so MaxMass 50 would let
 each slot take a stack of 2 cells (4 cells, 4 x capacity). One cell per slot = 25 kg per slot; 2 slots = 50 kg total.
@@ -194,7 +194,7 @@ def test_ups_size():
 SETS = {"SmokeSmall": ("d8cb4c53-5d1b-4aaa-9b56-71bb67ad1dd7", "Smoke/SmokeSmall_ParticleSet.def"),
         "FireSmall": ("9056509a-00d5-4abd-a2ea-3a9707e2ef45", "Fire/FireSmall_ParticleSet.def"),
         "GridExplosions": ("b41e3b65-0919-4ff9-95b0-72c0ddad7409", "Explosion/Regular/GridExplosions_ParticleSet.def")}
-# Plan 5 Task 4: the KVM's band is now 4.0 ControlPanel25's own update (ElectricalDamageSmall sparks, no SmokeSmall;
+# the KVM's band is now 4.0 ControlPanel25's own update (ElectricalDamageSmall sparks, no SmokeSmall;
 # Tests/test_effects.py::test_kvm_sparks_like_cp25), so it names no set and pins CP25's threshold
 EFFECT_SETS = {UPS: ("SmokeSmall", "FireSmall", "GridExplosions"), "DC_Srv_KVM": ()}
 
@@ -209,7 +209,7 @@ def _effects_files(name):
 
 def test_damage_effects_use_vanilla_particle_sets(staged):
     """4.0.0.3151 moved SmokeSmall / FireSmall / ExplosionGrid to V1 variants of new particle SETS and vanilla
-    BlockEffects point at the sets; our UPS and KVM overrides do too (user decision 2026-10-19: accept the new
+    BlockEffects point at the sets; our UPS and KVM overrides do too (they take the new
     vanilla damage bands, so our deltas set no HealthIntegrity thresholds)."""
     for name, want in EFFECT_SETS.items():
         files = _effects_files(name)

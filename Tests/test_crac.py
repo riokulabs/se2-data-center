@@ -1,4 +1,4 @@
-"""Plan 3 Task 6: the in-row cooler DC_CRAC (dc/crac.py; P3-1 / P3-15).
+"""The in-row cooler DC_CRAC (dc/crac.py): a powered load.
 
 Pure tests check the builder's numbers (footprint, collision and hints against the full rack's, the fan pivots and the
 InfiniteRotation ramp, the fracture plan). Build-marked tests read the MEASURED block (build_report.json: geometry,
@@ -72,7 +72,7 @@ def _built_and_exported():
 # ---------------------------------------------------------------------------------------------------- pure
 def test_crac_catalogue_and_staging():
     assert SPEC.family == "crac" and SPEC.cells == (4, 10, 5) and SPEC.copy_from == "Gyroscope250"
-    assert "crac" in catalog.STAGED_ROOM_FAMILIES and SPEC in catalog.STAGED and SPEC in catalog.BLOCKS   # wired with T10
+    assert "crac" in catalog.STAGED_ROOM_FAMILIES and SPEC in catalog.STAGED and SPEC in catalog.BLOCKS   # in menu
     assert (crac.H, crac.ZT) == DM.rack_frame(10)[:2]
     assert names.NAMES[NAME][0] == "In-Row Cooler (CRAC)"
 
@@ -122,7 +122,7 @@ def test_crac_fracture_plan():
     sup = p.manifest()["supporting"]
     assert sup == {"CracFan1": "Fracture_02", "CracFan2": "Fracture_03", "CracFan3": "Fracture_04",
                    crac.TERMINAL_DUMMY: "Fracture_05",
-                   "conveyor_port_o2_1": "Fracture_06", "conveyor_port_o2_2": "Fracture_06"}   # T11: the service bay
+                   "conveyor_port_o2_1": "Fracture_06", "conveyor_port_o2_2": "Fracture_06"}   # the service bay
     hulls = [z.hull for z in p.zones]
 
     def touch(a, b):
@@ -242,7 +242,7 @@ def test_crac_breakable_export():
 # ---------------------------------------------------------------------------------------------------- staged
 @pytest.mark.build
 def test_crac_is_powered_load(staged):
-    """P3-1 / P3-15: the resolved block definition is the clone's PowerableBlockDefinition drawing 25 (PCU 30, mounts
+    """The resolved block definition is the clone's PowerableBlockDefinition drawing 25 (PCU 30, mounts
     All); the server composition keeps the PowerableBlockComponent and has no GyroscopeComponent (its key Removed,
     its tag slot RemovedKeys), nor does the server prefab; no CRAC file (installed or staged) is a GyroscopeDefinition
     or references one, and the dropped file is gone."""
@@ -275,7 +275,7 @@ def test_crac_is_powered_load(staged):
 @pytest.mark.build
 def test_crac_fans_spin_on_working(staged):
     """Three CracFan dummies (our dummy type, each supported by its fan section); ConditionalSubParts spawns one rotor
-    subpart there (no vanilla gimbal; its hide list: the parked fans baked into the FR / DM, Task 11); the rotor's
+    subpart there (no vanilla gimbal; its hide list: the parked fans baked into the FR / DM); the rotor's
     composite carries an InfiniteRotation about game +Z (0, 0, 1) at 600 deg/s; the FunctionalBlockAnimationController
     (Working) is in both compositions."""
     _built_and_exported()
@@ -289,7 +289,7 @@ def test_crac_fans_spin_on_working(staged):
         assert dm[n]["SupportingFracture"] == {"Id": f"Fracture_{i + 2:02d}"}
     cs = body(_staged(_files("SubParts.def")[0]))
     (dt, prefab), = cs["SubParts"].items()
-    assert dt in types   # Task 11 (G6): it hides the three parked fans baked into the FR / DM while the rotors run
+    assert dt in types   # it hides the three parked fans baked into the FR / DM while the rotors run
     assert [x["Value"] for x in cs["MeshPartsToHideWhenActive"]] == integration.standin_parts(_manifest())
     assert len([x for x in cs["MeshPartsToHideWhenActive"] if x["Value"].endswith(FR.SUBPART_SUFFIX)]) >= 3
     dtype = _files(f"{crac.FAN}_DummyTypeDefinition")
@@ -347,11 +347,11 @@ def test_crac_terminal_on_controller(staged):
     assert [t["Scale"][k] for k in "XYZ"] == pytest.approx([0.40, 0.31, 0.06])
     p = dm["Particles"]["Transform"]["Transform"]["Position"]
     assert [p[k] for k in "XYZ"] == pytest.approx(list(doors.shift(SPEC)))
-    assert len(dm) == 7          # + the two service-port dummies (Plan 3 T11)
+    assert len(dm) == 7          # + the two service-port dummies
 
 
-# ---------------------------------------------------------------------------------------------------- Plan 3 T11
-# The O2 / coolant service ports (user direction 2026-10-18): decorative today, placed for a data-only "turn on".
+# ---------------------------------------------------------------------------------------------------- service ports
+# The O2 / coolant service ports: decorative today, placed for a data-only "turn on".
 PORT_NAMES = ("conveyor_port_o2_1", "conveyor_port_o2_2")
 
 
@@ -429,7 +429,7 @@ def test_crac_service_ports_kit_provenance():
 
 @pytest.mark.build
 def test_crac_hum_explicit(staged):
-    """T6 review minor 2: the hum is set like the racks' (integration.patch_hum): a vanilla loop while Working."""
+    """The hum is set like the racks' (integration.patch_hum): a vanilla loop while Working."""
     _built_and_exported()
     fx = body(_staged(_files("BlockEffectsComponentDefinition")[0]))
     assert fx["OnUseAudio"] == integration.HUM_CRAC
@@ -450,7 +450,7 @@ def test_crac_exported_mount_hints_unchanged():
 
 
 def test_crac_caption_is_neutral():
-    """T12 (the racks' neutral-ID ruling): the front header says "CRAC" beside a blank write-on tag (rack.id_tag); no
+    """Like the racks' neutral IDs: the front header says "CRAC" beside a blank write-on tag (rack.id_tag); no
     unit number is baked in (every CRAC read "CRAC 01")."""
     src = open(crac.__file__).read()
     assert crac.UNIT_CAPTION == "CRAC"
@@ -461,7 +461,7 @@ def test_crac_caption_is_neutral():
 def test_crac_carries_no_baked_id():
     """The built CRAC's decal labels (build_report zfight elements, every LOD): "CRAC" is there, no numbered ID."""
     zf = _entry().get("zfight")
-    assert zf, "no zfight audit in build_report.json (rebuild with build_dc.py)"
+    assert zf, "no zfight check in build_report.json (rebuild with build_dc.py)"
     labels = {e["label"].split(" ", 1)[1] for e in zf["elements"]}
     import re
     assert "CRAC" in labels and not [lb for lb in labels if re.fullmatch(r"CRAC\s*\d+", lb)], sorted(labels)

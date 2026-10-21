@@ -1,4 +1,4 @@
-"""The cable-tray kit (Plan 2 Task 4): Blender geometry for everything a tray plan (dc/tray_plan.py) describes.
+"""The cable-tray kit: Blender geometry for everything a tray plan (dc/tray_plan.py) describes.
 
 The plan says where things go; the kit only sweeps and dresses it. Every function takes plan objects (a PiecePlan, a
 Bundle, a Support, a Fitting) and writes into the piece's Parts, in the plan's box-corner frame (dc/tray.py moves
@@ -13,7 +13,7 @@ SE-styled wire basket, not photoreal (Keen style: chunky, readable at first-pers
 | safety edge | a 5 mm top wire, each U-wire leg turned over it (the rolled T-weld) | no sharp wire end at the cable jackets |
 | splice plates | half a bolted plate at each port and wall; two halves + two bolts per joint | join the sections |
 | bundles | 7 cables of r 9 mm (the six visible ones swept, the hidden centre left out), crevices between cables, laid with a slow twist (60 deg per 0.5 m, phase-locked at ports) | the cabling itself |
-| straps | Darker bands round each bundle, or ONE band round bundles that nest (Ruling P2-17), with a buckle | bundle retention |
+| straps | Darker bands round each bundle, or ONE band round bundles that nest, with a buckle | bundle retention |
 | trapeze | lipped strut channel, bolted chamfered Yellow end caps, threaded rods, square washers and hex nuts | hanging support |
 | rod plates | 34 mm plates under the top plane, the rod threaded into the plate's boss, two square anchor bolt heads | ceiling anchor / rod extension |
 | boots, clamps, tags | Rubber end boots, Darker saddle clamps, Yellow density tags with a white stencil | sealed spare ends, strain relief, density marking |
@@ -64,7 +64,7 @@ class Parts:
         self.card = card          # the piece carries the LOD2 basket card (its 4-material LOD2 set applies)
         self.bundle_pts = {}      # lane -> a bend bundle's faceted centreline (its straps hug it: straps())
         self.P = {}
-        # Plan 5 Task 9: the Parts are what the pieces ARE (fracture.ROLES["tray"] follows them): wire = the basket;
+        # The Parts are what the pieces ARE (fracture.ROLES["tray"] follows them): wire = the basket;
         # cable = the bundles and their end boots; tie = the cable dressing (straps, split collars, saddle clamps)
         # with tiehw its metal (strap buckles, collar bolts); hw = the hangers' and the basket's hardware (rods, nuts,
         # rod / splice plates, guide clamps); strut = the Darker strut channels that carry the basket (trapeze, floor
@@ -131,7 +131,7 @@ def sweep(p, points, profile, material, closed=True, cap0=False, cap1=False, up=
     counter-clockwise arc). Corners are mitred (the ring is stretched along the bend so the section keeps its
     thickness). smooth: the side faces form one round band (shaded smooth, never bevelled). normals: per profile
     point its exact 2D shading normal (a, b), turned with the twist and written to the per-loop normal hook
-    (se2model.normals; Task 10 round 2, Ruling P2-29: the strands' radial normals). Returns the rings."""
+    (se2model.normals: the strands' radial normals). Returns the rings."""
     bm = p.bm
     pts = [_v(q) for q in points]
     if fr is None:
@@ -298,7 +298,7 @@ def _interp(path, fr, l):
 
 
 def basket(P, plan, lod):
-    """The wire basket of every basket path of the plan (fillet "wall" paths are junction pieces, Tasks 6-7)."""
+    """The wire basket of every basket path of the plan (fillet "wall" paths are junction pieces)."""
     for path in plan.structure:
         if path.kind == "basket":
             _basket_path(P, plan, path, lod)
@@ -456,8 +456,8 @@ def _band_crossings(path, fr, others, half):
 
 def _cards(P, path, fr, he, lod, fac=None, others=(), ports=(True, True)):
     """LOD2: the basket as an alpha-tested card set (floor + two walls; the card material is two-sided). The grey
-    grating matches the bright-steel basket at range (Ruling P2-21). A bend: one quad per facet (fac). A junction's
-    path (Task 7): its floor breaks only where it runs into another path's floor, which it leaves to that path's card
+    grating matches the bright-steel basket at range. A bend: one quad per facet (fac). A junction's
+    path: its floor breaks only where it runs into another path's floor, which it leaves to that path's card
     (no overlapping cards); its walls break at its openings and stand at the plain WALL_H (at this range the junction
     reads as a plain tray, and every joint meets its neighbour's LOD2 wall exactly)."""
     t, s, u, L = fr
@@ -516,7 +516,7 @@ def _cards(P, path, fr, he, lod, fac=None, others=(), ports=(True, True)):
 
 def _wall_path(P, path, lod):
     """A junction's fillet wall (a "wall" path: points on the floor top along the wall foot, normals up the wall) and
-    the floor it closes (Task 7):
+    the floor it closes:
     - LOD0: the lower wall wire and the safety-edge wire (as a straight's; LOD1 the safety edge only), the floor's
       edge arc 1 cm in from the wall and the stubs on the 5 cm floor pitch out to the two outer floor wires it joins
       (tray_xsec.corner_floor);
@@ -622,13 +622,13 @@ def bundle(P, plan, b, lod):
           twist=XS.frame_drift(plan, b, pts, up, ends))
 
 
-RADIAL_NORMALS = True   # (Task 10 round 2, P2-29) LOD0 strands shade by their own radial normal (no lay bands)
-CAP_PORTS = True        # (Task 10, carry V-T7b) LOD0 cable-end caps at every PORT end (tray_xsec.CAP_SKIP aside)
+RADIAL_NORMALS = True   # LOD0 strands shade by their own radial normal (no lay bands)
+CAP_PORTS = True        # LOD0 cable-end caps at every PORT end (tray_xsec.CAP_SKIP aside)
 CAP_INSET, CAP_SKIP = XS.CAP_INSET, XS.CAP_SKIP
 
 
 def _cable_cap(p, end_rings, pts, i, material):
-    """Close a LOD0 bundle's PORT end (Task 10, V-T7b): at a free run end the open strand sweeps showed hollow 3-faced
+    """Close a LOD0 bundle's PORT end: at a free run end the open strand sweeps showed hollow 3-faced
     profiles. The cap is the bundle's own section (the hexagon of the six contact points, for the hidden centre
     cable, plus each outer cable's 3-faced lobe: 16 triangles), flat-shaded, CAP_INSET inside the port plane. At a
     joint the two pieces' caps face away from each other 2 x CAP_INSET apart, wholly inside the continuous closed
@@ -666,7 +666,7 @@ def _station_straps(plan):
     """{station plane: [strap fittings]}: the straps that share one station plane (its unit normal, sign-fixed, and
     offset), whichever bundle or lane station they were planned from. A junction's turning group shares its radial
     lines (its lanes are concentric), and a turning lane's lead strap 0.125 m from a port lies in the plane of the
-    straight lanes' strap there, so each such plane gets one band per nest of bundles (Ruling P2-17)."""
+    straight lanes' strap there, so each such plane gets one band per nest of bundles."""
     out = {}
     for f in plan.fittings:
         if f.kind != "strap":
@@ -680,7 +680,7 @@ def _station_straps(plan):
 
 
 def straps(P, plan, lod):
-    """The straps per station: bundles that nest share one band (Ruling P2-17), the rest get their own. LOD0 every
+    """The straps per station: bundles that nest share one band, the rest get their own. LOD0 every
     station, with a buckle; LOD1 one station per 0.5 m (0.125 + k 0.5 from port a), no buckle; LOD2 none."""
     if lod >= 2:
         return
@@ -697,7 +697,7 @@ def straps(P, plan, lod):
             c = _on_facets(P.bundle_pts.get(f.params.get("bundle")), f.frame.o, t)
             d = c - o0
             discs.append((float(d @ s), float(d @ u), f.size[1] / 2 - TL.STRAP_T))
-            if "tie_to" in f.params:     # (Task 8) the Chute's straps tie the bundle to the rung behind it: the band
+            if "tie_to" in f.params:     # the Chute's straps tie the bundle to the rung behind it: the band
                 off, half, thick = f.params["tie_to"]    # also wraps the rung's back corners
                 ds, du = discs[-1][:2]
                 tied.append((len(discs) - 1, [(ds + k * half, du + off + thick / 2, TL.STRAP_T + XS.STRAP_BITE)
@@ -718,7 +718,7 @@ TIE_DISC = 0.003      # a tie mount as the strap band sees it: a small disc on t
 
 
 def _deck_ties(plan):
-    """The crossover saddles' tie mounts [(saddle fitting, centre (world), across unit)] (Task 7)."""
+    """The crossover saddles' tie mounts [(saddle fitting, centre (world), across unit)]."""
     out = []
     for f in plan.fittings:
         if f.kind == "crossover_saddle":
@@ -891,14 +891,14 @@ def trapeze(P, sp, lod):
             hexnut(P["hw"], q, -d, PLATE_BOLT["r"], PLATE_BOLT["h"], TRAY_HW, sides=4, phase=math.pi / 4)
 
 
-# ---------------------------------------------------------------------------------------------------- Task 8 helpers
+# --------------------------------------------------------------------------------------- Chute, Drop and hanger helpers
 def _v3(q):
     return Vector((float(q[0]), float(q[1]), float(q[2])))
 
 
 def _oface(p, material, pts, outward):
     """One face on pts, wound so that its normal points along `outward` (the decal Parts keep the authored winding,
-    so every Task 8 face states which way it faces)."""
+    so every such face states which way it faces)."""
     bm = p.bm
     f = bm.faces.new([bm.verts.new(_v3(q)) for q in pts])
     f.material_index = p.mi(material)
@@ -1017,7 +1017,7 @@ ANCHOR_BOLT = dict(r=0.004, h=0.0025, dx=0.025, dy=0.010)   # 4 anchor bolts und
 
 
 def rods(P, sp, lod):
-    """A rod hanger (DC_TrayRods, Task 8): per rod a square washer the tray's rod-plate size and the 22 mm hex coupler
+    """A rod hanger (DC_TrayRods): per rod a square washer the tray's rod-plate size and the 22 mm hex coupler
     nut on it (it takes the tray's rod at the plate), the threaded rod up through the Darker ceiling strut channel (a
     square washer and a hex channel nut under its lips hold it) to a Darker ceiling anchor plate with four anchor
     bolts; the channel's Yellow end caps as the trapeze's. LOD1: plain prisms, no nuts or bolts."""
@@ -1087,7 +1087,7 @@ def _rail_profile(w, d, lod):
 
 
 def ladder(P, sp, lod):
-    """The Chute's cable ladder (Task 8): two Brushed lipped-C rails standing on a Darker foot plate (seated over the
+    """The Chute's cable ladder: two Brushed lipped-C rails standing on a Darker foot plate (seated over the
     half rack's roof brush, its bore lined with bristles that part round the bundle), Brushed rungs every 0.25 m
     between the rails' webs (the bundle strapped to each: dc/tray_kit.straps), and a Brushed top clamp plate across
     the rail heads (welded to them, flush under the top plane: its bore takes the bundle, the clamp under it grips
@@ -1190,7 +1190,7 @@ def split_collar(P, f, lod):
     """A Darker split collar where a branch bundle leaves its parent (it holds the split): two half shells clamped
     round the bundle, their flat ears bolted together each side (a bolt head on the top ear, its nut under the
     bottom one). LOD0 only (a 3 cm part; the bundles dressed over it are dressed at LOD0 only too). Not drawn when
-    the plan marks it hidden (Task 10, P2-25: the Full Drop's split collars lie wholly inside its dressed top layer and
+    the plan marks it hidden (the Full Drop's split collars lie wholly inside its dressed top layer and
     the nest of bundles round L1+; 400 triangles nobody sees)."""
     if lod >= 1 or f.params.get("hidden"):
         return
@@ -1338,7 +1338,7 @@ def _guide_profile(f, lod):
 
 
 def waterfall_guide(P, f, lod):
-    """The waterfall's moulded radius guide (Task 8): a Darker trough on the 0.10 m bend radius from 20 deg inside
+    """The waterfall's moulded radius guide: a Darker trough on the 0.10 m bend radius from 20 deg inside
     the tray round to plumb, its plate ribbed across (the bundle rides the rib crests) between two side cheeks that
     keep the bundle on the radius; two Brushed spring clamps hook it over the front wall's safety-edge wire.
     LOD1: the plate on 3 chords; LOD2: the plate's top as a strip on 2 chords."""
@@ -1390,7 +1390,7 @@ def waterfall_guide(P, f, lod):
 
 
 def brush_collar(P, f, lod):
-    """The landing brush collar (Task 8): a Darker ring seated on the rack's brush plate (or the Chute's top plate)
+    """The landing brush collar: a Darker ring seated on the rack's brush plate (or the Chute's top plate)
     round the waterfall, chamfered on top, two screws into the plate's frame; its bore lined with bristle tufts that
     part round the bundle. LOD0 only (a 7 cm part on the rack top: the bundle's end reads at range)."""
     if lod >= 1:
@@ -1451,13 +1451,13 @@ def _roll_section(f, lod):
 
 
 def crossover_saddle(P, f, lod):
-    """The Cross's crossover saddle (Task 7): a Darker formed-steel bridge over the a-b stack.
+    """The Cross's crossover saddle: a Darker formed-steel bridge over the a-b stack.
     - The deck: a 4 mm plate whose sides roll up into lips along the c-d stack (they keep it on the deck and stiffen
       the plate) and whose two ends roll down on the stack's own convex radius (no cable-cutting edge: the stack
       leaves the deck along them), as tongues over the stack's width.
     - Four Brushed square legs in the crossing's corners, each bolted through the floor wires between a clamp plate on
       the floor and a backing plate under the basket.
-    - Brushed tie mounts beside the stack at each deck strap: the straps are tied down to the deck (Ruling P2-20).
+    - Brushed tie mounts beside the stack at each deck strap: the straps are tied down to the deck.
     - A CleanWhite "X-OVER" stencil on each lip's outer face (it faces the a and b ports).
     LOD1: the same plate with single-chord bends; LOD2: the plate and its ends as quads."""
     fr = f.frame

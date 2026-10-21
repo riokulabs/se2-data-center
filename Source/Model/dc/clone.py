@@ -38,19 +38,19 @@ ALSO = {
     "LCDFlat50": lambda n: [f"LCD50={n}"],
     "EventController": lambda n: [f"{n}100={n}"],   # LODMaterial/EventController100_LastLOD
     "StructuralSupportStraight": lambda n: [f"TrussFrame_Long={n}"],   # LODMaterials/TrussFrame_Long_LastLod (rods)
-    # Plan 3 room pieces (risk spike, docs/research/dc-room-risk-spike.md section 3)
-    "CatwalkSquareBase250": lambda n: [f"CatwalkSquareBase_250={n}"],   # its LODMaterial (P3-17)
-    "LCDNarrow50": lambda n: [f"NarrowLCD50={n}"],                       # its LODMaterial (P3-18)
+    # room pieces: their sources' second file-name prefixes
+    "CatwalkSquareBase250": lambda n: [f"CatwalkSquareBase_250={n}"],   # its LODMaterial
+    "LCDNarrow50": lambda n: [f"NarrowLCD50={n}"],                       # its LODMaterial
     # Gyroscope250's prefixed files (Subparts/Gyroscope250_S2/S3/Subparts*, the Gyroscope250_Base LOD materials, the
     # Gyroscope250Particles dummy type) take the main rename; its other files (S1..S3 model components and rotation
     # animations, SubParts.def, SubpartMarker.def) have generic names and keep them. This only drops the space in
-    # "Gyroscope250_GyroscopePowerableBlockDefinition .partialdef" (P3-15 hygiene: <name>_PowerableBlockDefinition).
+    # "Gyroscope250_GyroscopePowerableBlockDefinition .partialdef" (file-name hygiene: <name>_PowerableBlockDefinition).
     # DeckPanel250 has no second prefix.
     "Gyroscope250": lambda n: ["GyroscopePowerableBlockDefinition =PowerableBlockDefinition"],
 }
 # cloned files a block must not keep, per copy_from (file-name suffixes; their .meta goes too). Gyroscope250's
-# GyroscopeDefinition (44 MN m of torque): the CRAC strips the GyroscopeComponent that is its only reader (P3-15,
-# integration.crac_patch), so the definition is dropped with it. Plan 3 T11 (the T6 review's minor 1): the vanilla
+# GyroscopeDefinition (44 MN m of torque): the CRAC strips the GyroscopeComponent that is its only reader
+# (integration.crac_patch), so the definition is dropped with it. The vanilla
 # gimbal's subpart chain too, dead since the CRAC's ConditionalSubParts (SubParts.def) maps only its CracFan rotor:
 # the S2 / S3 ring composites, the gimbal prefab and its composite, the S1-S3 rotations and model components (they
 # reference only each other and vanilla's gimbal models) and the unbound SubpartMarker.
@@ -118,7 +118,7 @@ def _block_info(spec):
 
 def _copy(src, from_, to, dest, key, recursive, also=()):
     """`se2mod.py copy` into THIS source tree's mod (config.MOD_DIR). The command line resolves the mod by its name
-    under the workspace's mods/ (mods/DataCenter), which in a git worktree (mods/DataCenter-<topic>) is the wrong
+    under the workspace's mods/ (mods/DataCenter), which in a second checkout (mods/DataCenter-<topic>) is the wrong
     checkout; so se2mod's own cmd_copy runs in-process with its mod lookup pinned to config.MOD_DIR. se2mod.py itself
     is unchanged and is the only copy implementation."""
     import argparse

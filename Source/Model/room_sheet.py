@@ -1,10 +1,10 @@
 """The reference room's layout sheets (Pillow, no Blender): plan and section of dc/room.reference_room().
 
-    python3 Source/Model/room_sheet.py [TASK]          (default 2: writes preview/p3-task-2/)
+    python3 Source/Model/room_sheet.py [FOLDER]        (default room: writes preview/room/)
 
 Per aisle width and hot / cold: layout_<w>_<aisle>.png, the plan (top view: tiles, the rows, the containment, the
 tray run and its rod hangers, the signs) over the section across the aisle at rack A2 (STACK heights dimensioned,
-the end door projected dashed). Also contact.jpg: every room render of the task folder on one sheet."""
+the end door projected dashed). Also contact.jpg: every room render of the folder on one sheet."""
 import os
 import sys
 
@@ -219,8 +219,8 @@ def contact(out):
 
 
 if __name__ == "__main__":
-    task = int(sys.argv[1]) if len(sys.argv) > 1 else 2
-    out = os.path.join(HERE, "preview", f"p3-task-{task}")
+    folder = sys.argv[1] if len(sys.argv) > 1 else "room"
+    out = os.path.join(HERE, "preview", folder)
     os.makedirs(out, exist_ok=True)
     for w in DM.AISLE_WIDTHS:
         for aisle in ("cold", "hot"):

@@ -13,13 +13,13 @@ Cell sets come in two frames:
     rack.SLOT_CELLS / PDU_CELLS / FREE_CELLS and of build_report.json "free_cells");
   * world cells: (i, j, k) as above.
 world_cells() maps one to the other; occupied() is a block's box minus its report's free cells; conflicts() lists the
-placed pairs whose occupied cells overlap. The coupling tests run on pure_report() (racks: rack.FREE_CELLS; Plan 2
+placed pairs whose occupied cells overlap. The coupling tests run on pure_report() (racks: rack.FREE_CELLS;
 tray pieces: the cells their cable plan leaves empty) and, once built, on the measured build_report.json.
 
-reference_room() is the room every Plan 3 task's in-context previews (dc/preview_room.py) and coupling tests use:
+reference_room() is the room the in-context previews (dc/preview_room.py) and coupling tests use:
 two facing rows (racks, an in-row CRAC, racks, the PDU cabinet) on a raised floor, a contained hot or cold aisle (roof
 panels over every 1.0 m, a sliding door at each end with its aisle sign), PDU strips and a label on every rack, and
-Plan 2's tray run overhead (a Drop into every rack, Straights over the in-row units, rod hangers to one ceiling).
+the cable tray run overhead (a Drop into every rack, Straights over the in-row units, rod hangers to one ceiling).
 """
 import math
 from dataclasses import dataclass
@@ -43,7 +43,7 @@ STACK = {
 }
 STACK["roof"] = (STACK["rack_top"] - CELL, STACK["rack_top"])   # the roof panels fill the aisle's top cell
 STACK["door_top"] = STACK["rack_top"]                           # the door header is flush with the rack tops
-STACK["tray_bottom"] = STACK["rack_top"] + DM.TRAY_HANG         # Plan 2: the tray's lowest cell plane
+STACK["tray_bottom"] = STACK["rack_top"] + DM.TRAY_HANG         # the tray's lowest cell plane
 STACK["tray_top"] = STACK["tray_bottom"] + CELL
 STACK["ceiling"] = STACK["tray_top"] + CELL * catalog.ROD_LENGTHS["100"]   # the rod hangers' anchor plane
 
@@ -171,7 +171,7 @@ def conflicts(placed: List[Placed], report: dict) -> List[Tuple[str, str, tuple]
 
 
 def pure_report(names: Iterable[str]) -> dict:
-    """A report-shaped occupancy without Blender: racks free rack.FREE_CELLS, Plan 2 tray pieces the cells their
+    """A report-shaped occupancy without Blender: racks free rack.FREE_CELLS, tray pieces the cells their
     cable plan leaves empty; every other block occupies its whole box."""
     from . import rack, tray_plan
     out = {}
@@ -246,10 +246,10 @@ def reference_room(aisle_w: float = 1.5, aisle: str = "cold", racks: int = 4, tr
                    labels: bool = True, label_side: str = "front") -> List[Placed]:
     """The reference room (see the module docstring). Row A stands at y < 0, row B at y > 0; on a cold aisle the
     rows face each other across it (fronts on y = -+w/2), on a hot aisle they are turned so their backs face it.
-    labels: the rack labels and the aisle signs; trays: Plan 2's overhead run (and the hanging aisle sign).
-    label_side: "front" (default) puts every rack label on its rack's front pad, between the Drop's waterfalls
-    (Review Focus 4, photo 1); "aisle" on the edge facing the contained aisle, "open" on the edge facing the open
-    aisle (Plan 3 T11 guidance, rack_label). "aisle" / "open" follow the aisle type (label_pad): the racks face a
+    labels: the rack labels and the aisle signs; trays: the overhead cable tray run (and the hanging aisle sign).
+    label_side: "front" (default) puts every rack label on its rack's front pad, between the Drop's waterfalls;
+    "aisle" on the edge facing the contained aisle, "open" on the edge facing the open
+    aisle (rack_label). "aisle" / "open" follow the aisle type (label_pad): the racks face a
     contained cold aisle and turn their backs to a contained hot one."""
     if aisle not in ("cold", "hot"):
         raise ValueError(f"aisle must be 'cold' or 'hot', not {aisle!r}")
@@ -316,7 +316,7 @@ def label_pad(aisle: str, label_side: str = "front") -> int:
 def rack_label(u: Placed, side: int = 1) -> Placed:
     """The rack label on a full rack's top: on its front label pad (side +1, between the Drop's waterfalls, the
     reference room's) or its back pad (side -1, the label turned to face the rack's back).
-    Plan 3 T11 guidance: in a CONTAINED aisle the roof covers the rack tops' aisle edge (the labels there are above the
+    In a CONTAINED aisle the roof covers the rack tops' aisle edge (the labels there are above the
     roof, unreadable from inside), so the labels go on the edge facing the OPEN aisle: side -1 on the racks of a
     contained cold aisle, +1 on those of a contained hot aisle (whose fronts face the open cold aisle)."""
     lc = (sum(DM.LABEL_X) / 2, side * sum(DM.LABEL_Y) / 2, UNIT_H / 2 + CELL / 2)
@@ -325,8 +325,8 @@ def rack_label(u: Placed, side: int = 1) -> Placed:
 
 
 def _trays(units, L, labels):
-    """Plan 2's run over each row: a Drop into every rack (its waterfalls land in the rack's top-entry brushes), two
-    0.5 m Straights over each in-row unit, a 1.0 m rod hanger over every piece up to the ceiling plane; and the
+    """The cable tray run over each row: a Drop into every rack (its waterfalls land in the rack's top-entry brushes),
+    two 0.5 m Straights over each in-row unit, a 1.0 m rod hanger over every piece up to the ceiling plane; and the
     hanging aisle sign mid-aisle on its own (turned) rod hanger, at tray height."""
     out = []
     drop, straight, rods = f"DC_Tray_Drop_{TRAY_DENSITY}", f"DC_Tray_StraightS_{TRAY_DENSITY}", "DC_TrayRods_100"
@@ -344,7 +344,7 @@ def _trays(units, L, labels):
     if labels:
         # the sign reads along the aisle (its face across it, yaw 1); its hanger is turned 90 deg TO THE SIGN (yaw 0,
         # like the trays' own hangers), so the hanger's two rods (its local y = +-ROD_S) land on the sign's two rod
-        # plates at x = +-ROD_S along its face (Plan 3 Task 8, the T2 carry; dc/signs.py rod_plates)
+        # plates at x = +-ROD_S along its face (dc/signs.py rod_plates)
         zs = STACK["tray_bottom"] + CELL / 2
         out.append(Placed("DC_Sign_AisleHang", (L / 2, 0.0, zs), 1, "aisle/hang"))
         out.append(Placed(rods, (L / 2, 0.0, STACK["tray_top"] + CELL * catalog.ROD_LENGTHS["100"] / 2), 0,
@@ -364,9 +364,9 @@ def hot_offset(cold_w: float = 1.5, hot_w: float = 1.0) -> float:
 
 def shared_row_doors_fit(cold_w: float, hot_w: float) -> bool:
     """Whether both aisles of a shared row can take their end doors at the same row end: each door's leaves park in
-    pockets W/2 beyond its aisle (Decision 2: the door is 2W wide), so on row B's end face the cold door's pocket
+    pockets W/2 beyond its aisle (the door is 2W wide), so on row B's end face the cold door's pocket
     (cold_w / 2) and the hot door's (hot_w / 2) must fit in the unit's 1.25 m depth. 1.5 + 1.0 fits exactly; two
-    1.5 m (or any 2.0 m) aisles do not: their pockets overlap (Plan 3 Task 12 finding)."""
+    1.5 m (or any 2.0 m) aisles do not: their pockets overlap."""
     return cold_w / 2 + hot_w / 2 <= UNIT_D + 1e-9
 
 
@@ -380,7 +380,7 @@ def hall_extent(cold_w: float = 1.5, hot_w: float = 1.0, racks: int = 4):
 
 
 def two_aisle_room(cold_w: float = 1.5, hot_w: float = 1.0, racks: int = 4) -> List[Placed]:
-    """The Plan 3 Task 12 hero hall: three rows and two contained aisles, the way real halls alternate them. Rows A
+    """The hero hall: three rows and two contained aisles, the way real halls alternate them. Rows A
     and B face the contained COLD aisle (y = 0; the reference room, labels on the front pads between the waterfalls);
     row B's back and row C's back close the contained HOT aisle (y = hot_offset). Built from the two reference rooms:
     the hot one shifted +y so its row A IS the cold room's row B (dropped, with its strips, labels and trays), its row B

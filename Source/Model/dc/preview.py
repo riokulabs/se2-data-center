@@ -1,6 +1,6 @@
-"""Task-3 preview set for the open racks (rendered by build_dc.py unless --no-render).
+"""The rack preview set for the open racks (rendered by build_dc.py unless --no-render).
 
-Writes into Source/Model/preview/task-3/. Every scene uses the v2 mockup look: EEVEE, AgX Base Contrast, the
+Writes into Source/Model/preview/racks/. Every scene uses the v2 mockup look: EEVEE, AgX Base Contrast, the
 SE-ish neutral lighting and the same Keen-slot material stand-ins on our blocks and on vanilla blocks
 (dc/preview_mats.py). Vanilla FBX are imported READ ONLY from tools/vanilla-ref (never written).
 """
@@ -14,7 +14,7 @@ from mathutils import Matrix, Vector
 from . import catalog, config, rack
 from . import preview_mats as PM
 
-OUT = os.path.join(config.PREVIEW_DIR, "task-3")
+OUT = os.path.join(config.PREVIEW_DIR, "racks")
 VREF = os.path.join(config.VANILLA_REF, "Blocks")
 FULL, HALF = "DC_Rack42_Open", "DC_Rack24_Open"
 FAST = bool(os.environ.get("DC_FAST"))
@@ -281,7 +281,7 @@ def closeups(built, paint="keen"):
         s.inst(painted(built, FULL, 0, paint), T(0, 0, H / 2))
         s.camera(loc, tgt, lens)
         s.render()
-    # fix round 1 (V1 / V2): the layered side panels and the slide-rail kits, both racks
+    # the layered side panels and the slide-rail kits, both racks
     for name in (FULL, HALF):
         Hn = _H(name)
         zt = Hn if name == HALF else 2.25

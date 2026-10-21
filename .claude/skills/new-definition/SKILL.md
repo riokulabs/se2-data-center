@@ -8,7 +8,7 @@ description: Add a new block or change a block definition in this SE2 mod throug
 
 Definitions under `Assets/` are game-format files (`.def`, `.partialdef`, `.meta`) that are written by the pipeline in `Source/Model/`. Change the generator, then regenerate; do not hand-edit them, and never hand-edit GUIDs.
 
-1. Read the "Block catalogue" and clone sections of `Source/Model/integration/INTEGRATION.md` and the matching task in `NOTES.md`.
+1. Read `docs/model-pipeline.md` and the clone section of `Source/Model/integration/INTEGRATION.md`.
 2. Add the entry to the catalogue (`Source/Model/dc/catalog.py`). Every modelled part needs a believable purpose; the block must behave like the vanilla block it is cloned from.
 3. Clone once: `python3 Source/Model/dc/clone.py <BLOCK>`.
 4. Build and export in Blender (windowed): `blender --python Source/Model/build_dc.py -- <BLOCK> --no-render --export`.

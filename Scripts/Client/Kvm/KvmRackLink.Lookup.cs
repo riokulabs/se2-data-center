@@ -1,5 +1,5 @@
-// KvmRackLink.Lookup: how the rack link finds the block in front of the KVM's face, or (placement fix 2026-10-18:
-// the rack's front zone is free cells now) the rack beside it that holds it (see KvmRackLink.cs for what it
+// KvmRackLink.Lookup: how the rack link finds the block in front of the KVM's face, or (the rack's front zone is free
+// cells, the slot opening) the rack beside it that holds it (see KvmRackLink.cs for what it
 // exposes). The full lookup runs every ResolveInterval seconds. Every frame a cheap check (the KVM's grid, the block
 // in the cached cell, that block's own CubeBlockComponent) re-resolves at once when the cached block has gone: a rack
 // ground away, a grid split, or a pooled entity reused for another block (entities are stubs and get reused, so a
@@ -69,7 +69,7 @@ public sealed partial class KvmRackLink
         Entity? front = grid.GetBlock(_cell);
         if (!IsRack(front))
         {
-            // Placement fix (2026-10-18): the rack's front zone is free cells now (the slot opening the block placer
+            // The rack's front zone is free cells (the slot opening the block placer
             // aims through), so in front of a front-facing KVM there is no block, or one built into the opening.
             // The rack that holds the KVM is beside it (its side columns, plinth or tray): take it when its cell box
             // contains the KVM's. (A rear-facing KVM still finds the rack in front: the rear stop's cells.)
@@ -109,7 +109,7 @@ public sealed partial class KvmRackLink
         Slot = KvmRackSlot.SlotOf(RackKind, ToInt3(rack.Min), ToInt3(rack.Max), ToInt3(_frontBlock.BlockOrientation.Up.GetIntVector()),
             ToInt3(box.Min), ToInt3(box.Max));
 
-        // Ruling P4-13: a rack's door guards only the sides its leaves are on. The data's front (+y, door side +1) is
+        // A rack's door guards only the sides its leaves are on. The data's front (+y, door side +1) is
         // the block's Forward, the same convention that makes the KVM's own Forward its face.
         DoorSides = KvmRackTable.DoorSidesOf(rackDefinition);
         FaceSide = KvmRackSlot.FaceSide(ToInt3(_kvm.BlockOrientation.Forward.GetIntVector()), ToInt3(_frontBlock.BlockOrientation.Forward.GetIntVector()));

@@ -1,4 +1,4 @@
-"""Plan 5 Task 13 fix round 1: the break faces (FracturedMaterial01 caps) of a part that is hidden under construction.
+"""The break faces (FracturedMaterial01 caps) of a part that is hidden under construction.
 
 A cap closes a cut cross-section of one part (fracture_mesh.build_caps: triangle_fill over the part's own cut loop,
 so every cap vertex is a vertex of that part). A hidden part (role hide: the trays' cables and ties, the PDU's

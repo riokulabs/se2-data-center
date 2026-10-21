@@ -1,6 +1,6 @@
-"""Plan 2 Task 1: the rack <-> cable-tray interface (dc/dims.py) and the racks' top-entry brush plates.
+"""The rack <-> cable-tray interface (dc/dims.py) and the racks' top-entry brush plates.
 
-The tray plan (dc/tray_plan.py, later tasks) hangs its Drop blocks over the racks from these numbers alone, so the
+The tray plan (dc/tray_plan.py) hangs its Drop blocks over the racks from these numbers alone, so the
 waterfall bundles must land inside the brush plates the rack build actually made. The build-marked tests check the
 couplings on the MEASURED LOD0 geometry (build_report.json "geometry"["top_entries"], from dc/rack.py's "brush"
 part), the others on the constants only."""
@@ -13,7 +13,6 @@ import pytest
 from dc import catalog, config, dims as DM
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-NOTES = os.path.join(HERE, "..", "NOTES.md")
 OPEN_RACKS = ("DC_Rack42_Open", "DC_Rack24_Open")
 ALL_RACKS = OPEN_RACKS + ("DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear", "DC_Rack24_SplitFront",
                           "DC_Rack24_SplitFrontRear")
@@ -97,17 +96,16 @@ def test_entries_mirror(name):
 
 
 # The golden placement summaries (the analysis' one-line summary minus the block name). Hard-coded so any drift
-# fails: Task 3's result, changed by Plan 3 Task 1 (the freed rear PDU columns: 16 / 8 cells more free and the
-# pdu_bracket inner Backward mounts; the 42U containment rail band: Forward / Backward 1 row = 10 %; the side faces
-# lose the PDU cells: 84 %; the half rack's label pads add Up groups) and by main's placement fix (merge main ->
-# plan3-room: the slots' front-zone row is free, 16 / 8 cells; the slot floor / ceiling mount only on the rear row,
-# so the full rack's Down groups drop to 2; on the half rack the front label pad's two cells are now free top
-# cells, so its Up plane loses them: 6 groups, 50 %). Changing these needs a ruling.
-# ACCEPTED REGRESSION, not a design target (final review M3): the 24U "U ... 50%" means the half rack's FRONT label
-# pad no longer mounts (the rack label goes on the back pad only). Ruled acceptable for this build at the merge
-# (docs/superpowers/sdd/data-center-room/progress.md, "Rulings on merge concerns" (1); NOTES.md, the 24U rack label)
-# with a follow-up pending: a dedicated half-rack front label mount. When that lands, the 24U Up groups / coverage
-# here are EXPECTED to change: re-record this golden with that ruling, it is not a broken golden.
+# fails. They reflect the freed rear PDU columns (16 / 8 cells more free and the pdu_bracket inner Backward mounts;
+# the 42U containment rail band: Forward / Backward 1 row = 10 %; the side faces lose the PDU cells: 84 %; the half
+# rack's label pads add Up groups) and the free slot front row (the slots' front-zone row is free, 16 / 8 cells; the
+# slot floor / ceiling mount only on the rear row, so the full rack's Down groups drop to 2; on the half rack the
+# front label pad's two cells are now free top cells, so its Up plane loses them: 6 groups, 50 %). Change these only
+# deliberately.
+# ACCEPTED REGRESSION, not a design target: the 24U "U ... 50%" means the half rack's FRONT label pad no longer
+# mounts (the rack label goes on the back pad only). A dedicated half-rack front label mount is planned; when it
+# lands, the 24U Up groups / coverage here are EXPECTED to change: re-record this golden then, it is not a broken
+# golden.
 GOLDEN_SUMMARIES = {
     "DC_Rack42_Open": "groups F/B/L/R/U/D = 1 / 3 / 4 / 4 / 5 / 2; plane coverage = 10% / 10% / 84% / 84% / 40% / "
                       "100%; occupied 120/200 box cells, 80 empty, 0 outside",
@@ -120,7 +118,7 @@ GOLDEN_SUMMARIES = {
 @pytest.mark.parametrize("name", ALL_RACKS)
 def test_rack_unchanged_except_entries(name):
     """The brush plates are render-only: placement (occupied / free cells, face groups and coverage) is exactly the
-    golden result (GOLDEN_SUMMARIES: Task 3 as changed by Plan 3 Task 1), and every LOD stays inside Keen's limits."""
+    golden result (GOLDEN_SUMMARIES), and every LOD stays inside Keen's limits."""
     from dc import rack
     base = "DC_Rack42_Open" if name.startswith("DC_Rack42") else "DC_Rack24_Open"
     e = _entry(name)
@@ -132,7 +130,7 @@ def test_rack_unchanged_except_entries(name):
         assert lod["materials"] <= lod["max_materials"], (name, i, lod)
 
 
-# the rack LOD0 material sets before Task 1 (visual pass 2): the brush plates may only reuse these
+# the rack LOD0 material sets without the brush plates: they may only reuse these
 _BASE_MATS = {"42": {"AtlasFont_BarlowCondensed_CleanWhite", "BrushedMetal", "EmissiveGreen", "MetalDull",
                      "MetalPerforationSteel", "PaintedMetalColorable", "PaintedMetalDarker", "PaintedMetalYellow"},
               "24": {"AtlasDecal_Stickers02", "AtlasFont_BarlowCondensed_CleanWhite", "BrushedMetal", "EmissiveGreen",
@@ -155,14 +153,14 @@ def test_entries_reuse_existing_materials(name):
 @pytest.mark.parametrize("name", ALL_RACKS)
 def test_entries_match_dims(name):
     """The built openings are the documented ones: the full rack's dims.TOP_ENTRY (the tray plan's interface), the
-    half rack's dims.HALF_TOP_ENTRY (its visual-pass-1 roof-rail holes, re-cut for the same plate)."""
+    half rack's dims.HALF_TOP_ENTRY (its roof-rail holes, re-cut for the same plate)."""
     (ex0, ex1), (ey0, ey1) = DM.TOP_ENTRY if name.startswith("DC_Rack42") else DM.HALF_TOP_ENTRY
     for x0, x1, y0, y1, _ in _entry(name)["geometry"]["top_entries"]:
         ax0, ax1 = sorted((abs(x0), abs(x1)))
         assert (ax0, ax1, y0, y1) == pytest.approx((ex0, ex1, ey0, ey1), abs=1e-4)
 
 
-# ---------------------------------------------------------------------------------------------------- Task 8 coupling
+# ------------------------------------------------------------------------------------------------------ tray coupling
 def _landings(plan, corner):
     """The waterfalls' ENTRY ends of a Drop / Chute plan moved into a rack's centred frame by its box corner there
     (the rack's top plane at z = 0): [(lane, point, the plan's last 0.2 m of its centreline)]."""
@@ -183,7 +181,7 @@ def _margin(p, entry):
 
 @pytest.mark.parametrize("density", ("Low", "Moderate", "Full"))
 def test_drop_lands_in_full_rack_entries(density):
-    """Task 8, from dims.py alone: a Drop hung TRAY_HANG over a 42U (its box corner at x -0.5, y TRAY_RACK_Y - 0.25,
+    """From dims.py alone: a Drop hung TRAY_HANG over a 42U (its box corner at x -0.5, y TRAY_RACK_Y - 0.25,
     its bottom on the rack's top plane) lands both waterfalls inside the full rack's front brush-plate openings
     (TOP_ENTRY) with >= MARGIN between the bundle's skin and every edge, plumb over their last 0.2 m."""
     import numpy as np
@@ -198,7 +196,7 @@ def test_drop_lands_in_full_rack_entries(density):
 
 
 def test_chute_lands_in_half_rack_entries():
-    """Task 8: the Chute stood on a 24U's roof in the Drop's waterfall column lands both bundles inside the half
+    """The Chute stood on a 24U's roof in the Drop's waterfall column lands both bundles inside the half
     rack's front brush-plate openings (HALF_TOP_ENTRY) with >= MARGIN, plumb; its top meets the Drop's waterfalls
     hung over the same rack 1.25 m higher (a full rack's top), to the micron."""
     import numpy as np

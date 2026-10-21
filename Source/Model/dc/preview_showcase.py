@@ -2,9 +2,9 @@
 
     DC_PREVIEW=showcase blender -b --python Source/Model/build_dc.py -- all
 
-Reuses the existing scenes: the T12 two-aisle hall (dc/preview_room.room_scene, dc/preview_p3t12 cameras), the
-studio rig (dc/preview.Shot), the populated racks (dc/preview_task9.rack, dc/preview_p3t7.rack_with_strips), the
-Plan 2 rack row (dc/preview_trays.rack_row), the KVM's scripted motion (dc/preview_scripts.Scene on the CoreTests
+Reuses the existing scenes: the two-aisle hall (dc/preview_room.room_scene, dc/preview_hall cameras), the
+studio rig (dc/preview.Shot), the populated racks (dc/preview_rack_doors.rack, dc/preview_pdu.rack_with_strips), the
+tray catalogue's rack row (dc/preview_trays.rack_row), the KVM's scripted motion (dc/preview_scripts.Scene on the CoreTests
 trajectories) and the CRAC fan ramp (dc/crac FAN_*). The Damaged server is a read-only import of our own exported
 Models/.
 
@@ -121,7 +121,7 @@ def _studio(name, res=RES, floor=(-8.0, 8.0, -8.0, 8.0), light=1.0):
 
 
 def _hall_shot(built, name, doors_open=0.0, contain_open=0.0, res=RES, paint="keen"):
-    """The T12 hall in a fresh Shot (dc/preview_room.shot without the render): returns (shot, room collection,
+    """The two-aisle hall in a fresh Shot (dc/preview_room.shot without the render): returns (shot, room collection,
     info)."""
     from . import preview as PV
     from . import preview_room as PR
@@ -191,14 +191,14 @@ def _placed_vignette(s, built, keep, doors_open=0.0):
 # ---------------------------------------------------------------------------------------------------- the stills
 def hall_stills(built):
     from . import preview_room as PR
-    from . import preview_p3t12 as P12
+    from . import preview_hall as pv_hall
     from . import room
     probe = PR.room_scene(built, COLD_W, "cold", "keen", hall=HOT_W)   # noqa: F841  (info for the cameras)
     info = next(i for c, i in PR._ROOMS.values() if i.get("hall") == HOT_W)
-    # the T12 photo 1 framing (rack doors shut: open 85 deg, the leaves wall off a 1.5 m aisle from this camera)
+    # the hall's photo 1 framing (rack doors shut: open 85 deg, the leaves wall off a 1.5 m aisle from this camera)
     _hall_still(built, "01-cold-aisle", PR._cam_photo1(info))
-    _hall_still(built, "02-hall-overhead", P12.cam_overhead(info))
-    _hall_still(built, "03-containment-doors", P12.cam_doors_outside(info))
+    _hall_still(built, "02-hall-overhead", pv_hall.cam_overhead(info))
+    _hall_still(built, "03-containment-doors", pv_hall.cam_doors_outside(info))
     # 13: from the walkway beyond row A, over the rack tops: the rack labels, the hanging sign, the west door's sign
     L = room.PITCH * len(room.row_units(4))
     _hall_still(built, "13-signs", PR.Cam((-1.6, -2.75, 2.55), (1.6, 0.0, 2.85), 24))
@@ -207,31 +207,31 @@ def hall_stills(built):
 
 
 def rack_front(built):
-    from . import preview_p3t7 as P7
+    from . import preview_pdu as pv_pdu
     nm = "04-rack-front"
     if want(nm) and R42 in built:
         s = _studio(nm)
-        P7.rack_with_strips(s, built, R42, f=1.0, mix=MIX_SHOW)
+        pv_pdu.rack_with_strips(s, built, R42, f=1.0, mix=MIX_SHOW)
         s.camera((2.3, 4.6, 2.05), (0.05, 0.1, 1.3), 35)
         s.render()
 
 
 def rack_rear(built):
-    from . import preview_p3t7 as P7
+    from . import preview_pdu as pv_pdu
     nm = "05-rack-rear"
     if want(nm) and R42R in built:
         s = _studio(nm)
-        P7.rack_with_strips(s, built, R42R, f=0.0, f_rear=1.0, mix=MIX_REAR)
+        pv_pdu.rack_with_strips(s, built, R42R, f=0.0, f_rear=1.0, mix=MIX_REAR)
         s.camera((-2.2, -4.6, 2.1), (-0.05, -0.1, 1.3), 35)
         s.render()
 
 
 def kvm_open(built):
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     nm = "06-kvm-open"
     if want(nm) and R42 in built and "DC_Srv_KVM" in built:
         s = _studio(nm)
-        P9.rack(s, built, R42, f=1.0, mix=MIX_SHOW, fan=15, working=True)
+        pv_rack_doors.rack(s, built, R42, f=1.0, mix=MIX_SHOW, fan=15, working=True)
         s.camera((-0.95, 2.05, 1.95), (0.02, 0.62, 1.42), 40)
         s.render()
 
@@ -241,7 +241,7 @@ LINEUP = (("DC_Srv_Compute", "DC_Srv_Storage", "DC_Srv_Switch", "DC_Srv_Blank", 
 
 
 def lineup(built):
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     from .preview import T
     nm = "07-server-lineup"
     if not want(nm):
@@ -251,7 +251,7 @@ def lineup(built):
     for r, row in enumerate(LINEUP):
         y = 0.75 - 2.0 * r
         for i, n in enumerate(row):
-            P9.srv(s, built, n, T((2 - i) * dx, y, 0.0), 0.0, "keen")   # screen right is -x
+            pv_rack_doors.srv(s, built, n, T((2 - i) * dx, y, 0.0), 0.0, "keen")   # screen right is -x
     s.camera((-0.4, 5.4, 2.5), (-0.12, -0.1, -0.05), 50)
     s.render()
 
@@ -284,7 +284,7 @@ def _tray_scene(built, nm, cam):
 def _rack_row_from(PT, s, built, row, x0):
     """preview_trays.rack_row with the run starting at x0 (the Tee before the row's own start)."""
     from . import dims as DM
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     x, racks, joints = x0, {}, []
     mix = tuple(m if (m is None or m in built) else None for m in PT.MIX)
     top = PT.FULL42 + 0.75
@@ -302,7 +302,7 @@ def _rack_row_from(PT, s, built, row, x0):
         joints.append(x)
     for rx, rack in racks.items():
         if rack in built:
-            P9.rack(s, built, rack, rx, 0.0, mix=mix if rack.startswith("DC_Rack42") else mix[:4], working=True)
+            pv_rack_doors.rack(s, built, rack, rx, 0.0, mix=mix if rack.startswith("DC_Rack42") else mix[:4], working=True)
     return racks, joints[:-1], top + 1.0
 
 
@@ -324,12 +324,12 @@ def tray_stills(built):
 
 def _crac_row(s, built):
     """The CRAC between two closed SplitFront racks (an in-row cooler's place)."""
-    from . import preview_p3t6 as P6
-    from . import preview_task9 as P9
+    from . import preview_crac as pv_crac
+    from . import preview_rack_doors as pv_rack_doors
     from .preview import T
-    P6.unit(s, built, T(0, 0, P6.ZC), 17.0)
-    for x, mix in ((-1.0, MIX_REAR), (1.0, P9.MIX42)):
-        P9.rack(s, built, R42, x=x, f=0.0, mix=tuple("KVM0" if m == "KVM" else m for m in mix), working=True)
+    pv_crac.unit(s, built, T(0, 0, pv_crac.ZC), 17.0)
+    for x, mix in ((-1.0, MIX_REAR), (1.0, pv_rack_doors.MIX42)):
+        pv_rack_doors.rack(s, built, R42, x=x, f=0.0, mix=tuple("KVM0" if m == "KVM" else m for m in mix), working=True)
 
 
 def crac(built):
@@ -346,7 +346,7 @@ def crac(built):
 
 
 def pdu(built):
-    from . import preview_p3t7 as P7
+    from . import preview_pdu as pv_pdu
     from . import preview as PV
     from .preview import T
     nm = "11-pdu-cabinet"
@@ -354,7 +354,7 @@ def pdu(built):
         return
     s = _studio(nm)
     s.inst(PV.painted(built, "DC_PDU_Cabinet", 0, "keen"), T(0.5, 0, 1.25))
-    P7.rack_with_strips(s, built, R42R, x=-0.5, rot=180.0, f=0.0, f_rear=1.0, mix=MIX_REAR)
+    pv_pdu.rack_with_strips(s, built, R42R, x=-0.5, rot=180.0, f=0.0, f_rear=1.0, mix=MIX_REAR)
     s.camera((-1.9, 4.4, 2.1), (-0.05, 0.0, 1.25), 35)
     s.render()
 
@@ -407,7 +407,7 @@ def _import_model(name, kind):
 
 def damage(built):
     """An intact Compute server beside its Damaged model (the dented one the game swaps in), the exported file."""
-    from . import preview_task6 as P6
+    from . import preview_indicator_servers as pv_indicator_servers
     from .preview import Rz, T
     nm = "14-damage"
     name = "DC_Srv_Compute"
@@ -416,9 +416,9 @@ def damage(built):
     s = _studio(nm)
     # screen right is -x: the intact server on the left, its Damaged model on the right
     dx = 0.33
-    P6.srv(s, built, name, dx, 0.0, 0.0)
+    pv_indicator_servers.srv(s, built, name, dx, 0.0, 0.0)
     c, _ = _import_model(name, "Damaged")
-    s.inst(c, T(-dx, 0, P6.H / 2) @ Rz(DAMAGE_YAW))
+    s.inst(c, T(-dx, 0, pv_indicator_servers.H / 2) @ Rz(DAMAGE_YAW))
     s.camera((-0.55, 1.65, 0.75), (0.0, 0.0, 0.1), 42)
     s.render()
 
@@ -427,7 +427,7 @@ DAMAGE_YAW = float(os.environ.get("DC_SHOWCASE_DAMAGE_YAW", "0"))
 
 
 def half_racks(built):
-    from . import preview_p3t7 as P7
+    from . import preview_pdu as pv_pdu
     nm = "15-half-racks"
     if not want(nm):
         return
@@ -437,7 +437,7 @@ def half_racks(built):
     for x, rk, f, fr in ((1.6, "DC_Rack24_Open", 0.0, 0.0), (0.0, "DC_Rack24_SplitFront", 1.0, 0.0),
                          (-1.6, "DC_Rack24_SplitFrontRear", 1.0, 1.0)):
         if rk in built:
-            P7.rack_with_strips(s, built, rk, x=x, f=f, f_rear=fr, mix=MIX24)
+            pv_pdu.rack_with_strips(s, built, rk, x=x, f=f, f_rear=fr, mix=MIX24)
     s.camera((-3.0, 4.9, 2.3), (-0.1, 0.0, 0.6), 35)
     s.render()
 
@@ -521,7 +521,7 @@ def _leaf_objects(s, rack_name):
 def anim_kvm(built):
     """A1: the scripted open (CoreTests trajectory), a hold, the scripted close, a hold: stowed at both ends."""
     from . import preview_scripts as PS
-    from . import preview_task8 as P8
+    from . import preview_kvm as pv_kvm
     clip = "01-kvm"
     if not want("anim-" + clip):
         return
@@ -547,7 +547,7 @@ def anim_kvm(built):
             slide, fold = cl.at(t - op.duration - hold)
         else:
             slide, fold = cl.at(cl.duration)
-        md, ms = P8.kvm_part_matrices(sc.base, slide, fold)
+        md, ms = pv_kvm.kvm_part_matrices(sc.base, slide, fold)
         sc.parts[0].matrix_world = md
         sc.parts[1].matrix_world = ms
         _render_frame(sc.s, os.path.join(d, f"f_{i:04d}.png"))
@@ -557,8 +557,8 @@ def anim_kvm(built):
 def anim_rack_doors(built):
     """A2: the split front doors open to 85 deg and close (linear over 1 s each way), three-quarter front."""
     from . import doors
-    from . import preview_p3t7 as P7
-    from . import preview_task9 as P9
+    from . import preview_pdu as pv_pdu
+    from . import preview_rack_doors as pv_rack_doors
     from .preview import T
     clip = "02-rack-doors"
     if not want("anim-" + clip):
@@ -566,9 +566,9 @@ def anim_rack_doors(built):
     s = _studio("anim_" + clip, res=ANIM_RES)
     _anim_samples(s)
     mix = tuple("KVM0" if m == "KVM" else m for m in MIX_SHOW)
-    P7.rack_with_strips(s, built, R42, f=0.0, mix=mix)
+    pv_pdu.rack_with_strips(s, built, R42, f=0.0, mix=mix)
     leaves = _leaf_objects(s, R42)
-    C = T(0, 0, P9._H(R42) / 2)
+    C = T(0, 0, pv_rack_doors._H(R42) / 2)
     s.camera((2.0, 4.3, 1.95), (0.05, 0.15, 1.3), 40)
     d = _frames_dir(clip)
     total = 0.4 + 1.0 + 1.2 + 1.0 + 0.4
@@ -576,7 +576,7 @@ def anim_rack_doors(built):
     for i in range(n):
         f = _door_timeline(i / ANIM_FPS)
         for ob, lf in leaves:
-            ob.matrix_world = C @ T(lf["axis"][0], lf["axis"][1], 0) @ P9.Rz(doors.swing_yaw(lf, f))
+            ob.matrix_world = C @ T(lf["axis"][0], lf["axis"][1], 0) @ pv_rack_doors.Rz(doors.swing_yaw(lf, f))
         _render_frame(s, os.path.join(d, f"f_{i:04d}.png"))
     print(f"SHOWCASE clip {clip}: {n} frames")
 
@@ -635,21 +635,21 @@ def crac_angle(t):
 
 def anim_crac(built):
     """A4: off, switched on (RUN lamp), the fans' 2 s soft start, running; keyframed so EEVEE blurs each frame by its
-    own speed (dc/preview_p3t6.anim's approach)."""
+    own speed (dc/preview_crac.anim's approach)."""
     import bpy
-    from . import preview_p3t6 as P6
-    from . import preview_task9 as P9
+    from . import preview_crac as pv_crac
+    from . import preview_rack_doors as pv_rack_doors
     from .preview import T
     clip = "04-crac-fans"
     if not want("anim-" + clip) or "DC_CRAC" not in built:
         return
     s = _studio("anim_" + clip, res=ANIM_RES)
     _anim_samples(s)
-    M = T(0, 0, P6.ZC)
-    lit, dark = (s.inst(P9.body(built, P6.NAME, "keen", w), M) for w in (True, False))
-    emp = P6._rotors(s, built, M, 0.0)
+    M = T(0, 0, pv_crac.ZC)
+    lit, dark = (s.inst(pv_rack_doors.body(built, pv_crac.NAME, "keen", w), M) for w in (True, False))
+    emp = pv_crac._rotors(s, built, M, 0.0)
     for x in (-1.0, 1.0):
-        P9.rack(s, built, R42, x=x, f=0.0, mix=tuple("KVM0" if m == "KVM" else m for m in MIX_REAR), working=True)
+        pv_rack_doors.rack(s, built, R42, x=x, f=0.0, mix=tuple("KVM0" if m == "KVM" else m for m in MIX_REAR), working=True)
     s.camera((1.8, 4.2, 2.0), (0.0, 0.2, 1.35), 32)
     sc = s.sc
     for k, v in (("use_motion_blur", True), ("motion_blur_shutter", 0.5)):
@@ -665,7 +665,7 @@ def anim_crac(built):
     for f in range(0, n + 2):
         a, _, working = crac_angle(max(0.0, (f - 1) / ANIM_FPS))
         for e, base in emp:
-            e.matrix_world = base @ P6._ry(a)
+            e.matrix_world = base @ pv_crac._ry(a)
             e.keyframe_insert("rotation_euler", frame=f)
             e.keyframe_insert("location", frame=f)
         lit.hide_render, dark.hide_render = not working, working
@@ -691,13 +691,13 @@ def anim_crac(built):
 def anim_orbit(built):
     """A5: one full turn around the loaded 42U split-front rack (doors open, KVM out, strips at the back)."""
     from mathutils import Vector
-    from . import preview_p3t7 as P7
+    from . import preview_pdu as pv_pdu
     clip = "05-rack-orbit"
     if not want("anim-" + clip):
         return
     s = _studio("anim_" + clip, res=ANIM_RES)
     _anim_samples(s)
-    P7.rack_with_strips(s, built, R42, f=1.0, mix=MIX_SHOW)
+    pv_pdu.rack_with_strips(s, built, R42, f=1.0, mix=MIX_SHOW)
     tgt = Vector((0.0, 0.0, 1.35))
     s.camera((0, 5.0, 2.0), tuple(tgt), 30)
     d = _frames_dir(clip)

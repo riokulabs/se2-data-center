@@ -23,10 +23,10 @@ state_view.damage_scenario (damaged zone: its Damaged-model parts in the DM's sl
 the neighbours' FracturedMaterial01 caps show). Nothing is exploded. Stand-ins (`_Subpart` slots) show in c* and in
 every damage shot (done_damaged / one_hit / battered / broken) in their live zones: any health loss ends Functional
 (EffectiveBuildProgress = BuildProgress x integrity < MinFunctionalBuildProgress 1.0: FunctionalBlockComponent.cs:728,
-CubeBlockComponent.cs:4048-4054), so the game despawns the real subparts and shows the stand-ins (Plan 5 Task 12 fix
-round 1; Task 8 assumed a damaged block stays Functional). Only `done` (the intact NF) has none. The camera is fitted to
+CubeBlockComponent.cs:4048-4054), so the game despawns the real subparts and shows the stand-ins (a damaged block
+does not stay Functional). Only `done` (the intact NF) has none. The camera is fitted to
 the NonFractured model, so every shot of a block (and the same block in another set) is framed alike. A block
-without fracture zones but with a Damaged model (the unfractured rod hangers and Chute, Plan 5 Task 7) also gets
+without fracture zones but with a Damaged model (the unfractured rod hangers and Chute) also gets
 the `debris` shot: its whole Damaged model (state_view.DEBRIS_SHOT).
 """
 import glob
@@ -42,9 +42,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
 
-_src = open(os.path.join(HERE, "p2t9c_preview.py")).read()
+_src = open(os.path.join(HERE, "fracture_compare_preview.py")).read()
 _src = _src[:_src.rindex("\nmain(")]                    # the renderer without its own entry point
-R = {"__file__": os.path.join(HERE, "p2t9c_preview.py"), "__name__": "p2t9c_preview"}
+R = {"__file__": os.path.join(HERE, "fracture_compare_preview.py"), "__name__": "fracture_compare_preview"}
 exec(compile(_src, R["__file__"], "exec"), R)            # noqa: S102 (our own module, read from the checkout)
 R["RES"] = (640, 480)
 

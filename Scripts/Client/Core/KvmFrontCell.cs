@@ -1,6 +1,5 @@
-// KvmFrontCell: which grid cell sits directly in front of the KVM's face (Plan 4 Ruling P4-4, the door interlock).
-// The Task 8 rack link reads the block in that cell and, if it is a door, its state. Since the placement fix
-// (2026-10-18) a rack's front zone is free cells (the slot opening), so the link also looks BESIDE the KVM (Beside,
+// KvmFrontCell: which grid cell sits directly in front of the KVM's face (for the door interlock).
+// The rack link reads the block in that cell and, if it is a door, its state. A rack's front zone is free cells (the slot opening), so the link also looks BESIDE the KVM (Beside,
 // Contains) for the rack that holds it.
 //
 // Game APIs: none (game-free). The glue feeds it CubeBlockComponent.AABB (inclusive cell bounds) and the block's
@@ -74,8 +73,8 @@ public static class KvmFrontCell
     /// The <paramref name="k"/>-th (0..3) cell one step beyond a SIDE face of the block (the four faces across
     /// <paramref name="forward"/>, in the order -a, +a, -b, +b of the two other axes in x, y, z order), at the centre
     /// of that face (rounding toward min, as <see cref="Of"/>). In a rack these are the rack's own cells (the side
-    /// columns, the plinth or tray, or the rack's cells around a neighbouring slot): the placement fix (2026-10-18)
-    /// freed the rack's front zone, so the cell in front of a front-facing KVM is no longer the rack's.
+    /// columns, the plinth or tray, or the rack's cells around a neighbouring slot): the rack's front zone is free
+    /// (the slot opening), so the cell in front of a front-facing KVM is no longer the rack's.
     /// </summary>
     public static Int3 Beside(Int3 aabbMin, Int3 aabbMax, Int3 forward, int k)
     {

@@ -1,5 +1,4 @@
-"""Plan 5 Task 12: the racks' construction roles, and their side panels and fan tray as build-gated subparts (G2,
-Ruling DB-10 Path A).
+"""The racks' construction roles, and their side panels and fan tray as build-gated subparts (rack Path A).
 
 Supports  fracture.ROLES["rack"]: the posts and corner frame (`frame`), the 19" mounting rails (`rail`), the server
           slides (`slide`) and the containment rail (`contain`) are the structure the rack is built on, welded first
@@ -10,11 +9,11 @@ Subparts  the two side panels (one RackSide model, right side and turned 180 deg
           MinFunctionalBuildProgress, no dead critical zone), each a BOUND client prefab with a server composition
           (ModelComponent + ChildTransform + Hierarchy, no client type) and a server prefab whose Hierarchy Children
           is [] (the vanilla SlideDoorNarrow_250_LeftDoor pattern), the tray's two rotors nested under the tray's
-          CLIENT prefab only (Gyroscope50_Subparts nesting): task-12-spike.md Q1 (a)-(d). Below Functional the FR / DM
+          CLIENT prefab only (Gyroscope50_Subparts nesting). Below Functional the FR / DM
           show their stand-ins (fracture.STANDINS: the side LOD1 twice, the tray LOD1), hidden while the real ones
           are spawned (MeshPartsToHideWhenActive).
-Open racks get the Ruling 15 functional chain (PowerableBlockComponent, ConsumedResource null, Fragility kept
-          Structural) and a client-only ConditionalSubPartsComponent (spike Q3); the door racks' entries join the
+Open racks get the powerable functional chain (PowerableBlockComponent, ConsumedResource null, Fragility kept
+          Structural) and a client-only ConditionalSubPartsComponent; the door racks' entries join the
           door's own ConditionalSubParts, which the server walk reaches (the walk gate: test_clientserver_walk)."""
 import math
 import os
@@ -167,7 +166,7 @@ def test_rack_standins(staged, name):
         corners = [_placed((x, y, z), s.at, s.yaw) for x in (x0, x1) for y in (y0, y1) for z in (z0, z1)]
         boxes.append([min(c[a] for c in corners) for a in range(3)] + [max(c[a] for c in corners) for a in range(3)])
     # FR LOD0 (the subparts' LOD1) and FR LOD1 (their LOD2): every stand-in vertex inside a placed LOD0 box, and
-    # nothing past the side panel's render inset rack.XO (fix round 1, M2: the LOD1 vent slats once stood 17 mm proud)
+    # nothing past the side panel's render inset rack.XO (the LOD1 vent slats once stood 17 mm proud)
     for lod in (0, 1):
         meshes = FRR.fbx_meshes(os.path.join(config.MODELS_DIR, name, "Fractured", fr["lods"][lod]["file"]))
         n = 0
@@ -218,7 +217,7 @@ def test_rack_children_follow_build(staged, name):
 @pytest.mark.path_a
 @pytest.mark.parametrize("name", RACKS)
 def test_rack_subparts_are_bound(staged, name):
-    """task-12-spike.md Q1 (a)+(b): each entry is a PrefabBinding's ClientPrefab; the binding's ServerComposite is
+    """Each entry is a PrefabBinding's ClientPrefab; the binding's ServerComposite is
     instantiated by exactly one server prefab, whose Hierarchy Children is []; the server composition holds exactly
     ModelComponent (the subpart's own model component), ChildTransform and Hierarchy (no client type)."""
     for p in _parts(name):
@@ -290,7 +289,7 @@ def test_rack_subpart_dummies(staged, name):
 @pytest.mark.path_a
 @pytest.mark.parametrize("name", OPEN_RACKS)
 def test_open_rack_functional_chain(staged, name):
-    """Spike Q3: the open rack spawns its ConditionalSubParts only with a FunctionalBlockComponent: the Ruling 15
+    """The open rack spawns its ConditionalSubParts only with a FunctionalBlockComponent: the powerable functional
     chain (onto_powerable from the structural CubeBlockComponent: PowerableBlockDefinition, ConsumedResource null,
     built ON), Fragility kept Structural; a ConditionalSubPartsComponent (and the animation controller, so the rotors
     follow Working) on the CLIENT composition only."""
@@ -311,7 +310,7 @@ def test_open_rack_functional_chain(staged, name):
 
 
 def test_every_rack_is_terminal_listed_with_on_off(staged):
-    """User ruling (Task 12 fix round 1, M6): all six racks are in the grid terminal with On/Off, draw no power and
+    """All six racks are in the grid terminal with On/Off, draw no power and
     are built On. Terminal-listed = the server composition holds a FunctionalBlockComponent (PowerableBlockComponent
     is one) with no NO_TERMINAL* tag on it (StreamedControlPanelSessionComponent.IsBlockEligible,
     decompiled-current Game2.Simulation, :819-825); On/Off = the PowerableBlockComponent (its terminal toggle,
@@ -346,7 +345,7 @@ def test_every_rack_is_terminal_listed_with_on_off(staged):
 @pytest.mark.build
 @pytest.mark.parametrize("name", RACKS)
 def test_rack_standins_capped(name):
-    """Plan 5 Task 13 fix round 1 (StandIn.cut): the side (and tray) stand-ins are cut along the rack's seams with
+    """StandIn.cut: the side (and tray) stand-ins are cut along the rack's seams with
     break caps, so the piece a live zone keeps is closed where a dead neighbour's piece was. On the 42U racks the
     sides cross the columns' mid-height seam: both column zones of each side get a `<zone>-FracturedMaterial01_Subpart`
     part, hidden with the other stand-ins (MeshPartsToHideWhenActive = the manifest's parts) and within 2 cm of their

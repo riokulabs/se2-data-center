@@ -1,4 +1,4 @@
-// StatusLampRules: the game-free decision behind the Programmable's scripted status lamp (Plan 4 Ruling P4-7).
+// StatusLampRules: the game-free decision behind the Programmable's scripted status lamp.
 // Generic over the mesh-part key and the material, so Tests/CoreTests runs it with strings; the game glue
 // (Scripts/Client/Programmable/ProgrammableLedInjector.cs) runs it with StringId and MaterialDefinition.
 //

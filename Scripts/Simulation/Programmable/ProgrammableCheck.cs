@@ -1,7 +1,7 @@
 // ProgrammableCheck: with scripts on, confirms once per load that the Programmable's server prefab carries the vanilla
-// InGameScriptingComponent the data ships (Ruling P4-1 = A': no injection, the component is always in the data), and
+// InGameScriptingComponent the data ships (no injection: the component is always in the data), and
 // logs the answer, so the game log shows whether the block can run a program. Read-only: it never changes a definition.
-// The Route B injector this task once planned (ProgrammableInjector) is not needed under A' and does not exist.
+// There is deliberately no ProgrammableInjector: injecting the component at runtime is not needed.
 //
 // Game APIs (decompiled 2.4.0.95, tools/decompiled/...; "N [2.4: M]" = line N in 4.0.0.3151, tools/decompiled-current/...):
 //   [DefinitionPostProcessor], SimpleDefinitionPostProcessor<T>.PostProcess(T)

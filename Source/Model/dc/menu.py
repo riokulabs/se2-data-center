@@ -17,13 +17,13 @@ So the Data Center gets ONE subcategory ("Data Center", in the vanilla Automatio
 family: "Server Racks" and "Rack Servers". Racks: three kinds (Open Frame, Split Front Doors, Front + Rear Doors),
 each holding its 42U and 24U block as the two sizes (24U = size 1, 42U = size 2). Servers: one kind per server type
 (all servers share DisplaySize 0.75 m, so a kind per type, as vanilla does for same-size blocks).
-Unlike vanilla LCDs we do NOT also add a single-kind group per kind: the brief asks for one entry per family.
+Unlike vanilla LCDs we do NOT also add a single-kind group per kind: the menu keeps one entry per family.
 
 The 24U racks' own cloned kinds then hold no block; a kind with no blocks is skipped by the group insertion
 (`GetOrderedBlockKindsToInsert`: Blocks.Length > 0) and is left out of the initial unlock, so it is inert. Its file
 stays (BlockGroups emptied) because the clone map records it.
 
-Cable trays (Plan 2 Decision 11, Task 9), in the same subcategory: one group per cable density, "Cable Trays: Empty /
+Cable trays, in the same subcategory: one group per cable density, "Cable Trays: Empty /
 Low / Moderate / Full", each holding one kind per shape in TRAY_ORDER (Empty has no Drop and no Reducer: nothing to
 drop, nothing to step down), and "Cable Tray Supports" with the Rods and the Chute. The 0.5 m and 1.5 m straights are
 the two sizes of one "Straight" kind (owned by the 1.5 m block, as the 42U rack owns its rack kind); the three rod
@@ -31,7 +31,7 @@ hangers (0.25 / 1.0 / 2.0 m) are the three sizes of one "Rods" kind (owned by th
 its kind. The trays' cloned vanilla groups (WallInsertPipes: Structural > Walls; the strut: Trusses) are replaced, so
 nothing of ours shows under the vanilla tiles.
 
-Room pieces (Plan 3 Ruling P3-12, Task 10), after the supports: "Raised Floor" (Solid, Perforated: each 0.5 / 1.0 m),
+Room pieces, after the supports: "Raised Floor" (Solid, Perforated: each 0.5 / 1.0 m),
 "Room Cooling & Power" (CRAC, PDU Cabinet, Rack PDU Feed A and Feed B: each 24U / 42U), "Aisle Containment" (Door,
 Roof: each 1.0 / 1.5 / 2.0 m aisles) and "Signs & Labels" (Aisle Sign, Hanging Aisle Sign, Rack Label). The cloned
 vanilla tiles (Catwalks, Gyroscopes, Doors, Deck Panels, LCDs, wall inserts) are left, as the trays' are.
@@ -57,10 +57,10 @@ GROUPS = {
     "rack": {"name": "Server Racks", "file": _UI.format("Racks"), "order": 100},
     "server": {"name": "Rack Servers", "file": _UI.format("Servers"), "order": 200},
 }
-for _k, _d in enumerate(catalog.TRAY_DENSITIES):   # Plan 2 Decision 11: one tile per cable density
+for _k, _d in enumerate(catalog.TRAY_DENSITIES):   # one tile per cable density
     GROUPS[f"tray_{_d}"] = {"name": f"Cable Trays: {_d}", "file": _UI.format(f"Trays{_d}"), "order": 300 + 100 * _k}
 GROUPS["traysupport"] = {"name": "Cable Tray Supports", "file": _UI.format("TraySupports"), "order": 700}
-# Plan 3 Task 10 (Ruling P3-12): the room pieces, after the trays (Task 9's cable looms did not run: no loom tile)
+# the room pieces, after the trays (there are no cable loom blocks, so no loom tile)
 GROUPS["floor"] = {"name": "Raised Floor", "file": _UI.format("RaisedFloor"), "order": 800}
 GROUPS["roompower"] = {"name": "Room Cooling & Power", "file": _UI.format("RoomCoolingPower"), "order": 900}
 GROUPS["contain"] = {"name": "Aisle Containment", "file": _UI.format("AisleContainment"), "order": 1000}
@@ -120,7 +120,7 @@ def kind_owner(spec):
     """The catalogue block whose cloned BlockKind holds this block (a kind's blocks are its sizes): the 42U rack of
     the same door variant for both rack heights; the 1.5 m straight of the same density for both straights (0.5 m =
     size 1, 1.5 m = size 2); the 1.0 m rods for the three hanger lengths (0.25 / 1.0 / 2.0 m = sizes 1-3); room pieces
-    (Plan 3 Task 10): the 1.0 m tile of a floor variant (0.5 / 1.0 m), the 42U strip of a PDU feed (24U / 42U), the 2.0 m
+    the 1.0 m tile of a floor variant (0.5 / 1.0 m), the 42U strip of a PDU feed (24U / 42U), the 2.0 m
     door and roof (1.0 / 1.5 / 2.0 m aisles); the block itself otherwise (servers all share one size, so a kind each;
     every other tray shape, the CRAC, the PDU cabinet and each sign has one size)."""
     if spec.family == "rack":

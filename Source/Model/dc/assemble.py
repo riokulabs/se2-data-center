@@ -97,7 +97,7 @@ def placement(spec, lod0_objs, boxes):
     r = PL.analyse(tris, hulls("regular"), hulls("occupancy"), hulls("mount"), bounds=b, shift="bounds")
     rep = {"occupied": r["occupied_in_box"], "total": r["box_cells"],
            "faces": {d: {"groups": f["groups"], "coverage": round(f["box_face_coverage_pct"] / 100.0, 4),
-                         # Plan 3: groups of the mount cells on the box plane only (inner steps excluded)
+                         # groups of the mount cells on the box plane only (inner steps excluded)
                          "plane_groups": len(PL.build_groups(sorted(set(map(tuple, f["mount_cell_list"]))
                                                                     - set(map(tuple, f["inner_mount_cells"])))))}
                      for d, f in r["faces"].items()},

@@ -1,4 +1,4 @@
-"""Final review I1 (2026-10-19): the block placer seats a zero-U PDU strip only at its designed place, the rack's rear
+"""The block placer seats a zero-U PDU strip only at its designed place, the rack's rear
 PDU column (rack.PDU_CELLS), in every rack (42U / 24U; Open, SplitFront, SplitFrontRear) for both feeds.
 
 The defect: the strip mounted Forward (its brackets on the column's bulkhead) and Down (its inlet plug on the plinth
@@ -20,7 +20,7 @@ slot):
   * over a fan of aims from behind the rack (eyes 0.8 / 1.6 m out, left / centre / right, low / level / high; looking
     at the bulkhead over the whole column height and at the plinth top) no aim yields a validating ghost that touches
     the rack's cell box other than the exact seat; a validating ghost wholly outside the box stands on the rack's top
-    (a strip's Down mount meets any Up face, INGAME-CHECKLIST: a floor tile, a rack top), held by outer mounts only.
+    (a strip's Down mount meets any Up face, as seen in game: a floor tile, a rack top), held by outer mounts only.
 The strip is aimed with the rack's orientation (the designed one; a player who turns it gets a turned strip).
 """
 import json
@@ -102,7 +102,7 @@ def _geometry(spec, seat):
 
 
 def _natural_aims(spec, seat, pf):
-    """The plinth top under the column (INGAME-CHECKLIST 13.2: the plug's seat), and the bulkhead behind the strip's
+    """The plinth top under the column (the plug's seat), and the bulkhead behind the strip's
     centre cell (the placer centres the ghost on the aimed cell: TrySnapPreviewToGrid, Min + (Max - Min) / 2)."""
     g = _geometry(spec, seat)
     eye = (g["xc"], g["floor"] + 1.6, g["rear"] + 1.4)

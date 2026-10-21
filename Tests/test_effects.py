@@ -1,5 +1,5 @@
-"""Plan 5 Task 4: damage effects. The UPS's ParticleEffects dummies per bay (G3), the vanilla 4.0 spark bands on the
-trays, PDUs and deco servers with dummies that follow the fracture zones (G7), the KVM's ControlPanel25 sparks and
+"""Damage effects. The UPS's ParticleEffects dummies per bay, the vanilla 4.0 spark bands on the
+trays, PDUs and deco servers with dummies that follow the fracture zones, the KVM's ControlPanel25 sparks and
 the Programmable's Timer set.
 
 Vanilla values are read from tools/vanilla-ref and the Mod SDK (read-only); the effective (client) BlockEffects of a
@@ -114,7 +114,7 @@ def test_spark_blocks():
 
 @pytest.mark.skipif(not os.path.isdir(SDK_ASSETS), reason="Mod SDK not installed")
 def test_spark_sources_are_the_4_0_sdk():
-    """tools/vanilla-ref's three source files are the 4.0 SDK's, byte for byte, and say what the plan copies."""
+    """tools/vanilla-ref's three source files are the 4.0 SDK's, byte for byte, and say what effects.py copies."""
     for kind, rel in effects.SPARK_SOURCES.items():
         with open(os.path.join(config.VANILLA_REF, rel), "rb") as a, open(os.path.join(SDK_ASSETS, rel), "rb") as b:
             assert a.read() == b.read(), rel
@@ -162,10 +162,10 @@ def test_spark_effects_idempotent(staged):
 
 
 def test_every_band_dummy_exists(staged, chain):
-    """Review Focus 4. For all 73 blocks: every Dummy type a resolved client damage band names has >= 1 dummy of that
-    type in the staged BlockModelDefinition (no silent band: the UPS class of bug, G3), and the first ParticleEffects
-    dummy (the death effect's origin, R15) is the centre "ParticleEffects" at the block centre (export.json "shift"),
-    the UPS included (controller ruling, superseding R9: its bay dummies follow an unsupported centre one)."""
+    """For all 73 blocks: every Dummy type a resolved client damage band names has >= 1 dummy of that
+    type in the staged BlockModelDefinition (no silent band: the UPS class of bug), and the first ParticleEffects
+    dummy (the death effect's origin) is the centre "ParticleEffects" at the block centre (export.json "shift"),
+    the UPS included (its bay dummies follow an unsupported centre one)."""
     assert len(catalog.STAGED) == 73
     for b in catalog.STAGED:
         _, eff = _client_effects(chain, b.name)
@@ -182,7 +182,7 @@ def test_every_band_dummy_exists(staged, chain):
 
 
 def test_spark_emitters_capped(staged):
-    """Controller ruling: no block has more than effects.MAX_EMITTERS (3) ParticleEffects-type dummies (each one is an
+    """No block has more than effects.MAX_EMITTERS (3) ParticleEffects-type dummies (each one is an
     emitter of every band); the PDU cabinet has exactly 3, one per zone group (bottom, middle = centre, top)."""
     assert effects.MAX_EMITTERS == 3
     for b in catalog.STAGED:
@@ -195,7 +195,7 @@ def test_spark_emitters_capped(staged):
 def test_spark_dummies_follow_zones(staged):
     """Every ParticleEffects-type dummy of a spark block is supported by one of its zones; the centre one keeps its
     name and the block-centre position; a per_zone block has one such dummy per zone up to 3 zones (more: 3, on
-    distinct zones), each inside its zone's hull AABB (R11: the per-zone ones are ParticleEffects_<zone>)."""
+    distinct zones), each inside its zone's hull AABB (the per-zone ones are ParticleEffects_<zone>)."""
     for b in catalog.STAGED:
         if not effects.spark_kind(b):
             continue
@@ -242,7 +242,7 @@ def test_zone_dummies_rules():
 
 # ---------------------------------------------------------------------------------------------- UPS, KVM, Programmable
 def test_ups_particle_dummies(staged):
-    """G3: the UPS has an unsupported centre "ParticleEffects" first (as Battery50; controller ruling: the death
+    """The UPS has an unsupported centre "ParticleEffects" first (as Battery50: the death
     effect's origin), then one per bay ("ParticleEffects <i>", as its "CellSlot <i>"), supported like that bay's cell
     slot (bay 0 front: Fracture_01, bay 1 rear: Fracture_02), inside the bay's zone; the unnamed
     ConstructionStagesParticles dummy stays."""
@@ -265,7 +265,7 @@ def test_ups_particle_dummies(staged):
 
 
 def test_kvm_sparks_like_cp25(staged, chain):
-    """Controller ruling: the KVM's damage band is 4.0 ControlPanel25's (0 - 0.99, ElectricalDamageSmall x0.3 on the
+    """The KVM's damage band is 4.0 ControlPanel25's (0 - 0.99, ElectricalDamageSmall x0.3 on the
     ParticleEffects dummy); the 2.4 effect key stays removed and no SmokeSmall set remains."""
     _, eff = _client_effects(chain, "DC_Srv_KVM")
     bands = _bands(eff)

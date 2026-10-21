@@ -1,13 +1,13 @@
-"""The Programmable's in-game scripting, as DATA (Plan 4 Ruling P4-1 = Route A'; plain Python, no bpy).
+"""The Programmable's in-game scripting, as DATA (plain Python, no bpy).
 
 The vanilla InGameScriptingComponent sits permanently in the Programmable's server composition, with this
 InGameScriptingDefinition and, in the server prefab, an InGameScriptingObjectBuilder holding the starter program. The
 data is the same with and without -loadScripts, so a world saves and loads identically in both modes and a player's
-program text is never dropped (the reason A' beat runtime injection: docs/research/dc-scripts-save-safety.md §4).
+program text is never dropped (the reason this beats injecting the component at runtime).
 
 Without -loadScripts the in-game whitelist and MetaDatas are empty (GameWhitelistProvider.cs:30,
-GameCompilationDescriptor.cs:13), so Run / Check / Debug end in an ordinary compile error (§2 of the research doc):
-"just won't run til keen enables it" (the user). With the switch the same block runs the program.
+GameCompilationDescriptor.cs:13), so Run / Check / Debug end in an ordinary compile error:
+the block simply won't run a program until Keen enables scripting. With the switch the same block runs the program.
 
 Engine facts (decompiled 2.4.0.95, tools/decompiled/Game2.Simulation/Keen.Game2.Simulation.Scripting/):
   InGameScriptingComponent.cs:55-60    Init(ob): Script, Running from the object builder

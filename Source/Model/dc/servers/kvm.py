@@ -180,7 +180,7 @@ def drawer(lod):
     if lod == 0:
         for xa in (-0.030, 0.002):
             G.box(P["dark"], (xa, 0.321, -0.066), (xa + 0.028, 0.335, -0.0635), DARK)
-    # ---- underside (visual pass 2: seen when the drawer is out): two Brushed stiffening channels along the tray, three
+    # ---- underside (seen when the drawer is out): two Brushed stiffening channels along the tray, three
     #      Darker cross ribs, a Darker data plate (the 4 mm under the tray is still inside the bay, z0 >= bay z0)
     if lod == 0:
         for sx in (-1, 1):

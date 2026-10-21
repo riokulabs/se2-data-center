@@ -1,4 +1,4 @@
-"""In-row cooling unit DC_CRAC (Plan 3 Task 6): 4 x 10 x 5 cells, the full rack's footprint (1.0 x 2.5 x 1.25 m), so a
+"""In-row cooling unit DC_CRAC: 4 x 10 x 5 cells, the full rack's footprint (1.0 x 2.5 x 1.25 m), so a
 row keeps its 1.0 m pitch and the containment roof clamps onto it like onto a rack.
 
 Frame as dc/rack.py (Blender, metres, centred: X width, +Y = front = game Forward = the cold aisle, Z up), built in
@@ -7,7 +7,7 @@ local z (0 = floor) and shifted by -H/2. The vertical layout is the full rack's 
 and caps, the containment rail and the top-entry brush plates are the rack's own builders, so every interface a rack
 offers the room (floor, roof rail, Drop, neighbours) the CRAC offers with the same numbers.
 
-What it does in game (P3-1 / P3-15): a stripped Gyroscope250 clone. It draws 25 power units (priority 6), has the
+What it does in game: a stripped Gyroscope250 clone. It draws 25 power units (priority 6), has the
 terminal On/Off, and while Working its three fan rotors spin (the CracFan rotor subpart, InfiniteRotation about the
 block's forward axis, ramping up and coasting down) and its RUN lamp lights; the gyroscope's torque is gone.
 
@@ -38,7 +38,7 @@ Purpose of every part (a real in-row chilled-water cooler, SE-styled; the user's
 | top: CHW S / CHW R stubs with insulation,    | chilled-water supply and return from the facility: insulated    |
 |   ball valves, blind flanges (1 mm under the |   against condensation, isolation valves for service, blind      |
 |   top plane), COND stub                      |   flanges where the facility pipework connects; condensate out  |
-| top: two brush plates (the rack's)           | power and controls in from an overhead Drop (Plan 2)            |
+| top: two brush plates (the rack's)           | power and controls in from an overhead tray Drop                |
 | containment rail (the rack's)                | the containment roof's edge bears and clamps here               |
 | side panels: hand pockets, rating plate      | removable service panels; the electrical rating                 |
 """
@@ -65,7 +65,7 @@ FAN_DEG_S = 600.0        # InfiniteRotation AngularSpeed (deg/s): 100 rpm, a big
 FAN_SPEEDUP = 300.0      # deg/s^2: 2 s soft start (linear ramp, InfiniteRotationAnimationComponent)
 FAN_SLOWDOWN = 150.0     # deg/s^2: a 4 s coast-down when switched off or unpowered
 FAN_AXIS = (0, 0, 1)     # game +Z = Blender -Y: the blades' leading edges sit upstream (-y), the air goes to +y
-PCU = 30                 # P3-11: the clone source's (Gyroscope250's template)
+PCU = 30                 # the clone source's (Gyroscope250's template)
 MOUNTS = "All"           # the model's mount hints decide (as the racks)
 
 # ---------------------------------------------------------------------------------------------------- layout (local z)
@@ -91,8 +91,8 @@ CORE_Y = (-0.530, 0.440)               # the Darker body shell (coil, plenum wal
 REAR_Y = (-0.578, -0.556)              # the rear filter door
 FILTER_Y = (-0.552, -0.534)
 REAR_Z = tuple((DOOR_Z[0] + 0.494 * k + 0.008, DOOR_Z[0] + 0.494 * (k + 1) - 0.008) for k in range(4))
-# Plan 3 T11: the filter door is the upper half (grilles 3-4 of the old four), the lower half a bolted service bay with
-# the two O2 / coolant service ports (user direction 2026-10-18). The joint is the old grille rail z 1.25 (SEAM_Z[3]).
+# The filter door is the upper half (grilles 3-4 of the old four), the lower half a bolted service bay with
+# the two O2 / coolant service ports. The joint is the old grille rail z 1.25 (SEAM_Z[3]).
 GRILLES = REAR_Z[2:]                    # the filter door's two return grilles (FILTER 1 lower, FILTER 2 upper)
 FILTER_DOOR_Z = (REAR_Z[2][0] - 0.004, ZT - 0.012)       # 1.254 .. 2.238 (a 12 mm gap over the bay)
 BAY_Z = (DOOR_Z[0], REAR_Z[1][1])                       # 0.262 .. 1.242: the service bay panel
@@ -102,7 +102,7 @@ REAR_HINGE_Z = (1.42, 2.06)                             # the filter door's two 
 PORTS = (("conveyor_port_o2_1", 0.0, 0.50), ("conveyor_port_o2_2", 0.0, 1.00))
 PORT_FACE_Y = -(YK - 0.0005)                            # the kit frame's outer face (0.5 mm inside the keep-out)
 PORT_LABEL = "O2 / COOLANT SERVICE"
-UNIT_CAPTION = "CRAC"   # the front header caption: neutral, no unit number (T12; the ID tag beside it is blank)
+UNIT_CAPTION = "CRAC"   # the front header caption: neutral, no unit number (the ID tag beside it is blank)
 PORT_DUMMY_SCALE = (0.5, 0.5, 0.05)                     # vanilla's small-port dummy scale (O2H2Generator250)
 WELL = (-0.30, 0.30, -0.44, -0.06)     # the top's water service well (x0, x1, y0, y1)
 WELL_FLOOR = ZT + 0.06
@@ -116,7 +116,7 @@ SEAM_Y = (0.10, -0.35)                          # core front (the fan plenums st
 TERMINAL = (0.205, 0.580, 2.045)                # the terminal dummy: the display's centre, on its glass (local z)
 TERMINAL_SCALE = (0.40, 0.31, 0.06)             # (x, z, y) extent of the aim box
 TERMINAL_DUMMY = "TerminalFront01"              # the clone's terminal dummy (aim + use: the On/Off terminal)
-TAG_LIFT = R.CONTAIN_TAG_LIFT   # the CONTAINMENT rail tag 0.6 mm clear of its plate (T11, z-fight)
+TAG_LIFT = R.CONTAIN_TAG_LIFT   # the CONTAINMENT rail tag 0.6 mm clear of its plate (z-fight)
 LEGEND = (0.02, 1.888, 0.235, 2.185)   # the controller's Darker lamp / key legend plate (a0, b0, a1, b1)
 LEGEND_T = 0.002                       # its (and the title strip's) thickness
 LOD_COUNT = {}
@@ -176,7 +176,7 @@ def _plinth(P, lod):
     """The rack's plinth (feet, base frame, core, side skins with jacking pockets), its kick panels made the CRAC's:
     the nameplate at the front, the condensate pan lip and its float switch at the rear (the hot aisle)."""
     fr, dk, hw = P["frame"], P["dark"], P["hw"]
-    if lod == 0:   # (T11 LOD1 budget: the 6 mm feet are the LOD2 base box from LOD1 on)
+    if lod == 0:   # (LOD1 budget: the 6 mm feet are the LOD2 base box from LOD1 on)
         G.box(dk, (-W2 + SKIN + 0.02, -YK + 0.02, 0.004), (W2 - SKIN - 0.02, YK - 0.02, 0.014), DARK)
         for fx in (-1, 1):
             for fy in (-1, 1):
@@ -216,7 +216,7 @@ def _plinth(P, lod):
     G.cylinder(hw, F(0.31, 0.098, 0.008), F(0.31, 0.098, 0.0105), 0.011, 12 if lod == 0 else 8, YELLOW)  # test cap
     if lod == 0:
         stencil(P["decal"], F, 0.31, 0.068, 0.011, "FLOAT", d=0.008)
-    if lod == 0:   # (T11: on its own Darker plate; LOD1 drops the 24 mm label, unreadable that far)
+    if lod == 0:   # (on its own Darker plate; LOD1 drops the 24 mm label, unreadable that far)
         G.prism(P["fine"], F, oct_pts(-0.285, 0.097, -0.015, 0.133, 0.008), 0.0, 0.0015, DARK)
         stencil(P["decal"], F, -0.15, 0.115, 0.024, "CONDENSATE PAN", d=0.0015)
     if lod == 0:
@@ -260,8 +260,8 @@ def _body(P, lod):
 
 
 # ---------------------------------------------------------------------------------------------------- inside
-# Broken interiors, Keen's way (user decision 2026-10-20, NOTES.md "Broken interiors: Keen's way"; it replaces the
-# modelled machine of 597f7c6e: pipes, valve, pump, drip tray, drives, board, filter rack, and its separate fan wall).
+# Broken interiors follow the game's own style (this replaces an earlier modelled machine: pipes, valve, pump, drip
+# tray, drives, board, filter rack, and its separate fan wall).
 # Behind the shell each zone is a SOLID CORE whose faces are vanilla FracturedMaterial01 in the Fractured / Damaged
 # models (the `core` part, fracture.CORE_PARTS; Darker in the NonFractured model, where nothing sees it), cut and
 # capped along the seams like any solid; the only modelled parts are the two a hole shows and a player recognises:
@@ -324,7 +324,7 @@ def _fan_module(P, k, lod):
     G.plate(P["fine"], F, sq, [_circle(ORIFICE_R, n, 0, zc)], MOD_Y[0], MOD_Y[1], DARK)
     G.ring(P["lip"], F, _circle(VENTURI[0], n, 0, zc), _circle(ORIFICE_R, n, 0, zc), VENTURI[1], VENTURI[2], HARDWARE)
     g = P["guard"]
-    # (12-sided wires: a 3.6 mm ring reads round at 12; 2026-10-20 budget, the project's 90 % cap)
+    # (12-sided wires: a 3.6 mm ring reads round at 12; within the project's 90 % triangle cap)
     rings, ng = (GUARD_R[:3], 12) if lod == 0 else ((), 0)      # LOD1: the wires are sub-pixel, the spokes stay
     for r in rings:
         G.ring(g, F, _circle(r + 0.0018, ng, 0, zc), _circle(r - 0.0018, ng, 0, zc), GUARD_Y[0], GUARD_Y[1], HARDWARE)
@@ -437,7 +437,7 @@ def _controller(P, lod):
     lines = (("SUPPLY  18 C", 0.026), ("RETURN  32 C", 0.026), ("FANS  3/3", 0.020), ("SET  18 C   AUTO", 0.016))
     for i, (t, h) in enumerate(lines):
         stencil(P["decal"], F, disp[0] + 0.022, disp[3] - 0.045 - 0.072 * i, h, t, d=ys, align="left")
-    # the lamp / key legend: a Darker plate (T11: white stencils never straight on the paint) carrying the RUN
+    # the lamp / key legend: a Darker plate (white stencils never straight on the paint) carrying the RUN
     # (swapped to green while Working) and ALARM (unlit amber lens) lamps, the MODE / SET keys and their legends
     yl = y1 + LEGEND_T
     G.prism(P["fine"], F, oct_pts(*LEGEND, 0.012), y1, yl, DARK)
@@ -461,7 +461,7 @@ def _controller(P, lod):
 
 # ---------------------------------------------------------------------------------------------------- rear
 def _rear_door(P, lod):
-    """The filter door on the hot aisle (the upper half since Task 11): two louvred return grilles over pleated
+    """The filter door on the hot aisle (the upper half): two louvred return grilles over pleated
     filters, a FILTER tab and two quarter-turn latches each, hinged on the +x edge (the viewer's right from the rear:
     a = +x)."""
     F = F_back(0.0)
@@ -579,8 +579,8 @@ def _top_band(P, lod):
             continue
         zc = ZT + 0.075            # (under the containment rail: it stands 4 cm proud over the header's top half)
         if front:
-            # (T11: the unnamed Yellow "cold-side tag" square beside the ID is gone: Yellow only at hazards)
-            # T12 (the racks' neutral-ID ruling): the neutral "CRAC" caption and a blank riveted write-on tag
+            # (the unnamed Yellow "cold-side tag" square beside the ID is gone: Yellow only at hazards)
+            # As on the racks (neutral ID): the neutral "CRAC" caption and a blank riveted write-on tag
             # (rack.id_tag), no baked unit number (every CRAC read alike); the ID comes from a sign or rack label
             G.prism(P["fine"], F, oct_pts(-0.17, zc - 0.05, 0.17, zc + 0.05, 0.018), 0.0, 0.006, DARK)
             a0 = -0.17 + 0.03                          # clear of the plate's clipped corners
@@ -664,7 +664,7 @@ def _water(P, lod):
             G.cylinder(dk, (x, y, zf), (x, y, zf + 0.092), 0.040, 8, DARK)
             G.cylinder(pp, (x, y, zf + 0.092), (x, y, zf + 0.140), 0.042, 8, STEEL)
             G.box(hw, (x - 0.008, y + 0.035, zf + 0.115), (x + 0.008, y + 0.170, zf + 0.125), YELLOW)
-            G.cylinder(pp, (x, y, zf + 0.140), (x, y, FLANGE[1]), 0.030, 6, STEEL)   # (T11 LOD1 budget: 6 / 8)
+            G.cylinder(pp, (x, y, zf + 0.140), (x, y, FLANGE[1]), 0.030, 6, STEEL)   # (LOD1 budget: 6 / 8)
             G.cylinder(pp, (x, y, FLANGE[1]), (x, y, FLANGE[2]), FLANGE[0], 8, STEEL)
             stencil(P["decal"], Ft, x, -0.355, 0.022, label, d=zf)
             continue
@@ -699,7 +699,7 @@ def _lod3(P):
     for zc in FAN_ZC:
         G.prism(P["fine"], F, oct_pts(-MOD_HALF, zc - MOD_HALF, MOD_HALF, zc + MOD_HALF, 0.06), y, YK - 0.001, DARK)
     G.box(P["fine"], (-0.36, -YK + 0.001, FILTER_DOOR_Z[0] + 0.05), (0.36, -y, ZT - 0.06), DARK)
-    for _, x, z in PORTS:   # the service ports (T11): Yellow frames (a 12-tri box each)
+    for _, x, z in PORTS:   # the service ports: Yellow frames (a 12-tri box each)
         G.box(P["hw"], (x - 0.2, -YK + 0.001, z - 0.2), (x + 0.2, -y, z + 0.2), YELLOW)
 
 
@@ -711,7 +711,7 @@ def last_lod(spec):
 
 # frame / dark / contain take the LOD0 bevel; panel (the three door plates, full of openings) and fine (small Darker
 # kit, round parts) do not: a bevel there would cost ~4k triangles for edges nobody sees break
-# (Plan 5 Task 13: `lip` = the fan modules' venturi lip rings, the orifice trim: skin, built with the housing it trims,
+# (`lip` = the fan modules' venturi lip rings, the orifice trim: skin, built with the housing it trims,
 # not mounting hardware; split out of `hw` so fracture.ROLES["crac"]'s supports are only the mounts)
 PART_NAMES = ("frame", "panel", "dark", "fine", "hw", "guard", "pipe", "decal", "perf", "brush", "contain", "lip",
               "core")   # (core: the solid inside, FracturedMaterial01 when broken: fracture.CORE_PARTS)

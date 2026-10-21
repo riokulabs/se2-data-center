@@ -43,7 +43,7 @@ Game 4.0.0.3151, decompiled at WS/tools/decompiled-4.0.0.3151 (`D` below). What 
      * component Configurations (:177-187, RuntimeComponentInfo.For(type).Configurations): global game
        configurations reached through component types' [Configuration] fields, not per-definition data. A mod Override
        that made a configuration reference an unbound client prefab would be missed (a brute-force walk of every
-       configuration reached no DataCenter composite at 4.0.0.3151: task-12a-review.md);
+       configuration reached no DataCenter composite at 4.0.0.3151);
      * AddComponent (:86-96): runtime additions, not data;
      * references computed in a definition's Init rather than serialised as a GUID (the chain that matters here,
        DoorPartsProvider -> ConditionalSubParts -> SubParts, is data-backed);
@@ -77,7 +77,7 @@ Builders/EntityBuilder.cs; RuntimeComponentInfo.ForDefinition -> ComponentInfoIn
 D/VRage.DCS/Keen.VRage.DCS.Internal/ComponentInfoIndexer.cs). The decompile is decompiled-current (20 assemblies) plus
 <its target>-extra: the runtime assemblies decompiled-current lacks (VRage.Audio, VRage.Game.Client, VRage.Client,
 VRage.AI, VRage.Water, VRage.Water.Client, VRage.Physics.Client, VRage.Input, VRage.UI, VRage.UI.Shared, VRage.Steam,
-VRage.Analytics), decompiled 2026-10-20 the same way (`ilspycmd -p -r Game2/`). Without them, e.g. SpatialAudioComponent
+VRage.Analytics), decompiled the same way (`ilspycmd -p -r Game2/`). Without them, e.g. SpatialAudioComponent
 (VRage.Audio, [assembly: ClientAssembly]) is an unknown type, and the validator fails rather than guesses.
 """
 import copy

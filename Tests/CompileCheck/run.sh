@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Offline in-game compile check for a mod's Scripts/Simulation and Scripts/Client (see CompileCheck.csproj).
-# Copied from an earlier prototype's run.sh and extended (project choice, --mod).
 #
 # The game's DLLs are win-x64 ReadyToRun images that the Linux .NET runtime refuses (BadImageFormatException),
 # so the checker runs on Windows .NET 9 under wine, in a PRIVATE wine prefix under ~/.cache. It only READS
@@ -15,7 +14,7 @@
 #     --docs       also list the missing-XML-doc warnings (CS1591, KN035), which are otherwise only counted
 #     dump-dir     write the generated sources there, one sub-folder per project
 #     probe <csx>  compile an in-game probe (se-mcp's wrapper and usings) against the game's assemblies, e.g.
-#                  Source/Model/review/probe_scripts.csx; compile only, nothing runs
+#                  Tests/InGame/probe_scripts.csx; compile only, nothing runs
 #   Prints "<Name>.<Sub>: OK: 0 errors, N warning(s)" per project; exits non-zero on any error.
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"

@@ -1,5 +1,5 @@
-// KvmSequencerComponent: the scripted KVM's brain, a client-only component on the KVM block's client entity (Plan 4
-// Rulings P4-3, P4-4, P4-12; Task 8). KvmInjector adds it to the KVM's client prefab at load, with scripts on only;
+// KvmSequencerComponent: the scripted KVM's brain, a client-only component on the KVM block's client entity.
+// KvmInjector adds it to the KVM's client prefab at load, with scripts on only;
 // client entities are never saved, so a world never holds this type (the save-safety rule).
 //
 // Once per frame, before the rigid animations prepare, it reads the world (Working, the door in front, the rack slot)
@@ -63,7 +63,7 @@ public sealed partial class KvmSequencerComponent : Component, IInSceneListener
     /// <summary>The target the rule chose this frame.</summary>
     public KvmTarget Target => _core.Target;
 
-    /// <summary>The motion path in use (Ruling P4-12).</summary>
+    /// <summary>The motion path in use (see KvmRackSlot).</summary>
     public KvmMotionPath Path => _core.Path;
 
     /// <summary>Stopped sequencing after <see cref="KvmSequencerCore.MaxFaults"/> faults; snaps to its end pose.</summary>

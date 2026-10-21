@@ -1,10 +1,10 @@
-// KvmRackLink: what sits in front of the KVM's face (Plan 4 Rulings P4-4, P4-12; Task 8). The block in the grid cell
+// KvmRackLink: what sits in front of the KVM's face. The block in the grid cell
 // one step beyond the centre of the KVM's front face was, in a rack, the rack itself (its front and rear 0.25 m layers
-// were occupied cells; the leaves are its subparts). Since the placement fix (2026-10-18) only the rear layer is (the
+// were occupied cells; the leaves are its subparts). Now only the rear layer is (the
 // rear stop): the front one is the slot opening, so the lookup falls back to the rack BESIDE the KVM that contains it
 // (KvmRackLink.Lookup.cs). Its DoorComponent, if any, is the door the interlock waits for;
 // its block definition and cell bounds give the rack kind and the KVM's slot, and so the motion path. The door counts
-// only when the rack has leaves on the side the KVM faces (Ruling P4-13: a rear-facing KVM in a front-door rack is
+// only when the rack has leaves on the side the KVM faces (a rear-facing KVM in a front-door rack is
 // free, as with scripts off).
 //
 // The rack table (kind and leaf sides by definition GUID) is KvmRackTable.cs.
@@ -78,10 +78,10 @@ public sealed partial class KvmRackLink
     /// <summary>Which side of the rack the KVM faces: +1 its front, -1 its rear, 0 neither or no rack.</summary>
     public int FaceSide { get; private set; }
 
-    /// <summary>The rack has a door, but no leaves on the KVM's face side: ignored (Ruling P4-13), as with scripts off.</summary>
+    /// <summary>The rack has a door, but no leaves on the KVM's face side: ignored, as with scripts off.</summary>
     public bool DoorOffFace { get; private set; }
 
-    /// <summary>The motion path the slot calls for (Ruling P4-12).</summary>
+    /// <summary>The motion path the slot calls for (see KvmRackSlot).</summary>
     public KvmMotionPath Path => KvmRackSlot.PathFor(RackKind, Slot);
 
     /// <summary>Full lookups so far (a probe counter).</summary>

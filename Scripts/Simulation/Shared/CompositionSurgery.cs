@@ -1,7 +1,7 @@
 // CompositionSurgery: load-time edits of an entity composition (add a component, swap a component's type), the
 // injection pattern of an earlier prototype made general,
 // validated up front and transactional: an edit is prepared (validated, nothing changed), then a set of edits is
-// applied together, all or nothing (Task 8: the KVM's sequencer and its two part drivers). Callers are
+// applied together, all or nothing (used for the KVM's sequencer and its two part drivers). Callers are
 // [DefinitionPostProcessor]s. The decisions themselves are the game-free Core/SurgeryRules.cs (unit-tested in
 // Tests/CoreTests); the surgery reads the game's state into them.
 //

@@ -1,6 +1,6 @@
-"""Task 4: server chassis + deco blades, asserted on build_report.json (run the Blender build first).
+"""Server chassis + deco blades, asserted on build_report.json (run the Blender build first).
 
-Sizes (controller ruling 2026-10-17, NOTES.md): 6U servers are 2x1x3 cells, the 12U UPS 2x2x3. A server's cell box
+Sizes: 6U servers are 2x1x3 cells, the 12U UPS 2x2x3. A server's cell box
 must equal one rack slot's cell box (rack.SLOT_CELLS) and sit on the slot origin, its collision fills its cells, and
 the render model keeps the slot clearances (sides >= 2 mm inside the slot, top >= 5 mm below the cell top)."""
 import json
@@ -13,13 +13,13 @@ from dc import catalog, config, dims as DM
 pytestmark = pytest.mark.build
 
 DECO = ("DC_Srv_Blank", "DC_Srv_Compute", "DC_Srv_Storage", "DC_Srv_Switch")
-FUNCTIONAL = ("DC_Srv_Timer", "DC_Srv_EventCtl", "DC_Srv_Status")   # Task 6: same chassis, same checks
-TASK8 = ("DC_Srv_KVM", "DC_Srv_Programmable")                         # Task 8: base models (KVM subparts: own tests)
-SIX_U = DECO + FUNCTIONAL + TASK8
-TWELVE_U = ("DC_Srv_UPS",)                                            # Task 7: same chassis, two slots tall
+FUNCTIONAL = ("DC_Srv_Timer", "DC_Srv_EventCtl", "DC_Srv_Status")   # same chassis, same checks
+KVM_PROG = ("DC_Srv_KVM", "DC_Srv_Programmable")                         # base models (KVM subparts: own tests)
+SIX_U = DECO + FUNCTIONAL + KVM_PROG
+TWELVE_U = ("DC_Srv_UPS",)                                            # same chassis, two slots tall
 SERVERS = SIX_U + TWELVE_U
 RACKS = ("DC_Rack42_Open", "DC_Rack24_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear",
-         "DC_Rack24_SplitFront", "DC_Rack24_SplitFrontRear")   # Task 9: the door racks share the frame
+         "DC_Rack24_SplitFront", "DC_Rack24_SplitFrontRear")   # the door racks share the frame
 
 
 def _entry(name):

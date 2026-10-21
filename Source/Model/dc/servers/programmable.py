@@ -1,11 +1,11 @@
 """Programmable server (6U, 2x1x3 cells): a blade chassis that hosts an in-game script (a WallInsertPanel clone
-moved onto the KVM's Ruling 15 chain: a terminal-listed On/Off block, Plan 4 Ruling P4-2).
+moved onto the KVM's chain: a terminal-listed On/Off block).
 Data-only (no -loadScripts) it is a working chassis with On/Off whose program will not compile, and its lamps show
-the amber standby state; with -loadScripts the same data runs the program (Ruling P4-1 = A', dc/scripting.py) and
-the scripts swap its script-status lamp and LCD status bar to green while it is Working (Ruling P4-7). So the baked text is state-neutral:
-the management LCD reads "SCRIPT HOST" / "PRG-06" and the lamp's legend "SCRIPT" / "STATUS"; nothing says offline.
-Reference: docs/ideas/reference/datacenter/servers/blade-chassis/ (HP c7000, Dell M1000e, IBM BladeCenter) and the v2
-mockup (6 sleds, ejector levers, management LCD, script status lamp).
+the amber standby state; with -loadScripts the same data runs the program (dc/scripting.py) and the scripts swap
+its script-status lamp and LCD status bar to green while it is Working. So the baked text is state-neutral: the
+management LCD reads "SCRIPT HOST" / "PRG-06" and the lamp's legend "SCRIPT" / "STATUS"; nothing says offline.
+Reference: real blade chassis (HP c7000, Dell M1000e, IBM BladeCenter) and the v2 mockup (6 sleds, ejector levers,
+management LCD, script status lamp).
 
 Face (viewer's left to right), inside server.face_frame:
 | part                                  | purpose                                                              |
@@ -17,7 +17,7 @@ Materials (LOD0 8 of 8): Colorable, Darker, Yellow, Brushed, MetalDull, CleanWhi
 vanilla static amber ColorIndicatorMaterial (IndicatorWindTurbineEnabledLowEfficiency 4a74bc1c; dc/material_guids.py):
 EmissiveScriptStatus (functional.PROG_LED: the SCRIPT STATUS lamp and the LCD status bar, which the scripts swap green
 while Working) and EmissiveAmber (functional.PROG_PSU_LAMP: the rear PSU lamps, never swapped). Data-only both render
-the same amber, so the scripts-off block is unchanged (Plan 4 Task 4).
+the same amber, so the scripts-off block is unchanged.
 """
 import math
 
@@ -31,7 +31,7 @@ try:
 except ImportError:
     G = None
 
-STATUS = FN.PROG_LED         # the script-status slot (lamp + LCD bar) the scripts swap green (Ruling P4-7)
+STATUS = FN.PROG_LED         # the script-status slot (lamp + LCD bar) the scripts swap green
 PSU_LAMP = FN.PROG_PSU_LAMP  # the rear PSU lamps: static amber, never swapped
 GAP = deco.GAP
 N_SLEDS = 6
@@ -39,7 +39,7 @@ PROUD = 3                    # sled index pulled out
 PROUD_D = 0.020
 LEVER_OPEN = 35.0            # deg, the pulled sled's ejector lever
 MGMT_W = FN.PROG_MGMT["a"][1] - FN.PROG_MGMT["a"][0]   # management module width (right)
-LCD_LINES = ("SCRIPT HOST", "PRG-06")   # the management LCD: state-neutral (Ruling P4-7)
+LCD_LINES = ("SCRIPT HOST", "PRG-06")   # the management LCD: state-neutral
 LAMP_LEGEND = ("SCRIPT", "STATUS")      # beside the status lamp
 LAST_FACE = {}               # what the last build placed (build_report "face")
 

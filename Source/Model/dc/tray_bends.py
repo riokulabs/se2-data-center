@@ -1,4 +1,4 @@
-"""Cable plans of the bends and junctions (Plan 2 Task 3): TurnH, TurnUp, TurnDown, Tee and Cross. Pure Python.
+"""Cable plans of the bends and junctions: TurnH, TurnUp, TurnDown, Tee and Cross. Pure Python.
 
 Same frame and data types as dc/tray_plan.py (the box-corner frame; ports, bundles, structure, supports, fittings).
 
@@ -16,10 +16,10 @@ the far side runs straight through. The run's -y half (piece frame; M0 included)
 turns: from port a left into the branch (they land on the branch's s' >= 0 lanes), from port b right (s' < 0).
 Every turning group is concentric with the junction's wall fillet, so lane order and spacing hold exactly (as in a
 TurnH). The branch's M0 is a SPLIT child of the straight M0: it leaves a Darker split collar and peels off on the
-outermost arc of the left group, at floor level, as cables fan out of a collar (the widened split zone, P2-16).
+outermost arc of the left group, at floor level, as cables fan out of a collar (the widened split zone).
 Nothing crosses anything, so the Tee needs no saddle. (A tap in which every through lane continues and the branch
 is split off them cannot be built at Full: M0 and L1 lie under the top layer and could only leave it through a
-bundle; see the Task 3 report.)
+bundle.)
 
 **Cross.** The a-b lanes run straight. The c-d lanes ramp up as one stack at <= 30 deg, ride a Darker crossover
 saddle over the a-b bundles (the bottom layer resting on its deck, DECK_H above the floor top) and ramp down again,
@@ -169,7 +169,7 @@ def _bend(shape, density):
                                     {"bundle": b.lane, "station": st, "centre": c.copy()}))
     zs = STRUT_LIFT + STRUT_H / 2           # a strut's centre over the grid plane under the floor
     if shape == "TurnH":                    # on the 45 deg radial, under that radial's U-wire, as wide as the basket
-        q, t, s, u = sw.frame(LEAD + TURN_R[shape] * math.pi / 4)        # (its ends at the U-wire legs: Ruling P2-20)
+        q, t, s, u = sw.frame(LEAD + TURN_R[shape] * math.pi / 4)        # (its ends at the U-wire legs)
         supports = [_floor_strut((q[0], q[1], zs), -s, half=TL.U_LEG_S + TL.WIRE_R)]
     elif shape == "TurnUp":                 # under port a's lead, at the U-wire where the arc starts
         supports = [_floor_strut((LEAD, CELL, zs), Y, half=CELL)]
@@ -268,15 +268,15 @@ def _turning(lane, side, zf):
                       c_lane + "/c", {"centre": vec((x_c, FIL_Y, zf)), **_facet_params(sw, along, dress)})
 
 
-BREAKOUT_DX = 0.12      # (Task 10, carry M-3) the breakout tie: this far past the collar's far end along M0
+BREAKOUT_DX = 0.12      # the breakout tie: this far past the collar's far end along M0
 
 
 def _breakout_tie(m0, child, rho, zf, straight):
-    """The Tee's breakout tie (Task 10, M-3): the branch M0 peels on a 0.36 m arc concentric with the left turning
+    """The Tee's breakout tie: the branch M0 peels on a 0.36 m arc concentric with the left turning
     group (it cannot peel tighter: it is that group's outermost lane), so it stays inside its parent's envelope for
     about 0.19 m past the collar and read as one fused yellow mass. A cable installer ties a fan-out where the
     branch leaves its run: one Darker band, BREAKOUT_DX past the collar, round M0, the peeling branch and (at Full)
-    the F1- bundle nested on M0, all in the plane x = const (one shared band, Ruling P2-17). LOD0 only (fine
+    the F1- bundle nested on M0, all in the plane x = const (one shared band). LOD0 only (fine
     dressing, like the Drop's fall ties); off the 0.25 m strap rhythm by purpose (it marks the breakout)."""
     xb = FIL_X + BREAKOUT_DX
     h = TL.LANE["M0"].h
@@ -372,7 +372,7 @@ SADDLE_LEG = 0.012              # square Brushed legs ...
 SADDLE_HALF = 0.235             # the deck's half size: it starts just after the c-d stack levels out (y 0.263)
 SADDLE_LEG_AT = SADDLE_HALF - SADDLE_LEG / 2    # legs under the deck's corners, clear of both stacks and the fillets
 SADDLE_LEG_T = 0.213            # ... their across-a-b position (x), under the flat deck, just inside the side lips
-# The deck is formed steel (Task 7): both ends where the c-d stack climbs on roll down on the stack's own convex radius
+# The deck is formed steel: both ends where the c-d stack climbs on roll down on the stack's own convex radius
 # (no cable-cutting edge: the cables leave the deck along it), as tongues narrower than the deck (clear of the
 # fillets); both sides along the stack are rolled up into lips (they keep the stack on the deck, and stiffen the
 # plate); the deck straps are tied to it at tie mounts beside the stack.

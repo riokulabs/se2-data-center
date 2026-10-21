@@ -1,6 +1,6 @@
-"""Rack doors and tray fans (Task 9): the bpy-free numbers, frames and clearance geometry.
+"""Rack doors and tray fans: the bpy-free numbers, frames and clearance geometry.
 
-Mechanism (vanilla SlidingDoorNarrow250, decompiled 2.4.0.95; docs/guides/vanilla-animations.md section 6.1):
+Mechanism (vanilla SlidingDoorNarrow250, as read from the game's own door code):
   DoorServerComponent advances DoorData.OpenRatio (0..1, linear, saved and replicated); every leaf subpart carries a
   DoorSegmentComponent (copies the ratio) and a DoorSegmentTransformSLERPComponent, which sets the leaf's
   RelativeTransform = RelativeTransform.Slerp(Closed, Open, ratio) = position LERP + orientation quaternion SLERP

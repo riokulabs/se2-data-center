@@ -1,4 +1,4 @@
-"""Plan 2 Tasks 2-3: the cable continuity contract (dc/tray_lanes.py), the tray catalogue and the cable plans of
+"""The cable continuity contract (dc/tray_lanes.py), the tray catalogue and the cable plans of
 every piece (dc/tray_plan.py, dc/tray_bends.py). No Blender: the plans are proven here, and the builder only sweeps
 what they say.
 
@@ -118,7 +118,7 @@ def test_catalogue_counts():
 
 
 def test_trays_in_the_pipeline():
-    """The tray families are catalogued and, since Task 5, in the definitions pipeline (Ruling P2-15)."""
+    """The tray families are catalogued and in the definitions pipeline."""
     assert [b for b in catalog.BLOCKS if b.family in TRAY_FAMILIES] == TRAYS
     assert all(catalog.BY_NAME[b.name] is b for b in TRAYS)
     assert catalog.TRAY_DENSITIES == TL.DENSITIES
@@ -304,7 +304,7 @@ def parent_station(parent, pts):
 
 
 def split_run(child, parent):
-    """The child's samples (from its SPLIT end) that are exempt from its parent (Ruling P2-16): the run from the split
+    """The child's samples (from its SPLIT end) that are exempt from its parent: the run from the split
     point over which it still overlaps its parent, which must end within the split zone (the collar length plus the
     child's peel radius, measured along the parent). -> (child samples, exempt mask)."""
     i = next(k for k, e in enumerate(child.ends) if e.kind == "SPLIT" and e.ref == parent.lane)
@@ -409,12 +409,12 @@ def test_within_cells(name):
                 if abs(b.points[i][k] - face) < 1e-9:
                     assert ext[i][k] < 1e-6, f"{b.lane} meets plane {'xyz'[k]}={face} at an angle"
     entry = {(int(np.argmax(np.abs(e.n))), float(round(e.o[int(np.argmax(np.abs(e.n)))], 9))) for e in pl.entries}
-    for f in pl.fittings:   # (Task 10) the landing collars sit ON their ENTRY plane (P.ENTRY_SEAT): an interface
+    for f in pl.fittings:   # the landing collars sit ON their ENTRY plane (P.ENTRY_SEAT): an interface
         _in_box(P.fitting_points(f), size, 0.001, entry if f.kind == "brush_collar" else ())   # plane, like a port
     for sp in pl.supports:   # every solid, rod plates and couplers included: 1 mm inside every face too
-        if sp.kind == "ladder":   # (Task 10) the Chute's foot and top plates sit ON its two ENTRY planes
+        if sp.kind == "ladder":   # the Chute's foot and top plates sit ON its two ENTRY planes
             _in_box(P.support_points(sp), size, 0.001, entry)
-        elif sp.params.get("flush"):   # (Task 6: the vertical turns' struts end ON the across faces, Keen's model size)
+        elif sp.params.get("flush"):   # (the vertical turns' struts end ON the across faces, Keen's model size)
             _in_box(P.support_points(sp), size, 0.001, {(1, 0.0), (1, float(size[1]))})   # flush on y only
             assert abs(abs(float(np.asarray(sp.axis) @ [0, 1, 0])) - 1) < 1e-9 and pl.shape in ("TurnUp", "TurnDown")
         else:
@@ -672,7 +672,7 @@ def test_chute_continues_drop():
 @pytest.mark.parametrize("rack,piece", [("DC_Rack42_Open", "Drop"), ("DC_Rack24_Open", "Chute")])
 def test_waterfalls_land_in_measured_entries(rack, piece):
     """Against the BUILT racks: the waterfalls land inside the measured brush-plate openings (build_report.json
-    geometry.top_entries, Task 1) with R_WF + 3 mm to spare."""
+    geometry.top_entries) with R_WF + 3 mm to spare."""
     if not os.path.exists(config.REPORT_PATH):
         pytest.skip("no build_report.json yet")
     with open(config.REPORT_PATH) as f:
@@ -755,7 +755,7 @@ def test_straps_phase(name):
             assert sorted(f.frame.o[0] for f in mine) == pytest.approx(want), b.lane
         elif b.ends[1].kind == "BOOT":                  # dropped lanes: every station before the boot
             assert sorted(f.frame.o[0] for f in mine) == pytest.approx([x for x in want if x < P.BOOT_X - 0.03])
-        else:     # waterfalls (Task 8): tied on the fall at 0.125 + k 0.25 over the bottom plane (the Chute's rung
+        else:     # waterfalls: tied on the fall at 0.125 + k 0.25 over the bottom plane (the Chute's rung
             #       rhythm carries on up), horizontal bands, never on the run's rhythm
             assert sorted(f.frame.o[2] for f in mine) == pytest.approx(list(P.WF_STRAPS)), b.lane
             assert all(abs(f.frame.t[2]) == 1.0 for f in mine)
@@ -832,7 +832,7 @@ def test_chute_ladders():
         for a, top in rails:   # rails stand the full height between the foot plate (seated on the half rack) and
             #                    the top clamp plate (under the Drop)
             assert a[2] == pytest.approx(foot.o[2] + fsize[0] / 2) and top[2] == pytest.approx(top_fr.o[2] - tsize[0] / 2)
-        # (Task 10) both plates sit ON the Chute's ENTRY planes: the foot on the half rack's roof (its brush frame is
+        # both plates sit ON the Chute's ENTRY planes: the foot on the half rack's roof (its brush frame is
         # ENTRY_DROP under it), the top plate under the Drop's collar, which sits on the same plane (flush contact)
         assert P.ENTRY_SEAT == 0.0
         assert foot.o[2] - fsize[0] / 2 == pytest.approx(P.ENTRY_SEAT)
@@ -881,7 +881,7 @@ def test_occupied_cells():
         occ = P.occupied_cells(PLANS[n])
         if spec.variant in ("StraightS", "StraightL", "Reducer", "Rods", "TurnH", "TurnDown"):
             assert occ == box(spec.cells[0], spec.cells[2], spec.cells[1]), n
-        elif spec.variant == "Tee":        # Task 7: the two cells beside the branch stay free
+        elif spec.variant == "Tee":        # the two cells beside the branch stay free
             assert occ == box(4, 3, 1) - {(0, 2, 0), (3, 2, 0)}, n
         elif spec.variant == "Cross":      # ... and the X's four corners
             assert occ == box(4, 4, 1) - {(0, 0, 0), (0, 3, 0), (3, 0, 0), (3, 3, 0)}, n
@@ -920,7 +920,7 @@ def test_plan_entry_points():
     assert {s.kind for pl in PLANS.values() for s in pl.supports} <= set(P.SUPPORT_KINDS)
 
 
-# ---------------------------------------------------------------------------------------------------- bends (Task 3)
+# ------------------------------------------------------------------------------------------------------------- bends
 from dc import tray_bends as TB  # noqa: E402
 
 BEND_SHAPES = ("TurnH", "TurnUp", "TurnDown")
@@ -1082,7 +1082,7 @@ def test_aisle_crossing(W, hand):
     assert sum(chain[i][0].size[0] for i in range(2, 2 + len(parts))) == pytest.approx(W)
 
 
-# ---------------------------------------------------------------------------------------------------- junctions (Task 3)
+# ------------------------------------------------------------------------------------------------------------ junctions
 def _plan_crosses(A, B):
     """Whether A's centreline crosses B's in plan (2D segment intersection)."""
     a0, a1 = A.points[:-1, :2], A.points[1:, :2]
@@ -1289,7 +1289,7 @@ def test_mixed_bends_and_linear_densities():
 
 
 def test_drop_waterfalls_under_widened_split_zone():
-    """Ruling P2-16 re-check: the Drop's waterfalls (peel radius 5 cm: zone = 8 cm along L1+) still leave L1+
+    """The Drop's waterfalls (peel radius 5 cm: zone = 8 cm along L1+) still leave L1+
     vertically and clear it outside their split run at every density; their exempt run ends inside the zone."""
     for d in TL.DENSITIES[1:]:
         pl = P.plan("Drop", d)
@@ -1306,7 +1306,7 @@ def test_drop_waterfalls_under_widened_split_zone():
 
 @pytest.mark.parametrize("d", ["Moderate", "Full"])
 def test_tee_breakout_tie(d):
-    """M-3: the branch M0 stays inside its parent's envelope for ~0.19 m past the collar (it peels on the left
+    """The branch M0 stays inside its parent's envelope for ~0.19 m past the collar (it peels on the left
     group's outer arc, r 0.36, and cannot peel tighter). A breakout tie BREAKOUT_DX past the collar binds M0, the
     branch and (Full) the F1- nested on M0 in one band in the plane x = const; LOD0 only, the only strap off the
     0.25 m rhythm."""

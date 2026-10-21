@@ -5,7 +5,7 @@ Reusable by any branch for its own blocks (plain Python, standard library only):
     from dc import fracture_rules as FRR
     FRR.check_fractured_model(fbx_lod0_path, collision_gltf_path) -> [problem strings]   (empty: OK)
 
-The two rules (Plan 2 Task 9b fix round 1):
+The two rules:
 
 1. collider_mesh_group_problems: the importer (VRage.ContentPipeline.ModelsBase ModelProcessorLoader
    .CollectBreakableCollider, 2.4.0.95, :581-661) makes a collider a FRACTURE only when LOD0 has a mesh Group of the
@@ -166,7 +166,7 @@ def fracture_colliders(path):
     return {k: v for k, v in gltf_boxes(path).items() if k.startswith("Fracture")}
 
 
-# ---------------------------------------------------------------------------------------------------- rule 1
+# ------------------------------------------------------------------------------------------- collider group rule
 def collider_mesh_group_problems(props, colliders):
     """props: fbx_model_props of the LOD0 FBX; colliders: names of the collision glTF's Fracture* colliders."""
     groups = {}
@@ -194,7 +194,7 @@ def collider_mesh_group_problems(props, colliders):
     return out
 
 
-# ---------------------------------------------------------------------------------------------------- rule 2
+# ------------------------------------------------------------------------------------------------ seam gap rule
 def box_gap(a, b):
     """Euclidean distance between two axis-aligned boxes (lo, hi); 0 when they touch or overlap."""
     return sum(max(0.0, b[0][i] - a[1][i], a[0][i] - b[1][i]) ** 2 for i in range(3)) ** 0.5
@@ -248,7 +248,7 @@ _VOLATILE = ("FBXHeaderExtension", "FileId", "CreationTime", "Creator", "GlobalS
 def fbx_content(path):
     """An FBX's content without what changes between two exports of the same scene (header timestamps, file id,
     the scene's time settings, object uids): the Objects (uid dropped, in file order) and the Connections (uids
-    replaced by their object's index). Two exports of the same meshes compare equal (Task 9 review M-2)."""
+    replaced by their object's index). Two exports of the same meshes compare equal."""
     nodes = fbx_nodes(path, arrays=True)
     objs, ids = [], {}
     conns = []
@@ -272,12 +272,12 @@ def fbx_same_content(a, b):
         return False
 
 
-# ---------------------------------------------------------------------------------------------------- Task 9c
-# The guide's checklist (docs/guides/vanilla-fracture-models.md 10.6) on the exported files: T1 recognition, T5
-# Fractured <-> Damaged parity, T8 cut UV density, and the hull-volume rule of 10.3 (5). numpy is imported lazily
+# --------------------------------------------------------------------------------------------------------- export checks
+# Checks on the exported files: fracture recognition, Fractured <-> Damaged parity, cut UV density, and the
+# hull-volume rule (a zone's collider follows its solid). numpy is imported lazily
 # (only these need it); the two rules above stay standard library only.
-HELPER_PREFIXES = ("occupancy", "mountpoints")      # ModelProcessorLoader: taken out before fracture matching (B3)
-ENGINE_MAX_FRACTURES = 16                           # ModelProcessorLoader.cs:668-671 (B8)
+HELPER_PREFIXES = ("occupancy", "mountpoints")      # ModelProcessorLoader: taken out before fracture matching
+ENGINE_MAX_FRACTURES = 16                           # ModelProcessorLoader.cs:668-671
 CUT_PRESET = "Fracture"                             # a break-face object's ConstructionMeshPreset (vanilla _Cut)
 
 
@@ -395,17 +395,17 @@ def gltf_hulls(path):
 
 
 def recognition_problems(props, collider_names, size=None):
-    """T1, the importer's fracture recognition (ModelProcessorLoader.CollectBreakableCollider): a collider is a
-    fracture iff its name equals a LOD0 Group (B4); helpers (occupancy* / mountpoints*) aside, fractures and plain
-    colliders may not mix (B9); 2 .. 16 fractures (B7 / B8), and, given the model size, no more than Keen's table
-    for it (B13, a warning we keep clear of); plus rule 1 (every ColliderMeshGroups entry names a LOD0 group)."""
+    """The importer's fracture recognition (ModelProcessorLoader.CollectBreakableCollider): a collider is a
+    fracture iff its name equals a LOD0 Group; helpers (occupancy* / mountpoints*) aside, fractures and plain
+    colliders may not mix; 2 .. 16 fractures, and, given the model size, no more than Keen's table
+    for it (an importer warning we keep clear of); plus the group rule (every ColliderMeshGroups entry names a LOD0 group)."""
     groups = {p.get("Group") for p in props.values() if p.get("Group")}
     cols = [c for c in collider_names if not c.lower().startswith(HELPER_PREFIXES)]
     frac = [c for c in cols if c in groups]
     out = []
     plain = sorted(set(cols) - set(frac))
     if frac and plain:
-        out.append(f"fracture and plain colliders mixed (B9): plain {plain}")
+        out.append(f"fracture and plain colliders mixed: plain {plain}")
     if not 2 <= len(frac) <= ENGINE_MAX_FRACTURES:
         out.append(f"{len(frac)} recognised fractures: a breakable collider needs 2 .. {ENGINE_MAX_FRACTURES}")
     if size is not None:
@@ -417,13 +417,13 @@ def recognition_problems(props, collider_names, size=None):
 
 
 def cut_uv_density(meshes):
-    """T8: the break faces' texel density, as the guide measured vanilla's (uvstats.py): the area-weighted median
+    """The break faces' texel density, measured as for vanilla's (uvstats.py): the area-weighted median
     of sqrt(UV area / 3D area) over the triangles of every break-face object (ConstructionMeshPreset Fracture).
     None when the model has no break faces."""
     rows = []
     for m in meshes.values():
         cap = m["props"].get("ConstructionMeshPreset") == CUT_PRESET or (m["materials"] and all(
-            x == "FracturedMaterial01" for x in m["materials"]))   # (Task 13: a hidden part's caps, AlwaysHidden)
+            x == "FracturedMaterial01" for x in m["materials"]))   # (a hidden part's caps, AlwaysHidden)
         if not cap or not m["uv"]:
             continue
         v = m["verts"]
@@ -476,7 +476,7 @@ def hull_fill(hull, points, n=22):
     (points: the zone's geometry; its extent = the convex region bounded by the geometry's support planes in 70
     directions, a close outer approximation of the geometry's convex hull). Sampled on an n^3 lattice over the
     collider's box: (lattice points inside both) / (inside the collider). Health is the collider's VOLUME share,
-    so a low fill means health and phantom collision bought with empty space (guide 10.3 (5))."""
+    so a low fill means health and phantom collision bought with empty space."""
     import numpy as np
     H = np.asarray(hull, float)
     P = np.asarray(points, float)

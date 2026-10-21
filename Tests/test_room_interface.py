@@ -1,4 +1,4 @@
-"""Plan 3 Task 1: the room interface (dc/dims.py) and the rack changes it needs.
+"""The room interface (dc/dims.py) and the rack changes it needs.
 
 The room pieces (raised floor, containment roof and doors, PDU strips, rack labels) are built against these numbers
 alone, so the build-marked tests check them on the MEASURED rack (build_report.json "geometry" and "placement"):
@@ -55,7 +55,7 @@ def test_room_constants():
 
 
 def test_rod_plate_single_source():
-    """dims.ROD_PLATE is Plan 2's rod-coupler plate (tray_plan derives it from the cell and the rod spacing)."""
+    """dims.ROD_PLATE is the cable trays' rod-coupler plate (tray_plan derives it from the cell and the rod spacing)."""
     from dc import tray_plan
     assert DM.ROD_PLATE == pytest.approx(tray_plan.ROD_PLATE)
 
@@ -72,7 +72,7 @@ def test_pdu_cells_helpers():
         assert {c[2] for c in a} == {c[2] for c in b} == {bz1}              # the rear cell (game +z = Blender -y)
         assert sorted(c[1] for c in a) == list(range(by0 + 1, by0 + 1 + n))
         free = rack.FREE_CELLS(spec)
-        # the slots, their front opening row (main's placement fix) and the two PDU columns, all distinct
+        # the slots, their front opening row (free for placement) and the two PDU columns, all distinct
         assert len(set(free)) == len(free) == len(rack.SLOT_CELLS(spec)) + len(rack.OPENING_CELLS(spec)) + 2 * n
         assert not set(rack.OPENING_CELLS(spec)) & (set(a) | set(b) | set(rack.SLOT_CELLS(spec)))
         with pytest.raises(ValueError):

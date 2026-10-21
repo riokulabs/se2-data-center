@@ -1,4 +1,4 @@
-"""Plan 5 Task 10: the room blocks' construction roles and the door sill's hull (audit G10).
+"""The room blocks' construction roles and the door sill's hull.
 
 Supports  fracture.ROLES per room family: the floor's pedestals (base plate, tube, jack, head) carry the deck; the
           roof's frame and its rail clamps carry the panes; the signs' bolts and hangers; the PDUs' fixings (the
@@ -9,9 +9,9 @@ Hide      the PDUs' detail arrives on completion (vanilla CircuitBreaker: 48 % _
           _breakers); the strips' lamps, jumper cords and the inlet plug.
 Sill      a zone below fracture.MIN_ZONE_SHARE of the block's health gets an axis box hull (fracture.min_share_box),
           at most MIN_HULL_T beyond its geometry, or the export raises. The doors' 8 mm sill (Fracture_08, 0.06 %)
-          is exempt (fracture.MIN_SHARE_EXEMPT, controller ruling, Task 10 fix round 1): it is the one non-critical
+          is exempt (fracture.MIN_SHARE_EXEMPT): it is the one non-critical
           door zone and its death changes no function (the door stays Functional, only the sill_down mount drops);
-          audit G10 is rated Low; the hull is a live collider (a broken door's physics, debris, re-weld check), and
+          the risk is low; the hull is a live collider (a broken door's physics, debris, re-weld check), and
           reaching 1 % would put a 6-7 cm invisible step in the doorway. Accepted cost: the sill can die early."""
 import os
 
@@ -29,7 +29,7 @@ ROOFS = [b.name for b in catalog.BLOCKS if b.family == "contain_roof"]
 STRIPS = [b.name for b in catalog.BLOCKS if b.family == "pdu_strip"]
 CUT = [b.name for b in catalog.BLOCKS if not FR.unfractured_reason(b)]
 CABINET = "DC_PDU_Cabinet"
-# measured after this task's export (LOD0 hide / role triangles; R18 measured 3.6 % before the breakers moved)
+# measured on the export (LOD0 hide / role triangles; 3.6 % before the breakers moved)
 CABINET_HIDE_MIN = 0.10
 GOLDEN = read_json(SV.BASELINE_PATH)
 

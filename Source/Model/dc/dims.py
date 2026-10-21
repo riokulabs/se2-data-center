@@ -53,7 +53,7 @@ def screw_offsets():
 
 RACK_SIDE_INSET = 0.001   # render mesh stays 1 mm inside the rack's side planes (flush racks: hairline gap, no z-fight)
 
-# ---------------------------------------------------------------------------------------------------- doors (Task 9)
+# ---------------------------------------------------------------------------------------------------------------- doors
 # Split perforated leaves hinged at the outer posts (APC style), re-derived for THIS rack (1.0 m wide, 1.25 m deep).
 # The rack frame already stops 2.7 cm behind its front / back planes (KEEP_OUT: no mount points on the openings),
 # and the posts' front faces sit on that plane (|y| = 0.598). The leaves live in the remaining layer
@@ -82,14 +82,14 @@ FAN_Y = -0.305
 FAN_R = 0.095                                 # rotor tip radius; the opening is FAN_R + 6 mm
 
 # ---------------------------------------------------------------------------------------------------- rack top tray
-# (moved here from dc/rack.py for Plan 2: the cable trays couple to them)
+# (moved here from dc/rack.py: the cable trays couple to them)
 RACK_TRAY_IX = 0.44                           # full-rack top trough interior half width (clear of the corner caps)
 RACK_TRAY_IY = 0.46                           # ... and half depth: the rim's inner edge
 MANAGER_CH_X = (0.297, 0.42)                  # |x| of the vertical cable-manager channel in each side column
 MANAGER_SPINE_Y = (0.393, 0.405)              # |y| of the channel's back wall (front channel; mirrored at the rear)
 
 # ---------------------------------------------------------------------------------------------------- tray interface
-# Plan 2 (cable trays): where an overhead tray run meets a rack. Rack-local, centred frame, +Y = front. The tray's
+# Cable trays: where an overhead tray run meets a rack. Rack-local, centred frame, +Y = front. The tray's
 # waterfalls leave over the tray's front wall and drop into the front cable managers through the top-entry brush
 # plates (dc/rack.py _entry_plate / _brush_lips); the tray plan (dc/tray_plan.py) builds the Drop from these only.
 TRAY_RACK_Y = 0.125                           # tray centreline: 1/2 cell in front of the rack centre (a grid line)
@@ -103,7 +103,7 @@ TOP_ENTRY = (MANAGER_CH_X, (MANAGER_SPINE_Y[1], RACK_TRAY_IY))   # |x| and y of 
 ENTRY_FLANGE = 0.008                          # the brush plate's frame stands this far round the opening
 ENTRY_DROP = 0.001                            # the plate's top sits this far under the rack's top plane
 ENTRY_EDGE = 0.004                            # the Yellow edge: the frame's inner band round the opening
-# the half rack's roof-rail entries (front; mirrored at the rear for the power manager): the visual-pass-1 holes,
+# the half rack's roof-rail entries (front; mirrored at the rear for the power manager): the roof-rail holes,
 # their inner edge moved 4 mm out so the same plate (opening + flange) keeps 4.5 mm of rail toward the slot roof
 HALF_TOP_ENTRY = ((MANAGER_CH_X[0] + 0.016, MANAGER_CH_X[1] - 0.004), (MANAGER_SPINE_Y[1], 0.466))
 
@@ -117,7 +117,7 @@ def rack_frame(ny):
 
 
 # ---------------------------------------------------------------------------------------------------- room interface
-# Plan 3 (room pieces): where the raised floor, the aisle containment, the PDU strips and the rack labels meet the
+# Room pieces: where the raised floor, the aisle containment, the PDU strips and the rack labels meet the
 # racks. Rack-local, centred frame, +Y = front; |y| values are mirrored at the back. dc/rack.py builds these, the
 # build measures them back (build_report "geometry": contain_rails, pdu_receptacles, pdu_envelope_clear,
 # up_mount_rects / down_mount_rects) and Tests/test_room_interface.py checks the couplings on the measurements.
@@ -134,7 +134,7 @@ ROOF_CLEAR = 0.004                            # anything that moves into the ais
 # the freed rear PDU columns (the zero-U PDU strips' cells, Feed A = +x, Feed B mirrored at -x), the slot band
 PDU_COL_X = (0.25, 0.5)
 PDU_COL_Y = (-0.625, -0.375)
-# the largest box in the column clear of the frame (measured on the built LOD0, NOTES "Plan 3 Task 1"):
+# the largest box in the column clear of the frame (measured on the built LOD0):
 # x from 2 mm outside the 19" rail's outer face (0.29) to 2 mm inside the corner post's inner face (0.4225);
 # y from 2 mm behind the PDU bulkhead's face (0.3745) to 2 mm inside the frame's rear plane (0.598 = YK)
 PDU_ENVELOPE = ((0.292, 0.420), (-0.596, -0.377))
@@ -142,17 +142,16 @@ PDU_RECEPTACLE = ((PDU_ENVELOPE[0][0] + PDU_ENVELOPE[0][1]) / 2, (PDU_ENVELOPE[1
 # (0.356, -0.4865): the PDU inlet's twist-lock socket, flush in the plinth top (z = 0.25 local)
 LABEL_X = (-0.25, 0.25)                       # the rack-top label pad (front; mirrored for the back): two cells wide,
 LABEL_Y = (0.375, 0.625)                      # the front cell deep
-TRAY_END_INSET = 0.001                        # Plan 2: strut end plates and rod ends stay 1 mm inside the box
-# Plan 2's rod-coupler plate. A deliberate duplicate of dc/tray_plan.ROD_PLATE until Plan 2 merges into this branch
-# (main owns tray_plan): then tray_plan should import ROD_PLATE / TRAY_END_INSET from here. Pinned equal by
-# Tests/test_room_interface.py::test_rod_plate_single_source.
+TRAY_END_INSET = 0.001                        # strut end plates and rod ends stay 1 mm inside the box
+# The cable trays' rod-coupler plate. A deliberate duplicate of dc/tray_plan.ROD_PLATE; tray_plan should import
+# ROD_PLATE / TRAY_END_INSET from here. Pinned equal by Tests/test_room_interface.py::test_rod_plate_single_source.
 ROD_PLATE = 2 * (CELL - ROD_S - TRAY_END_INSET)   # 0.034
 
 # ---------------------------------------------------------------------------------------------------- PDU cords
-# Plan 3 Task 7: where power cords start and end, single-sourced for the future "live cabling" idea
-# (WS/docs/ideas/README.md, neighbour-aware live cabling): a pre-modelled cord from a strip outlet to a server inlet
-# needs both ends from here. Rack-local, centred x / y (the PDU strip's Feed A column, +x; Feed B mirrored at -x),
-# z slot-relative (0 = the slot's floor; slot k's floor is local z 0.25 + SLOT_H * (k - 1)).
+# Where power cords start and end, single-sourced for future neighbor-aware "live cabling": a pre-modelled cord
+# from a strip outlet to a server inlet needs both ends from here. Rack-local, centred x / y (the PDU strip's Feed A
+# column, +x; Feed B mirrored at -x), z slot-relative (0 = the slot's floor; slot k's floor is local
+# z 0.25 + SLOT_H * (k - 1)).
 #   * the zero-U strip (dc/pdu.py): per slot a pair of locking outlets side by side, on the strip's face toward the
 #     rear opening, at one slot-relative height; PDU_OUTLET_FACE_Y is the outlet's socket face (where a plug seats);
 #   * the server (dc/server.py _rear): two hot-swap PSUs on the rear panel's +x half, each with its power inlet;

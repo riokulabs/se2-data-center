@@ -1,4 +1,4 @@
-// API probe, Client side: one member per row of the Plan 4 API table that the Client scripts (the KVM sequencer,
+// API probe, Client side: one member per game API that the Client scripts (the KVM sequencer,
 // its part drivers and the rack-door link) use. Never loaded by the game; Tests/CompileCheck compiles it against the
 // probe's Simulation image, as GameScriptCodeProvider.cs:46-50 does, with the game's generators and analyzers.
 //

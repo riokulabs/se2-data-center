@@ -12,7 +12,7 @@ def test_report_has_every_block():
         pytest.skip("no build_report.json yet")
     with open(config.REPORT_PATH) as f:
         data = json.load(f)
-    # every pipeline block, plus any other catalogue block that has been built (Ruling P2-15: trays before Task 5)
+    # every pipeline block, plus any other catalogue block that has been built
     names = set(data["blocks"])
     assert names >= {b.name for b in catalog.BLOCKS}
     assert names <= {b.name for b in catalog.CATALOGUE}

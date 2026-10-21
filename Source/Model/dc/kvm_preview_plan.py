@@ -1,8 +1,8 @@
-"""Plan 4 Task 7: what the KVM motion previews render, and for how long (bpy-free, so the tests can read it).
+"""What the KVM motion previews render, and for how long (bpy-free, so the tests can read it).
 
-Each Run is a motion sampled from the CoreTests 240 Hz trajectories (or, for the data-only path of Ruling P4-12,
+Each Run is a motion sampled from the CoreTests 240 Hz trajectories (or, for the data-only path of a full rack's top slot,
 kvm_motion.data_only_trajectory), with the rack door's OpenRatio on the same clock; PLAN lists the views each run
-renders. dc/preview_scripts.py renders them; Tests/test_plan4_previews.py checks the videos against Run.frames.
+renders. dc/preview_scripts.py renders them; Tests/test_kvm_motion_previews.py checks the videos against Run.frames.
 """
 import bisect
 import os
@@ -13,7 +13,7 @@ from . import kvm_motion as K
 from . import subparts as S
 
 FPS = 60
-SLOT, TOP = 5, 8                                  # the KVM's slot; the full rack's top slot (P4-12)
+SLOT, TOP = 5, 8                                  # the KVM's slot; the full rack's top slot (data-only)
 
 class Run:
     """A motion to render: [(t, slide, fold)] at 240 Hz, a label, the door's OpenRatio over time."""
@@ -53,10 +53,10 @@ def runs():
     out["door_close_while_out"] = Run("door_close_while_out", K.load(path),
                                       f"door closes while out: fast stow at t = {cmd:.2f} s",
                                       door=lambda t: K.door_fraction(t, t0, DM.DOOR_SECONDS))
-    # P4-12: the top slot of a full rack runs the vanilla simultaneous motion (open, a hold, close)
+    # the top slot of a full rack runs the vanilla simultaneous motion (open, a hold, close)
     top = K.data_only_trajectory([(0.25, 0.0, 1.0), (0.6, 1.0, 0.0)])
     top += [(top[-1][0] + (i + 1) / 240, 0.0, 0.0) for i in range(60)]
-    out["data_only_top"] = Run("data_only_top", top, "top slot: the data-only path (P4-12)", slot=TOP)
+    out["data_only_top"] = Run("data_only_top", top, "top slot: the data-only path", slot=TOP)
     # the data-only open in slot 5, as long as the scripted open: the left half of the side-by-side
     n = len(out["open"].traj)
     do = [(i / 240, min(1.0, i / 240 / S.POP_TIME), min(1.0, i / 240 / S.POP_TIME)) for i in range(n)]

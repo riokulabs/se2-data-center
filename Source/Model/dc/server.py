@@ -157,7 +157,7 @@ TUB_DROP0 = 0.012     # LOD0 core tub top below zt: room for the recessed lid fi
 
 def _body(P, d, lod, bays=None, variant=None):
     """Darker core (the steel chassis tub) with Colorable skins: side skins, and a top split into a front service
-    lid and a rear cover, with a real 8 mm shadow gap. LOD0 layers them like a Keen face (visual pass 1):
+    lid and a rear cover, with a real 8 mm shadow gap. LOD0 layers them like a Keen face:
     - lid: a framed lid over a recessed field with two stamped stiffening beads, a flush lid-release latch (Darker
       pocket, Brushed T-handle, Yellow release tab) and a Darker type plate with the server's ID stencil;
     - rear cover: three transverse stiffening beads and a cut-in exhaust slot field over the PSU bays;
@@ -420,7 +420,7 @@ def _rear(P, d, lod, kind="psu", lamp=LAMP_GREEN, variant=None):
     zc = (zb + zt) / 2
     exb = (zc - 0.01, zt - 0.02)
     iob = (zb + 0.018, zc - 0.028)
-    psu = list(DM.SERVER_PSU_X)   # (dims: single-sourced with the inlets, Plan 3 Task 7 live-cabling hook)
+    psu = list(DM.SERVER_PSU_X)   # (dims: single-sourced with the inlets, for live cabling)
     fans = variant in REAR_FANS and lod == 0
     if fans:   # compute: round exhaust fans instead of the louvre (the front fan wall's hot air out)
         fr = min(0.042, (exb[1] - exb[0]) / 2 - 0.004)

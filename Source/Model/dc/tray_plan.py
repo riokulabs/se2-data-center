@@ -1,4 +1,4 @@
-"""Cable plans of the tray pieces (Plan 2, §Piece table). Pure Python (numpy), no Blender.
+"""Cable plans of the tray pieces. Pure Python (numpy), no Blender.
 
 A plan says, for one piece at one density, where everything goes: the ports, every bundle's centreline, the basket's
 centreline paths, the supports and the fittings. The Blender kit (dc/tray_kit.py) only sweeps and dresses what the
@@ -69,18 +69,18 @@ BOOT_CLEAR = TL.STRAP_T + 0.0015   # a boot keeps this much off the through bund
 TAG = (0.14, 0.002, 0.05)       # density tag on each wall's outside: along, thickness, height
 TAG_H = 0.025                   # tag bottom above the floor top (between the floor and the top wire)
 TAG_X = 0.125                   # tag centre from port a (on the dropped side, clear of the trapeze rods at L / 2)
-TAG_S = TL.U_LEG_S + TL.WIRE_R + 0.0015 + TAG[1] / 2   # clipped on the outside of the U-wire legs (Task 4)
+TAG_S = TL.U_LEG_S + TL.WIRE_R + 0.0015 + TAG[1] / 2   # clipped on the outside of the U-wire legs
 TAG_TEXT = {"Full": "F>M", "Moderate": "M>L", "Low": "L>0"}
 
 # ---------------------------------------------------------------------------------------------------- the Drop
 # The waterfalls leave over the tray's front wall (+y) and fall into the rack's front cable managers through the
-# top-entry brush plates (Task 1). Each one peels off lane L1+ (piece frame) at a split collar, climbs straight up out
+# top-entry brush plates. Each one peels off lane L1+ (piece frame) at a split collar, climbs straight up out
 # of the bundle, bends over towards its rack-side end, swings across the tray in plan at crest height, rolls over a
 # radius guide on the wall and falls plumb to the Drop's bottom plane.
 WF_SPLIT_DX = 0.18              # split collar this far from the waterfall's x, towards the Drop's centre
 WF_GUIDE_R = 0.10               # bundle-centre radius over the guide (the fibre and copper bend limit)
 WF_CREST = 0.147                # bundle-centre height over the crest (>= 0.13): the guide plate under it clears the
-#                                 safety-edge wire AND the basket's U-wire turned over it (Task 8: one U-wire stands
+#                                 safety-edge wire AND the basket's U-wire turned over it (one U-wire stands
 #                                 under each guide), by the gap its two spring clamps bridge
 WF_RISE_R = 0.05                # the climb's bend (vertical -> along x)
 WF_GUIDE_T = 0.006              # guide plate thickness (under the bundle), ribs included
@@ -93,9 +93,9 @@ WF_CLAMP_DX = 0.030             # two Brushed spring clamps, this far either sid
 WF_CLAMP = (0.008, 0.0015)      # the safety-edge wire: strip width (along x), thickness
 WF_STRAPS = (0.125, 0.375)      # bundle ties on the fall, at these heights over the bottom plane (the Chute's rung
 #                                 rhythm 0.125 + k 0.25 carries on up through a Drop over a Chute)
-ENTRY_SEAT = 0.0                # (Task 10) the landing collar and the Chute's plates sit ON their ENTRY plane (an
+ENTRY_SEAT = 0.0                # the landing collar and the Chute's plates sit ON their ENTRY plane (an
 #                                 interface plane like a port: the rack's brush frame is ENTRY_DROP under it, the
-#                                 Chute's top plate meets the Drop's collar there), not 1 mm over it: the T8 2 mm float
+#                                 Chute's top plate meets the Drop's collar there), not 1 mm over it: the old 2 mm float
 #                                 over the brush frame closes to the rack's own 1 mm (dims.ENTRY_DROP)
 ENTRY_COLLAR = dict(h=0.006, wall=0.006, gap=0.005)   # the landing brush collar on the rack's brush plate: height, ring
 #                                 wall, and the bristle gap between its bore and the bundle
@@ -741,7 +741,7 @@ def _drop(density):
         lane = "WF" + ent.name[-1]
         bundles.append(_waterfall(xw, xs, zf, 0.0, lane, ent.name))
         collar = _collar(parent, xs)
-        if any(b.params.get("dress") for b in bundles):     # (Task 10, P2-25) at Full the dressed top layer closes
+        if any(b.params.get("dress") for b in bundles):     # at Full the dressed top layer closes
             collar.params["hidden"] = True                  # over the collar: the plan keeps it, the kit skips it
         fittings += [collar, _guide(xw, zf)]
         y = Y_C + WF_FALL_S
@@ -972,7 +972,7 @@ def saddle_parts(f):
 
 
 def saddle_profiles(f):
-    """The formed deck's sections in the saddle's frame (Task 7), as top / bottom surface polylines:
+    """The formed deck's sections in the saddle's frame, as top / bottom surface polylines:
     "roll": [(s, h)] down one rolled end (sign +1; the other mirrors in s), h above the floor top, on the stack's own
     convex radius from the deck edge; "lip": [(t, h)] up one side lip (sign +1), from the flat deck round its bend
     and up its inner face. Each as (top, bottom) = the surface the cables meet and the one a deck_t below / outside."""
@@ -1062,7 +1062,7 @@ def fillet_centre(path):
 
 def corner_cells(plan):
     """A junction's corner cells outside the tray: each holds a fillet's centre (the T's two beside the branch, the
-    X's four corners). Only a fillet's sliver reaches into them (corner_graze), so they stay free (Task 7)."""
+    X's four corners). Only a fillet's sliver reaches into them (corner_graze), so they stay free."""
     n = np.round(plan.size / CELL).astype(int)
     return {tuple(int(v) for v in np.clip(np.floor(fillet_centre(path) / CELL), 0, n - 1))
             for path in plan.structure if path.kind == "wall"}

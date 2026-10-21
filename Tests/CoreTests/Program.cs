@@ -3,7 +3,7 @@
 //
 //   dotnet run -c Release                    run every registered test
 //   dotnet run -c Release -- --dump <dir>    also let tests write their trajectories (CSV/JSON) into <dir>, for the
-//                                            Python geometry checks and the Blender previews (Plan 4 Tasks 6-7)
+//                                            Python geometry checks and the motion charts
 //   dotnet run -c Release -- --verbose       also print every passing check (the measured margins live in the names)
 //
 // Prints "OK: N checks" and exits 0, or one "FAIL: ..." line per failed check, then "FAILED: F of N checks", exit 1.
@@ -22,7 +22,7 @@ internal static class Program
 {
     /// <summary>
     /// Every test, in run order. A test is a static method that calls <see cref="Check"/>; add new ones here
-    /// (the kvm.* tests are Plan 4 Task 5's motion core; runtime.* are Task 8's decisions).
+    /// (the kvm.* tests cover the motion core; runtime.* the sequencer's decisions).
     /// </summary>
     private static readonly List<(string Name, Action Run)> Tests = new List<(string, Action)>
     {

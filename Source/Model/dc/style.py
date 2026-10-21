@@ -2,7 +2,7 @@
 
 Ported from the v2 "SE-ified" mockups (tools/mockups/datacenter/dclib2.py) onto the se2model library:
 - player paint: the bodies are PaintedMetalColorable (black is a paint choice, not baked in);
-- material roles (docs/guides/modeling-keen-style.md 1d): Colorable shells, Darker housings and recesses, Brushed
+- material roles (as in vanilla blocks): Colorable shells, Darker housings and recesses, Brushed
   load-bearing steel (rails), MetalDull black-oxide hardware, Yellow as thin trim lines only;
 - chunky chamfers toward Keen's ~9 cm on big edges, crisp small breaks;
 - fewer, larger lights: lenses in Darker bezels;
@@ -27,14 +27,14 @@ HARDWARE = MD        # MetalDull: black-oxide bolts on paint
 STENCIL = FONT       # AtlasFont_BarlowCondensed (paint-masked: invisible on a same-colour body)
 STENCIL_WHITE = FONT + "_CleanWhite"   # vanilla 1024 clean white glyph atlas: rack IDs on Darker plates
 PARTS = P1           # AtlasDecal_Parts01
-LAMP_GREEN = "EmissiveGreen"   # always-lit "power OK" lamp (vanilla EmissiveGreen 78f2cbaa); mapped in Task 5
+LAMP_GREEN = "EmissiveGreen"   # always-lit "power OK" lamp (vanilla EmissiveGreen 78f2cbaa)
 
 CHAMFER_LARGE = 0.09   # Keen's big 45 deg chamfer on outer housing edges
 CHAMFER_SMALL = 0.015  # the crisp small break
-SHADOW_GAP = 0.016     # gap between split cover plates (reads at distance; guide 1c)
+SHADOW_GAP = 0.016     # gap between split cover plates (reads at distance)
 LED_SIZE = 0.012       # lens radius of a status lamp (Keen: 1.5-3 cm lenses in bezels)
 BOLT_R = 0.009         # chunky bolt head radius (readable at first-person range)
-KEEP_OUT = 0.027       # parts on a non-mounting face stay >= 2.5 cm inside the box plane (guide 8)
+KEEP_OUT = 0.027       # parts on a non-mounting face stay >= 2.5 cm inside the box plane
 
 
 def oct_pts(a0, b0, a1, b1, c):
@@ -136,19 +136,19 @@ def louvre_panel(p, F, a0, b0, a1, b1, n, lod=0):
 
 
 # ---------------------------------------------------------------------------------------------------- cable trays
-# Plan 2 Task 4 roles. The ledger CHECK found that the basket COULD take the player's paint (PaintedMetalColorable is
-# vanilla's only fully paintable material), but Ruling P2-21 (T4 fix round 1) keeps plan Decision 6: on the same
-# material the basket and the data cables are always one colour and blur into one mass. The basket is fixed bright
-# steel (BrushedMetal, chosen by preview: basket_compare); the data cables take the paint, so there is always contrast.
-TRAY_STEEL = STEEL     # the basket wires: galvanised / bright steel, not paintable (Ruling P2-21)
+# Cable tray roles. The basket COULD take the player's paint (PaintedMetalColorable is vanilla's only fully
+# paintable material), but it stays unpainted: on the same material the basket and the data cables are always one
+# color and blur into one mass. The basket is fixed bright steel (BrushedMetal, chosen by preview: basket_compare);
+# the data cables take the paint, so there is always contrast.
+TRAY_STEEL = STEEL     # the basket wires: galvanised / bright steel, not paintable
 TRAY_HW = STEEL        # rods, nuts, washers, rod plates, splice plates, buckles: zinc-plated, bright like the basket
-#                        (fix round 1: one material fewer, so a Reducer keeps <= 8 across its LODs with the card)
+#                        (one material fewer, so a Reducer keeps <= 8 across its LODs with the card)
 DATA = PAINT           # data bundles take the player's paint (tray_lanes)
 FIBRE = YELLOW         # fibre
 POWER = "PaintedMetalGrey"   # power (moderate)
 POWER_BLACK = "Rubber"       # black power (full); also boots
 TIE = DARK             # straps, collars, clamps, the strut channel
-TRAY_CARD = "GratingMetallic"   # LOD2 basket card (alpha-tested vanilla, chosen by preview: NOTES "Plan 2 Task 4")
+TRAY_CARD = "GratingMetallic"   # LOD2 basket card (alpha-tested vanilla, chosen by preview)
 
 
 PERF = "MetalPerforationSteel"   # vanilla perforated steel (alpha-masked, ~44 % open): door leaves, cable-tray floors

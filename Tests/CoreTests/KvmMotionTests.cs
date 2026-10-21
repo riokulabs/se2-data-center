@@ -1,6 +1,6 @@
 // Tests of the KVM motion core: Scripts/Client/Core/{KvmMotion, KvmMotionTuning, KvmFrontCell, KvmSpawnPolicy}.cs
-// (Plan 4 Task 5). 60 Hz unless a test says otherwise. With --dump, kvm.trajectories writes the 240 Hz CSVs that the
-// Task 6 geometry checks and the Task 7 previews read.
+// 60 Hz unless a test says otherwise. With --dump, kvm.trajectories writes the 240 Hz CSVs that the Python geometry
+// checks (Tests/test_kvm_sequence.py) and the motion charts read.
 #nullable enable
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ internal static class KvmMotionTests
 {
     private static readonly KvmMotionTuning T = KvmMotionTuning.Default;
 
-    // The settle budgets (Ruling P4-11: feel beats the Task 5 brief's 1.40 / 1.20 / 0.60 s). The Task 7 retune slowed
+    // The settle budgets (feel won over the original 1.40 / 1.20 / 0.60 s targets). The feel retune slowed
     // the drawer to a 0.85 m/s peak and gave the lid weight, so the open and close take longer; the fast stow still
     // has to beat the closing rack door (Tests/test_kvm_sequence.py measures that race in geometry).
     private const double OpenBudget = 2.50, CloseBudget = 1.90, FastStowBudget = 0.65;
@@ -428,16 +428,16 @@ internal static class KvmMotionTests
     /// <summary>
     /// 500 seeded random target flips (Out and Stowed alternating, about a third of the stows fast): every step is
     /// continuous in position and velocity. Checked three ways: (1) at 60 Hz, no step moves an axis faster than it can
-    /// travel (a sanity bound, the brief's "no step jumps"); (2) at 240 Hz, velocity changes no faster than the springs can accelerate
-    /// (no velocity pops); (3) the position change matches the velocity (no teleport behind a smooth rate).
+    /// travel (a sanity bound: no step jumps); (2) at 240 Hz, velocity changes no faster than the springs can
+    /// accelerate (no velocity pops); (3) the position change matches the velocity (no teleport behind a smooth rate).
     /// </summary>
     public static void ReversalIsContinuous()
     {
         List<(double, KvmTarget)> schedule = RandomSchedule(20261018, 500);
         double end = schedule[schedule.Count - 1].Item1 + 1.5;
 
-        // (1) 60 Hz, a sanity bound only: no axis outruns its top speed (7/s, 8/s; the brief's 2.5*dt / 4*dt were
-        // replaced in Task 5). (2) and (3) are the real continuity checks.
+        // (1) 60 Hz, a sanity bound only: no axis outruns its top speed (7/s, 8/s; these replaced the
+        // earlier 2.5*dt / 4*dt bounds). (2) and (3) are the real continuity checks.
         List<Sample> run60 = Run(Stowed(), Hz(60), Scheduled(schedule), end);
         double worstDs = 0.0, worstDf = 0.0;
         for (int i = 1; i < run60.Count; i++)
@@ -534,7 +534,7 @@ internal static class KvmMotionTests
     }
 
     /// <summary>
-    /// The retract gate needs the lid on its way down (KvmMotion.LidClear; Task 7): a stow commanded just after the lid
+    /// The retract gate needs the lid on its way down (KvmMotion.LidClear): a stow commanded just after the lid
     /// began to lift finds it under the gate but still rising, and the drawer must stay out until the lid turns over,
     /// then retract. Checked for Stowed (2 degree gate) and FastStow (8 degrees), at 240 Hz.
     /// </summary>
@@ -581,7 +581,7 @@ internal static class KvmMotionTests
     }
 
     /// <summary>
-    /// A part resting on its preloaded stop leaves it at once (KvmMotion.Axis.LeaveStop; Task 7): from Stowed the
+    /// A part resting on its preloaded stop leaves it at once (KvmMotion.Axis.LeaveStop): from Stowed the
     /// drawer moves on the first step of any size, and the open's start does not depend on the step size; on a stow
     /// the drawer leaves its out stop within one step of the lid clearing the gate.
     /// </summary>
@@ -880,7 +880,7 @@ internal static class KvmMotionTests
     }
 
     /// <summary>
-    /// Placement fix (2026-10-18): the rack's front zone is free cells (the slot opening), so the rack link looks BESIDE
+    /// The rack's front zone is free cells (the slot opening), so the rack link looks BESIDE
     /// the KVM. In the full and half rack's cell layout (dc/rack.py: the box minus the slots and the slots' front row),
     /// for a KVM in every slot facing the front: the front cell is free, some Beside cell is the rack's and the rack's
     /// box contains the KVM's; facing the rear, the front cell (the rear stop's) is the rack's. Beside cells are outside
@@ -955,7 +955,7 @@ internal static class KvmMotionTests
     // ------------------------------------------------------------------ trajectories (--dump)
 
     /// <summary>
-    /// The six 240 Hz trajectories for Tasks 6 and 7, as <c>t,slide,fold,target</c> CSVs: written only with --dump,
+    /// The six 240 Hz trajectories of the sequenced motion, as <c>t,slide,fold,target</c> CSVs: written only with --dump,
     /// checked always (each one ends settled at the pose its last target names).
     /// </summary>
     public static void Trajectories()
@@ -991,13 +991,13 @@ internal static class KvmMotionTests
     }
 
     /// <summary>
-    /// The reversal sweep for Task 6's swept-geometry checks: one 240 Hz run per (family, reversal instant), every
+    /// The reversal sweep for the Python swept-geometry checks: one 240 Hz run per (family, reversal instant), every
     /// 0.1 s through the whole motion, as one <c>run,t,slide,fold,target</c> CSV. The families are the four ways a
     /// command can land mid-motion:
     /// <list type="bullet">
     /// <item><c>open_stow@t</c>: opening, switched Off at t;</item>
     /// <item><c>open_fast@t</c>: opening, the rack door starts closing at t (FastStow);</item>
-    /// <item><c>close_out@t</c>: closing, switched back On at t (the M2 bend);</item>
+    /// <item><c>close_out@t</c>: closing, switched back On at t (the path bends back out);</item>
     /// <item><c>close_fast@t</c>: closing, the rack door starts closing at t.</item>
     /// </list>
     /// Each run must end settled at its last target's pose.

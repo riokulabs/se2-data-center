@@ -1,15 +1,16 @@
-"""The cable-tray preview catalogue (Plan 2, from Task 4 on): Blender renders of the built tray blocks.
+"""The cable-tray preview catalogue: Blender renders of the built tray blocks.
 
-    DC_PREVIEW=plan2-t4 blender -b --python Source/Model/build_dc.py -- "DC_Tray_StraightS_*" "DC_Tray_StraightL_*" \
+    DC_PREVIEW=trays blender -b --python Source/Model/build_dc.py -- "DC_Tray_StraightS_*" "DC_Tray_StraightL_*" \
         "DC_Tray_Reducer_*" DC_Rack42_Open DC_Rack24_Open DC_Srv_Compute DC_Srv_Storage DC_Srv_Switch DC_Srv_Blank
-    python3 Source/Model/p2t4_sheet.py          # the per-piece sheets and the contact sheet (Pillow)
+    python3 Source/Model/tray_sheet.py          # the per-piece sheets and the contact sheet (Pillow)
 
-Writes preview/p2-task-<N>/ (DC_SHOTS=prefix,... renders a subset). Every shot uses the core preview rig
+Writes preview/trays/ (DC_SHOTS=prefix,... renders a subset). Every shot uses the core preview rig
 (dc/preview.py Shot, dc/preview_mats.py stand-ins: the paint goes to PaintedMetalColorable, i.e. the data cables;
-the basket is fixed BrushedMetal, Ruling P2-21). Later tasks call render_all(BUILT, task=N): each shot family
-renders whatever pieces are built.
+the basket is fixed BrushedMetal). DC_PREVIEW=tray-turns | tray-junctions | tray-drops | tray-compare | tray-hall
+render the other shot families into preview/trays-<family>/ (render_all(BUILT, which=...)); each renders whatever
+pieces are built.
 
-Shot families (task 4):
+Shot families (the catalogue):
   piece_<name>_{34,top,end}          every built piece: 3/4 front, top (ortho), nearly end-on at port a
   close_{mesh,edge,splice,strap,hanger,boot,tag}   1 m close-ups of the kit parts
   ladder_{side,joint}                the density ladder (Empty / Low / Moderate / Full) and Full nested on Low
@@ -37,15 +38,16 @@ from . import preview as PV
 from . import preview_mats as PM
 from .preview import Rz, Shot, T, want
 
-OUT = os.path.join(config.PREVIEW_DIR, "p2-task-4")
+OUT = os.path.join(config.PREVIEW_DIR, "trays")
 CELL = 0.25
 D = ("Empty", "Low", "Moderate", "Full")
 STAMP = {}
 
 
-def _out(task):
+def _out(which):
     global OUT
-    OUT = os.path.join(config.PREVIEW_DIR, f"p2-task-{task}", os.environ.get("DC_PREVIEW_SUB", ""))
+    folder = "trays" if which == "catalogue" else f"trays-{which}"
+    OUT = os.path.join(config.PREVIEW_DIR, folder, os.environ.get("DC_PREVIEW_SUB", ""))
     os.makedirs(OUT, exist_ok=True)
     PV.OUT = OUT
 
@@ -245,8 +247,8 @@ MIX = ("DC_Srv_Compute", "DC_Srv_Storage", None, "DC_Srv_Switch", "DC_Srv_Comput
 
 
 def run_racks(built):
-    from . import preview_p2t1 as P2
-    from . import preview_task9 as P9
+    from . import preview_rack_tops as pv_rack_tops
+    from . import preview_rack_doors as pv_rack_doors
     need = ("DC_Rack42_Open", "DC_Tray_StraightL_Full", "DC_Tray_StraightS_Full")
     if not all(n in built for n in need):
         return
@@ -261,15 +263,15 @@ def run_racks(built):
             continue
         s = scene(nm, res=(2200, 1250), floor=(-2.5, 5.0, -3.0, 4.0), light=1.3)
         for x, n in ((0.0, "DC_Rack42_Open"), (1.0, "DC_Rack42_Open"), (2.0, "DC_Rack42_Open"), (3.0, half)):
-            P9.rack(s, built, n, x, 0.0, mix=mix if n != half else mix[:4], working=True)
+            pv_rack_doors.rack(s, built, n, x, 0.0, mix=mix if n != half else mix[:4], working=True)
         piece(s, built, "DC_Tray_StraightL_Full", -1.0, y0, z0, paint="blue")
         piece(s, built, "DC_Tray_StraightS_Full", 1.5, y0, z0, paint="blue")
         piece(s, built, "DC_Tray_StraightS_Full", 2.0, y0, z0, paint="blue")
-        P2._interface(s, 1.0, 2.5, full_top)                       # the Drop ghost over rack 2, its waterfalls
-        P2._interface(s, 3.0, 2.5 if half.endswith("42_Open") else 1.25, full_top, chute=not half.endswith("42_Open"))
+        pv_rack_tops._interface(s, 1.0, 2.5, full_top)                       # the Drop ghost over rack 2, its waterfalls
+        pv_rack_tops._interface(s, 3.0, 2.5 if half.endswith("42_Open") else 1.25, full_top, chute=not half.endswith("42_Open"))
         if view == "34":
             s.camera((-2.6, 4.6, 3.9), (1.2, 0.0, 2.6), 30)
-            s.caption("Drop (ghost, Task 6) over rack 2; Drop + Chute over the half rack", (1.6, 0.6, 3.75), 0.07)
+            s.caption("Drop (ghost) over rack 2; Drop + Chute over the half rack", (1.6, 0.6, 3.75), 0.07)
         elif view == "front":
             s.camera((1.3, 7.5, 2.9), (1.3, 0.0, 2.6), 35)
         elif view == "joint":
@@ -368,7 +370,7 @@ def lods(built, names=("DC_Tray_StraightS_Full", "DC_Tray_StraightL_Full", "DC_T
             continue
         k = len(built[n]["lods"])
         L, W = _len(n), CELL * catalog.BY_NAME[n].cells[2]
-        pitch, Lc = (0.75, L) if W <= 0.5 else (W + 0.3, max(L, 0.5 * (W + 0.3) * k))   # (straights as in Task 4)
+        pitch, Lc = (0.75, L) if W <= 0.5 else (W + 0.3, max(L, 0.5 * (W + 0.3) * k))   # (straights as in the catalogue)
         for view in ("34", "below"):
             s = scene(f"{nm}_{view}", res=(2200, 900), floor=(-4, 4, -3, 3) if view == "34" else None, floor_z=-0.8)
             if view == "34":
@@ -473,7 +475,7 @@ STEELS = (("BrushedMetal", "Brushed"), ("Chrome", "Chrome"), ("MetalDull", "Meta
 
 
 def basket_compare(built):
-    """Ruling P2-21: the fixed basket steel, by comparison (the data cables keep the paint; blue here)."""
+    """The fixed basket steel, by comparison (the data cables keep the paint; blue here)."""
     n = "DC_Tray_StraightL_Full"
     if n not in built:
         return
@@ -504,7 +506,7 @@ def basket_compare(built):
         done(s)
 
 
-# ---------------------------------------------------------------------------------------------------- turns (task 6)
+# ---------------------------------------------------------------------------------------------------- turns
 TURNS = ("TurnH", "TurnUp", "TurnDown")
 
 
@@ -872,11 +874,11 @@ RACK = "DC_Rack42_Open"
 
 
 def _ghosts_row(s, xs, M, full_top):
-    """Drop ghosts (preview_p2t1._interface) over the racks at rack-local xs, moved by M (a turned row)."""
-    from . import preview_p2t1 as P2
+    """Drop ghosts (preview_rack_tops._interface) over the racks at rack-local xs, moved by M (a turned row)."""
+    from . import preview_rack_tops as pv_rack_tops
     before = set(bpy.data.objects)
     for x in xs:
-        P2._interface(s, x, full_top, full_top)
+        pv_rack_tops._interface(s, x, full_top, full_top)
     for o in set(bpy.data.objects) - before:
         o.matrix_world = M @ o.matrix_world
 
@@ -885,7 +887,7 @@ def grid_layout(built):
     """An overhead grid over a rack row: two rows of four racks facing each other across a 1.0 m aisle, a tray over
     each row (Drop ghosts over its racks), joined by a connector: a Tee on row A's tray, two straights across the
     aisle, a Cross on row B's tray whose far port feeds on over row B (to the next room)."""
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     d = "Full"
     need = [RACK, f"DC_Tray_Tee_{d}", f"DC_Tray_Cross_{d}", f"DC_Tray_StraightS_{d}", f"DC_Tray_StraightL_{d}"]
     if not all(n in built for n in need):
@@ -901,8 +903,8 @@ def grid_layout(built):
             continue
         s = scene(nm, res=(2400, 1600), floor=(-3.0, 6.0, -3.0, 6.5), light=1.3)
         for x in range(4):
-            P9.rack(s, built, RACK, float(x), 0.0, mix=mix[:4], working=True)
-            P9.rack(s, built, RACK, float(x), YB, rot=180.0, mix=mix[4:], working=True)
+            pv_rack_doors.rack(s, built, RACK, float(x), 0.0, mix=mix[:4], working=True)
+            pv_rack_doors.rack(s, built, RACK, float(x), YB, rot=180.0, mix=mix[4:], working=True)
         # row A tray (centreline y 0.125): S | Drop 0 | Tee over rack 1 | Drop 2 | Drop 3 | S
         ya = DM.TRAY_RACK_Y - 0.25
         piece(s, built, S, -1.0, ya, z0)
@@ -977,13 +979,13 @@ def render_junctions(built):
 
 
 
-# ---------------------------------------------------------------------------------------------------- task 8: drops
+# ------------------------------------------------------------------------------------------------------------- drops
 DROPS = ("Drop", "Chute", "Rods")
 FULL42, HALF24 = 2.5, 1.25           # rack top planes
 
 
 def pieces8(built):
-    """Every Task 8 piece at 3/4, front (+y, the rack fronts), side (port a's end) and top (ortho)."""
+    """Every drop piece at 3/4, front (+y, the rack fronts), side (port a's end) and top (ortho)."""
     for n in sorted(built_trays(built) + [b for b in built if catalog.BY_NAME[b].family == "trayrods"],
                     key=lambda k: [b.name for b in catalog.CATALOGUE].index(k)):
         spec = catalog.BY_NAME[n]
@@ -1020,7 +1022,7 @@ def _drop_on_rack(s, built, drop, rack_x, full=True, chute=None, paint="blue"):
 def landing(built):
     """The brush-plate landings close up ON the real core racks: the 42U (a Drop) and the 24U (a Chute under a
     Drop), open and with doors (open 85 deg), at each top entry; and the half rack's chute foot."""
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     D_ = "DC_Tray_Drop_Full"
     if D_ not in built:
         return
@@ -1037,7 +1039,7 @@ def landing(built):
                 if not want(nm):
                     continue
                 s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-                P9.rack(s, built, r, 0.0, 0.0, f=1.0 if "Split" in r else 0.0, working=True)
+                pv_rack_doors.rack(s, built, r, 0.0, 0.0, f=1.0 if "Split" in r else 0.0, working=True)
                 _drop_on_rack(s, built, D_, 0.0, chute="DC_Tray_Chute" if half else None)
                 p = Vector((sx * DM.WF_X, DM.WF_Y, top))
                 if view == "34":
@@ -1051,7 +1053,7 @@ def landing(built):
     nm = "land_chute_top"
     if "DC_Rack24_Open" in built and "DC_Tray_Chute" in built and want(nm):   # the Drop's collar on the Chute's top
         s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-        P9.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
+        pv_rack_doors.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
         _drop_on_rack(s, built, D_, 0.0, chute="DC_Tray_Chute")
         p = Vector((DM.WF_X, DM.WF_Y, FULL42))
         s.camera(tuple(p + Vector((0.30, 0.42, -0.10))), tuple(p + Vector((0.0, 0.0, 0.0))), 34)
@@ -1060,7 +1062,7 @@ def landing(built):
     nm = "land_collar_macro"
     if "DC_Rack42_Open" in built and want(nm):           # the brush collar and its bristles, from above
         s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-        P9.rack(s, built, "DC_Rack42_Open", 0.0, 0.0, working=True)
+        pv_rack_doors.rack(s, built, "DC_Rack42_Open", 0.0, 0.0, working=True)
         _drop_on_rack(s, built, D_, 0.0)
         p = Vector((DM.WF_X, DM.WF_Y, FULL42))
         s.camera(tuple(p + Vector((0.09, 0.13, 0.16))), tuple(p + Vector((0.0, 0.0, 0.0))), 40)
@@ -1069,7 +1071,7 @@ def landing(built):
     nm = "land_chute_foot"
     if "DC_Rack24_Open" in built and "DC_Tray_Chute" in built and want(nm):
         s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-        P9.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
+        pv_rack_doors.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
         _drop_on_rack(s, built, D_, 0.0, chute="DC_Tray_Chute")
         p = Vector((DM.WF_X, DM.WF_Y, HALF24))
         s.camera(tuple(p + Vector((0.38, 0.55, 0.35))), tuple(p + Vector((-0.02, 0.0, 0.12))), 34)
@@ -1111,7 +1113,7 @@ def rack_row(s, built, paint="blue", rods=True, mix=None, doors=0.0, row=None):
     Reducer F>M -> Drop Moderate (rack 3) -> Reducer M>L -> Drop Low (rack 4) -> Drop Low over the half rack with a
     Chute -> Reducer L>0 -> StraightS Empty; Rods 1.0 m from every trapeze to a ceiling 1.0 m over the tray.
     -> {rack x: rack name}, the x of every joint, the ceiling height."""
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     x, racks, joints = -1.0, {}, []
     mix = mix if mix is not None else tuple(m if (m is None or m in built) else None for m in MIX)
     top = FULL42 + 0.75
@@ -1129,7 +1131,7 @@ def rack_row(s, built, paint="blue", rods=True, mix=None, doors=0.0, row=None):
         joints.append(x)
     for rx, rack in racks.items():
         if rack in built:
-            P9.rack(s, built, rack, rx, 0.0, mix=mix if rack.startswith("DC_Rack42") else mix[:4], working=True,
+            pv_rack_doors.rack(s, built, rack, rx, 0.0, mix=mix if rack.startswith("DC_Rack42") else mix[:4], working=True,
                     f=doors)
     return racks, joints[:-1], top + 1.0
 
@@ -1274,14 +1276,14 @@ def render_drops(built):
                        "DC_TrayRods_025"])
 
 
-# ---------------------------------------------------------------------------------------------------- task 10: audit
-AUDIT_SHAPES = ("StraightS", "StraightL", "TurnH", "TurnUp", "TurnDown", "Tee", "Cross", "Drop", "Reducer")
+# ---------------------------------------------------------------------------------------------------------- compare
+COMPARE_SHAPES = ("StraightS", "StraightL", "TurnH", "TurnUp", "TurnDown", "Tee", "Cross", "Drop", "Reducer")
 
 
-def audit_shapes(built):
+def compare_shapes(built):
     """Every shape at Full and Low (and the Chute and the 1.0 m rods), 3/4 from front-left-high, the camera 1 m and
     3 m from the piece's centre (the same cameras before and after: DC_PREVIEW_SUB=before|after)."""
-    names = [f"DC_Tray_{sh}_{d}" for sh in AUDIT_SHAPES for d in ("Full", "Low")] + ["DC_Tray_Chute",
+    names = [f"DC_Tray_{sh}_{d}" for sh in COMPARE_SHAPES for d in ("Full", "Low")] + ["DC_Tray_Chute",
                                                                                      "DC_TrayRods_100"]
     direction = Vector((-0.55, 0.75, 0.42)).normalized()
     for n in names:
@@ -1299,10 +1301,10 @@ def audit_shapes(built):
             done(s)
 
 
-def audit_details(built):
-    """The carries' evidence shots: a free run end (V-T7b) and a joint next to it (the caps must not show there), the
-    Tee's M0 branch peel (M-3), the lay at 1 m (T4 banding), the landing collar and the Chute foot (the 2.5 mm
-    float), the Drop's dressing (P2-25)."""
+def detail_shots(built):
+    """Close-ups of the details that are easy to get wrong: a free run end and a joint next to it (the caps must not
+    show there), the Tee's LOD0 branch peel, the lay at 1 m (banding), the landing collar and the Chute foot (the
+    2.5 mm float), the Drop's dressing."""
     S, L = "DC_Tray_StraightS_", "DC_Tray_StraightL_"
     for d in ("Full", "Low"):
         nm = f"end_free_{d}"
@@ -1339,7 +1341,7 @@ def audit_details(built):
             route(s, built, [(name, "a", "b")], start=ORIGIN)
             s.camera(loc, tgt, 30)
             done(s)
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     D_ = "DC_Tray_Drop_Full"
     if D_ in built and "DC_Rack42_Open" in built:
         for nm, rack, chute, top, off, tgt_dz, lens in (
@@ -1349,7 +1351,7 @@ def audit_details(built):
             if not want(nm) or rack not in built or (chute and chute not in built):
                 continue
             s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-            P9.rack(s, built, rack, 0.0, 0.0, working=True)
+            pv_rack_doors.rack(s, built, rack, 0.0, 0.0, working=True)
             _drop_on_rack(s, built, D_, 0.0, chute=chute)
             p = Vector((DM.WF_X, DM.WF_Y, top))
             s.camera(tuple(p + Vector(off)), tuple(p + Vector((0, 0, tgt_dz))), lens)
@@ -1367,7 +1369,7 @@ def audit_details(built):
             done(s)
 
 
-def audit_runs(built):
+def run_shots(built):
     """The long mixed run over a populated rack row (3/4, the aisle at eye level, a worm's-eye view from the floor)
     and the junction network (Full)."""
     need = [n for n, _ in ROW] + ["DC_Tray_Chute", "DC_Rack42_Open", "DC_Rack24_Open"]
@@ -1399,39 +1401,36 @@ def audit_runs(built):
         done(s)
 
 
-def render_audit(built):
-    audit_shapes(built)
-    audit_details(built)
-    audit_runs(built)
+def render_compare(built):
+    compare_shapes(built)
+    detail_shots(built)
+    run_shots(built)
     vanilla(built)
     junction_vanilla(built)
     drop_vanilla(built)
 
 
-def render_all(built, task=4):
-    _out(task)
+def render_all(built, which="catalogue"):
+    """which: catalogue | turns | junctions | drops | compare | hall (build_dc.py TRAY_SETS)."""
+    _out(which)
     PM.get("Caption")
-    if task == 11:   # the final hero set: the populated data hall, aisle eye level, worm's eye, junction network
-        global OUT
-        OUT = os.path.join(config.PREVIEW_DIR, "plan2-task-11")
-        os.makedirs(OUT, exist_ok=True)
-        PV.OUT = OUT
-        audit_runs(built)
+    if which == "hall":   # the final hero set: the populated data hall, aisle eye level, worm's eye, junction network
+        run_shots(built)
         print(f"preview_trays: {len(STAMP)} shots -> {OUT}")
         return
-    if task == 10:
-        render_audit(built)
+    if which == "compare":
+        render_compare(built)
         print(f"preview_trays: {len(STAMP)} shots -> {OUT}")
         return
-    if task == 8:
+    if which == "drops":
         render_drops(built)
         print(f"preview_trays: {len(STAMP)} shots -> {OUT}")
         return
-    if task == 6:
+    if which == "turns":
         render_turns(built)
         print(f"preview_trays: {len(STAMP)} shots -> {OUT}")
         return
-    if task == 7:
+    if which == "junctions":
         render_junctions(built)
         print(f"preview_trays: {len(STAMP)} shots -> {OUT}")
         return

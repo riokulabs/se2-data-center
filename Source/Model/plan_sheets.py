@@ -1,15 +1,15 @@
 """Cable-plan diagrams (Pillow, no Blender): orthographic drawings of the tray plans (dc/tray_plan.py).
 
-    python3 Source/Model/plan_sheets.py [--task 2|3] [--out <folder>]
+    python3 Source/Model/plan_sheets.py [--bends] [--out <folder>]
 
-Writes, into the output folder (default preview/p2-task-2/):
+Writes, into the output folder (default preview/cable-plans/):
   * 01_lanes_<Density>.png, 01_lanes_ladder.png: the end-on port diagram per density (basket, lanes, lane rings
     of the lanes a denser tray adds, trapeze rods), and 02_nesting.png (every lane by the density that adds it);
   * 10_<block>.png: each linear piece in top, side and end view plus both port faces with their lane rings;
   * 20_density_ladder.png, 21_mixed_joint.png, 22_reducer_chain.png, 23_run_rhythm.png: the joints;
   * 30_drop_over_rack.png, 31_drop_chute_half_rack.png: the Drop and the Chute over stand-in rack boxes;
   * contact.png: everything on one sheet.
-With --task 3 (into preview/p2-task-3/): 10_<block>.png for every bend and junction at every density (top, side,
+With --bends (into preview/cable-plans-bends/): 10_<block>.png for every bend and junction at every density (top, side,
 end and every port), 20_strap_radials.png, 30_tee_cross_detail.png, 31_junction_run_densities.png,
 32_junction_run_full.png, 40_offset_up_down.png and contact.png.
 Drawn from the plans only; colours are the preview stand-ins of the vanilla materials (data = blue)."""
@@ -622,7 +622,7 @@ def drop_chute_half_rack():
                   "roof entries")
 
 
-# ---------------------------------------------------------------------------------------------------- Task 3 sheets
+# ----------------------------------------------------------------------------------------------------- bend sheets
 from dc import tray_bends as TB  # noqa: E402
 
 
@@ -760,7 +760,7 @@ def offset_sheet():
     return titled(hstack(rows), "Vertical offset: an up / down turn pair", None)
 
 
-def main_t3(out):
+def main_bends(out):
     os.makedirs(out, exist_ok=True)
     written = []
 
@@ -797,12 +797,12 @@ def contact(written, save):
 
 
 def main(argv):
-    task = argv[argv.index("--task") + 1] if "--task" in argv else "2"
-    out = os.path.join(config.PREVIEW_DIR, f"p2-task-{task}")
+    bends = "--bends" in argv
+    out = os.path.join(config.PREVIEW_DIR, "cable-plans-bends" if bends else "cable-plans")
     if "--out" in argv:
         out = os.path.abspath(argv[argv.index("--out") + 1])
-    if task == "3":
-        return main_t3(out)
+    if bends:
+        return main_bends(out)
     os.makedirs(out, exist_ok=True)
     written = []
 
@@ -820,7 +820,7 @@ def main(argv):
                 "end-on at a port (s to the right, h up); each density adds lanes to the one below"), "01_lanes_ladder.png")
     save(nesting_panel(), "02_nesting.png")
     for b in catalog.CATALOGUE:
-        if b.family in ("tray", "trayrods") and b.variant not in P.BENDS:     # the Task 2 set
+        if b.family in ("tray", "trayrods") and b.variant not in P.BENDS:     # the linear pieces
             save(piece_sheet(P.plan(b), b.name), f"10_{b.name}.png")
     # the density ladder: StraightS at each density, top + end
     cols = []

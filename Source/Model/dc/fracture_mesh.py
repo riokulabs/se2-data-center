@@ -8,7 +8,7 @@ cut_lod(objs, plan, lod, coll) -> (whole, caps)
     caps   {zone index: object} the break faces of that zone, in FracturedMaterial01, UVs projected on the seam
            plane at vanilla's density (fracture.CUT_UV_PER_M); a cap face of a hidden part (role hide: a tray's
            cable) carries dc_role = hide (else 0), so the exporter puts it in the zone's _Hide group with its part
-           (Plan 5 Task 13 fix round 1: it stood as a loose disc in the empty tray from 30 % on).
+           (otherwise it stood as a loose disc in the empty tray from 30 % on).
            The faces of the family's core parts (fracture.CORE_PARTS: the solid inside, Keen's way) join their
            zone's caps, FracturedMaterial01 with box UVs at the same density (_as_core, _core_to_caps).
 How a LOD object is cut, per seam (fracture.Seam):
@@ -498,8 +498,8 @@ def build_caps(whole, plan, coll, name, thin_caps=True, min_len=None):
         for f in cb.faces:
             s = plan.seams[f[kl] - 1]
             # projected on the seam plane; a cap face tilted more than 15 deg off it (a jagged cut's flank, the cap
-            # of a thin member cut at an angle) on its own plane, so every cap keeps vanilla's density (2026-10-20:
-            # with the racks' solid plinth core gone, such flanks set the 42U racks' median at 0.24 UV/m)
+            # of a thin member cut at an angle) on its own plane, so every cap keeps vanilla's density (without this,
+            # such flanks pull the 42U racks' median down to 0.24 UV/m)
             n = Vector(s.n) if abs(f.normal.dot(Vector(s.n))) >= 0.966 else f.normal
             t1 = n.orthogonal().normalized()
             t2 = n.cross(t1).normalized()

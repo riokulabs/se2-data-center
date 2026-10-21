@@ -1,6 +1,6 @@
-// API probe, Simulation side: one member per row of the Plan 4 API table that the Simulation scripts use. It is
+// API probe, Simulation side: one member per game API that the Simulation scripts use. It is
 // never loaded by the game; Tests/CompileCheck compiles it exactly as the game would (run.sh all --mod ApiProbe),
-// so a game update that renames or hides one of these members fails here first, with the row named.
+// so a game update that renames or hides one of these members fails here first, with the member named.
 //
 // Game APIs (decompiled 2.4.0.95, tools/decompiled/...; "N [2.4: M]" = line N in 4.0.0.3151, tools/decompiled-current/...):
 //   InGameScriptingObjectBuilder.Script / Running       Game2.Simulation/Keen.Game2.Simulation.Scripting/InGameScriptingObjectBuilder.cs:562, 567
@@ -36,7 +36,8 @@ using Keen.VRage.Library.Utils;
 
 namespace DataCenter.Probe;
 
-/// <summary>A public Simulation type the Client probe uses, proving Client compiles against Simulation's image (P4-5).</summary>
+/// <summary>A public Simulation type the Client probe uses, proving Client compiles against Simulation's
+/// image.</summary>
 public static class ProbeShared
 {
     public const string Prefix = "[DataCenter] probe: ";

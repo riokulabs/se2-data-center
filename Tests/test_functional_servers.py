@@ -1,8 +1,8 @@
-"""Task 6: the timer, event-controller and status-display servers behave as their vanilla blocks.
+"""The timer, event-controller and status-display servers behave as their vanilla blocks.
 
 The vanilla values are read from tools/vanilla-ref (read-only hard links of the SDK) with json, never copied.
 
-Mesh-part naming (dc/functional.py): the NonFractured model's mesh parts are its material slots; since Plan 2 Task 9b
+Mesh-part naming (dc/functional.py): the NonFractured model's mesh parts are its material slots;
 the Fractured and Damaged models are fractured like vanilla's, so their parts are "<group>-<material>" with the lamps
 in the zones' "Fracture_NN_Hide" groups. Vanilla's IndicatorMeshParts list both forms ("EmissiveOff",
 "Fracture_01_Hide-EmissiveOff", ...). So "our indicator parts == vanilla's" is checked on vanilla's unfractured names,
@@ -82,7 +82,7 @@ def test_indicator_parts_match_vanilla(staged, name):
         assert ours == plain, (name, where, sorted(parts))
     fractured = {p for p in _manifest(name)["fractured"]["parts"] if "-" in p and p.split("-", 1)[1] in plain}
     assert fractured and all(p.split("-", 1)[0].endswith("_Hide") for p in fractured), sorted(fractured)
-    # the staged indicator lists every one of them: vanilla's names, plus (Task 9c) the lamp parts of a zone vanilla
+    # the staged indicator lists every one of them: vanilla's names, plus the lamp parts of a zone vanilla
     # does not have (a 6U server's third zone, Fracture_03_Hide-<slot>)
     rel = integration._block_files(catalog.BY_NAME[name], "IndicatorDefinition")[0]
     listed = set(_list(_body(read_json(os.path.join(config.STAGE_ASSETS, rel))["$Value"])["IndicatorMeshParts"]))
@@ -101,7 +101,7 @@ def test_indicator_lamps_at_range(name):
 @pytest.mark.parametrize("name", sorted(INDICATOR_SRC))
 def test_indicator_definition_targets_our_models(name, staged):
     """The staged indicator keeps vanilla's states, materials, overrides and mesh parts; ReplacementModels changes, to
-    our NonFractured, Fractured and Damaged models (vanilla Timer50 lists its three), and (Task 9c) the mesh parts
+    our NonFractured, Fractured and Damaged models (vanilla Timer50 lists its three), and the mesh parts
     gain only our Fractured model's lamp parts that vanilla's list lacks (a 6U server's third zone)."""
     spec = catalog.BY_NAME[name]
     files = integration._block_files(spec, "IndicatorDefinition")

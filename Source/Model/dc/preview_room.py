@@ -1,16 +1,16 @@
-"""The reference room preview scene (Plan 3): the backdrop of every room task's in-context shots.
+"""The reference room preview scene: the backdrop of every room block's in-context shots.
 
-    DC_PREVIEW=plan3-t2 blender -b --python Source/Model/build_dc.py -- "DC_Rack42*" "DC_Srv_*" \
+    DC_PREVIEW=room blender -b --python Source/Model/build_dc.py -- "DC_Rack42*" "DC_Srv_*" \
         "DC_Tray_Drop_*" "DC_Tray_StraightS_*" "DC_TrayRods_*"
 
 room_scene() lays out dc/room.reference_room() in a closed data hall: every block that is built in this run is its
-real model (racks with doors, fans and servers fitted; Plan 2 trays, cables painted blue), every other block a
-labelled ghost stand-in in its exact cell box, so a task's new block drops into the same room and the same cameras
+real model (racks with doors, fans and servers fitted; trays, cables painted blue), every other block a
+labelled ghost stand-in in its exact cell box, so a new block drops into the same room and the same cameras
 once it is built. The hall: a dark deck under the raised floor, grey SE panel walls with seams, a stencilled hall
 plate, a dark ceiling with suspended linear luminaires (real area lights) between the tray runs, and a soft fill
 under the containment roof (the roof's LED strip). Moody (dark world, pools of light) but readable.
 
-render_task(built, task) writes Source/Model/preview/p3-task-<N>/ (DC_SHOTS=prefix,... renders a subset, DC_FAST=1
+render_room(built) writes Source/Model/preview/room/ (DC_SHOTS=prefix,... renders a subset, DC_FAST=1
 half resolution):
   room_<w>_<aisle>_<camera>     the room for each aisle width and hot / cold, at the CAMERAS
   room_150_cold_photo1_black    the photo 1 camera with black racks (the paint most real halls use)
@@ -31,28 +31,28 @@ from . import preview as PV
 from . import preview_mats as PM
 from .preview import Rz, T, want
 
-OUT = os.path.join(config.PREVIEW_DIR, "p3-task-2")
-TRAY_PAINT = "blue"                    # Plan 2: the data cables take the paint; the photos' blue
+OUT = os.path.join(config.PREVIEW_DIR, "room")
+TRAY_PAINT = "blue"                    # the data cables take the paint; the photos' blue
 _ROOMS = {}                            # (w, aisle, paint, racks, doors) -> (collection, info)
 _MATS = {}
 
 # ghost stand-ins: family -> (tint, alpha, caption)
 GHOST = {
-    "floor": ((0.55, 0.57, 0.60), 1.0, "raised floor (ghost: T3)"),
-    "crac": ((0.25, 0.70, 1.00), 0.16, "in-row CRAC (ghost: T6)"),
-    "pdu_cabinet": ((1.00, 0.62, 0.15), 0.14, "PDU cabinet (ghost: T7)"),
-    "pdu_strip": ((1.00, 0.62, 0.15), 0.06, "rack PDU A / B (ghost: T7)"),
-    "contain_door": ((0.70, 0.85, 1.00), 0.16, "containment door (ghost: T5)"),
-    "contain_roof": ((0.86, 0.90, 0.95), 0.30, "containment roof (ghost: T4)"),
-    "sign": ((0.30, 0.60, 1.00), 1.0, "signs (ghost: T8)"),
+    "floor": ((0.55, 0.57, 0.60), 1.0, "raised floor (ghost)"),
+    "crac": ((0.25, 0.70, 1.00), 0.16, "in-row CRAC (ghost)"),
+    "pdu_cabinet": ((1.00, 0.62, 0.15), 0.14, "PDU cabinet (ghost)"),
+    "pdu_strip": ((1.00, 0.62, 0.15), 0.06, "rack PDU A / B (ghost)"),
+    "contain_door": ((0.70, 0.85, 1.00), 0.16, "containment door (ghost)"),
+    "contain_roof": ((0.86, 0.90, 0.95), 0.30, "containment roof (ghost)"),
+    "sign": ((0.30, 0.60, 1.00), 1.0, "signs (ghost)"),
     "other": ((0.80, 0.80, 0.80), 0.25, "not built in this run"),
 }
 EDGE_GLOW = {"contain_door": 0.35, "contain_roof": 0.25, "pdu_strip": 0.22}   # ghost edge emission (default 0.9)
 COLD, HOT = (0.30, 0.62, 1.00), (1.00, 0.42, 0.10)
 LUM_W = 32.0                           # one linear luminaire (W): pools of light, not a showroom
 ROOF_W = 9.0                           # the roof LED strip fill, per metre of aisle (stand-in while no roof is built)
-ROOF_LED_W = 11.0                      # a built roof's LED batten (Plan 3 T4): area light per metre of diffuser
-# per rack: the slots from the bottom (P9.srv names; unbuilt servers are left out). KVM0 = the KVM stowed
+ROOF_LED_W = 11.0                      # a built roof's LED batten: area light per metre of diffuser
+# per rack: the slots from the bottom (pv_rack_doors.srv names; unbuilt servers are left out). KVM0 = the KVM stowed
 MIXES = (
     ("DC_Srv_Storage", "DC_Srv_Storage", "DC_Srv_Compute", "DC_Srv_Compute", "DC_Srv_Switch", "DC_Srv_Compute",
      "DC_Srv_Blank", "DC_Srv_Switch"),
@@ -65,9 +65,10 @@ MIXES = (
 )
 
 
-def _out(task):
+def _out(folder):
+    """Point the room shots (and the core rig's) at preview/<folder>/[DC_PREVIEW_SUB]."""
     global OUT
-    OUT = os.path.join(config.PREVIEW_DIR, f"p3-task-{task}", os.environ.get("DC_PREVIEW_SUB", ""))
+    OUT = os.path.join(config.PREVIEW_DIR, folder, os.environ.get("DC_PREVIEW_SUB", ""))
     os.makedirs(OUT, exist_ok=True)
     PV.OUT = OUT
 
@@ -262,42 +263,42 @@ class _Sink:
 
 # ---------------------------------------------------------------------------------------------------- real blocks
 def _rack(sink, built, p, mix, f=0.0, paint="keen"):
-    """A built rack at its placed matrix, as preview_task9.rack shows it (side panels, door leaves at open fraction
+    """A built rack at its placed matrix, as preview_rack_doors.rack shows it (side panels, door leaves at open fraction
     f, tray fans, servers from slot 1 up), standing on the raised floor."""
     from . import doors
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     spec = room.spec(p)
     H = 0.25 * spec.cells[1]
     C = _M(p)
-    M = C @ T(0, 0, -H / 2)                                 # the rack's floor point (preview_task9's base matrix)
-    sink.inst(P9.body(built, p.name, paint, True), C)
+    M = C @ T(0, 0, -H / 2)                                 # the rack's floor point (preview_rack_doors's base matrix)
+    sink.inst(pv_rack_doors.body(built, p.name, paint, True), C)
     side = (built[p.name].get("subparts") or {}).get("RackSide")
     if side:
         for yaw in (0, 180):
-            sink.inst(P9.sub(built, p.name, "RackSide", paint), C @ Rz(yaw))
+            sink.inst(pv_rack_doors.sub(built, p.name, "RackSide", paint), C @ Rz(yaw))
     for lf in doors.leaves(spec):
-        sink.inst(P9.sub(built, p.name, lf["model"], paint), C @ T(lf["axis"][0], lf["axis"][1], 0) @
+        sink.inst(pv_rack_doors.sub(built, p.name, lf["model"], paint), C @ T(lf["axis"][0], lf["axis"][1], 0) @
                   Rz(doors.swing_yaw(lf, f)))
     tp = doors.fan_tray_point(spec)
     if tp:
-        sink.inst(P9.sub(built, p.name, doors.FAN_TRAY_SUB, paint), C @ T(*tp))
+        sink.inst(pv_rack_doors.sub(built, p.name, doors.FAN_TRAY_SUB, paint), C @ T(*tp))
     for i, q in enumerate(doors.fan_points(spec)):
-        sink.inst(P9.sub(built, p.name, doors.FAN, paint), C @ T(*q) @ Rz(23 + 41 * i))
+        sink.inst(pv_rack_doors.sub(built, p.name, doors.FAN, paint), C @ T(*q) @ Rz(23 + 41 * i))
     z0 = p.origin[2] - H / 2
     for k, n in enumerate(mix, 1):
         if n:
-            P9.srv(sink, built, n, M, z0 + 0.25 * k, paint)
+            pv_rack_doors.srv(sink, built, n, M, z0 + 0.25 * k, paint)
 
 
 def contain_door(sink, built, name, M, f=0.0, paint="keen", lod=0):
     """A built containment door at matrix M (its cell-box centre): the frame and both leaves at open fraction f (the
     leaves slide by contain.leaf_travel; the vanilla slide is linear in OpenRatio)."""
     from . import contain
-    from . import preview_task9 as P9
+    from . import preview_rack_doors as pv_rack_doors
     spec = catalog.BY_NAME[name]
     sink.inst(PV.painted(built, name, lod, paint), M)
     for lf in contain.door_leaves(spec):
-        sink.inst(P9.sub(built, name, lf.model, paint, lod),
+        sink.inst(pv_rack_doors.sub(built, name, lf.model, paint, lod),
                   M @ T(contain.leaf_centre_x(spec, lf.side, f), 0, contain.LEAF_ORIGIN_Z))
 
 
@@ -306,16 +307,16 @@ def crac_unit(sink, built, name, M, angle=0.0, working=True, paint="keen", lod=0
     EmissiveOff -> EmissiveGreen) and its three CracFan rotors at their pivots, turned `angle` deg about the fans'
     axis (Blender -y, the game's +Z: the way InfiniteRotation turns them), each a little out of phase."""
     from . import crac
-    from . import preview_task9 as P9
-    sink.inst(P9.body(built, name, paint, working, lod), M)
-    rot = P9.sub(built, name, crac.FAN, paint, lod)
+    from . import preview_rack_doors as pv_rack_doors
+    sink.inst(pv_rack_doors.body(built, name, paint, working, lod), M)
+    rot = pv_rack_doors.sub(built, name, crac.FAN, paint, lod)
     for i, p in enumerate(crac.fan_points(catalog.BY_NAME[name])):
         sink.inst(rot, M @ T(*p) @ Matrix.Rotation(math.radians(angle + 23.0 * i), 4, Vector((0, -1, 0))))
 
 
 def _mix(built, i):
-    from . import preview_task8 as P8
-    ok = lambda n: n and (n in built or (n in ("KVM0", "KVM") and P8.KVM in built))  # noqa: E731   KVM = popped
+    from . import preview_kvm as pv_kvm
+    ok = lambda n: n and (n in built or (n in ("KVM0", "KVM") and pv_kvm.KVM in built))  # noqa: E731   KVM = popped
     return tuple(n if ok(n) else None for n in MIXES[i % len(MIXES)])
 
 
@@ -434,12 +435,12 @@ def _ghost_sign(coll, m, p, aisle):
         text(coll, body, Mf @ T(0, 0.001, 0), size, key, f"sign_{p.tag}")
 
 
-SIGN_PAINT = {"cold": "blue", "hot": "red"}    # Plan 3 Task 8: hot / cold is the frame's paint (no vanilla blue)
-ROW_NO = {"A": 1, "B": 2, "C": 3}              # rack label rows (the T12 hall adds row C)
+SIGN_PAINT = {"cold": "blue", "hot": "red"}    # hot / cold is the frame's paint (no vanilla blue)
+ROW_NO = {"A": 1, "B": 2, "C": 3}              # rack label rows (the two-aisle hall adds row C)
 
 
 def aisle_of(p, aisle):
-    """The aisle a placed sign belongs to: the T12 hall's hot-aisle pieces ("hot/..." tags) and row C's rack labels
+    """The aisle a placed sign belongs to: the two-aisle hall's hot-aisle pieces ("hot/..." tags) and row C's rack labels
     are the hot aisle's; everything else the room's own aisle."""
     return "hot" if p.tag.startswith("hot/") or p.tag.startswith("C") else aisle
 
@@ -456,15 +457,15 @@ def sign_text(p, aisle):
 
 def built_sign(coll, sink, built, p, aisle, paint=None):
     """A built sign at its placed matrix, its frame painted for the aisle (SIGN_PAINT), white sample text on every
-    LCD surface (dc/preview_p3t8.screen_text)."""
-    from . import preview_p3t8 as P8
+    LCD surface (dc/preview_signs.screen_text)."""
+    from . import preview_signs as pv_signs
     sink.inst(PV.painted(built, p.name, 0, paint or SIGN_PAINT[aisle]), _M(p))
-    P8.screen_text(coll, p.name, _M(p), sign_text(p, aisle))
+    pv_signs.screen_text(coll, p.name, _M(p), sign_text(p, aisle))
 
 
 # ---------------------------------------------------------------------------------------------------- the hall
 def _roof_leds(coll, roofs):
-    """Plan 3 Task 4: each built roof panel's own LED batten lights the contained aisle: a thin area light under its
+    """Each built roof panel's own LED batten lights the contained aisle: a thin area light under its
     EmissiveWhite diffuser (dc/contain.py LED_*), facing down."""
     from . import contain
     out = []
@@ -549,7 +550,7 @@ def _hall(coll, ext, aisle_w, racks, roof_fill=True, lum_ys=None, aisle_ys=(0.0,
     groups["luminaires"] = [lum.obj(coll, "luminaires")]
     if not roof_fill:   # the built roofs light the aisle with their own LED battens (_roof_leds)
         return groups
-    # the containment roof's LED strip (a soft fill under the roof plane, along the aisle): a stand-in until T4
+    # the containment roof's LED strip (a soft fill under the roof plane, along the aisle): a stand-in when no roof is built
     ld = bpy.data.lights.new("roof_led", "AREA")
     ld.shape, ld.size, ld.size_y = "RECTANGLE", L - 0.4, max(0.3, aisle_w - 0.5)
     ld.energy, ld.color = ROOF_W * L, (0.9, 0.95, 1.0)
@@ -564,8 +565,8 @@ def room_scene(built, aisle_w=1.5, aisle="cold", paint="keen", racks=4, doors_op
                label_side="front", hall=None):
     """The reference room as a collection (cached per arguments): built blocks real, the rest ghosts. Its info dict
     (_ROOMS[...][1]) has the placed list, the hall's object groups and one caption anchor per ghost family.
-    doors_open: the racks' leaves (fraction of 85 deg); contain_open: the containment doors' leaves (Plan 3 T5).
-    hall: a hot aisle width -> Plan 3 Task 12's two-aisle hall (room.two_aisle_room: the cold aisle aisle_w wide at
+    doors_open: the racks' leaves (fraction of 85 deg); contain_open: the containment doors' leaves.
+    hall: a hot aisle width -> the two-aisle hall (room.two_aisle_room: the cold aisle aisle_w wide at
     y = 0, the hot one `hall` wide behind row B); aisle is then the cold one and label_side is ignored."""
     key = (aisle_w, aisle, paint, racks, doors_open, contain_open, label_side, hall)
     if key in _ROOMS:
@@ -592,9 +593,9 @@ def room_scene(built, aisle_w=1.5, aisle="cold", paint="keen", racks=4, doors_op
                 rack_i += 1
             elif fam == "contain_door":
                 contain_door(sink, built, p.name, _M(p), contain_open, paint)
-            elif fam == "crac":    # Plan 3 Task 6: running (lamp lit, fans mid-turn)
+            elif fam == "crac":    # running (lamp lit, fans mid-turn)
                 crac_unit(sink, built, p.name, _M(p), 11.0 + 31.0 * rack_i, True, paint)
-            elif fam == "sign":    # Plan 3 Task 8: built signs, painted for the aisle, sample text on their LCDs
+            elif fam == "sign":    # built signs, painted for the aisle, sample text on their LCDs
                 built_sign(coll, sink, built, p, aisle_of(p, aisle))
             else:
                 sink.inst(PV.painted(built, p.name, 0, TRAY_PAINT if fam in ("tray", "trayrods") else paint), _M(p))
@@ -703,7 +704,7 @@ CAPTIONS = {"aisle_eye": ("contain_roof", "contain_door", "crac"), "door_outside
 
 def shot(built, cam, aisle_w=1.5, aisle="cold", paint="keen", name=None, res=(1920, 1080), captions=True,
          doors_open=0.0, contain_open=0.0, label_side="front", hall=None, cam_fn=None):
-    """Render one camera of the room; returns the PNG path. hall: the T12 two-aisle hall (room_scene); cam_fn: a
+    """Render one camera of the room; returns the PNG path. hall: the two-aisle hall (room_scene); cam_fn: a
     camera function (info -> Cam) instead of CAMERAS[cam]."""
     nm = name or f"room_{round(aisle_w * 100):03d}_{aisle}_{cam}"
     if not want(nm):
@@ -743,7 +744,7 @@ def shot(built, cam, aisle_w=1.5, aisle="cold", paint="keen", name=None, res=(19
     return path
 
 
-# ---------------------------------------------------------------------------------------------------- per-task sets
+# ------------------------------------------------------------------------------------------------------- room sets
 MAIN = ("aisle_eye", "door_outside", "overhead")
 ROOM_SET = [(1.5, "cold", tuple(CAMERAS)), (1.5, "hot", tuple(CAMERAS)),
             (1.0, "cold", MAIN), (1.0, "hot", MAIN), (2.0, "cold", MAIN), (2.0, "hot", MAIN)]
@@ -785,7 +786,7 @@ def vanilla_sources(built, paint="keen"):
 
 
 def block_set(built, name):
-    """Every built room block of a task: its turntable, LODs and paints (keen, black, the cold / hot pair)."""
+    """A built room block's set: its turntable, LODs and paints (keen, black, the cold / hot pair)."""
     PV.turntable(built, name)
     PV.lods(built, name)
     for paint in ("black", "blue", "orange"):
@@ -799,11 +800,11 @@ def block_set(built, name):
             s.render()
 
 
-def render_task(built, task, blocks=None):
-    """The Global Constraints shot set of Plan 3 task `task` into preview/p3-task-<task>/: the room at every camera
+def render_room(built, blocks=None, folder="room"):
+    """The room shot set into preview/<folder>/: the room at every camera
     (all aisle widths, cold and hot), photo 1 with black racks, the vanilla sources, and per built room block
     (blocks, default: every built room block) its turntable, LODs and paints."""
-    _out(task)
+    _out(folder)
     blocks = [n for n in (blocks or built) if n in built and catalog.BY_NAME[n].family in catalog.ROOM_FAMILIES]
     for name in blocks:
         block_set(built, name)

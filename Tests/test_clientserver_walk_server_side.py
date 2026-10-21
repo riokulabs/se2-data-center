@@ -1,4 +1,4 @@
-"""Plan 5 Task 12a, (b) must FAIL, continued: the per-rack server-side mistakes Path A could make, each a full walk of
+"""Must FAIL, continued: the per-rack server-side mistakes Path A could make, each a full walk of
 the staged package with one definition changed. Split out of test_clientserver_walk.py (same fixtures, helpers and
 input gate, imported from it) only so that a parallel run (pytest-xdist --dist loadfile) can run the two halves on two
 workers: together they were the longest module of the suite.
@@ -25,7 +25,7 @@ def _resolved_package(package_walk):  # noqa: F811 (fixture)
 def test_bound_entry_whose_server_prefab_has_a_child_fails(package, types, rack, server):  # noqa: F811 (fixtures)
     """A BOUND ConditionalSubParts entry is blocked on the server side only at its client prefab: its server prefab is
     walked as server through the binding, so a child there (the rotor) is a server composite. On the door leaves and
-    on Task 12's real RackFanTray / RackSide server prefabs (door and open racks)."""
+    on the real RackFanTray / RackSide server prefabs (door and open racks)."""
     sp = res(package, own(package, rack, server))
     fan = res(package, own(package, rack, "RackFan.partialdef"))
     for ob in sp["_entity"]["ObjectBuilders"]:
@@ -43,7 +43,7 @@ def test_bound_entry_whose_server_prefab_has_a_child_fails(package, types, rack,
 def test_server_composition_inheriting_a_client_type_fails(package, types, rack, comp):  # noqa: F811 (fixtures)
     """A bound entry's server composition that INHERITS render components from its Copy base (the subpart template)
     instead of inserting them: the resolver applies the base chain, so the inherited client types are seen. On the
-    door leaves and on Task 12's real RackSide / RackFanTray server compositions."""
+    door leaves and on the real RackSide / RackFanTray server compositions."""
     sc = own(package, rack, comp)
     delta = as_def(T_PARTIAL, {"BaseDefinition": SUBPART_COMPOSITE_TEMPLATE, "PartialDefinitionKind": "Copy",
                               "Manipulator": {"Guid": sc}, "DefinitionType": T_COMPOSITE, "PriorityOverride": False})

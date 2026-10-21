@@ -1,4 +1,4 @@
-// KvmMotionTuning: every timing constant of the scripted KVM motion, in one place (Plan 4 Ruling P4-3).
+// KvmMotionTuning: every timing constant of the scripted KVM motion, in one place.
 // The data owns the geometry (0.45 m of drawer travel, a 100 degree lid fold); the script owns only the timing,
 // so every value here is normalised (slide 0..1, fold 0..1) or in seconds / rad/s.
 //
@@ -23,11 +23,11 @@ namespace DataCenter.Kvm.Core;
 /// the stop takes it (an inelastic landing: 5 cm/s for the drawer, 16 cm/s on a fast stow). That replaces the critically
 /// damped spring's long, invisible creep with a definite "home": the soft-close of a real drawer, whose last 4 cm take
 /// about 0.35 s. The open lid has no stop: it settles on its detent with a ~1 % (1 degree) bounce.</para>
-/// <para><b>The shipped feel (Task 7's feel review, Ruling P4-11, approved by the user):</b> the drawer peaks at
+/// <para><b>The shipped feel (tuned by eye against motion graphs and approved in game):</b> the drawer peaks at
 /// 0.85 m/s (2.6 m/s on a fast stow); the open settles in 2.35 s (visually done at about 1.5 s; the rest is the lid's
-/// sub-degree settle), the close in 1.78 s, the fast stow in 0.60 s, still beating the closing leaves by 20.9 mm (Task 6,
-/// the strict 0.2 s lead). Task 5 had tuned for 1.4 / 1.2 / 0.6 s budgets (a 1.8 m/s drawer); P4-11 put feel first.
-/// Re-tuning anything here needs new motion graphs and the Task 6 clearance checks (Tests/test_kvm_sequence.py).</para>
+/// sub-degree settle), the close in 1.78 s, the fast stow in 0.60 s, still beating the closing leaves by 20.9 mm (with
+/// the strict 0.2 s lead). An earlier tuning hit 1.4 / 1.2 / 0.6 s budgets (a 1.8 m/s drawer); feel won over speed.
+/// Re-tuning anything here needs new motion graphs and the clearance checks (Tests/test_kvm_sequence.py).</para>
 /// </remarks>
 public sealed class KvmMotionTuning
 {
@@ -37,7 +37,7 @@ public sealed class KvmMotionTuning
     /// <summary>Drawer spring, rad/s, critically damped. Peak speed ~1.9/s normalised (0.85 m/s of the 0.45 m stroke).</summary>
     public readonly float SlideOmega;
 
-    /// <summary>Drawer spring during a fast stow, rad/s, critically damped (P4-4's ceiling is 20).</summary>
+    /// <summary>Drawer spring during a fast stow, rad/s, critically damped (the ceiling is 20).</summary>
     public readonly float SlideOmegaFast;
 
     /// <summary>Lid spring while lifting, rad/s.</summary>
@@ -49,7 +49,7 @@ public sealed class KvmMotionTuning
     /// <summary>Lid spring while closing (and while held shut), rad/s, critically damped.</summary>
     public readonly float FoldOmegaClose;
 
-    /// <summary>Lid spring during a fast stow, rad/s, critically damped (P4-4's ceiling is 20).</summary>
+    /// <summary>Lid spring during a fast stow, rad/s, critically damped (the ceiling is 20).</summary>
     public readonly float FoldOmegaFast;
 
     /// <summary>The lead goal's rate as a multiple of each spring's omega (4: a ~50 ms spin-up on the drawer). 0 = no lead.</summary>
@@ -59,8 +59,8 @@ public sealed class KvmMotionTuning
     /// lands the drawer at 5 cm/s, the soft-close; 0.03 would land it at about 6 cm/s, home about 0.08 s sooner.</summary>
     public readonly float StopPreload;
 
-    /// <summary>Normalised slide before the lid may rise: 0.91 (0.4095 m of 0.45). Task 6 measured the smallest slide at
-    /// which a full lid sweep stays clear of the KVM's own upper panel as 0.8844 (dc/kvm_motion.min_safe_fold_gate);
+    /// <summary>Normalised slide before the lid may rise: 0.91 (0.4095 m of 0.45). The smallest slide at
+    /// which a full lid sweep stays clear of the KVM's own upper panel is 0.8844 (dc/kvm_motion.min_safe_fold_gate);
     /// 0.91 keeps 11.5 mm of drawer travel in hand (the rule: at least 10 mm).</summary>
     public readonly float FoldGate;
 
@@ -85,10 +85,11 @@ public sealed class KvmMotionTuning
     /// <summary>The longest frame the motion honours, seconds; a longer hitch is treated as this (no teleport).</summary>
     public readonly float MaxDt;
 
-    /// <summary>+1: the lid folds +100 degrees about +X, per core Task 8; flipped only by the in-game check (read by KvmScreenPart).</summary>
+    /// <summary>+1: the lid folds +100 degrees about +X, as the data models it; flipped only by the in-game check
+    /// (read by KvmScreenPart).</summary>
     public readonly int LidAxisSign;
 
-    /// <summary>Seconds for a full stroke of the data-only path (<see cref="KvmLinearMotion"/>, Ruling P4-12): the data's
+    /// <summary>Seconds for a full stroke of the data-only path (<see cref="KvmLinearMotion"/>): the data's
     /// POP_TIME, travel / Speed = 0.45 m / 0.45 m/s and angle / AngularSpeed = 100 / 100 degrees/s (dc/subparts.py;
     /// Tests/test_kvm_runtime.py pins it to the data).</summary>
     public readonly float DataOnlyStroke;

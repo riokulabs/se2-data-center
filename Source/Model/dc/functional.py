@@ -4,7 +4,7 @@ The faces (dc/servers/timer.py, eventctl.py, status.py) build their indicator la
 from these numbers, and dc/integration.py patches the cloned definitions with the same numbers, so the model and
 the definitions cannot drift apart.
 
-Mesh-part names. Our 6U servers are unfractured (Task 5), so every mesh part of the NonFractured and the
+Mesh-part names. Our 6U servers are unfractured, so every mesh part of the NonFractured and the
 Fractured model is named after its material slot (vanilla: "<material>" unfractured, "<Fracture_NN[_Hide]>-<material>"
 per fracture group). An indicator component swaps the material of the mesh parts listed in its definition's
 IndicatorMeshParts, so a lamp is an indicator lamp exactly when its material SLOT is named like a listed part:
@@ -47,26 +47,27 @@ INDICATOR_PARTS = {"DC_Srv_Timer": (TIMER_IND,), "DC_Srv_EventCtl": (EVC_TRUE, E
 STATUS_SCREEN = {"a": (-0.186, 0.074), "b": (-0.068, 0.062), "d": -0.011}
 STATUS_LCD = {"Resolution": {"X": 1024, "Y": 512}, "AspectRatio": 2}
 
-# Programmable (Plan 4, Ruling P4-2): the chassis management module, the right-hand strip of the bezel opening
+# Programmable: the chassis management module, the right-hand strip of the bezel opening
 # (dc/servers/programmable.py builds it here; the opening is server.face_frame_area: a +-0.212, b -0.105 .. 0.101).
 # The Terminal use box covers it and nothing else, so aiming at a blade sled opens no terminal.
 PROG_MGMT = {"a": (0.122, 0.212), "b": (-0.105, 0.101)}
-# The script-status slot: the SCRIPT STATUS lamp and the LCD's status bar, nothing else (Plan 4 Task 4). Data-only it
+# The script-status slot: the SCRIPT STATUS lamp and the LCD's status bar, nothing else. Data-only it
 # is vanilla's static amber indicator, the same material as PROG_PSU_LAMP, so the scripts-off block looks unchanged;
-# the client script (Scripts/Client/Programmable/ProgrammableLedInjector.cs, Ruling P4-7) maps this mesh part to
+# the client script (Scripts/Client/Programmable/ProgrammableLedInjector.cs) maps this mesh part to
 # EmissiveGreen while the block is Working. A mesh part is a material slot name, so it needs its own slot.
 PROG_LED = "EmissiveScriptStatus"
 # The rear PSU power lamps: always the static amber standby lamp (they report power, not the script host).
 PROG_PSU_LAMP = "EmissiveAmber"
 
-# KVM use-to-toggle (Plan 4 Task 9, Ruling P4-8a; data-only, so it works with and without scripts). The face is split
+# KVM use-to-toggle (data-only, so it works with and without scripts). The face is split
 # in two use boxes that never overlap, one per job:
 #   KvmToggle  vanilla DummyType UsePowerable (System/DummyTypes/UsePowerable.def 504d93cd), which the player's
 #              UseActionBindings (System/UseActions/UseActionBindings.def:14) map to UsePowerableAction
 #              (UsePowerableAction.def a514581d): Use flips PowerableBlockComponent.Enabled
-#              (UsePowerableAction.cs:42-47), the Ruling 15 state, so Working and with it the pop-out follow: the FBAC's data-only motion with scripts
-#              off, the KVM sequencer (and its door interlock) with scripts on. The hint is vanilla's: the block's name
-#              over "Press F to enable / disable" (UsePowerableAction.cs:63-69, en-US UseFunctionalEnable/Disable).
+#              (UsePowerableAction.cs:42-47), the block's On/Off state, so Working and with it the pop-out follow:
+#              the FBAC's data-only motion with scripts off, the KVM sequencer (and its door interlock) with scripts
+#              on. The hint is vanilla's: the block's name over "Press F to enable / disable"
+#              (UsePowerableAction.cs:63-69, en-US UseFunctionalEnable/Disable).
 #              Vanilla precedent: GravityGenerator500 / Reactor250 "ButtonTop01" (0.25 x 0.25 x ~0.07).
 #              The box is the drawer's band: the bay mouth with the stowed fascia, its pull bar and latch tabs in it.
 #              Stowed, Use on the handle pops the console out. Out, the drawer and the screen hang in front of the face
@@ -146,7 +147,7 @@ def kvm_use_target(eye, through):
     return None, (x, z)
 
 
-# ------------------------------------------------------------------------------------------------ UPS (Task 7)
+# ------------------------------------------------------------------------------------------------------- UPS
 # DC_Srv_UPS (12U, cells 2x2x3): a Battery50 clone with TWO open Power Cell bays, each the vanilla Battery50 slot frame
 # (kit part, dc/servers/cellbay.py) with its own CellSlot / CellAction dummy pair (vanilla names "CellSlot N" /
 # "CellAction N": the use action and the slot render read the slot index from the name's trailing number).
@@ -173,10 +174,10 @@ POWER_CELL_MASS = 25                                         # kg (ItemPowerCell
 def ups_dummies():
     """[(name, type, game position, game orientation quaternion (x, y, z, w), euler hint deg, scale)] of the two bays:
     each bay's CellSlot (the cell model's face, where the game draws the inserted cell) and CellAction (the use box
-    you aim at), as Battery50 places them relative to its slot frame; then (Plan 5 Task 4, G3) one "ParticleEffects
+    you aim at), as Battery50 places them relative to its slot frame; then one "ParticleEffects
     <i>" per bay at the centre of its cell volume (half a cell deep behind the mouth), identity, where the damage
     bands' sparks / smoke / fire play (vanilla 4.0 Battery50 has one ParticleEffects dummy, at its centre; ours has
-    two bays in two zones, so each bay's effects stop with its own zone). Controller ruling (Task 4 follow-up): an
+    two bays in two zones, so each bay's effects stop with its own zone). Also an
     unsupported centre "ParticleEffects" FIRST, as Battery50's, so the one-shot death explosion and the fracture
     effect's orientation (the first dummy of the type) come from the block centre."""
     sx, sy, sz = UPS_SHIFT
@@ -196,10 +197,10 @@ def ups_dummies():
 POWER_CELL_MAX_STORED = 180000   # Components/Simple/PowerCell/PowerCellResourceContainerItemDefinition.def MaxStored
 
 
-# ------------------------------------------------------------------------------------------------ signs (Plan 3 T8)
+# ----------------------------------------------------------------------------------------------------- signs
 # The signs' LcdMultiPanel surfaces (dc/signs.py builds the screens with these slot names; dc/integration.py patch_lcd
-# writes them, keeping the cloned LCDNarrow50 surface's DefaultScreenMaterial and UseOnlineTexture). P3-18 (the risk
-# spike): LCDNarrow50 is natively 2:1 at 512 x 256, which the rack label keeps (its slot on vanilla LCDScreen_Off_2.0);
+# writes them, keeping the cloned LCDNarrow50 surface's DefaultScreenMaterial and UseOnlineTexture).
+# LCDNarrow50 is natively 2:1 at 512 x 256, which the rack label keeps (its slot on vanilla LCDScreen_Off_2.0);
 # the 1.0 m aisle signs are patched to 1024 x 256 with AspectRatio 4, as vanilla ControlSeat250's CustomDisplay04, and
 # their slots map to vanilla's 4:1 off-screen material LCDScreen_Off_4.0 (material_guids.py), the one ControlSeat250
 # maps that 4:1 surface to. The hanging sign is double-faced: two surfaces (the definition's Surfaces is a list:
@@ -214,4 +215,4 @@ SIGN_LCD = {
                           dict(MeshPartName="LCDScreen_Off_4_Back", DefaultDisplayName="Back Face", **SIGN_LCD_4)],
     "DC_Sign_Rack": [dict(MeshPartName="LCDScreen_Off", DefaultDisplayName="Rack Label", **SIGN_LCD_2)],
 }
-SIGN_PCU = 35                       # P3-11: as the clone source (LCDNarrow50)
+SIGN_PCU = 35                       # as the clone source (LCDNarrow50)

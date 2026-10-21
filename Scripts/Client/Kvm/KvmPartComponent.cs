@@ -1,4 +1,4 @@
-// KvmPartComponent: the base of the KVM's subpart drivers (Plan 4 Rulings P4-3, P4-10; Task 8). With scripts on,
+// KvmPartComponent: the base of the KVM's subpart drivers. With scripts on,
 // KvmInjector swaps the drawer's TranslationAnimationComponent for KvmDrawerPart and the screen's
 // RotationAnimationComponent for KvmScreenPart (KvmPartDrivers.cs), at the same composite index with the same
 // component id and the same (null) object builder. Each driver writes an absolute pose every frame: its rest

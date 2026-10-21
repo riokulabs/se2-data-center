@@ -8,10 +8,10 @@ Adapted from an earlier prototype's integration module.
 Inputs: the clones (dc/clone.py: Assets/DataCenter/<name>/ and the keyed .clonemap.json), build_report.json and
 the exports (Models/<name>/export.json + files, written by build_dc.py --export). Per catalogue block:
   * every block: the BlockKind's Name and Description and the block definition's UIData.Name (dc/names.py);
-  * built blocks (a placement entry in build_report.json AND an export; Ruling 2) also get:
+  * built blocks (a placement entry in build_report.json AND an export) also get:
       Models/NonFractured/  LOD FBX + collision glTF/bin + <name>.model
       Models/Fractured/     LOD FBX + collision glTF/bin + <name>_Fractured.model
-      Models/Damaged/       (servers and trays, Task 9b) LOD FBX + collision + <name>_Damaged.model, whose lamp and
+      Models/Damaged/       (servers and trays) LOD FBX + collision + <name>_Damaged.model, whose lamp and
                             screen slots map to vanilla's broken materials (fracture.DAMAGED_SLOTS)
       the patched <name>_BlockModelDefinition.partialdef: Model, FractureModel, DamagedModel (the Damaged model; the
       racks' Fractured one), Dummies (ParticleEffects at the block centre) and generated BuildProgressModels;
@@ -21,34 +21,34 @@ the exports (Models/<name>/export.json + files, written by build_dc.py --export)
       the hotfix removed is restored, bound to the block's BreakableBlockDefinition with its CriticalFractures; the
       KVM gets a new one); an unfractured block (the 4 exceptions of fracture.UNFRACTURED) is made non-breakable (make_non_breakable:
       the BreakableBlockComponent Removed from the cloned compositions and prefabs, as vanilla Non-Breakable).
-  * built functional servers (Task 6, dc/functional.py) also get, keeping every composition and component as cloned:
+  * built functional servers (dc/functional.py) also get, keeping every composition and component as cloned:
       the interaction dummy (Terminal / LcdPanel, vanilla name, type and highlight section kept) moved onto our face;
       the cloned indicator definition's ReplacementModels pointed at our models (its states, materials and
       IndicatorMeshParts unchanged: our lamp slots carry those mesh-part names);
       the status display's LCD surface (MeshPartName kept) set to our 2:1 screen (1024 x 512, AspectRatio 2);
-      mount directions without Forward (the working face never takes a block) and, since the placement fix, without
+      mount directions without Forward (the working face never takes a block) and without
       Up (SERVER_MOUNTS; the deco servers get the same);
-  * the built UPS (Task 7, dc/functional.py UPS_*) also gets, keeping Battery50's components:
+  * the built UPS (dc/functional.py UPS_*) also gets, keeping Battery50's components:
       two Power Cell slots: the cloned server composition gets a second InventoryComponent (the cloned Battery50
       InventoryDefinition, so the same Power Cell whitelist and 25 kg per slot) tagged "CellSlot 1", and the server
       prefab a second slot pre-filled like slot 0 (vanilla Battery250 pattern);
       per-slot dummies "CellSlot N" (slot render) + "CellAction N" (UseBatterySlotCells: aim + use) on each bay;
       the ResourceContainerInventory with MaxCapacity = slots x the Power Cell's MaxStored and doubled rates;
       mount directions Left, Right, Down (front and back are working faces: the two cell bays; no Up: SERVER_MOUNTS).
-  * the built KVM (Task 8, dc/subparts.py) also gets, keeping every ControlPanel25 component (terminal access):
+  * the built KVM (dc/subparts.py) also gets, keeping every ControlPanel25 component (terminal access):
       the subpart models (Models/Subparts/<sub>/: FBX per LOD + a .model without collision) and, under Subparts/,
       a DummyType per subpart, a ModelComponentDefinition per subpart (the drawer's carries the "KvmScreen" hinge
       dummy), a TranslationAnimation (drawer) and a RotationAnimation (screen) definition, a composite per subpart
       (Copy of vanilla Subpart_Composite + its rigid animation component), the drawer prefab (Copy of vanilla Subpart,
       the screen nested as a child entity at the hinge) and the block's ConditionalSubPartsDefinition
       (KvmDrawer dummy type -> drawer prefab; MeshPartsToHideWhenActive = the closed drawer and lid baked into the
-      Fractured / Damaged models, standin_parts: Plan 5 Task 8);
+      Fractured / Damaged models, standin_parts);
       the "KvmDrawer" dummy in the BlockModelDefinition, the Terminal dummy onto our face;
       ConditionalSubPartsComponent + FunctionalBlockAnimationControllerComponent (definition null) in the cloned client
       composition, with a null object builder for each in the client prefab (the earlier prototype's pattern).
-  * the built Programmable (Plan 4 Task 3, section "Plan 4: Programmable") becomes a functional blade in data:
+  * the built Programmable becomes a functional blade in data:
       the KVM's On/Off chain (onto_powerable), ControlPanel25's Terminal dummy over its management module, vanilla
-      InGameScriptingComponent + our InGameScriptingDefinition on the server side (dc/scripting.py, Route A') and an
+      InGameScriptingComponent + our InGameScriptingDefinition on the server side (dc/scripting.py) and an
       empty BlockMaterialSwapper on the client side (filled by the scripts). build_integration.py then generates the
       scripts' DcGuids.g.cs from this staging (dc/script_guids.py).
 """
@@ -77,7 +77,7 @@ _STAGED = set()   # rel paths stage_def wrote in this write_all run
 
 def read_mod(rel):
     """The installed (mod) copy. A definition already staged in this run must be read with read_current, or the
-    later stage_def would silently drop this run's earlier patch (final review I1)."""
+    later stage_def would silently drop this run's earlier patch."""
     if rel in _STAGED:
         raise RuntimeError(f"{rel}: already staged in this run; read it with read_current, not read_mod")
     return read_json(os.path.join(config.MOD_ASSETS, rel))
@@ -185,7 +185,7 @@ def built_names(report=None):
     if report is None:
         report = read_json(config.REPORT_PATH) if os.path.exists(config.REPORT_PATH) else {"blocks": {}}
     pipeline = {b.name for b in catalog.STAGED}   # built catalogue blocks outside the staged families (room blocks
-    #                                               before their task) are in the report but not staged
+    #                                               not yet wired) are in the report but not staged
     return {n for n, e in report["blocks"].items() if e.get("placement", {}).get("total") and n in pipeline}
 
 
@@ -193,7 +193,7 @@ def stage_models(spec, man, G):
     """Copy the exported files, write the .model assets. Returns {variant: .model guid}."""
     out = {}
     variants = [("NonFractured", "nonfractured", spec.name), ("Fractured", "fractured", f"{spec.name}_Fractured")]
-    if man.get("damaged"):          # Task 9b / Plan 3: the dented Damaged model (vanilla "Deformed")
+    if man.get("damaged"):          # the dented Damaged model (vanilla "Deformed")
         variants.append(("Damaged", "damaged", f"{spec.name}_Damaged"))
     for variant, key, stem in variants:
         src = os.path.join(config.MODELS_DIR, spec.name, variant)
@@ -221,7 +221,7 @@ def patch_model_def(spec, info, man, models, G=None):
     sx, sy, sz = man["shift"]
     dummies = m.get("Dummies") or {}
     ours = functional.DUMMIES.get(spec.name, {})
-    sign_d = sign_dummies(spec) if spec.family == "sign" else {}     # Plan 3 Task 8: the LcdPanel over the screen
+    sign_d = sign_dummies(spec) if spec.family == "sign" else {}     # the LcdPanel over the screen
     found = set()
     if spec.variant == "UPS":
         patch_ups_dummies(spec, dummies, G, man["fractured"].get("supporting", {}))
@@ -258,7 +258,7 @@ def patch_model_def(spec, info, man, models, G=None):
             v["Transform"]["Transform"]["Orientation"] = {"X": 0, "Y": 0, "Z": 0, "W": 1}
             v["Transform"]["EulerHint"] = {"X": 0, "Y": 0, "Z": 0}
             v["Scale"] = {"X": scale[0], "Y": scale[1], "Z": scale[2]}
-            # Task 9c (guide 10.3 (3)): the face's terminal / LCD dies with the zone holding it (the front service
+            # the face's terminal / LCD dies with the zone holding it (the front service
             # module), as vanilla binds its terminals to their plates (Battery150 TerminalRight -> Fracture_02)
             zid = man["fractured"].get("supporting", {}).get(v["Name"])
             v["SupportingFracture"] = {"Id": zid} if zid else None
@@ -272,7 +272,7 @@ def patch_model_def(spec, info, man, models, G=None):
             zid = man["fractured"].get("supporting", {}).get(v["Name"])    # the zone holding the screen's centre
             v["SupportingFracture"] = {"Id": zid} if zid else None
             found.add(v["Name"])
-    patch_spark_dummies(spec, dummies, man, G)   # Plan 5 Task 4 (G7): after the centre dummy is placed
+    patch_spark_dummies(spec, dummies, man, G)   # after the center dummy is placed
     if set(ours) - found or set(sign_d) - found:
         raise RuntimeError(f"{spec.name}: cloned model definition lacks dummies "
                            f"{sorted((set(ours) | set(sign_d)) - found)}")
@@ -294,7 +294,7 @@ def _block_files(spec, pattern):
 def patch_indicator(spec, models, man=None):
     """Point the cloned indicator definition's ReplacementModels at our models (the indicator recolours only the
     models it lists; the clone still lists the vanilla block's). States and materials stay vanilla; the mesh parts
-    keep vanilla's and (Task 9c) gain our Fractured model's lamp parts the vanilla list lacks (a 6U server's third
+    keep vanilla's and gain our Fractured model's lamp parts the vanilla list lacks (a 6U server's third
     zone: Fracture_03_Hide-<lamp slot>, which vanilla Timer50's two zones never name)."""
     files = _block_files(spec, "IndicatorDefinition")
     if len(files) != 1:
@@ -323,8 +323,8 @@ def patch_lcd(spec, surfaces, G=None):
     """The cloned LcdMultiPanel definition's surfaces (vanilla LCDFlat50 / LCDNarrow50 clone: one inserted surface).
     surfaces: [dict] of the fields to set per surface (MeshPartName, Resolution, AspectRatio, and optionally
     DefaultDisplayName), in order; every surface keeps the cloned one's DefaultScreenMaterial and UseOnlineTexture.
-    The first keeps the cloned delta key; each further one (Plan 3 Task 8: the hanging sign's back face) is a new
-    Insert with its own stable key (G "lcdsurface/<name>/<i>"). The status server (Task 6) keeps its call with one
+    The first keeps the cloned delta key; each further one (the hanging sign's back face) is a new
+    Insert with its own stable key (G "lcdsurface/<name>/<i>"). The status server keeps its call with one
     surface: the same MeshPartName (LCDScreen_Off), our 2:1 screen's resolution / aspect."""
     import copy
     files = _block_files(spec, "LcdMultiPanelDefinition")
@@ -349,14 +349,14 @@ def patch_lcd(spec, surfaces, G=None):
             **{k: changed[0]["Value"][k] for k in ("Resolution", "AspectRatio")}}
 
 
-# Placement fix (2026-10-18): no server mounts on its TOP (Up) any more. A rack slot's mounts are keyed to its rear
+# No server mounts on its TOP (Up). A rack slot's mounts are keyed to its rear
 # row (dc/rack.py collision()), so a server one cell too far forward touches none of the rack's; its only other way
 # in was its bottom (Down) on the top (Up) of a correctly seated server below, which overlaps on two of three rows.
 # With Up gone the wrong depth fails placement everywhere. Cost: nothing builds onto a server's lid (no stacking
 # servers outside a rack); a server still sits on a floor (Down), backs onto a wall and takes side neighbours.
 SERVER_MOUNTS = "Backward, Left, Right, Down"   # every server (deco: was the cloned wall panel's, with Up)
 UPS_MOUNTS = "Left, Right, Down"                # the UPS: cell bays on the front AND the back
-# Plan 3 Task 1: the racks mount in all six directions. The open rack's cloned wall panel says "Backward, Left, Right,
+# the racks mount in all six directions. The open rack's cloned wall panel says "Backward, Left, Right,
 # Up, Down" (no Forward: the front containment rail could not mount); the door racks' template
 # (DoorsPowerableBlockDefinition) already resolves to All, and the patch states it explicitly for both. The model's
 # mount hints decide WHERE (the front / back planes mount only on the containment rail band).
@@ -367,7 +367,7 @@ BATTERY50 = os.path.join(config.VANILLA_REF, "Blocks", "Batteries", "Battery", "
 
 
 def patch_effects_dummy(spec, dummies, G):
-    """Task 8: the rod hangers' cloned model definition (StructuralSupportStraight's) changes no dummies, so it has no
+    """The rod hangers' cloned model definition (StructuralSupportStraight's) changes no dummies, so it has no
     "ParticleEffects" dummy (damage / destruction effects origin) as every other block does: add one (the vanilla
     Pipes insert's), the effects-origin loop then puts it at the block centre. Idempotent (a stable delta key)."""
     dummies = dict(dummies or {})
@@ -393,7 +393,7 @@ def _dummy(name, typ, pos, q, e, scale):
 def patch_ups_dummies(spec, dummies, G, supporting=None):
     """The UPS's dummies: one CellSlot + CellAction pair per bay (functional.ups_dummies), each supported by its
     bay's fracture (export.json "supporting": Fracture_01 the front bay, Fracture_02 the rear one), as vanilla
-    Battery50 supports its CellSlot / CellAction by Fracture_01; Plan 5 Task 4 (G3): one "ParticleEffects <i>" per
+    Battery50 supports its CellSlot / CellAction by Fracture_01; one "ParticleEffects <i>" per
     bay, supported like that bay's "CellSlot <i>" (the damage bands' sparks / smoke / fire stop with the bay's zone);
     every other cloned dummy kept (the unnamed ConstructionStagesParticles). Idempotent: existing entries keep their
     delta keys, new ones get stable keys from asset_guids.json."""
@@ -453,10 +453,10 @@ def patch_kvm_dummies(spec, dummies, G, fractured=None):
     """The KVM's own dummies, after the cloned ControlPanel25 ones (Terminal, ParticleEffects; patch_model_def places
     the Terminal and the toggle on the face from functional.DUMMIES):
       KvmDrawer  the drawer pivot (= the stowed hinge), identity orientation, of the drawer's own DummyType;
-      KvmToggle  Plan 4 Task 9 (P4-8a): the vanilla UsePowerable use box over the drawer band (functional.KVM_TOGGLE),
+      KvmToggle  the vanilla UsePowerable use box over the drawer band (functional.KVM_TOGGLE),
                  LAST, so it wins a tie with the Terminal (InteractorEntityComponent.cs:83). Its SupportingFracture is
                  the fracture zone that holds the box (fracture.Plan.zone_at over the manifest's zones: the FRONT
-                 service module, Fracture_02 since Task 9c's 3-zone servers; not the critical core), as vanilla
+                 service module, Fracture_02 on the 3-zone servers; not the critical core), as vanilla
                  supports its ButtonTop01 boxes (GravityGenerator500 / Reactor250) and as the face's Terminal is
                  supported (patch_model_def, the manifest's "supporting"): the use box dies with the face it sits on.
     fractured: the export manifest's "fractured" (its zones); None or no zones (a non-breakable build): no support,
@@ -479,7 +479,7 @@ def patch_kvm_dummies(spec, dummies, G, fractured=None):
 def subpart_model_asset(geom, collision_guid=None):
     """A subpart .model: LODs with no translation (the FBX origin is the pivot) and NO collision (vanilla subparts:
     visual only; ConditionalSubParts would otherwise add the collider to the block's static collision), except a door
-    leaf's (collision_guid: Plan 3 Task 5, its own collision glTF, as vanilla NarrowSlidingDoor_LeftDoor.model's .hkt:
+    leaf's (collision_guid: its own collision glTF, as vanilla NarrowSlidingDoor_LeftDoor.model's .hkt:
     the DoorBlockCollider compounds it while the door is closed)."""
     names_ = sorted({m for _, mats in geom for m in mats})
     ga = [{"AssetReference": "{G}" + g, "UsedMaterials": mats,
@@ -508,7 +508,7 @@ def _child_transform(pos, yaw=0.0):
 
 
 def standin_parts(man):
-    """The Fractured LOD0's baked stand-in mesh parts (`<Group>-<Mat>_Subpart`, Plan 5 Task 8), sorted: the block's
+    """The Fractured LOD0's baked stand-in mesh parts (`<Group>-<Mat>_Subpart`), sorted: the block's
     ConditionalSubParts MeshPartsToHideWhenActive (hidden while the real subparts are spawned, i.e. Functional)."""
     return sorted(p for p in man["fractured"].get("parts", {}) if p.endswith(fracture.SUBPART_SUFFIX))
 
@@ -601,7 +601,7 @@ def stage_kvm_subparts(spec, man, G):
             "Removed": []}}}, "VRage:Keen.VRage.Core.Game.Definitions.PrefabDefinition"))
     out["prefab"] = pf
     # the block's conditional subparts: KvmDrawer dummy type -> the drawer prefab; MeshPartsToHideWhenActive: the
-    # closed drawer and lid baked into the Fractured / Damaged models (Plan 5 Task 8, G6), so the bay shows them while
+    # closed drawer and lid baked into the Fractured / Damaged models, so the bay shows them while
     # the KVM is not Functional (under construction, broken) and the spawned subparts replace them when it is
     cs = G[f"def/{spec.name}/ConditionalSubParts"]
     stage_def(f"{sub_rel}/{spec.name}_ConditionalSubPartsDefinition.def", envelope(
@@ -642,7 +642,7 @@ def stage_kvm_subparts(spec, man, G):
     return out
 
 
-# ------------------------------------------------------------------------------------------------ KVM On/Off (Ruling 15)
+# ------------------------------------------------------------------------------------------------ KVM On/Off
 # ControlPanel25 has a plain FunctionalBlockComponent (Working = Functional && grid on). The vanilla On/Off ("Enabled")
 # state lives in PowerableBlockComponent (a FunctionalBlockComponent subclass: RecomputeWorking = base && Enabled &&
 # Supplied; terminal toggle = PowerableBlockDetailModelServer, a [BlockDetailProvider] bound to any
@@ -700,7 +700,7 @@ def _retarget_slots(comp, old=FUNCTIONAL_KEY):
 # BreakableBlockModelValidator (Game2.Simulation RuntimeSystems.Validators, a load-time error) needs every model of a
 # composite with a BreakableBlockComponent to be a fractured collider (IBreakableCollider, ColliderCount > 1) or to
 # have a FractureReplacementModels entry. A block with an unfractured model (no Fracture_NN colliders: the servers and
-# trays until Plan 2 Task 9b gave them fracture plans; since then the justified exception: the three rod hangers
+# trays before they got fracture plans; today only the justified exception: the three rod hangers
 # and the Chute, fracture.UNFRACTURED) becomes non-breakable the way vanilla does it:
 # Templates/Blocks/Non-Breakable/Structural_{Server,Client}Composition.def and ControlPanel25 / Sensor25 / Button25
 # remove the component key and the five tag slots that point at it, and their prefabs list ObjectBuilders without it.
@@ -777,7 +777,7 @@ STRUCTURAL_PREFABS = ("b706bfc1-a8b6-4dc9-945c-8394d94478f0",   # Breakable/Stru
 
 def keeps_breakable(man):
     """A block is breakable exactly when its FractureModel really fractures (>= 2 fracture zones: the racks, and
-    since Plan 2 Task 9b every server and cable tray). The others (fracture.UNFRACTURED: the rod hangers and the
+    every server and cable tray). The others (fracture.UNFRACTURED: the rod hangers and the
     Chute) go through make_non_breakable."""
     return len(man["fractured"]["zones"]) >= 2
 
@@ -823,7 +823,7 @@ def body_base(d):
 
 
 def ensure_breakable(spec, man, G):
-    """The inverse of make_non_breakable, for a block whose model now fractures (Task 9b): in both compositions the
+    """The inverse of make_non_breakable, for a block whose model now fractures: in both compositions the
     BreakableBlockComponent key goes back where its vanilla Breakable template has it (after the BlockModelComponent;
     BREAKABLE_AFTER: the Structural client template lists it last), bound to the block's BreakableBlockDefinition, leaves Removed, and its five tag slots leave RemovedKeys
     (they fall back to the template's, which point at it); in both prefabs an ObjectBuilders list make_non_breakable
@@ -939,13 +939,13 @@ def make_non_breakable(spec):
 
 # the PowerableBlockObjectBuilder: the clones' own (2.4) CubeBlock / FunctionalBlock object builder fields + the two
 # Powerable fields with BasePowerableBlockBreakable's defaults (Enabled true: vanilla blocks are built ON). Not the
-# SDK template's compiled fields: its PreviewOnly is rejected by the 2.4 serializer (Task 8 fix round 1).
+# SDK template's compiled fields: its PreviewOnly is rejected by the 2.4 serializer.
 POWERABLE_OB = {"$Type": OB_POWERABLE, "Color": None, "BuildProgress": 1, "HealthIntegrity": 1, "Generated": False,
                 "EphemeralFirstItem": False, "DisplayName": {"RawText": ""}, "Enabled": True, "WasSupplied": False}
 
 
 def onto_powerable(spec, bd, old, keep=None, enabled=True):
-    """The Ruling 15 chain: the block definition bd (being staged, patched in place) becomes a PowerableBlockDefinition
+    """The powerable chain: the block definition bd (being staged, patched in place) becomes a PowerableBlockDefinition
     with no consumed resource (keep: base-template values to carry over), and the component at key old in both
     compositions (with every tag slot on it) and its object builder in both prefabs become vanilla's
     PowerableBlockComponent at POWERABLE_KEY. A prefab that inherits all its object builders gets a delta listing its
@@ -982,31 +982,31 @@ def onto_powerable(spec, bd, old, keep=None, enabled=True):
     return out
 
 
-# Ruling 15 amended 2026-10-18 (in-game feedback): a new KVM spawns Off, so stowed (drawer in, screen folded) in both
+# A new KVM spawns Off (in-game feedback), so stowed (drawer in, screen folded) in both
 # script modes; the player opens it from the terminal's On/Off or by Use on it (functional.py, UsePowerableAction).
 KVM_SPAWN_ENABLED = False
 
 
 def patch_kvm_onoff(spec, bd):
-    """Ruling 15: the KVM (ControlPanel25: a FunctionalBlockComponent) gets the vanilla On/Off state, terminal-listed
+    """The KVM (ControlPanel25: a FunctionalBlockComponent) gets the vanilla On/Off state, terminal-listed
     (no NO_TERMINAL_FUNCTIONAL), spawning Off (KVM_SPAWN_ENABLED)."""
     return onto_powerable(spec, bd, FUNCTIONAL_KEY, enabled=KVM_SPAWN_ENABLED)
 
 
-# ------------------------------------------------------------------------------------------------ Plan 4: Programmable
-# The core shell was a structural WallInsertPanel clone (CubeBlockComponent at STRUCTURAL_KEY, no terminal). Plan 4
-# Task 3 makes it a functional blade in DATA, the same in both script modes:
-#   P4-2  the Ruling 15 chain (onto_powerable): terminal-listed, On/Off, no power sink; ControlPanel25's Terminal use
-#         dummy over the management module (dc/functional.py PROG_MGMT); the block definition GUID is unchanged;
-#   P4-1  Route A': vanilla InGameScriptingComponent + our full InGameScriptingDefinition in the SERVER composition,
-#         its object builder (the starter program, not running) in the server prefab (dc/scripting.py);
-#   P4-7  an empty BlockMaterialSwapper on our models in the client composition (the door racks' pattern), which
-#         the client script fills with the status LED -> green while Working; data-only the lamps stay amber.
+# ------------------------------------------------------------------------------------------------ Programmable
+# The core shell was a structural WallInsertPanel clone (CubeBlockComponent at STRUCTURAL_KEY, no terminal). Here
+# it becomes a functional blade in DATA, the same in both script modes:
+#   * the powerable chain (onto_powerable): terminal-listed, On/Off, no power sink; ControlPanel25's Terminal use
+#     dummy over the management module (dc/functional.py PROG_MGMT); the block definition GUID is unchanged;
+#   * vanilla InGameScriptingComponent + our full InGameScriptingDefinition in the SERVER composition,
+#     its object builder (the starter program, not running) in the server prefab (dc/scripting.py);
+#   * an empty BlockMaterialSwapper on our models in the client composition (the door racks' pattern), which
+#     the client script fills with the status LED -> green while Working; data-only the lamps stay amber.
 STRUCTURAL_KEY = "786ef564-3cbf-4509-a58c-ad19243fffc1"      # Structural_*Composition: CubeBlockComponent
 STRUCTURAL_DEF_BASE = "8a27c509-f7ca-4c08-9a00-66fa6893e3d0"  # Templates/.../StructuralCubeBlockDefinition
 # The values the structural template chain gives the block where the Powerable template's differ (block_chain.py
 # resolve of both; Tests/test_programmable_data.py re-derives them): carried over, so rebasing changes nothing else.
-# (Fragility is not carried over since Plan 5 Task 3: the Programmable is Functional, FRAGILITY.)
+# (Fragility is not carried over: the Programmable is Functional, FRAGILITY.)
 STRUCTURAL_DEF_VALUES = {"Density": "d8adcfdc-f8e2-467e-9d27-78deae4057da",
                          "RecipeEfficiency": "30e09afc-4437-49fe-aff5-54553d05d3c4", "PCU": 5}
 CONTROL_PANEL25_BMD = os.path.join(config.VANILLA_REF, "Blocks", "ControlPanel", "25",
@@ -1033,8 +1033,8 @@ def patch_programmable_dummies(spec, dummies, G):
 
 
 def patch_programmable_functional(spec, bd):
-    """P4-2: the Ruling 15 chain from the structural CubeBlockComponent (bd: the block definition being staged).
-    Plan 5 Task 3 (G8): Fragility Functional, the PowerableBlockDefinition template's own value (every vanilla
+    """The powerable chain from the structural CubeBlockComponent (bd: the block definition being staged).
+    Fragility Functional, the PowerableBlockDefinition template's own value (every vanilla
     powerable block, e.g. Timer50, resolves to it): MaxHPMassMultiplier 0.8, rifle damage x0.5 past 2.4 flat
     reduction, instead of the structural panel's 1.0 / x1 past 4. Set explicitly: the installed copy names Structural."""
     out = onto_powerable(spec, bd, STRUCTURAL_KEY, keep=STRUCTURAL_DEF_VALUES)
@@ -1043,7 +1043,7 @@ def patch_programmable_functional(spec, bd):
 
 
 def stage_programmable_scripting(spec, G):
-    """P4-1 Route A': the InGameScriptingDefinition (a full .def: vanilla ships none to copy) and the component plus
+    """The InGameScriptingDefinition (a full .def: vanilla ships none to copy) and the component plus
     its object builder on the server side only. The terminal's script editor is server-side
     (ProgrammableBlockDetailModelServer, a replicated [BlockDetailProvider] bound to the component), and a client
     copy would compile and run a saved Running program a second time (InGameScriptingComponent.OnAddedToScene)."""
@@ -1057,7 +1057,7 @@ def stage_programmable_scripting(spec, G):
 
 
 def patch_programmable_swapper(spec, models, G):
-    """P4-7: a BlockMaterialSwapper over our models (NonFractured; Fractured = Damaged) mapping no mesh part: inert in
+    """A BlockMaterialSwapper over our models (NonFractured; Fractured = Damaged) mapping no mesh part: inert in
     data. The client script adds functional.PROG_LED -> EmissiveGreen to its Working replacements."""
     g = G[f"def/{spec.name}/BlockMaterialSwapper"]
     stage_def(PROG_SWAPPER_FILE, envelope(T_SWAPPER_DEF, {
@@ -1137,17 +1137,17 @@ def patch_ups(spec, G):
     return out
 
 
-# ------------------------------------------------------------------------------------------------ Plan 2: cable trays
+# ------------------------------------------------------------------------------------------------ cable trays
 TRAY_FAMILIES = ("tray", "trayrods")
-TRAY_PCU = 5   # Plan 2 Decision 12: the vanilla decorative standard (Truss, Handrail, Catwalk, StructuralSupport)
+TRAY_PCU = 5   # the vanilla decorative standard (Truss, Handrail, Catwalk, StructuralSupport)
 
 
 T_PLACER = "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PlacementDefinitionObjectBuilder"
 
 
 def rods_placer(spec, G):
-    """The rod hangers' own PlacementDefinition (Task 8; the cloned strut has none: it used its template's): the
-    Pipes trays' placer values, AutoRotateFace off (null) as the trays' (Decision 12): aimed at a ceiling the hanger
+    """The rod hangers' own PlacementDefinition (the cloned strut has none: it used its template's): the
+    Pipes trays' placer values, AutoRotateFace off (null) as the trays': aimed at a ceiling the hanger
     keeps its authored up (the anchor plates to the ceiling), aimed at a tray's top its couplers seat on the rod
     plates; AlignWithMountPoints puts them on their mount hints. Staged as <name>_PlacementDefinition.def, its GUID
     stable (asset_guids.json). -> (GUID, rel)."""
@@ -1161,12 +1161,12 @@ def rods_placer(spec, G):
 
 
 def tray_patch(spec, bd, G=None):
-    """A tray block (Plan 2 Decisions 9, 12): bd = its block definition being staged (patched in place).
+    """A tray block: bd = its block definition being staged (patched in place).
       * PCU 5 (WallInsertPipes inherits its PCU from the template; StructuralSupportStraight already says 5);
       * no MountPointGeneratorSettings: all six directions mount (ports on every face; the model's mount hints
         decide where). Neither source sets one, so this only guards against a re-clone from another source;
       * the cloned PlacementDefinition (WallInsertPipes) with AutoRotateFace null: vanilla's "Down" would turn a tray
-        upside down when it is aimed at a ceiling; the rod hangers (Task 8; the strut has no placer of its own) get
+        upside down when it is aimed at a ceiling; the rod hangers (the strut has no placer of its own) get
         their own (rods_placer, when G is given).
     Idempotent. Returns {pcu, placer, placer_file}."""
     m = body(bd)
@@ -1192,13 +1192,13 @@ def tray_patch(spec, bd, G=None):
     return out
 
 
-# ------------------------------------------------------------------------------------------------ Plan 3: raised floor
-FLOOR_PCU = 5          # P3-11: as the clone source (CatwalkSquareBase250), the vanilla decorative standard
-FLOOR_MOUNTS = "All"   # P3-5: the tile mounts on every face (deck Up, base plates Down, stringer band on the sides)
+# ------------------------------------------------------------------------------------------------ raised floor
+FLOOR_PCU = 5          # as the clone source (CatwalkSquareBase250), the vanilla decorative standard
+FLOOR_MOUNTS = "All"   # the tile mounts on every face (deck Up, base plates Down, stringer band on the sides)
 
 
 def floor_patch(spec, bd):
-    """A raised-floor block (P3-5, Task 3): bd = its block definition being staged (patched in place). PCU 5 and
+    """A raised-floor block: bd = its block definition being staged (patched in place). PCU 5 and
     mount directions All (the model's mount hints decide where). The clone keeps the catwalk's breakable chain: the
     floor's Fractured model has two fracture zones (deck, understructure), so make_non_breakable never runs on it.
     Idempotent. Returns {pcu, mounts}."""
@@ -1208,7 +1208,7 @@ def floor_patch(spec, bd):
     return {"pcu": FLOOR_PCU, "mounts": FLOOR_MOUNTS}
 
 
-# ------------------------------------------------------------------------------------- Plan 5 Task 3: fragility
+# ------------------------------------------------------------------------------------- fragility
 # Vanilla 4.0's CubeBlockFragilityDefinitions (SDK Blocks/Shared/Fragility/: Structural.def, Functional.def, Windows
 # .partialdef, a Copy of Structural with ProjectileDamage 2.5 / x1.25 and ExplosionDamage x0).
 FRAGILITY = {"Structural": "c748fae2-a8fe-4012-9936-cf2a570fa685",
@@ -1225,7 +1225,7 @@ WINDOWS_EFFECT_KEYS = ("OnFractureBlockParticleEffect", "OnBlockDeathParticleEff
 
 
 def patch_roof_effects(spec):
-    """G8 (controller ruling): the roof's cloned BlockEffects Copy re-based onto the vanilla Windows BlockEffects,
+    """The roof's cloned BlockEffects Copy re-based onto the vanilla Windows BlockEffects (it is glazing),
     keeping its GUID (still bound in the client composition) and its construction-state effect. Idempotent. Returns
     the base."""
     f, d = _effects_copy(spec)
@@ -1249,21 +1249,22 @@ def _effects_copy(spec):
     return files[0], d
 
 
-# ------------------------------------------------------------------------------------- Plan 3: containment roof
-ROOF_PCU = 5           # P3-11: as the clone source (DeckPanel250)
-ROOF_MOUNTS = "All"    # P3-3: the model's mount hints decide where (the four edges over the rail band; not Up / Down)
+# ------------------------------------------------------------------------------------- containment roof
+ROOF_PCU = 5           # as the clone source (DeckPanel250)
+ROOF_MOUNTS = "All"    # the model's mount hints decide where (the four edges over the rail band; not Up / Down)
 
 
 def roof_patch(spec, bd):
-    """A containment roof panel (P3-3, Task 4): bd = its block definition being staged (patched in place). PCU 5,
-    Fragility Windows (Plan 5 Task 3), mount directions All, and the cloned DeckPanel250 placer with AutoRotateFace null (Plan 2's tray patch): the deck's
-    "Down" would flip a panel aimed at a rack's rail face. The clone keeps the deck's breakable chain: the roof's
+    """A containment roof panel: bd = its block definition being staged (patched in place). PCU 5,
+    Fragility Windows, mount directions All, and the cloned DeckPanel250 placer with AutoRotateFace null (as the
+    trays' patch): the deck's "Down" would flip a panel aimed at a rack's rail face. The clone keeps the deck's
+    breakable chain: the roof's
     Fractured model has two fracture zones (glazing, frame), so make_non_breakable never runs on it. Idempotent.
     Returns {pcu, mounts, placer, placer_file}."""
     m = body(bd)
     m["PCU"] = ROOF_PCU
     m["MountPointGeneratorSettings"] = {"Directions": ROOF_MOUNTS}
-    m["Fragility"] = FRAGILITY["Windows"]   # Plan 5 Task 3 (G8): glazing, as vanilla WallInsertWindowFlat150
+    m["Fragility"] = FRAGILITY["Windows"]   # glazing, as vanilla WallInsertWindowFlat150
     files = _block_files(spec, "_PlacementDefinition")
     if len(files) != 1:
         raise RuntimeError(f"{spec.name}: expected one cloned placement definition, found {files}")
@@ -1276,17 +1277,18 @@ def roof_patch(spec, bd):
     return {"pcu": ROOF_PCU, "mounts": ROOF_MOUNTS, "placer": own_guid(pl), "placer_file": files[0]}
 
 
-# ------------------------------------------------------------------------------------------------ Plan 3 Task 7: PDUs
-PDU_PCU = 5             # P3-11: as the clone source (WallInsertPanel, the decorative standard)
+# ------------------------------------------------------------------------------------------------ PDUs
+PDU_PCU = 5             # as the clone source (WallInsertPanel, the decorative standard)
 PDU_CABINET_MOUNTS = "All"   # the rack's flush mounts (sides, bottom, top rim, containment rail band): the hints decide
 
 
 def pdu_patch(spec, bd):
-    """The PDU cabinet / a rack PDU strip (P3-7, Task 7): bd = its block definition being staged (patched in place).
+    """The PDU cabinet / a rack PDU strip: bd = its block definition being staged (patched in place).
     PCU 5. Mount directions: the cabinet All (as the racks: its hints decide); a strip only the directions its hints
-    lie on (dc/pdu.strip_directions: Down = the plug seat on the plinth; final review I1 dropped Forward, the
-    bracket on the bulkhead, which let a raised strip validate), so it seats only on its plinth seat (or any Up face). A strip's cloned WallInsertPanel placer gets AutoRotateFace null
-    (Plan 2's tray patch): the panel's "Down" would turn a strip aimed at the bulkhead onto its back. Both keep the
+    lie on (dc/pdu.strip_directions: Down = the plug seat on the plinth; not Forward, the bracket on the bulkhead,
+    which let a raised strip validate), so it seats only on its plinth seat (or any Up face). A strip's cloned
+    WallInsertPanel placer gets AutoRotateFace null (as the trays' patch): the panel's "Down" would turn a strip
+    aimed at the bulkhead onto its back. Both keep the
     panel's breakable chain (their Fractured models have 8 / 2-3 zones: ensure_breakable). Idempotent.
     Returns {pcu, mounts, placer, placer_file}."""
     from . import pdu
@@ -1307,9 +1309,9 @@ def pdu_patch(spec, bd):
         stage_def(files[0], pl)
         out.update(placer=own_guid(pl), placer_file=files[0])
     return out
-# ------------------------------------------------------------------------------------- Plan 3: signs and labels
+# ------------------------------------------------------------------------------------- signs and labels
 def sign_patch(spec, bd):
-    """A sign / label (P3-8, Task 8): bd = its block definition being staged (patched in place). PCU 35 (P3-11, as
+    """A sign / label: bd = its block definition being staged (patched in place). PCU 35 (as
     LCDNarrow50) and mount directions restricted to the sign's one mounting face (dc/signs.mount_direction: the aisle
     sign Backward, the hanging sign Up, the rack label Down), so it never mounts by its screen or bezel. The clone
     keeps LCDNarrow50's LcdMultiPanel and breakable chains: its Fractured model has 2-3 in-plane zones
@@ -1369,7 +1371,7 @@ def write_all(specs=None, report=None):
         s["kind"] = patch_kind(spec, info, menu_ids, G)
         bd = read_mod(info["block_def_file"])
         body(bd)["BlockKind"] = owner_kind            # 42U and 24U racks of a door variant share one kind (sizes)
-        # every pipeline block is costed (the room pieces since Plan 3 Task 10; a STAGED block outside the pipeline
+        # every pipeline block is costed (the room pieces included; a STAGED block outside the pipeline
         # would keep its clone's vanilla recipe: Tests/test_room_menu.py proves there is none)
         s["recipe"] = patch_recipe(spec, bd, G, report) if recipes.costed(spec) and spec in catalog.BLOCKS else None
         if spec.family in TRAY_FAMILIES:
@@ -1385,7 +1387,7 @@ def write_all(specs=None, report=None):
             s["door"] = door_patch(spec, bd)
         if spec.family == "crac":
             s["crac"] = crac_patch(spec, bd)
-        if spec.family in ("pdu_cabinet", "pdu_strip"):   # Plan 3 Task 7
+        if spec.family in ("pdu_cabinet", "pdu_strip"):   # the PDUs
             s["pdu"] = pdu_patch(spec, bd)
         if spec.family == "sign":
             s["sign"] = sign_patch(spec, bd)
@@ -1425,13 +1427,13 @@ def write_all(specs=None, report=None):
                 s["scripting"] = stage_programmable_scripting(spec, G)
                 s["swapper"] = patch_programmable_swapper(spec, models, G)
                 s["effects"] = patch_programmable_effects(spec)
-            s["sparks"] = patch_spark_effects(spec, G)   # Plan 5 Task 4 (G7); None for a block that does not spark
+            s["sparks"] = patch_spark_effects(spec, G)   # None for a block that does not spark
             if keeps_breakable(man):
                 s["breakable"] = ensure_breakable(spec, man, G)
                 s["critical"] = man["fractured"].get("critical")
             else:
                 s["non_breakable"] = make_non_breakable(spec)
-            if spec.family == "server":   # deco ones too (placement fix: no Up)
+            if spec.family == "server":   # deco ones too (no Up mount)
                 body(bd)["MountPointGeneratorSettings"] = {"Directions": UPS_MOUNTS if spec.variant == "UPS"
                                                            else SERVER_MOUNTS}
             s.update(built=True, models=models, model_def=info["model_def"],
@@ -1439,7 +1441,7 @@ def write_all(specs=None, report=None):
                              for st in stages],
                      fractures=[z["id"] for z in man["fractured"]["zones"]],
                      icon=ui.get("Icon"))
-            if spec in catalog.BLOCKS:   # the room pieces joined the initial unlock with their menu (Plan 3 T10)
+            if spec in catalog.BLOCKS:   # the room pieces joined the initial unlock with their menu
                 unlock_blocks.append(info["server_prefab"])
                 if owner_kind not in unlock_kinds:
                     unlock_kinds.append(owner_kind)
@@ -1457,7 +1459,7 @@ def write_all(specs=None, report=None):
         write_json(stage_path(UNLOCK_FILE), ov)
         stage_meta(UNLOCK_FILE, meta_id(os.path.join(config.MOD_ASSETS, UNLOCK_FILE)) or G["def/InitialUnlock"])
         summary["unlock"] = unlock_blocks
-    summary["script_ids"] = script_guids.reserve(G)   # ids only the scripts use (Ruling P4-6)
+    summary["script_ids"] = script_guids.reserve(G)   # ids only the scripts use
     write_folder_metas(G)
     G.save()
     files = [os.path.relpath(os.path.join(dp, f), config.INTEGRATION_DIR)
@@ -1467,23 +1469,23 @@ def write_all(specs=None, report=None):
 
 
 
-# ------------------------------------------------------------------------------------------------ Task 9: rack doors
+# ------------------------------------------------------------------------------------------------ rack doors
 # The door racks are SlidingDoorNarrow250 clones (DoorServer / DoorClient / DoorBlockCollider / DoorAudio /
 # ConditionalSubParts kept as cloned). The leaves become HINGED: each leaf subpart's DoorSegmentTransformSLERP reads
 # "<leaf>Closed" / "<leaf>Open" dummies of the block model, both ON the hinge axis, the open one turned 85 deg about
 # the vertical (dc/doors.py). FrontRear gets two more leaves (copies of the front leaf set with new GUIDs and their
-# own dummy types). Task 12 (G2, Ruling DB-10 Path A): the side panels (RackSide, twice) and the full racks' fan tray
+# own dummy types). The side panels (RackSide, twice) and the full racks' fan tray
 # are ConditionalSubParts entries, spawned while the rack is Functional, each a bound client prefab (bind_subpart);
 # the tray's two rotors (InfiniteRotation) are children of the tray's CLIENT prefab (_rotor_children), toggled with
 # Working by the rack's FunctionalBlockAnimationController (the closest parent controller). The open racks get the
-# Ruling 15 functional chain and a client-only ConditionalSubPartsComponent (stage_rack_subparts). Below Functional the
+# powerable functional chain and a client-only ConditionalSubPartsComponent (stage_rack_subparts). Below Functional the
 # Fractured / Damaged models show the baked stand-ins (fracture.STANDINS), hidden while the subparts are spawned.
 
 USE_DOOR = "4511a2ef-912d-4980-adf2-47b1e8898190"            # System/DummyTypes/UseDoor (aim + use toggles the door)
 BLOCK_EFFECTS_KEY = "72e2ef60-d699-48a2-9959-4e246eecdacc"   # BlockEffectsComponent's key in the vanilla templates
 HUM_RACK = "event:/SFX/Block/GyroscopeSM"                     # vanilla loop while Working: the tray fans' whir
 HUM_SERVER = "event:/SFX/Block/LCD"                           # vanilla loop while Working: the KVM's screen / PSU hum
-# Plan 3 T11 (T6 review minor 2): the CRAC's hum is now set explicitly, as the racks' and servers' are. Vanilla 2.4 has
+# the CRAC's hum is set explicitly, as the racks' and servers' are. Vanilla 2.4 has
 # no fan / air-handler loop (its OnUseAudio set: tools/vanilla-ref, 40 events); the gyroscope family's whir is the
 # closest to an EC fan bank, and MID (not the racks' SM) is the deeper one, for three 0.4 m fans against a rack's
 # small tray fans. Listen in game; the alternative is event:/SFX/Block/O2H2Generator (a pump / compressor hum).
@@ -1499,8 +1501,8 @@ LEAF_FILES = ("{leaf}.def", "{leaf}_Client.def", "{leaf}_ClientComposition.def",
 REAR_TEMPLATE = {"RearLeftDoor": "RightDoor", "RearRightDoor": "LeftDoor"}   # same leaf model, turned 180 deg
 DETECTOR = "DoorwayObstructionDetector"
 def critical_fractures(man):
-    """The fracture zones that carry the hinges: the side columns. Since Task 9c the plan names them (export.json
-    "critical"); before, they were the zones lying wholly outside the slot (min |x| >= the slot plane), derived from
+    """The fracture zones that carry the hinges: the side columns. The fracture plan names them (export.json
+    "critical"); for an older export, the zones lying wholly outside the slot (min |x| >= the slot plane), derived from
     the exported zone boxes, not from their order."""
     if "critical" in man["fractured"]:
         return sorted(man["fractured"]["critical"])
@@ -1595,7 +1597,7 @@ def _stage_fan(spec, man, G):
 
 def _stage_rotor(spec, man, G, sub, anim):
     """A rotor subpart: model, dummy type, model component, InfiniteRotation (anim: its definition's fields), composite
-    and prefab (the vanilla Subpart template pattern of Task 8). The racks' tray fans and the CRAC's fans."""
+    and prefab (the vanilla Subpart template pattern, as the KVM's). The racks' tray fans and the CRAC's fans."""
     sub_rel = f"{config.NAME}/{spec.name}/Subparts"
     model = _stage_subpart_model(spec, man, G, sub)
     dt = G[f"dummytype/{spec.name}/{sub}"]
@@ -1632,7 +1634,7 @@ def _stage_rotor(spec, man, G, sub, anim):
 def _stage_tray(spec, man, G, sub=None, children=None):
     """A static subpart (no animation; the fan tray, or the side panel RackSide): model, dummy type, model component,
     composite (a plain Copy of Subpart_Composite with our ModelComponent) and prefab. children: [(name, child entity)]
-    nested under the prefab's HierarchyComponent (Task 12: the tray's rotors, the Gyroscope50_Subparts pattern)."""
+    nested under the prefab's HierarchyComponent (the tray's rotors, the Gyroscope50_Subparts pattern)."""
     sub = sub or doors.FAN_TRAY_SUB
     sub_rel = f"{config.NAME}/{spec.name}/Subparts"
     model = _stage_subpart_model(spec, man, G, sub)
@@ -1663,11 +1665,11 @@ def _stage_tray(spec, man, G, sub=None, children=None):
     return {"model": model, "dummy_type": dt, "model_component": mc, "composite": comp, "prefab": pf}
 
 
-# Task 12 (G2, Ruling DB-10 Path A; task-12-spike.md Q1 (a)-(b)): a rack subpart spawned by ConditionalSubParts is a
+# Rack subparts, Path A: a rack subpart spawned by ConditionalSubParts is a
 # BOUND client prefab. The door's DoorPartsProvider (a SERVER definition) references the door racks' ConditionalSubParts,
 # so BindingsBasedClientServerInfo's server walk follows its prefabs, stopping only at a binding's ClientPrefab
 # (BindingsBasedClientServerInfo.cs:134-135, 222-230); an unbound one put render components on a "server" composite
-# and failed the world load on 2026-10-18. The binding's server side is vanilla SlideDoorNarrow_250_LeftDoor's minus
+# and fails the world load. The binding's server side is vanilla SlideDoorNarrow_250_LeftDoor's minus
 # the door-segment components: a server composition of ModelComponent (the subpart's own model component),
 # ChildTransform and Hierarchy (no client type: ConveyorGraphPostProcessor.ValidateClientTypes), and ONE server prefab
 # on it (the prefab-by-composition map throws on two) whose Hierarchy Children is [] (its children would be walked as
@@ -1741,7 +1743,7 @@ def _add_components(spec, side, new):
 
 
 def _remove_client_components(spec, keys):
-    """Undo _add_client_components for these component keys (Ruling DB-10 Path B over an installed Path A package: the
+    """Undo _add_client_components for these component keys (Path B over an installed Path A package: the
     open racks' ConditionalSubPartsComponent): each key leaves the client composition (with its tag slot) and the
     client prefab's object builders, the later delta indices shifted down. Stages both files only when one changed."""
     out = []
@@ -1770,7 +1772,7 @@ def _remove_client_components(spec, keys):
 
 def _add_client_components(spec, new):
     """Add components (key, definition, type, tag slot) to the cloned client composition and a null object builder
-    for each to the client prefab (the Task 8 pattern). Idempotent."""
+    for each to the client prefab (the KVM's pattern). Idempotent."""
     return _add_components(spec, "Client", [(k, d, t, slot, None) for k, d, t, slot in new])
 
 
@@ -1809,7 +1811,7 @@ def patch_hum(spec, sound):
 # SE2 4.0.0.3151 turned the generic damage / destruction particle effects into ParticleEffectSetDefinitions (V1/V2/V3,
 # weight 0.33 each; the 2.4 effect is now variant V1 under .../V1/) and vanilla BlockEffects point at the sets. Our
 # cloned BlockEffects (cloned from 2.3/2.4 vanilla) still named the V1 effects; the user accepted the 4.0 vanilla
-# damage bands (2026-10-19), so we only swap the effect for its set, as the small vanilla blocks (Timer, Sensor,
+# damage bands, so we only swap the effect for its set, as the small vanilla blocks (Timer, Sensor,
 # Buttons, EventController BlockEffects templates) do. Verified in the 4.0 SDK: each set's Effects list holds the V1
 # GUID (System/Particles/Generic/{Smoke/SmokeSmall,Fire/FireSmall,Explosion/Regular/GridExplosions}_ParticleSet.def).
 PARTICLE_SETS = {
@@ -1836,7 +1838,7 @@ def patch_particle_sets(spec):
     """Every cloned BlockEffects definition of the block: a V1 damage / death effect -> its 4.0 vanilla particle set
     (PARTICLE_SETS). Scales, keys and thresholds are kept (the 4.0 vanilla bands apply). Returns {file: swaps}; empty
     when there is nothing to swap: once installed (the mod's files already name the sets), or on a fresh clone from
-    4.0 vanilla, which names no V1 effect. Run on the UPS only since Plan 5 Task 4: the KVM's band is now 4.0
+    4.0 vanilla, which names no V1 effect. Run on the UPS only: the KVM's band is now 4.0
     ControlPanel25's own (patch_kvm_effects: ElectricalDamageSmall 617b0925 x0.3 below 0.99 instead of SmokeSmall),
     which names no set. Tests/test_ups.py pins the installed state."""
     out = {}
@@ -1850,9 +1852,9 @@ def patch_particle_sets(spec):
     return out
 
 
-# ------------------------------------------------------------------------------- Plan 5 Task 4: damage effects
+# ------------------------------------------------------------------------------- damage effects
 def patch_spark_effects(spec, G):
-    """G7: a spark block's (effects.spark_kind) cloned Structural BlockEffects Copy inserts the vanilla 4.0 spark band
+    """A spark block's (effects.spark_kind) cloned Structural BlockEffects Copy inserts the vanilla 4.0 spark band
     verbatim (effects.vanilla_band: CableStraight250's for the trays, CircuitBreaker's for the PDUs and the deco
     servers: 0 - 0.99, one Electrical effect on the ParticleEffects dummy), with stable delta keys
     (G "band/<name>/spark" and "band/<name>/spark/fx"). The Structural base (9be983e4) has no band to collide with.
@@ -1873,11 +1875,11 @@ def patch_spark_effects(spec, G):
 
 
 def patch_spark_dummies(spec, dummies, man, G):
-    """G7 / Decision 8: a spark block's ParticleEffects-type dummies follow its fracture zones (effects.zone_dummies).
+    """A spark block's ParticleEffects-type dummies follow its fracture zones (effects.zone_dummies).
     The cloned centre "ParticleEffects" keeps its delta key, name and the block-centre position (the one-shot death
-    effect's origin: the first dummy of the type, R15) and gains SupportingFracture = the zone holding the centre;
+    effect's origin: the first dummy of the type) and gains SupportingFracture = the zone holding the centre;
     a long block (effects.per_zone) gets one "ParticleEffects_<zone>" per other zone after it, at that zone's AABB
-    centre (a tray's: its cables' box, Task 9) and supported by it, so each section's sparks stop when it falls off.
+    centre (a tray's: its cables' box) and supported by it, so each section's sparks stop when it falls off.
     Idempotent (stable keys from asset_guids.json; stale ParticleEffects_<zone> entries dropped). No-op for a block
     that does not spark."""
     if not effects.spark_kind(spec):
@@ -1887,7 +1889,7 @@ def patch_spark_dummies(spec, dummies, man, G):
     rows = [(k, c["Value"]) for k, c in zip(keys, sorted(changed, key=lambda c: c["Index"]))
             if not (c["Value"].get("Name") or "").startswith("ParticleEffects_")]
     want = effects.zone_dummies(man["fractured"], man["shift"], effects.per_zone(spec),
-                                prefer_role="hide" if spec.family == "tray" else None)   # Task 9: on the cables
+                                prefer_role="hide" if spec.family == "tray" else None)   # on the cables
     (cname, cpos, czone), rest = want[0], want[1:]
     centre = [v for _, v in rows if v.get("Name") == cname and v.get("Type") == PARTICLE_EFFECTS_TYPE]
     if len(centre) != 1:
@@ -1905,7 +1907,7 @@ def patch_spark_dummies(spec, dummies, man, G):
 
 
 def patch_kvm_effects(spec):
-    """Controller ruling (G7): the KVM's damage band is vanilla 4.0 ControlPanel25's (its clone source): the cloned
+    """The KVM's damage band is vanilla 4.0 ControlPanel25's (its clone source): the cloned
     BlockEffects' OnDamagedBlockParticleEffect delta = ControlPanel25's 4.0 one verbatim (band 0: upper 0.99,
     ElectricalDamageSmall x0.3 on the ParticleEffects dummy, the 2.4 key 92d61473 removed). It replaces the KVM's
     SmokeSmall set swap (patch_particle_sets). Every other key of the clone is kept. Idempotent."""
@@ -1917,7 +1919,7 @@ def patch_kvm_effects(spec):
 
 
 def patch_programmable_effects(spec):
-    """G7: the Programmable (a functional blade, Functional fragility since Task 3) gets the vanilla Timer BlockEffects
+    """The Programmable (a functional blade, Functional fragility) gets the vanilla Timer BlockEffects
     template's three bands (sparks below 95 %, smoke 90 - 65 %, fire below 65 %; its death explosion and audio too),
     as DC_Srv_Timer has: its cloned Structural BlockEffects Copy is re-based onto effects.TIMER_EFFECTS, keeping its
     GUID (bound in the client composition) and every key. Idempotent. Returns the base."""
@@ -1949,7 +1951,7 @@ def patch_door_dummies(spec, dummies, G):
     c, half = doors.detector_box(spec)
     out.append((k, _dummy(DETECTOR, v["Type"], c, (0, 0, 0, 1), (0, 0, 0), tuple(2 * h for h in half))))
     # (the side panels' and fan tray's spawn dummies follow: patch_rack_subpart_dummies; the rotors have none, they
-    # are children of the tray's client prefab since Task 12)
+    # are children of the tray's client prefab)
     dummies["Keys"] = [k for k, _ in out]
     dummies["Changed"] = [{"Kind": "Insert", "Index": i, "Value": v} for i, (_, v) in enumerate(out)]
     dummies["Removed"] = []
@@ -1966,7 +1968,7 @@ def _rotor_children(spec, fan):
     """The fan rotors as Hierarchy children of the fan tray's client prefab: [(name, child entity)], each at its pivot
     relative to the tray's (game frame; the tray is not turned), with the Subpart template's object builders and its
     rigid animation key. ConditionalSubParts' spawn overwrites only the ROOT ChildTransform (OBsOfType is not
-    recursive), so these offsets survive (task-12-spike.md Q1 (d)). Their InfiniteRotation takes its state from the
+    recursive), so these offsets survive. Their InfiniteRotation takes its state from the
     closest parent IRigidAnimationController (ToggleRigidAnimationComponent.OnAddedToScene): the rack's
     FunctionalBlockAnimationController, i.e. they spin while the rack is Working."""
     t = doors.to_game(doors.fan_tray_point(spec), spec)
@@ -2008,7 +2010,7 @@ def patch_rack_subpart_dummies(spec, dummies, G):
 
 
 def clear_rack_static_children(spec):
-    """Remove the static client-prefab children (fan tray, side panels, rotors) Task 9 / visual pass 2 put on the
+    """Remove the static client-prefab children (fan tray, side panels, rotors) an older build put on the
     rack's client prefab: they are ConditionalSubParts entries now. The door racks drop the HierarchyComponent update
     (the cloned door template's own, empty, applies); the open racks keep the structural template's key list with no
     change."""
@@ -2027,10 +2029,10 @@ def clear_rack_static_children(spec):
     return f
 
 
-# Ruling DB-10 Path B (config.RACK_PATH "B", the fallback if Path A fails the world load): the side panels, the fan
-# tray and its rotors are static children of the rack's CLIENT prefab (the structure shipped before Task 12, commit
-# 10455382's parent): always present whatever the build state, no stand-ins (fracture.rack_standins("B") is empty),
-# no bindings, nothing the server walk can reach. On/Off stays on every rack (user 2026-10-20): the rotors follow
+# Path B (config.RACK_PATH "B", the fallback if Path A fails the world load): the side panels, the fan
+# tray and its rotors are static children of the rack's CLIENT prefab (the earlier structure):
+# always present whatever the build state, no stand-ins (fracture.rack_standins("B") is empty),
+# no bindings, nothing the server walk can reach. On/Off stays on every rack: the rotors follow
 # Working through the rack's FunctionalBlockAnimationController, the closest parent controller.
 def _client_child(info, oid, name, pos, yaw=0.0, rigid_key=None):
     """A subpart as a client-prefab child at pos (game frame), turned yaw deg about game +Y: the Subpart template's
@@ -2084,8 +2086,8 @@ def set_rack_static_children(spec, ctx, G):
 
 
 def stage_rack_subparts(spec, man, models, G, bd=None):
-    """Everything Tasks 9 and 12 add to a built rack (see the section comment; config.RACK_PATH picks Ruling DB-10's
-    path, Path B above). bd: the block definition being staged (the open racks' Ruling 15 chain patches it). Returns a
+    """Everything a built rack gets (see the section comment; config.RACK_PATH picks the subpart
+    path, Path B above). bd: the block definition being staged (the open racks' powerable chain patches it). Returns a
     summary; the subparts' dummy types are kept for patch_rack_subpart_dummies (called from patch_model_def)."""
     path = config.RACK_PATH
     if path not in ("A", "B"):
@@ -2109,8 +2111,8 @@ def stage_rack_subparts(spec, man, models, G, bd=None):
     else:
         out["client_prefab"] = set_rack_static_children(spec, ctx, G)
     if not doors.has_doors(spec):
-        # spike Q3: ConditionalSubPartsComponent spawns on Functional, which needs a FunctionalBlockComponent: the
-        # Ruling 15 chain from the structural CubeBlockComponent (as the Programmable), Fragility kept Structural; the
+        # ConditionalSubPartsComponent spawns on Functional, which needs a FunctionalBlockComponent: the
+        # powerable chain from the structural CubeBlockComponent (as the Programmable), Fragility kept Structural; the
         # component and its definition on the client side only (vanilla Gyroscope50_ClientComposition), plus the
         # animation controller on a full rack, so its rotors follow Working (On/Off) as the door racks' do. Path B
         # keeps the chain and the controller (On/Off on every rack) and has no ConditionalSubParts.
@@ -2138,7 +2140,7 @@ def stage_rack_subparts(spec, man, models, G, bd=None):
     leaf_models = {m: _stage_subpart_model(spec, man, G, m) for m in doors.leaf_models(spec)}
     out["leaves"] = {lf["name"]: _stage_leaf(spec, lf, leaf_models[lf["model"]], types, G) for lf in doors.leaves(spec)}
     # ConditionalSubParts: each leaf's closed dummy type -> its client prefab, and (Path A) the bound side / tray
-    # entries (Task 12); the rotors are children of the tray's client prefab (_rotor_children), or (Path B) of the
+    # entries; the rotors are children of the tray's client prefab (_rotor_children), or (Path B) of the
     # rack's (static_children)
     subs.update({v["types"][0]: v["client_prefab"] for v in out["leaves"].values()})
     if ctx.get("fan"):
@@ -2164,7 +2166,7 @@ def stage_rack_subparts(spec, man, models, G, bd=None):
     return out
 
 
-# ------------------------------------------------------------------------- Plan 3 Task 5: containment doors
+# ------------------------------------------------------------------------- containment doors
 # The containment doors are SlidingDoorNarrow250 clones like the door racks (DoorServer / DoorClient /
 # DoorBlockCollider / DoorAudio / ConditionalSubParts kept as cloned), generalised from stage_rack_subparts: the two
 # cloned leaves (LeftDoor / RightDoor, the clone's own spawn = Closed and Open dummy types) get our leaf models WITH
@@ -2174,7 +2176,7 @@ def stage_rack_subparts(spec, man, models, G, bd=None):
 # Closed and Functional), Closed / Open dummies that differ by a pure translation (the vanilla slide), a DoorUse box
 # on each leaf, the doorway detector resized to the opening, OpeningDuration 1.0 s, PCU 150 and mounts All.
 def door_patch(spec, bd):
-    """A containment door (P3-2, Task 5): bd = its block definition being staged (patched in place). PCU 150 (the
+    """A containment door: bd = its block definition being staged (patched in place). PCU 150 (the
     clone's template value, stated explicitly), mount directions All (the model's hints decide where). The clone keeps
     the door's breakable chain (four fracture zones). Idempotent. Returns {pcu, mounts}."""
     from . import contain
@@ -2249,7 +2251,7 @@ def _stage_contain_leaf(spec, lf, model_guid, types, G):
 
 
 def stage_contain_door(spec, man, models, G):
-    """Everything Task 5 adds to a built containment door (see the section comment). Returns a summary; the dummy
+    """Everything a built containment door gets (see the section comment). Returns a summary; the dummy
     types are kept for patch_contain_door_dummies (called from patch_model_def)."""
     from . import contain
     out = {}
@@ -2282,14 +2284,14 @@ def stage_contain_door(spec, man, models, G):
     return out
 
 
-# ------------------------------------------------------------------------- Task 10: build-menu grouping and costs
+# ------------------------------------------------------------------------- build-menu grouping and costs
 # dc/menu.py has the G-screen evidence: one "Data Center" subcategory (Automation category) with one BlockGroup per
-# family (racks, servers) and, from Plan 2 Task 9, one per cable density plus the tray supports; multi-size kinds
+# family (racks, servers), one per cable density plus the tray supports, and the room groups; multi-size kinds
 # (42U + 24U racks, the two straights, the three rod lengths) are one kind each. dc/recipes.py has the cost rule and
 # the game's mass formula.
-# ------------------------------------------------------------------------------------- Plan 3 Task 6: the CRAC
-# The in-row cooler is a Gyroscope250 clone with the gyroscope stripped (P3-1, P3-15, docs/research/dc-room-risk-spike.md
-# section 1): the template-inserted GyroscopeComponent (key GYRO_KEY) is Removed from the cloned server composition and
+# ------------------------------------------------------------------------------------- the CRAC
+# The in-row cooler is a Gyroscope250 clone with the gyroscope stripped (a cooler must not apply 44 MN m of torque):
+# the template-inserted GyroscopeComponent (key GYRO_KEY) is Removed from the cloned server composition and
 # server prefab, with its tag slot (the KVM On/Off's delta form), and the clone's GyroscopeDefinition file is dropped
 # (clone.DROP); nothing else references either. Everything else of the powered chain stays as cloned: the
 # PowerableBlockDefinition (ConsumedResource Amount 25, priority 6: a real load) and its component (terminal On/Off,
@@ -2311,7 +2313,7 @@ def crac_fan_anim():
 
 
 def crac_patch(spec, bd):
-    """The CRAC's definitions (P3-1 / P3-15): bd = its block definition being staged (patched in place): PCU 30 (the
+    """The CRAC's definitions: bd = its block definition being staged (patched in place): PCU 30 (the
     template's, stated), mount directions All (the model's hints decide, as the racks); the PowerableBlockDefinition's
     ConsumedResource is the clone's (Amount 25) and is checked, not changed. Strips the GyroscopeComponent from the
     cloned server composition (key Removed, its Update dropped, the later Changed indices shifted; tag slot
@@ -2350,7 +2352,7 @@ def stage_crac(spec, man, models, G):
     """The CRAC's subpart and client definitions: the CracFan rotor (model, dummy type, model component, its
     InfiniteRotation, composite, prefab), the cloned ConditionalSubParts definition pointed at it (the CracFan dummy
     type -> the rotor prefab; MeshPartsToHideWhenActive: the three parked fans baked into our Fractured / Damaged
-    models (Plan 5 Task 11, G6; the clone's list named vanilla Fracture15 parts), shown while the CRAC is not
+    models (the clone's list named vanilla Fracture15 parts), shown while the CRAC is not
     Functional (under construction, a dead fan section) and hidden while the rotors spin) and the cloned
     BlockMaterialSwapper pointed at our models' RUN lamp (EmissiveOff and every Fracture_NN_Hide-EmissiveOff part ->
     EmissiveGreen while Working; the Damaged model maps its lamps to EmissiveOffBroken and is not swapped).
@@ -2369,7 +2371,7 @@ def stage_crac(spec, man, models, G):
         v["WorkingReplacementsMeshParts"] = [{"$Key": p, "$Value": green} for p in lamp_parts]
     out["swapper"] = _patch_body(spec, "_BlockMaterialSwapperDefinition", swapper)
     out["lamp_parts"] = lamp_parts
-    # Plan 3 T11: the service ports' dummy type, our own and inert (no component reads it: nothing snaps, no mount);
+    # the service ports' dummy type, our own and inert (no component reads it: nothing snaps, no mount);
     # to turn the ports on later, their dummies take vanilla's UseConveyor type instead (CRAC_PORT_TYPE_ON)
     pt = ctx["port_type"] = G[f"dummytype/{spec.name}/{CRAC_PORT_TYPE}"]
     stage_def(f"{config.NAME}/{spec.name}/{spec.name}_{CRAC_PORT_TYPE}_DummyTypeDefinition.def",
@@ -2404,7 +2406,7 @@ def patch_crac_dummies(spec, dummies, G, supporting=None):
         d = _dummy(name, ctx["fan"]["dummy_type"], doors.to_game(p, spec), (0, 0, 0, 1), (0, 0, 0), (1, 1, 1))
         d["SupportingFracture"] = {"Id": sup[name]} if sup.get(name) else None
         out.append((by_name.get(name, (None,))[0] or G[f"dummy/{spec.name}/{name}"], d))
-    # the O2 / coolant service ports (T11): on the rear cell face (game +Z = Backward), turned like vanilla's
+    # the O2 / coolant service ports: on the rear cell face (game +Z = Backward), turned like vanilla's
     # ConveyorBack (180 deg about Y: the dummy's +Z points into the block), vanilla's small-port scale
     for name, p in crac.port_points(spec).items():
         d = _dummy(name, ctx["port_type"], doors.to_game(p, spec), (0, 1, 0, 0), (0, 180, 0), crac.PORT_DUMMY_SCALE)
@@ -2429,7 +2431,7 @@ def patch_kind(spec, info, ids, G):
     """The block's cloned BlockKind: a kind owner joins its menu group (menu.group; OrderingPriority = menu order) and
     leaves the cloned vanilla ones (the trays' Structural > Walls and Trusses tiles); a block that is a further size
     of another block's kind (24U racks, 0.5 m straights, 0.25 / 2.0 m rods) leaves its own clone kind inert: no
-    groups, priority 0, no blocks (the group insertion skips a kind without blocks). Since Plan 3 Task 10 the room
+    groups, priority 0, no blocks (the group insertion skips a kind without blocks). The room
     pieces too: their cloned vanilla tiles (Catwalks, Gyroscopes, Doors, Deck Panels, LCDs, wall inserts) are left."""
     kind = read_mod(info["kind_file"])
     k = body(kind)

@@ -1,5 +1,5 @@
 """UPS server (12U, 2x2x3 cells): a Battery50 clone with two OPEN Power Cell bays (no grate, cage, window or door:
-the cell sits exposed in its frame, exactly like vanilla Battery50; v2 review decision).
+the cell sits exposed in its frame, exactly like vanilla Battery50).
 
 Layout (functional.UPS_BAYS). Two vanilla cells (0.30 x 0.31 m face, 0.355 m deep) cannot sit side by side or stacked
 in a 0.5 x 0.5 m face, so the bays run back to back along the 0.75 m depth:
@@ -242,7 +242,7 @@ def _rear(spec, P, lod):
                 G.prism(P["fine"], Fb, G.rect(pa - 0.0015, pa + 0.0015, sc - 0.004, sc + 0.004), s + 0.006,
                         s + 0.0062, HARDWARE)
     deco.label(P, Fb, 0.022, 0.090, sb0 + 0.008, sb1 - 0.008, s, "CELL 2", 0.012, lod)
-    # visual pass 2: CELL 2's own charge ladder (5 segments, the prefilled cell's 30 % = 2 lit), so the hot-aisle
+    # CELL 2's own charge ladder (5 segments, the prefilled cell's 30 % = 2 lit), so the hot-aisle
     # side reads as a battery too; a Darker bezel strip, lenses 1 mm proud, all inside the back plane
     la0, lb = 0.100, sc + 0.004
     G.prism(P["fine"], Fb, oct_pts(la0 - 0.004, lb - 0.010, la0 + 0.052, lb + 0.010, 0.003), s, s + 0.004, DARK)

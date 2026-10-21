@@ -1,0 +1,32 @@
+// Data Center room probe: the mount-point probe (probe_mountpoints.csx) for the room blocks.
+// Run in game via se2-game execute_code (usings: System.Linq, System.Reflection, System.Collections.Generic)
+// or: tools/scripts/se2game.py exec -f mods/DataCenter/Tests/InGame/probe_mountpoints_room.csx
+// Place one of each room block first (floor tiles, CRAC, PDU cabinet and strips, containment doors and roofs,
+// signs). Per distinct placed block definition it prints the generated placement data (bounding box, occupied cells, mount groups per face) to compare with check_placement.py / build_report.json,
+// and the build-menu data: display size and assigned BlockSize (menu grouping), mass, and the in-game cost
+// (Items = recipe x the game's mass scale; dc/recipes.py predicts scale 1 and the amounts).
+var needles = new[] { "DC_Floor_", "DC_CRAC", "DC_PDU_", "DC_Contain_", "DC_Sign_" };
+var s = Singleton<VRageCore>.Instance.Engine.Get<GameAppComponent>().ClientSession;
+var seen = new System.Collections.Generic.HashSet<string>();
+object P(object o, string n) { try { return o?.GetType().GetProperty(n, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.GetValue(o); } catch { return null; } }
+foreach (var e in s.Entities) {
+  CubeBlockComponent cb = null; try { cb = e.Get<CubeBlockComponent>(); } catch {}
+  if (cb == null) continue;
+  var d = cb.Definition; var ds = d.ToString();
+  if (!needles.Any(n => ds.Contains(n)) || !seen.Add(ds)) continue;
+  Console.WriteLine("== " + ds);
+  Console.WriteLine("  BoundingBox: " + d.BoundingBox);
+  var occ = P(d, "OccupiedGridCellsGroups") as System.Collections.IEnumerable;
+  if (occ != null) Console.WriteLine("  Occupied: " + string.Join(" | ", occ.Cast<object>()));
+  Console.WriteLine($"  DisplaySize {P(d, "DisplaySize")}  RelativeBlockSize {P(P(d, "RelativeBlockSize"), "RelativeBlockSize")}  BlockKind {P(d, "BlockKind")}");
+  Console.WriteLine($"  Mass {P(d, "Mass")}  MaxHealth {P(d, "MaxHealth")}  TotalItemAmount {P(d, "TotalItemAmount")}  OptionalItemAmount {P(d, "OptionalItemAmount")}");
+  var items = P(d, "Items") as System.Collections.IEnumerable;
+  if (items != null) Console.WriteLine("  Items: " + string.Join(", ", items.Cast<object>().Select(i => $"{P(i, "Amount")} x {P(i, "Item")}")));
+  var dict = P(d, "MountPointsGroupsPerDirection") as System.Collections.IEnumerable;
+  if (dict == null) continue;
+  foreach (var kv in dict) {
+    var key = kv.GetType().GetProperty("Key").GetValue(kv);
+    var list = (kv.GetType().GetProperty("Value").GetValue(kv) as System.Collections.IEnumerable).Cast<object>().ToList();
+    Console.WriteLine($"  {key}: {list.Count} mount group(s)");
+  }
+}

@@ -212,7 +212,7 @@ SERVER_AND_TRAY = ("server", "tray", "trayrods")
 
 
 def test_servers_and_trays_breakable(staged):
-    """Plan 2 Task 9b (Ruling P2-27): every built DC_Srv_* and DC_Tray* block but the justified exception (the three
+    """Every built DC_Srv_* and DC_Tray* block but the justified exception (the three
     rod hangers and the Chute: fracture.UNFRACTURED) is BREAKABLE again: a
     fractured Fractured model (>= 2 fracture colliders) and a fractured Damaged model, both compositions carry the
     BreakableBlockComponent bound to the block's own BreakableBlockDefinition, whose CriticalFractures are the
@@ -236,7 +236,7 @@ def test_servers_and_trays_breakable(staged):
         assert cols[ref(bmd["FractureModel"])] >= 2 and cols[ref(bmd["DamagedModel"])] >= 2, (n, cols)
         assert ref(bmd["DamagedModel"]) != ref(bmd["FractureModel"]), n
         crit = man["fractured"]["critical"]
-        want = [] if spec.family == "tray" else ["Fracture_01"]    # Ruling P2-30: trays are structural
+        want = [] if spec.family == "tray" else ["Fracture_01"]    # trays are structural
         assert crit == want, (n, crit)
         bbd_files = integration._block_files(spec, "_BreakableBlockDefinition")
         assert len(bbd_files) == 1 or (n == "DC_Srv_KVM" and not bbd_files), (n, bbd_files)
@@ -356,7 +356,7 @@ def test_placement_snap_alignment(staged):
 
 
 # ---------------------------------------------------------------------------- ConveyorGraphPostProcessor client types
-# Final review M2 (2026-10-19). ConveyorGraphPostProcessor.ValidateClientTypes (Game2.Simulation/.../
+# ConveyorGraphPostProcessor.ValidateClientTypes (Game2.Simulation/.../
 # ConveyorGraphPostProcessor.cs:162-205) runs on every EntityCompositeDefinition that BindingsBasedClientServerInfo
 # reaches from a PrefabBinding: a SERVER composition may hold no type from a client assembly
 # (ComponentTypeUtility.IsClientType, VRage.Core.Game/.../ComponentTypeUtility.cs:14-22: the assembly carries
@@ -365,7 +365,7 @@ def test_placement_snap_alignment(staged):
 # risk is what we insert: every type a delta inserts is resolved to its assembly in WS/tools/decompiled-current
 # (<Assembly>/<Namespace>/<Class>.cs; a symlink to the decompile of the installed game version, 4.0.0.3151).
 # This is the inserted-types shortcut; the full walk (base chains, reference following, hierarchy children, every
-# reached composite, vanilla included) is Tests/clientserver_walk.py, tested in Tests/test_clientserver_walk.py (T12a).
+# reached composite, vanilla included) is Tests/clientserver_walk.py, tested in Tests/test_clientserver_walk.py.
 DECOMPILED = os.path.join(config.TOOLS_DIR, "decompiled-current")
 NOT_ASSEMBLIES = {"sdk-pipeline"}       # the SDK Editor pipeline decompile lives inside the 4.0 tree
 
@@ -457,10 +457,10 @@ def test_no_client_types_on_server_compositions(staged):
 
 
 # ------------------------------------------------------------------------------- 4.0 schema gate: non-null + component types
-# Fix 2026-10-20 (fix-open-rack-load.md): the open racks failed world load with NullableValidator errors (Density,
+# The open racks once failed world load with NullableValidator errors (Density,
 # RecipeEfficiency, ConsumedResource.Type) and EntityBuilder "Definition PowerableBlockDefinition type doesn't match
 # expected CubeBlockDefinition" on both compositions. The assets were right; the SDK build had not rewritten the racks'
-# Content .def files after Task 12 rebased them onto PowerableBlockDefinition, while it regenerated the definition index.
+# Content .def files after they were rebased onto PowerableBlockDefinition, while it regenerated the definition index.
 # Two checks of Tests/definition_schema.py (shared core, ports and sources there), each run on the package as installed
 # (staged over the mod's Assets) AND on the built Content as the game loads it; plus a Content freshness check.
 import clientserver_walk as csw            # noqa: E402
@@ -513,7 +513,7 @@ def test_every_composition_component_definition_type(staged, installed, schema):
 
 def test_checks_catch_the_2026_10_20_open_rack_failure(staged, installed, schema):
     """The two checks reject the exact state that failed in game: DC_Rack24_Open's structural definition rebased onto
-    PowerableBlockDefinition (794c5233) with the CubeBlock-shaped members it had before Task 12 (no Density,
+    PowerableBlockDefinition (794c5233) with the CubeBlock-shaped members it had before (no Density,
     RecipeEfficiency, ConsumedResource), and the server composition still on the structural CubeBlockComponent key."""
     def_rel = "DataCenter/DC_Rack24_Open/DC_Rack24_Open_StructuralCubeBlockDefinition.partialdef"
     comp_rel = "DataCenter/DC_Rack24_Open/DC_Rack24_Open_ServerComposition.partialdef"

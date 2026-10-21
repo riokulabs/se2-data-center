@@ -13,13 +13,12 @@ own outputs, so any step can be rerun on its own.
 | 5. Build the mod | `pgrep -x Modern.bin` (must print nothing), then `python3 ../../tools/scripts/se2mod.py build DataCenter` | `Content/`, the `.meta` processor info | step 4, SE2 closed |
 | Tests | `python3 -m pytest -q Tests` | (each run stages its own copy in a temp dir, Tests/conftest.py; the step 3 staging is left alone) | steps 1-3 (and 2b for the placement test) |
 
-The blocks with real models so far: `DC_Rack42_Open DC_Rack24_Open DC_Srv_Blank DC_Srv_Compute DC_Srv_Storage
-DC_Srv_Switch`. Pass the same list to step 2 (`all` builds every catalogue entry, but the functional servers and the
-door racks are stubs until Tasks 6-9).
+Pass block names to step 2, or `all` to build every catalog entry. `docs/model-pipeline.md` is the short version of
+this page.
 
 ## 1. Clones (`dc/clone.py`)
 
-- Every catalogue block gets its own clone of its vanilla source (`catalog.vanilla_source`), via two
+- Every catalog block gets its own clone of its vanilla source (`catalog.vanilla_source`), via two
   `tools/scripts/se2mod.py copy` runs under one `--map-key <name>`:
   1. the vanilla BlockKind folder into `<name>/UI/` (`<name>_BlockKindDefinition.def`);
   2. the block folder, recursive, into `<name>/` (`--from <copy_from> --to <name>`). The kind is mapped first, so the
@@ -43,30 +42,29 @@ Per built block, into `Source/Model/Models/<name>/`:
   part per material, as vanilla); `<name>_collision.gltf/.bin`: the regular boxes plus the `occupancy*` and
   `mountpoints*` hints (both MSFT extensions; `msft_physics_exporter_props.enabled` set before each export).
 - `Fractured/<name>_Fractured[_LOD<i>].fbx` + `<name>_Fractured_collision.gltf/.bin`:
-  - every rack, server and cable tray (Plan 2 Task 9b; the racks since Task 9c, `dc/fracture.py` +
-    `dc/fracture_mesh.py`): a fracture PLAN per block. Racks: the full rack 8 zones (plinth and top-tray halves, each
+  - every rack, server and cable tray (`dc/fracture.py` + `dc/fracture_mesh.py`): a fracture PLAN per block. Racks: the full rack 8 zones (plinth and top-tray halves, each
     column's lower and upper half), the half rack 4 (plinth, columns, roof); no critical zone but a door rack's
     columns. Servers and trays 2-4 zones (`Fracture_01` is the key zone and the only critical one: a 6U server's
     central core between its front service module and rear chassis, the UPS's front bay module, the tray zone
     holding the trapeze / floor strut, the junction hub, the Drop's tray section above its two waterfalls). Each LOD is cut
     along the plan's seams with a ragged break line, every cut cross-section closed by a vanilla `FracturedMaterial01`
     break face (`Fracture_NN_Cut`: Group `Fracture_NN`, Split / HiddenUntilSecondSequenceStart / Fracture), one convex
-    collider per zone shaped to the zone's own cut geometry and stopped at its seams (Task 9c, `fracture.shaped_hull`:
+    collider per zone shaped to the zone's own cut geometry and stopped at its seams (`fracture.shaped_hull`:
     zone health is the collider's volume share, so no box over empty space). A light tray whose cut LOD0 needs one more LOD (Keen keys the count on each model's own LOD0)
     takes the kit's mid detail as the extra LOD.
-  - `Damaged/<name>_Damaged[_LOD<i>].fbx` + collision (every breakable block; the racks since Task 9c): vanilla's
+  - `Damaged/<name>_Damaged[_LOD<i>].fbx` + collision (every breakable block): vanilla's
     "Deformed" model, the Fractured meshes densified (at most 2 x the Fractured triangles) and dented (mean 7 / p90 13 / max 24 mm on the servers, as vanilla Timer50 / Battery50), pinned
     on the bounding box; its `.model` maps the lamp and screen slots to `EmissiveOffBroken` / `Display01Broken` /
     `LCDScreen_Off` (`fracture.DAMAGED_SLOTS`).
   - `ColliderMeshGroups` must list only groups the LOD0 has: one missing group makes the importer drop every
-    fracture and check the model as unfractured (8 mesh parts; Task 5's "9 and 11 against 8" on a 2-zone server).
+    fracture and check the model as unfractured (8 mesh parts, so a 2-zone server fails with 9 or 11 against 8).
     A fractured model may hold 32 materials and 256 mesh parts per LOD (`ModelLimitsChecker`, decompiled).
   - Every fractured block is **breakable** (`integration.ensure_breakable`): the BreakableBlockComponent the hotfix
     removed goes back right after the BlockModelComponent in both compositions (the clone's own BreakableBlock-
     Definition, its `CriticalFractures` from the plan; the KVM, a ControlPanel25 clone, gets a new Copy of the base
     definition), its five tag slots leave `RemovedKeys`, the prefabs' ObjectBuilders get it back. The UPS's cell
     slots are supported by their bay's fracture (vanilla Battery50); the functional 6U servers' Terminal / LcdPanel
-    dummies by their front service module (Task 9c). `make_non_breakable` (vanilla `Non-Breakable/Structural` /
+    dummies by their front service module. `make_non_breakable` (vanilla `Non-Breakable/Structural` /
     ControlPanel25 pattern) is used for the unfractured exception below;
     `Tests/test_definition_validators.py` ports `BreakableBlockModelValidator` and requires 44 of the 48 servers and
     trays breakable (and the 6 racks).
@@ -84,15 +82,15 @@ Per built block, into `Source/Model/Models/<name>/`:
 
 ## 3. Staging (`dc/integration.py`)
 
-For every catalogue block: the BlockKind's `Name` and `Description` and the block definition's `UIData.Name`
+For every catalog block: the BlockKind's `Name` and `Description` and the block definition's `UIData.Name`
 (`dc/names.py`; `UIData` has no Description). For built blocks also:
 - `Models/NonFractured/` and `Models/Fractured/` with the FBX, glTF, bin and a `.model` each: hand-written
   `MaterialAssignments` (`dc/material_guids.py`), LOD0 translation = the per-axis grid shift (0.125 on even cell
   counts, 0 on odd ones), `SnapToGrid: false`, `GeneratePreciseCollider: true`;
 - the cloned `<name>_BlockModelDefinition.partialdef` with `Model`, `FractureModel`, `DamagedModel`, the
-  `ParticleEffects` dummy moved to the block centre (= the shift), and `BuildProgressModels` generated by
+  `ParticleEffects` dummy moved to the block center (= the shift), and `BuildProgressModels` generated by
   `se2model.construction` (stages 0 / 0.1 / 0.2 / 0.3 / 0.5333 / 0.7667 / 1);
-- `UIData.Icon`, if `Source/Model/UI/<name>_Icon.png` exists (core Task 10 and Plan 2 Task 9 render all 54);
+- `UIData.Icon`, if `Source/Model/UI/<name>_Icon.png` exists (the icon render covers every block);
 - `DataCenter/DataCenter_InitialUnlock.partialdef`: an Override of ProgressionInitialUnlockConfiguration adding the
   built blocks' server prefabs and kinds.
 
@@ -117,12 +115,12 @@ pgrep -x Modern.bin || python3 ../../tools/scripts/se2mod.py build DataCenter
   the SDK's own) and `Exiting with 0.` twice (build + `--generateCaches`).
 - Every `Models/*/*.model.meta` has `P_MODEL`, a `.vrm` output and `Problems: []`.
 
-## Cable trays (Plan 2 Task 5)
+## Cable trays
 
-The 38 tray blocks are in the pipeline (`catalog.PIPELINE_FAMILIES` has `tray` and `trayrods`, Ruling P2-15), so
+The 38 tray blocks are in the pipeline (`catalog.PIPELINE_FAMILIES` has `tray` and `trayrods`), so
 `clone.py`, `write_all`, the install and the build treat them like the core blocks. What is different:
 
-- **Clone sources** (plan Decision 9):
+- **Clone sources:**
   - every tray piece, Drop, Reducer and the Chute: `WallInsertPipes` (`Blocks/Walls/Inserts/Pipes`), a single file
     prefix, 13 definitions each (kind + 12) including its own `PlacementDefinition`;
   - the rod hangers: `StructuralSupportStraight` (`Blocks/Truss/Struts/Long`). Its LastLod material is named with a
@@ -131,19 +129,17 @@ The 38 tray blocks are in the pipeline (`catalog.PIPELINE_FAMILIES` has `tray` a
   - First run: `python3 Source/Model/dc/clone.py $(python3 -c "from dc import catalog;print(' '.join(b.name for b in
     catalog.CATALOGUE if b.family.startswith('tray')))")` from `Source/Model`.
 - **Patches** (`integration.tray_patch`, every tray block, built or not):
-  - `PCU` 5 on the block definition (Decision 12);
+  - `PCU` 5 on the block definition;
   - no `MountPointGeneratorSettings` (all six directions mount; the model's mount hints decide where; neither source
     sets one);
   - the cloned `<name>_PlacementDefinition.def` gets `AutoRotateFace: null` (vanilla "Down" flips a tray upside
     down when aimed at a ceiling) and is staged; the block's `PlacerDefinition` must be that clone (checked).
-- **Models** (built trays only, Ruling 2): fractured by plan since Task 9b (Ruling P2-27, which replaced Decision 10's
-  unfractured trays; see above). The NonFractured LODs stay within 8 mesh parts; the Fractured / Damaged ones within
-  Keen's fractured limits (32 materials, 256 mesh parts). The `ParticleEffects` dummy of the cloned WallInsertPipes model definition moves to the block centre.
-- **Menu, costs and icons (Plan 2 Task 9):** see "Cable trays: menu, costs, icons" below.
-- **Rod hangers, Drop, Chute and the turns/junctions** are cloned and named but have no model until Tasks 6-8;
-  the rods' cloned model definition has no `ParticleEffects` dummy, so Task 8 must add one (or skip the move).
+- **Models:** fractured by plan like the other blocks (see above). The NonFractured LODs stay within 8 mesh parts; the Fractured / Damaged ones within
+  Keen's fractured limits (32 materials, 256 mesh parts). The `ParticleEffects` dummy of the cloned WallInsertPipes model definition moves to the block center.
+- **Menu, costs and icons:** see "Cable trays: menu, costs, icons" below.
+- **Rod hangers:** the cloned model definition has no `ParticleEffects` dummy of its own; the staging adds one.
 
-## Cable trays: menu, costs, icons (Plan 2 Task 9)
+## Cable trays: menu, costs, icons
 
 - **Menu** (`dc/menu.py`): five more group tiles in the "Data Center" subcategory, after Server Racks (Order 100) and
   Rack Servers (200): "Cable Trays: Empty / Low / Moderate / Full" (300-600) and "Cable Tray Supports" (700). A density
@@ -152,15 +148,15 @@ The 38 tray blocks are in the pipeline (`catalog.PIPELINE_FAMILIES` has `tray` a
   Rods kind (owned by `DC_TrayRods_100`) holds 0.25 / 1.0 / 2.0 m. `patch_kind` replaces every tray kind's cloned
   vanilla groups (Structural > Walls, Trusses), and empties the non-owner kinds.
 - **Names** (`dc/names.py`): "Cable Tray, <shape> (<load>)", e.g. "Cable Tray, Straight (Full)". No block name carries
-  a size (2026-10-20): the sizes of a kind share its name ("Cable Tray, Straight (Full)", "Cable Tray, Hanger Rods")
+  a size: the sizes of a kind share its name ("Cable Tray, Straight (Full)", "Cable Tray, Hanger Rods")
   and the game's size selector tells them apart; the descriptions keep the lengths.
 - **Costs** (`dc/recipes.py`): the core rule against WallInsertPipes (its recipe is the wall panel's; trays at Hollow
   density, written to the block definition) and StructuralSupportStraight (in game 2 Steel Plate: scale 2), with a
-  run-length floor for tray pieces (Ruling P2-26: one of each Pipes item per 0.5 m of run, `recipes.RUN_LENGTH`).
+  run-length floor for tray pieces (one of each Pipes item per 0.5 m of run, `recipes.RUN_LENGTH`).
   Each tray patches its own cloned recipe file.
-- **Icons:** `DC_PREVIEW=task10 blender -b --python Source/Model/build_dc.py -- "DC_Tray*"` renders the icons
-  (`UI/<name>_Icon.png`) and the store shots (`preview/blocks/`) of the built blocks; `DC_T10_PART=icons|blocks`
-  limits it. Sheets: `python3 Source/Model/icon_sheet.py trays` and `... menu` (`preview/p2-task-9/`).
+- **Icons:** `DC_PREVIEW=icons blender -b --python Source/Model/build_dc.py -- "DC_Tray*"` renders the icons
+  (`UI/<name>_Icon.png`) and the store shots (`preview/blocks/`) of the built blocks; `DC_ICONS_PART=icons|blocks`
+  limits it. Sheets: `python3 Source/Model/icon_sheet.py trays` and `... menu` (written under `preview/`).
 - After a re-export, re-run `blender -b --python Source/Model/check_placement.py -- <names>`
   (`test_exported_placement_matches_report` compares the mtimes).
 
@@ -171,7 +167,7 @@ The 38 tray blocks are in the pipeline (`catalog.PIPELINE_FAMILIES` has `tray` a
   (or `git checkout -- Assets/ && git clean -fd Assets/` back to the checkpoint), then rebuild.
 - To remove the mod's blocks from a world, see `se2mod.py status` (worlds keep references to local mods).
 
-## Not verified in game yet
+## Checking in game
 
-Placement, LOD switching, construction stages and breaking are checked offline only (the placement generator port,
-the builder's validators). The in-game checklist is Task 10.
+Placement, LOD switching, construction stages and breaking are checked offline here (the placement generator port,
+the builder's validators). `docs/testing-in-game.md` lists what to check in game.

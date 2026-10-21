@@ -5,5 +5,5 @@ forbidden = ["*.dll", "*.exe", "*.pdb", "*.blend", "*.blend1", "*/preview/*", "*
 allow = ["docs/media/*"]
 max_kb = 2048
 allow_large = []
-secret_scan_skip = ["*.def", "*.partialdef", "*.meta", "NOTES.md"]
+secret_scan_skip = ["*.def", "*.partialdef", "*.meta"]
 json_globs = ["Assets/*.def", "Assets/*.partialdef", "Assets/*.meta", "Source/*.json", "*.vrgproj", "*.modhub-metadata"]

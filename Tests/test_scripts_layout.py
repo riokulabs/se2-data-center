@@ -1,4 +1,4 @@
-"""Plan 4 Task 1: the shape and hygiene of the mod's C# scripts (Scripts/).
+"""The shape and hygiene of the mod's C# scripts (Scripts/).
 
 The game compiles every *.cs under Scripts/<Simulation|Client>/ when it is started with -loadScripts
 (VRage.Scripting ScriptCodeProvider.cs:64-92); without the switch the folder is ignored. These checks are the
@@ -138,14 +138,13 @@ def test_scripts_defensive_lint():
 
 
 def test_route_recorded():
-    """Ruling P4-1: the Programmable route is recorded in config and NOTES (Route A': the component lives in the data)."""
+    """The Programmable's scripting route is recorded in config ("A'": the component lives in the data)."""
     sys.path.insert(0, os.path.join(MOD, "Source", "Model"))
     try:
         from dc import config
     finally:
         sys.path.pop(0)
     assert config.PROGRAMMABLE_ROUTE in ("B", "A'")
-    assert f"Programmable route: {config.PROGRAMMABLE_ROUTE}" in _read(os.path.join(MOD, "NOTES.md"))
 
 
 def test_core_tests_pass(core_tests_lock):
@@ -175,8 +174,8 @@ def test_build_hides_scripts():
     if _game_running():
         pytest.skip("the game is running (pgrep -x Modern.bin): build only with the game closed")
     if os.path.basename(MOD) != "DataCenter":
-        # se2mod.py resolves mods/<name>; from a worktree it would build the main checkout, not this tree.
-        pytest.skip(f"not the mods/DataCenter checkout ({os.path.basename(MOD)}): the controller builds after merging")
+        # se2mod.py resolves mods/<name>; from a checkout under another name it would build mods/DataCenter instead.
+        pytest.skip(f"not the mods/DataCenter checkout ({os.path.basename(MOD)}): build from the main checkout")
     r = subprocess.run([sys.executable, SE2MOD, "build", "DataCenter"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                        text=True, timeout=3600)
     assert r.returncode == 0, r.stdout[-4000:]

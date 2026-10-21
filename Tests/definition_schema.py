@@ -278,9 +278,9 @@ def content_view(u, assets_root, content_root):
     (Content/definitionsets.vrb, contentcache.vrb) carries the base and the class. So the game's definition is: base
     and class as in the index (taken here from the asset, which is what the caches are generated from), members as in
     the Content .def. A stale Content .def (an asset changed but its output not rewritten) then resolves exactly as in
-    game: 2026-10-20 the open racks' CubeBlock-shaped .def on their new PowerableBlockDefinition base gave Density /
+    game: the open racks' CubeBlock-shaped .def on their new PowerableBlockDefinition base gave Density /
     RecipeEfficiency / ConsumedResource.Type null and a CubeBlockComponent on a PowerableBlockDefinition
-    (SpaceEngineers2_261020_182754 log). Returns (universe, [asset paths whose Content .def is missing])."""
+    (a world-load failure seen in game). Returns (universe, [asset paths whose Content .def is missing])."""
     files, missing = [], []
     root = os.path.abspath(assets_root)
     for g, e in list(u.entries.items()):
