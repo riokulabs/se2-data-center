@@ -11,7 +11,7 @@ Do these in order and stop before anything leaves the machine.
 1. Working tree clean, on `main`, `scripts/test.sh` passes.
 2. Pick the version (Semantic Versioning) from the commits since the last tag: `git log --oneline $(git describe --tags --abbrev=0)..HEAD`.
 3. Draft the changelog section: `scripts/changelog.sh <version>`. Edit the wording for users, then add it under the right heading in `CHANGELOG.md` (format: `## [x.y.z] - YYYY-MM-DD`, Keep a Changelog groups).
-   Also update `docs/workshop/` text and the version in `ModProject.modhub-metadata` if it carries one, and run the SDK build from the main checkout. Publishing to the Workshop is done with se2publish by the maintainer, never by you.
+   Also update `docs/workshop/` text and the version in `ModProject.modhub-metadata` if it carries one, and run the SDK build from the main checkout. The maintainer publishes to the Workshop with the publish tool; do not publish.
 4. Commit as `chore(release): <version>`.
 5. Show the maintainer the tag command (`git tag -s v<version>` or `git tag -a`) and stop. The maintainer pushes the tag; pushing a `v*` tag makes CI draft a GitHub release from the notes.
 

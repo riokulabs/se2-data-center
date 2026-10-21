@@ -46,8 +46,9 @@ jobs:
       - run: ruff check .
   tests:
     name: pytest (offline subset, informational)
-    # Informational until tools/se2model is vendored into this repo: some test modules import it from the
-    # maintainer's workspace and fail to collect on a bare clone. See AGENTS.md.
+    # Informational until se2-modkit installs from a release tag: the tests import se2modkit (pinned in
+    # pyproject.toml), whose pytest plugin also runs the shared gates, and it has no tag yet, so a bare clone cannot
+    # install it. Then: install the pin here and drop continue-on-error. See AGENTS.md.
     continue-on-error: true
     runs-on: ubuntu-latest
     timeout-minutes: 30
