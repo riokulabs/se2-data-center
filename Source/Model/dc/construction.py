@@ -1,14 +1,14 @@
 """BlockModelDefinition.BuildProgressModels without the Editor (no Blender needed).
 
-The Data Center's own copy (Ruling DB-1, 2026-10-19): forked from tools/se2model/construction.py, which is left
-unchanged and is superseded for this mod (tools/ is not versioned, so a fix there could not be committed per task).
+The Data Center's own copy: forked from tools/se2model/construction.py, which is left unchanged and is superseded
+for this mod (tools/ is not versioned with the mod, so fixes live here).
 Changes from the fork: the stage-1.0 ApplyOnlyWhenDamaged hide names exactly the parts passed as `damaged_hide`
-(scaffold_parts: the Scaffold-type mesh parts) and is empty without them (audit G9; the stray "Chrome" hide named a
+(scaffold_parts: the Scaffold-type mesh parts) and is empty without them (the old stray "Chrome" hide named a
 part no block has), and the 4.0 presets WindowGlass and SubpartConstruct.
 
 History of the fork's source:
 
-Forked from an earlier prototype's construction generator (2026-10-17, Data Center Task 5): the generator only, taking the
+Forked from an earlier prototype's construction generator: the generator only, taking the
 Fractured LOD0 mesh parts as data instead of Blender objects; the prototype-specific support frame and scaffold
 geometry stay there. The Editor (Game2.Plugin.Editor BuildProgressModelGenerator) builds the stages from four FBX
 custom properties per object:
@@ -33,7 +33,7 @@ PRESETS = {
     "scaffolding": {"T": ["4050183d-1340-4643-b8b9-124981f2121d"], "S": []},
     "conveyor_port": {"T": ["7d57e640-f4bb-4850-b0d2-033149cffe27"], "S": ["e1c15fae-c412-4da5-bc23-833ec10a95bb"]},
     # 4.0 (SDK System/Configurations/ConstructionPresets/*): glass faces keep their glass through both sequences
-    # (Task 5's glass role), parked subpart stand-ins likewise with the subpart construct material (Task 8). The SDK's
+    # (the glass role), parked subpart stand-ins likewise with the subpart construct material. The SDK's
     # GratingMetallic has no user in this mod and is left out (no unused presets).
     "windowglass": {"T": ["83c075f5-f177-460d-94a7-8aca19fd4d6f"], "S": ["83c075f5-f177-460d-94a7-8aca19fd4d6f"]},
     "subpartconstruct": {"T": ["851d4d6e-9ec8-467f-87a5-06ef06e97336"],
@@ -44,7 +44,7 @@ SECOND = 0.3
 
 def preset_of(name):
     """The preset's {"T", "S"} materials; no preset (None / "") is the plain form with none. An unknown name raises
-    (Task 2 review M3: a typo such as "WindowGlas" would otherwise build silently with no construction materials)."""
+    (a typo such as "WindowGlas" would otherwise build silently with no construction materials)."""
     if not name:
         return {"T": [], "S": []}
     try:
@@ -65,7 +65,7 @@ def generate_stages(parts, model_ref, fracture_ref, seed, damaged_hide=()):
     events = {}  # (time, part) -> dict
 
     def ev(t, part, **kw):
-        # float always (Plan 5 Task 6 review): the stage Key and ratio came from whichever event wrote a time first,
+        # float always: the stage Key and ratio came from whichever event wrote a time first,
         # int 0 or float 0.0, so adding a part that sorts first could rename stage 0
         e = events.setdefault((round(float(t), 4), part), {})
         e.update(kw)

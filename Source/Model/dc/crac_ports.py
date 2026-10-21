@@ -1,4 +1,4 @@
-"""The CRAC's two O2 / coolant service ports (Plan 3 Task 11, user direction 2026-10-18): Keen's small conveyor port as
+"""The CRAC's two O2 / coolant service ports: Keen's small conveyor port as
 a kit part, blanked, on the cooler's hot-aisle service bay.
 
 Decorative today, designed to be "turned on" later: when SE2 gets air vents and airtightness, the block only needs

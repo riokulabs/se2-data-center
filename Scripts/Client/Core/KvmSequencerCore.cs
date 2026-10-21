@@ -1,9 +1,9 @@
-// KvmSequencerCore: every decision the scripted KVM makes, game-free (Plan 4 Rulings P4-3, P4-4, P4-12; Task 8).
+// KvmSequencerCore: every decision the scripted KVM makes, game-free.
 // The game component (Scripts/Client/Kvm/KvmSequencerComponent.cs) only reads the world into KvmInputs once per
 // frame and hands the resulting pose to the part drivers; the target rule, the door interlock, the scene-entry snap
 // (the load-bug fix), the path routing and the fault budget all live here, so Tests/CoreTests covers them natively.
 //
-// The target rule, in order (the Task 8 brief):
+// The target rule, in order:
 //   1. faulted:                                           snap to the wanted end pose every frame (data-only-like);
 //   2.-4. the door interlock and Working (KvmInterlock.cs).
 // Scene entry (the first KvmSpawnPolicy.SceneEntryWindow seconds after the KVM enters the scene, e.g. a world load or
@@ -25,7 +25,7 @@ namespace DataCenter.Kvm.Core;
 /// </summary>
 public sealed class KvmSequencerCore
 {
-    /// <summary>Faults (caught exceptions) after which the KVM stops sequencing and snaps (Task 8 brief, step 3).</summary>
+    /// <summary>Faults (caught exceptions) after which the KVM stops sequencing and snaps (rule 1 below).</summary>
     public const int MaxFaults = 3;
 
     /// <summary>Normalised distance from stowed under which the KVM counts as home.</summary>

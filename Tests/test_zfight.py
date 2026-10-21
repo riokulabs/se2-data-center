@@ -137,7 +137,7 @@ def test_side_panel_labels_audited():
 @pytest.mark.build
 @pytest.mark.parametrize("name", [b.name for b in catalog.BLOCKS if b.family == "rack"])
 def test_racks_carry_no_baked_id(name):
-    """Controller ruling (merge main -> plan3-room): no rack bakes a specific ID ("A1", "ROW A POS 1": every rack read
+    """No rack bakes a specific ID ("A1", "ROW A POS 1": every rack read
     A1). The front header / kick plate and the half rack's roof say "RACK", the side hatch placard "RACK ID", each
     with a blank write-on tag; the ID comes from the editable rack-label LCD (DC_Sign_Rack)."""
     labels = {e["label"].split(" ", 1)[1] for e in _zf(name)["elements"]}
@@ -211,8 +211,8 @@ def test_pdu_feed_band_clears_the_face_plate():
 
 
 # Pre-existing visible coplanar faces of different materials (the catalogue-wide audit added 2026-10-20), per block:
-# (part a / material, part b / material) with the part names' block prefix and LOD removed. They are follow-ups
-# (NOTES.md "Visual fix 2026-10-20"); the test fails on any pair not listed, so none can come back or appear new.
+# (part a / material, part b / material) with the part names' block prefix and LOD removed. They are known
+# follow-ups; the test fails on any pair not listed, so none can come back or appear new.
 KNOWN_COPLANAR = {
     "rack": {("dark/PaintedMetalDarker", "frame/PaintedMetalColorable"), ("dark/PaintedMetalDarker", "hw/MetalDull"),
              ("frame/PaintedMetalColorable", "hw/PaintedMetalYellow"),

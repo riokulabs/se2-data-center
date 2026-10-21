@@ -1,6 +1,6 @@
-"""Z-fight audit for the room blocks (Plan 3 Task 11): the containment door's sliding leaves.
+"""Z-fight audit for the room blocks: the containment door's sliding leaves.
 
-dc/zfight.py (ported unchanged from main 4f7288a5) audits every built block's decal elements and the RACK doors' hinged
+dc/zfight.py audits every built block's decal elements and the RACK doors' hinged
 leaves. The containment door (dc/contain.py) has sliding leaves instead: two subparts (ContainLeafL / ContainLeafR)
 that translate along x by contain.leaf_travel. This module adds, with zfight's bpy-free rules:
   contain_leaf_coplanar  same-facing coplanar overlapping faces between two parts of one leaf model (every LOD);
@@ -59,7 +59,7 @@ def contain_door_check(spec, built):
 
 
 # ------------------------------------------------------------------------------------------------ stencil contrast
-# In game (main, 2026-10-18): white stencils straight on the player's paint read poorly on a light paint (the keen
+# In game: white stencils straight on the player's paint read poorly on a light paint (the keen
 # default grey). Every white stencil glyph of a room block must have a non-paint backing: the nearest same-facing face
 # behind it (within BACK_D) that it overlaps must be a Darker / Yellow / MetalDull / ... plate, not PaintedMetalColorable.
 BACK_D = 0.020

@@ -1,11 +1,11 @@
-// KvmRackSlot: which rack slot a KVM sits in, and which motion runs there (Plan 4 Ruling P4-12).
-// The runtime twin of dc/kvm_motion.motion_path_for_slot (Task 6): the data-only path exactly in the TOP slot of a
-// FULL rack (the 42U racks carry Plan 3's containment rail and roof over their tray band, front and back), the
+// KvmRackSlot: which rack slot a KVM sits in, and which motion runs there.
+// The runtime twin of dc/kvm_motion.motion_path_for_slot: the data-only path exactly in the TOP slot of a
+// FULL rack (the 42U racks carry the containment rail and roof over their tray band, front and back), the
 // sequenced path everywhere else, the 24U half rack's top slot included. Facing plays no part.
 // Tests/CoreTests dumps this rule for every rack and slot (routing.json), and Tests/test_kvm_runtime.py checks the
 // dump against the Python rule, so the two cannot drift apart.
 //
-// It also holds the face-side rule of Ruling P4-13: a rack's door guards only the side its leaves are on (front and/or
+// It also holds the face-side rule: a rack's door guards only the side its leaves are on (front and/or
 // rear, from dc/doors.py door_sides, generated into DcGuids.Rack*DoorSides), so a KVM facing a side without leaves is
 // free, as it is with scripts off.
 //
@@ -22,7 +22,7 @@ public enum KvmRackKind
     /// <summary>Not in a Data Center rack (standalone, another block in front, or not known yet).</summary>
     None,
 
-    /// <summary>A 42U rack: 10 cells high (plinth, 8 slots, the top tray band); Plan 3's containment sits above it.</summary>
+    /// <summary>A 42U rack: 10 cells high (plinth, 8 slots, the top tray band); containment sits above it.</summary>
     Full,
 
     /// <summary>A 24U rack: 5 cells high (plinth, 4 slots); nothing sits above its top slot.</summary>
@@ -43,7 +43,7 @@ public enum KvmDoorSides
     Rear = 1 << 1,
 }
 
-/// <summary>The rack slot rule of Ruling P4-12 and the face-side rule of Ruling P4-13.</summary>
+/// <summary>The rack slot rule (which motion runs where) and the face-side rule (which sides a door guards).</summary>
 public static class KvmRackSlot
 {
     /// <summary>The height of a rack in cells along its up axis (0 for <see cref="KvmRackKind.None"/>).</summary>

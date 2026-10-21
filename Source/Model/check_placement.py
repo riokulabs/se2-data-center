@@ -49,7 +49,7 @@ def check(name):
     b = catalog.bounds(spec)
     r0 = PL.analyse(tris, reg, occ, mnt, bounds=b, shift="bounds")
     r1 = PL.analyse(tris, reg, occ, mnt, frac, bounds=b, shift="bounds")
-    # Task 9b: which fracture supports each mount cell (the game's FindFractureId: the first fracture collider the
+    # which fracture supports each mount cell (the game's FindFractureId: the first fracture collider the
     # cell's box query hits); a cell no fracture covers keeps its mount whatever breaks
     hulls = [PL.Hull(n, v) for n, v in frac]
     by_frac = {}

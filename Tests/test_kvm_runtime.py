@@ -1,9 +1,9 @@
-"""Plan 4 Task 8: the scripted KVM's runtime held to the data and to the Task 6 geometry checks.
+"""The scripted KVM's runtime held to the data and to the geometry checks (Tests/test_kvm_sequence.py).
 
 The runtime's decisions live in the game-free C# core (Scripts/Client/Core, unit-tested by Tests/CoreTests); the game
 glue is Scripts/Client/Kvm. CoreTests dumps two files next to the trajectories, so these tests need no dotnet:
-  routing.json        KvmRackSlot's rule per rack kind and slot, against dc/kvm_motion.motion_path_for_slot (P4-12);
-  data_only_open.csv  KvmLinearMotion, against dc/kvm_motion.data_only_trajectory: the very motion Task 6's top-slot
+  routing.json        KvmRackSlot's rule per rack kind and slot, against dc/kvm_motion.motion_path_for_slot;
+  data_only_open.csv  KvmLinearMotion, against dc/kvm_motion.data_only_trajectory: the very motion the top-slot
                       clearances were measured on (so the runtime's data-only path cannot drift from what was checked).
 Regenerate both with: cd Tests/CoreTests && dotnet run -c Release -- --dump ../../Source/Model/preview/plan4/traj
 (the conftest `trajectories` fixture does it when the dump's content stamp does not match the core sources).
@@ -40,7 +40,7 @@ def _read(path):
 
 
 def test_routing_matches_python():
-    """Ruling P4-12, runtime vs geometry: the C# rule routes exactly the slots Task 6 routes, for every rack."""
+    """Runtime vs geometry: the C# rule routes exactly the slots the Python rule routes, for every rack."""
     _need(ROUTING)
     with open(ROUTING, encoding="utf-8") as fh:
         table = json.load(fh)
@@ -73,7 +73,7 @@ def test_rack_kind_guids_cover_every_rack():
 
 
 def test_data_only_path_is_what_task6_checked():
-    """KvmLinearMotion (the data-only path) is exactly dc/kvm_motion.data_only_trajectory at 240 Hz: Task 6's top-slot
+    """KvmLinearMotion (the data-only path) is exactly dc/kvm_motion.data_only_trajectory at 240 Hz: the top-slot
     clearances hold for the motion the game runs. Adding easing breaks this on purpose: re-dump and re-check."""
     _need(DATA_ONLY_CSV)
     runtime = K.load("data_only_open")
@@ -100,7 +100,7 @@ def test_runtime_dumps_fresh():
 
 
 def test_drivers_own_their_definition_types():
-    """Ruling P4-10: no script component declares a vanilla definition type in its [Definition] field. Two components
+    """No script component declares a vanilla definition type in its [Definition] field. Two components
     declaring the same definition type make the game's definition-to-component lookup throw "Ambiguous match" for any
     untyped composite entry (ComponentInfoIndexer.cs:75-90), vanilla's or another mod's."""
     declared = set()
@@ -116,7 +116,7 @@ def test_drivers_own_their_definition_types():
 
 
 def test_door_sides_follow_the_data():
-    """Ruling P4-13: KvmRackTable maps every rack's block GUID to that rack's own DoorSides constant, and the
+    """KvmRackTable maps every rack's block GUID to that rack's own DoorSides constant, and the
     constants are dc/doors.py door_sides (bit 1 = front, the block's Forward; bit 2 = rear)."""
     guids = _read(os.path.join(MOD, "Scripts", "Simulation", "Shared", "DcGuids.g.cs"))
     link = _read(os.path.join(CLIENT, "Kvm", "KvmRackTable.cs"))

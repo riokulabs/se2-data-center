@@ -1,4 +1,4 @@
-"""Task 10: icons, previews, build-menu grouping (dc/menu.py) and cost balancing (dc/recipes.py)."""
+"""Icons, previews, build-menu grouping (dc/menu.py) and cost balancing (dc/recipes.py)."""
 import math
 import os
 import struct
@@ -70,13 +70,13 @@ def alpha_bbox(path):
 
 
 # ---------------------------------------------------------------------------------------------- icons + previews
-# every block has a menu entry, an icon and a cost (the cable trays joined in Plan 2 Task 9)
+# every block has a menu entry, an icon and a cost (the cable trays included)
 MENU_BLOCKS = list(catalog.BLOCKS)
 
 
 def test_menu_covers_every_block():
     assert len(MENU_BLOCKS) == 73 and {b.family for b in MENU_BLOCKS} == {"rack", "server", "tray", "trayrods",
-                                                                         *catalog.ROOM_FAMILIES}   # Plan 3 Task 10
+                                                                         *catalog.ROOM_FAMILIES}   # room families too
     assert all(menu.group(b) in menu.GROUPS for b in MENU_BLOCKS)
     assert all(recipes.costed(b) for b in MENU_BLOCKS)
 
@@ -178,7 +178,7 @@ def test_cost_formula_matches_vanilla_source_cost():
     the recipe itself); the long strut's lone Steel Plate (35 kg) is about half the strut (69 kg), so the game charges
     it twice, and our ratio is computed against that in-game cost."""
     want = {"StructuralSupportStraight": 2,
-            # Plan 3 Task 10: the room sources' light recipes (one plate for a 2.5 m catwalk or deck, 225 kg) and the
+            # the room sources' light recipes (one plate for a 2.5 m catwalk or deck, 225 kg) and the
             # gyroscope's and sliding door's solid 2.5 m boxes are charged several times their recipe in game
             "CatwalkSquareBase250": 6, "DeckPanel250": 6, "Gyroscope250": 3, "SlidingDoorNarrow250": 2}
     for k, s in recipes.SOURCES.items():
@@ -202,9 +202,9 @@ def test_costs_scale_with_volume_and_game_scale_is_one():
         assert total(f"DC_Rack24_{v}") < total(f"DC_Rack42_{v}")
     racks = [b.name for b in catalog.BLOCKS if b.family == "rack"]
     servers = [b.name for b in catalog.BLOCKS if b.family == "server"]
-    # merge main -> plan3-room: the game's mass follows the OCCUPIED cells, and the half rack now frees its slots'
-    # front row (main's placement fix) and its PDU columns (Plan 3 T1): 60 cells, 370 kg-equivalent, just under the
-    # Timer server's 375 (4 Hard Drives). Plan 3 Task 12 floors every rack at the dearest server (recipes.FRAME_FLOOR):
+    # the game's mass follows the OCCUPIED cells, and the half rack frees its slots'
+    # front row (the placement fix) and its PDU columns: 60 cells, 370 kg-equivalent, just under the
+    # Timer server's 375 (4 Hard Drives). Every rack's cost is floored at the dearest server (recipes.FRAME_FLOOR):
     # no rack costs less than a server it holds.
     assert max(total(n) for n in servers) < min(total(n) for n in racks if "Rack42" in n)
     assert max(total(n) for n in servers) <= min(total(n) for n in racks)
@@ -213,10 +213,10 @@ def test_costs_scale_with_volume_and_game_scale_is_one():
     assert len(deco) == 4 and max(total(n) for n in deco) < min(total(n) for n in racks)
 
 
-# the same three numbers INGAME-CHECKLIST.md section 9 asks the player to check in game
+# three costs worth checking in game
 GOLDEN_COSTS = {
-    # Plan 3 Task 1 (the freed PDU columns, 16 cells) + main's placement fix (the slots' front-zone row, 16 cells):
-    # 120 occupied cells, not 152 (merge main -> plan3-room): 11 -> 9 plates, 8 -> 7 construction, 8 -> 7 optional
+    # the freed PDU columns (16 cells) + the placement fix (the slots' front-zone row, 16 cells):
+    # 120 occupied cells, not 152: 11 -> 9 plates, 8 -> 7 construction, 8 -> 7 optional
     "DC_Rack42_Open": ([("SteelPlate", 9), ("Construction", 7)], [("SteelPlate", 7)]),
     "DC_Srv_Compute": ([("SteelPlate", 1), ("Construction", 1)], [("SteelPlate", 1)]),
     "DC_Srv_UPS": ([("Construction", 9), ("ElectronicParts", 1)], [("Construction", 4)]),

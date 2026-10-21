@@ -4,12 +4,12 @@ NonFractured/  <name>.fbx, <name>_LOD1..n.fbx, <name>_collision.gltf/.bin (regul
 Fractured/     <name>_Fractured.fbx, _LOD1..n.fbx, <name>_Fractured_collision.gltf/.bin (one hull per fracture)
 Damaged/       <name>_Damaged.fbx, _LOD1..n.fbx, <name>_Damaged_collision.gltf/.bin (every block: vanilla's
                "Deformed" model, the Fractured model without its scaffold, densified (at most
-               fracture.damaged_tris_x(family) x those triangles) and dented; the unfractured blocks' too, Plan 5
-               Task 7: their dented debris, as vanilla's non-breakable ControlPanel25 / Sensor25 have one)
+               fracture.damaged_tris_x(family) x those triangles) and dented; the unfractured blocks' too:
+               their dented debris, as vanilla's non-breakable ControlPanel25 / Sensor25 have one)
 export.json    the manifest the bpy-free integration step reads (files, used materials, tris, fracture zones and
                plan, collider volumes and health shares, construction mesh parts, the Damaged model)
 
-Per LOD the measured parts (Task 4 split them into separate objects) are merged into ONE object (NonFractured) or
+Per LOD the measured parts (built as separate objects) are merged into ONE object (NonFractured) or
 one object per fracture group (Fractured), so the mesh-part count is one per material, as in vanilla. Mesh parts are
 therefore named by material slot: the functional servers' indicator lamps and LCD surface are slots named exactly as
 the vanilla definitions' mesh parts (dc/functional.py), so nothing has to stay a separate object. A re-export keeps
@@ -17,8 +17,8 @@ the previous bytes of every file (NonFractured, Fractured, Damaged, subpart) who
 (_restore_unchanged).
 
 Two kinds of Fractured model:
-* PLANNED (every rack, server and cable tray: Plan 2 Tasks 9b / 9c; the room's floors, roofs and doors since the Plan 3
-  merge; dc/fracture.py, dc/fracture_mesh.py): the LOD is
+* PLANNED (every rack, server and cable tray; the room's floors, roofs and doors;
+  dc/fracture.py, dc/fracture_mesh.py): the LOD is
   cut along the plan's seams, every cut cross-section closed by a vanilla FracturedMaterial01 break face
   (Fracture_NN_Cut: Group Fracture_NN, Split / HiddenUntilSecondSequenceStart / Fracture), one convex collider per
   zone shaped to the zone's cut LOD0 geometry (fracture.shaped_hull: health is the collider's volume share); when the
@@ -27,7 +27,7 @@ Two kinds of Fractured model:
 * UNFRACTURED (the non-breakable exception, fracture.UNFRACTURED: the rod hangers and the Chute): no zones, the
   Fractured model's colliders are the plain physics boxes; the Damaged model is the same copy, densified and dented,
   with a copy of those boxes (_export_unfractured_damaged).
-Each face's construction role (fracture.role_of, Plan 5 Task 5) picks its object per zone: the skin (Group
+Each face's construction role (fracture.role_of) picks its object per zone: the skin (Group
 Fracture_NN), decals, stencils and lamps in Fracture_NN_Hide (AlwaysHidden while under construction, as vanilla), the
 family's supports / frames in Fracture_NN_Support / _Frame, glass as its own object in Fracture_NN with the
 WindowGlass preset (fracture.ROLE_PROPS). export.json records the LOD0 triangles per role (role_tris) and each zone's
@@ -48,7 +48,7 @@ from se2model import objects as OB
 
 from . import catalog, config
 from .fracture import HIDE_PREFIXES, ROLE_IDS, ROLE_SUFFIX, role_of, role_props, skin_carrier  # noqa: F401
-from .fracture import SUBPART_SUFFIX  # noqa: F401  (Plan 5 Task 8: a baked stand-in's slot suffix, "_Subpart")
+from .fracture import SUBPART_SUFFIX  # noqa: F401  (a baked stand-in's slot suffix, "_Subpart")
 
 
 def shift(spec):
@@ -58,8 +58,7 @@ def shift(spec):
 
 def fracture_zones(boxes, spec=None):
     """The racks' simple fracture: [(id, lo, hi)] in the Blender frame, one zone per regular physics box; none for a
-    one-box block. (The servers and cable trays are planned instead: dc/fracture.py, Plan 2 Task 9b, which replaced
-    Plan 2 Decision 10's unfractured trays.)"""
+    one-box block. (The servers and cable trays are planned instead: dc/fracture.py.)"""
     if len(boxes["regular"]) < 2:
         return []
     if spec is not None and spec.family in ("tray", "trayrods"):
@@ -190,7 +189,7 @@ def _snapshot(d, exts=(".fbx", ".gltf", ".bin")):
 def _gltf_key(g):
     """A collision glTF's content without Blender's datablock-name suffixes on its MESH names ("Fracture_01.047": a
     hull mesh named again in a long multi-block session; only the node names bind the colliders), so a re-export of
-    one block and of all 73 compare alike (Plan 5 Task 7)."""
+    one block and of all 73 compare alike."""
     for m in g.get("meshes", []):
         if "name" in m:
             m["name"] = re.sub(r"\.\d{3}$", "", m["name"])
@@ -200,7 +199,7 @@ def _gltf_key(g):
 def _restore_unchanged(old):
     """Put back the previous bytes of every rewritten file whose CONTENT is unchanged (an FBX: same objects, meshes
     and connections, fracture_rules.fbx_content; a glTF / bin: same JSON / bytes), so a re-export does not churn the
-    intact models' LFS objects and .meta hashes with new timestamps and uids (Task 9b review M-2)."""
+    intact models' LFS objects and .meta hashes with new timestamps and uids."""
     import tempfile
     from . import fracture_rules as FRR
     for path, data in old.items():
@@ -228,7 +227,7 @@ def export_subparts(spec, subparts, ops, tmp, collision=None):
     """Animated subparts (dc/subparts.py): Models/<name>/Subparts/<sub>/<name>_<sub>[_LODn].fbx, one merged object per
     LOD, the object's origin = the pivot (no fracture, no shift). Vanilla subparts are visual only, except door leaves:
     collision = {sub: [(name, lo, hi)]} (subpart frame) exports <name>_<sub>_collision.gltf/.bin like a block's
-    collision (Plan 3 Task 5, P3-16: the DoorBlockCollider compounds a leaf's model collider while the door is
+    collision (the DoorBlockCollider compounds a leaf's model collider while the door is
     closed). Returns the manifest entry {sub: {"lods": [{file, materials, tris, objects}], "collision"?: {...}}}."""
     out = {}
     collision = collision or {}
@@ -270,7 +269,7 @@ def export_block(spec, lods, cobjs, boxes, ops, subparts=None, mid=None, subpart
     out = os.path.join(config.MODELS_DIR, spec.name)
     nf_dir, fr_dir, dm_dir = (os.path.join(out, d) for d in ("NonFractured", "Fractured", "Damaged"))
     old = _snapshot(nf_dir)
-    old_frdm = {**_snapshot(fr_dir), **_snapshot(dm_dir)}   # (Task 6 review M7: FR / DM too, header-only rewrites)
+    old_frdm = {**_snapshot(fr_dir), **_snapshot(dm_dir)}   # Fractured / Damaged too: their rewrites can be header-only
     for d in (nf_dir, fr_dir, dm_dir):
         if os.path.isdir(d):
             for f in os.listdir(d):
@@ -333,7 +332,7 @@ def _construction_parts(lod_objs):
 
 
 def _export_simple(spec, lods, boxes, ops, tmp, man, fr_dir, dm_dir, made):
-    """The Task 5 simple fracture (the racks then; today only the unfractured exception, fracture.UNFRACTURED): one
+    """The simple fracture (today only the unfractured exception, fracture.UNFRACTURED): one
     zone per physics box, faces split along their existing edges; an unfractured block also gets its dented Damaged
     model (_export_unfractured_damaged). Returns the collider objects."""
     zones = fracture_zones(boxes, spec)
@@ -395,7 +394,7 @@ def _export_simple(spec, lods, boxes, ops, tmp, man, fr_dir, dm_dir, made):
 
 
 def _export_unfractured_damaged(spec, lods, boxes, ops, tmp, man, fr_lods, dm_dir, made):
-    """Plan 5 Task 7 (audit G12): the dented debris of an unfractured, non-breakable block (the rod hangers, the
+    """The dented debris of an unfractured, non-breakable block (the rod hangers, the
     Chute): its Fractured LODs copied (the same mesh parts: they have no scaffold), every LOD but the LastLOD box
     densified to at most damaged_tris_x(family) x its triangles (within the fractured budget) and dented with the
     family's DENT (trayrods: the rods; tray: the Chute's ladders), seeded by the block name; the colliders a copy of
@@ -501,7 +500,7 @@ def _group(pieces, cut, z, lod_objs, cut_hide=None):
     object in z + its ROLE_SUFFIX group with the role's props; the skin carries ColliderMeshGroups = z and every
     present suffixed group (only groups that exist: the importer warns about listed groups without meshes); the
     break faces are Split / Fracture in z, those of a hidden part (cut_hide, _split_cut) go with it in z_Hide,
-    AlwaysHidden (Plan 5 Task 13 fix round 1; into the skin's group when the hide piece was promoted to skin)."""
+    AlwaysHidden (into the skin's group when the hide piece was promoted to skin)."""
     present = [r for r in ROLE_IDS if pieces.get(r)]
     for role in present:
         ob = pieces[role]
@@ -555,7 +554,7 @@ def _standin_mesh(spec, s, si, i, subparts, zones, tmp, plan=None):
 
 
 def _cut_standin(whole, plan, lod, tmp):
-    """Plan 5 Task 13 fix round 1 (StandIn.cut): cut a stand-in in place along the plan's seams as the block's own
+    """StandIn.cut: cut a stand-in in place along the plan's seams as the block's own
     LOD is (fracture_mesh.cut_object: bisected, never the edge-split shortcut; straight, not ragged: a jagged edge
     face lying on a seam plane would be lifted into the next zone, 0.5 m past it on the 42U side tops) and return its
     break caps {zone index: object} (fracture_mesh.build_caps, every closed cross-section, thin ones too), so the
@@ -602,13 +601,13 @@ def _standin_material(m):
 
 
 def bake_standins(spec, fr_lods, tmp, subparts, zones=(), plan=None):
-    """Bake the block's subpart stand-ins (fracture.STANDINS: the parked moving parts, Plan 5 Task 8, G6) into its
+    """Bake the block's subpart stand-ins (fracture.STANDINS: the parked moving parts) into its
     cut Fractured LODs (fr_lods: [[objects]] per cut LOD, the LastLOD box not yet appended); the Damaged copy keeps
     them (dented with their zone). Each is the subpart's built LOD src_lods[i] (subparts: {sub: [(coll, objs)] per
     LOD}, the very objects export_subparts writes, origin = pivot) moved to its pivot in the closed pose (StandIn.at),
     every material slot renamed `<m>_Subpart`, props Default / AlwaysVisible / SubpartConstruct (_standin_mesh: an
     auto-zoned one cut along the seams first, with its break caps).
-    Zones (fix round 1, vanilla Gyroscope50 / O2H2Generator250: one subpart's stand-ins span the zones they sit in):
+    Zones (as vanilla Gyroscope50 / O2H2Generator250: one subpart's stand-ins span the zones they sit in):
     StandIn.zone None (cut) splits the faces by centroid over `zones` (fracture.Zone list: the least violated half
     spaces, Plan.zone_index's rule, as the block's own faces); an explicit zone takes them all. On a lower LOD a face
     only goes to a zone whose LOD0 has that stand-in part (else the least violated one that has), so the LOD0 part
@@ -718,7 +717,7 @@ def keep_zone(ob, zi, role):
 
 
 def shape_hulls(spec, plan, lod0, size):
-    """Each zone's collider shaped to its cut LOD0 geometry (fracture.shaped_hull, Task 9c), inside the block's
+    """Each zone's collider shaped to its cut LOD0 geometry (fracture.shaped_hull), inside the block's
     cells, the block's total hull vertices within Keen's fractured collider budget; z.hull = its bounding box."""
     from se2model import limits
     from . import fracture as FR
@@ -733,7 +732,7 @@ def shape_hulls(spec, plan, lod0, size):
             raise RuntimeError(f"{spec.name}: zone {z.id} has no LOD0 geometry for its collider")
         z.shape = FR.shaped_hull(pts, lo, hi, max_v, halfspaces=z.halfspaces)
         geo[z.id] = (tuple(min(p[i] for p in pts) for i in range(3)), tuple(max(p[i] for p in pts) for i in range(3)))
-    # Task 10 (G10): a zone under fracture.MIN_ZONE_SHARE of the health gets a box hull (at most MIN_HULL_T beyond
+    # a zone under fracture.MIN_ZONE_SHARE of the health gets a box hull (at most MIN_HULL_T beyond
     # its geometry), except fracture.MIN_SHARE_EXEMPT
     exempt = {zid for fam, zid in FR.MIN_SHARE_EXEMPT if fam == plan.family}
     try:
@@ -973,5 +972,5 @@ def _export_planned(spec, lods, plan, ops, tmp, man, fr_dir, dm_dir, made, mid, 
 
 
 def built_specs(report):
-    """Catalogue blocks that have a real model in build_report.json (Ruling 2)."""
+    """Catalog blocks that have a real model in build_report.json."""
     return [b for b in catalog.BLOCKS if report["blocks"].get(b.name, {}).get("placement", {}).get("total")]

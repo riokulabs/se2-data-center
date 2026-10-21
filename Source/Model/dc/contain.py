@@ -1,8 +1,8 @@
-"""Aisle containment (Plan 3): the roof panels DC_Contain_Roof_{100,150,200} (Task 4), DeckPanel250 clones (P3-3).
+"""Aisle containment: the roof panels DC_Contain_Roof_{100,150,200}, DeckPanel250 clones.
 
 A roof panel spans the contained aisle (W = 1.0 / 1.5 / 2.0 m across, block y) over one rack pitch (1.0 m along the
 row, block x) and fills the aisle's top cell, flush with the rack tops: its long (+-y) edges bear on the racks'
-containment rails (dims.CONTAIN_RAIL_Y / CONTAIN_RAIL_DZ, Plan 3 Task 1), its short (+-x) edges seal against the
+containment rails (dims.CONTAIN_RAIL_Y / CONTAIN_RAIL_DZ), its short (+-x) edges seal against the
 next panel of the run or the containment door's header. Frame (Blender, metres, centred like every builder here):
 x +-0.5, y +-W/2, z +-0.125 (z = -0.125 is the rack's ZT, z = +0.125 the rack top).
 
@@ -33,12 +33,12 @@ of the flush top therefore stays within RAY_FREE (48.8 mm) of the cell planes it
 wide; the mullions lie on cell boundaries), and the panes' top stays more than 20 mm under the top plane: no top cell
 gets 4 hits. The underside is 18 mm and more above the bottom plane, so Down gets none either.
 
-Fracture (user direction: breakable, real fracture zones; docs/guides/vanilla-fracture-models.md 10.4, at the main
-merge): split IN PLANE per 0.5 m bay (dc/fracture.py _roof): each zone is a bay's pane with its caps, frame segment,
-clamps and fire release, parting along the mullions (the beams and caps across a seam are cut and capped in
-FracturedMaterial01; the 1.5 m aisle's middle panes crack across its centre line). The two physics slabs (glazing over
-frame, split at ZS, the panes' bed) stay the intact model's collision. The Damaged model maps the panes to vanilla's
-WindowGlassBroken. Under every pane the members carry a Darker glazing tape (the bed the pane is set on).
+Fracture (breakable, real fracture zones; docs/guides/vanilla-fracture-models.md 10.4): split IN PLANE per 0.5 m bay
+(dc/fracture.py _roof): each zone is a bay's pane with its caps, frame segment, clamps and fire release, parting along
+the mullions (the beams and caps across a seam are cut and capped in FracturedMaterial01; the 1.5 m aisle's middle panes
+crack across its centre line). The two physics slabs (glazing over frame, split at ZS, the panes' bed) stay the intact
+model's collision. The Damaged model maps the panes to vanilla's WindowGlassBroken. Under every pane the members carry a
+Darker glazing tape (the bed the pane is set on).
 """
 import math
 
@@ -53,7 +53,7 @@ except ImportError:
     bmesh = DC = G = Face = Part = None
 from .style import DARK, HARDWARE, PAINT, STEEL, STENCIL_WHITE, stencil  # noqa: F401 (STENCIL_WHITE: the decal slot)
 
-GLASS = "FrostedGlass"             # vanilla glazing (P3-13, P3-19: our material slot; DeckPanel250 has none)
+GLASS = "FrostedGlass"             # vanilla glazing (our material slot; DeckPanel250 has none)
 LED = "EmissiveWhite"              # vanilla static white emissive (as HangarDoor_Base's light strips)
 
 H2 = DM.CELL / 2                   # 0.125: the cell planes (block frame); -H2 = the rack's ZT, +H2 = the rack top
@@ -470,14 +470,14 @@ def build(spec, lod):
 
 
 # =================================================================================================================
-# The containment end-of-aisle sliding doors DC_Contain_Door_{100,150,200} (Task 5), SlidingDoorNarrow250 clones (P3-2)
+# The containment end-of-aisle sliding doors DC_Contain_Door_{100,150,200}, SlidingDoorNarrow250 clones
 # =================================================================================================================
 # Frame (Blender, centred block frame): x across the aisle end (|x| <= W, the block is 2W wide), y through the door
 # (-Y faces the racks: the door's -Y plane is the row-end plane, so its -Y face is the aisle side over the opening and
 # lies on the end racks' side panels over the pockets; +Y faces the room), z up (z = -DH is the raised floor's top,
 # z = ZH the racks' ZT, z = +DH the rack tops). Opening |x| <= W/2, pockets W/2 <= |x| <= W in front of the rack sides.
 #
-# Part -> purpose (the NOTES "Plan 3 Task 5" table has the full list):
+# Part -> purpose:
 #   header (lintel)       Colorable box beam ZT..H (the roof band): fascia (+Y, the aisle sign mounts on it), back
 #                         board with a Darker seal-seat lip (-Y, the roof run's end gasket bears on it), soffit with
 #                         the leaf slot, top plate (Up), end caps; inside: the Brushed top-hung C-track (the leaves'
@@ -500,15 +500,15 @@ def build(spec, lod):
 #                         chevrons round the pull zone only (the pinch point); two carriages (MetalDull rollers on
 #                         Darker hangers) into the header track; a Darker floor brush and guide shoes.
 # Motion: closed, the leaves meet at x = 0 (each runs LEAF_OVER past the centre line and LEAF_OVER behind its post);
-# open, each is translated by W/2 - LEAF_OVER into its pocket (P3-16), its leading edge in the post's shadow.
+# open, each is translated by W/2 - LEAF_OVER into its pocket, its leading edge in the post's shadow.
 # Collision: header, two pocket frames (posts included) and the sill (the intact model's physics). Fracture: dc/fracture.py
 # _door (8 zones: the lintel, three pieces per pocket tower, the sill), cut and capped by dc/fracture_mesh.py at the
 # real joints; every member is built whole across them. Each leaf model has its own collision box (export_models.export_subparts), which the
 # vanilla DoorBlockColliderDefinition compounds into the block's collider while the door is Closed and Functional.
 from dataclasses import dataclass as _dataclass   # noqa: E402
 
-DOOR_PCU = 150                     # P3-11: as the clone source (SlidingDoorNarrow250's template)
-DOOR_SECONDS = 1.0                 # DoorServerDefinition.OpeningDuration (P3-2)
+DOOR_PCU = 150                     # as the clone source (SlidingDoorNarrow250's template)
+DOOR_SECONDS = 1.0                 # DoorServerDefinition.OpeningDuration
 DOOR_MOUNTS = "All"                # the model's mount hints decide where
 LEAF_MODELS = ("ContainLeafL", "ContainLeafR")
 DH = 1.25                          # half the block height (10 cells)
@@ -518,7 +518,7 @@ LEAF_HT = 0.022                    # half the leaf thickness (a 44 mm aluminium 
 LEAF_Z = (-DH + 0.01, ZH - 0.01)   # the leaf: 10 mm over the floor .. 10 mm under the header
 LEAF_ORIGIN_Z = ZH                 # the leaf model's origin: on the track (the header's underside), so its Closed dummy
 #                                    lies in the lintel's zone (SupportingFracture)
-LEAF_OVER = 0.015                  # each leaf runs this far past the centre line and behind its post (P3-16)
+LEAF_OVER = 0.015                  # each leaf runs this far past the centre line and behind its post
 TONGUE, TONGUE_GAP = 0.030, 0.0015  # the shiplap tongue: u range at the meeting edge (half the thickness)
 LEAD = 0.110                       # the leading (meeting) stile's u reach (it carries the flush pull)
 TRAIL = 0.065                      # the trailing stile's width
@@ -526,8 +526,8 @@ RAIL = {"top": 0.075, "bottom": 0.13, "mid": 0.05}
 MID_Z = -DH + 0.875                # the push rail's centre (0.875 m over the floor)
 PULL_Z = -DH + 1.05                # the flush pull's centre (1.05 m over the floor)
 PULL_U, PULL_HH = (0.045, 0.095), 0.17   # its recess (u) and half height
-PULL_PLATE = 0.0006                # LOD1+: the flush Darker pull plate's face over the stile (Plan 3 T11: > 0.3 mm)
-STRIPE_D = 0.0006                  # the pinch-zone chevrons over the stile face (Plan 3 T11 z-fight: was 0.3 mm)
+PULL_PLATE = 0.0006                # LOD1+: the flush Darker pull plate's face over the stile (z-fight: > 0.3 mm)
+STRIPE_D = 0.0006                  # the pinch-zone chevrons over the stile face (z-fight: not 0.3 mm)
 PULL_CORE = 0.004                  # the recess floor (|y|): the stile's web behind the pulls
 POST_IN, POST_OUT = 0.050, 0.035   # a post spans W/2 - POST_IN .. W/2 + POST_OUT
 SLOT = 0.026                       # the jambs' leaf slot (|y|), seals SEAL_T deep in it
@@ -996,7 +996,7 @@ def build_leaf(spec, model, lod):
     uc = sum(PULL_U) / 2
     for sg in (-1, 1):
         if lod >= 1:   # far: the recess as a flush Darker plate, the bar as a Brushed strip on it
-            # (Plan 3 T11 z-fight: the plate's face 0.6 mm over the stile's, not 0.2 mm; the bar on it)
+            # (z-fight: the plate's face 0.6 mm over the stile's, not 0.2 mm; the bar on it)
             ya, yb = sorted((sg * (T_ - 0.0005), sg * (T_ + PULL_PLATE)))
             ub(dk, PULL_U[0], PULL_U[1], ya, yb, pz0, pz1, DARK)
             ya, yb = sorted((sg * (T_ + PULL_PLATE), sg * (T_ + PULL_PLATE + 0.0004)))
@@ -1015,7 +1015,7 @@ def build_leaf(spec, model, lod):
             ya, yb = sorted((sg * (PULL_CORE + 0.0015), sg * (T_ - 0.0005)))
             for u0, u1 in ((PULL_U[0], PULL_U[0] + 0.0015), (PULL_U[1] - 0.0015, PULL_U[1])):
                 ub(dk, u0, u1, ya, yb, pz0, pz1, DARK)                            # recess side walls
-            for za, zb in ((pz0, pz0 + 0.0015), (pz1 - 0.0015, pz1)):   # end walls BETWEEN the side walls (T11:
+            for za, zb in ((pz0, pz0 + 0.0015), (pz1 - 0.0015, pz1)):   # end walls BETWEEN the side walls (z-fight:
                 ub(dk, PULL_U[0] + 0.0015, PULL_U[1] - 0.0015, ya, yb, za, zb, DARK)   # no coplanar corner overlaps)
         yc = sg * 0.0135
         n = 10 if lod == 0 else 6

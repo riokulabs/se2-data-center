@@ -8,7 +8,7 @@ cut_lod(objs, plan, lod, coll) -> (whole, caps)
     caps   {zone index: object} the break faces of that zone, in FracturedMaterial01, UVs projected on the seam
            plane at vanilla's density (fracture.CUT_UV_PER_M); a cap face of a hidden part (role hide: a tray's
            cable) carries dc_role = hide (else 0), so the exporter puts it in the zone's _Hide group with its part
-           (Plan 5 Task 13 fix round 1: it stood as a loose disc in the empty tray from 30 % on).
+           (otherwise it stood as a loose disc in the empty tray from 30 % on).
            The faces of the family's core parts (fracture.CORE_PARTS: the solid inside, Keen's way) join their
            zone's caps, FracturedMaterial01 with box UVs at the same density (_as_core, _core_to_caps).
 How a LOD object is cut, per seam (fracture.Seam):

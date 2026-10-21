@@ -1,4 +1,4 @@
-// KvmPartDefinitions: the definitions of the KVM's two subpart drivers (Plan 4 Ruling P4-10; Task 8). Each copies
+// KvmPartDefinitions: the definitions of the KVM's two subpart drivers (our own definition types). Each copies
 // the data's geometry (travel (0, 0, -0.45), fold 100 degrees about +X) at load from the vanilla definition it
 // replaces, so the data keeps owning the geometry. They are our own types because no driver may share a definition
 // type with a vanilla component: an untyped composite entry of another mod resolves its component by definition
@@ -24,7 +24,7 @@ using Keen.VRage.Library.Serialization;
 namespace DataCenter.Kvm;
 
 /// <summary>
-/// The drawer driver's definition (Ruling P4-10): the data's travel, copied at load from the drawer's vanilla
+/// The drawer driver's definition: the data's travel, copied at load from the drawer's vanilla
 /// <see cref="TranslationAnimationDefinition"/> (<see cref="DcGuids.KvmDrawerTranslationDef"/>). Built in code by
 /// <see cref="KvmInjector"/>, never loaded from data, so it exists only where the scripts run. It is a full
 /// serializable definition type only because the game's generator makes every Definition subclass one; its object
@@ -51,7 +51,7 @@ public sealed partial class KvmDrawerPartDefinition : Definition
 }
 
 /// <summary>
-/// The screen driver's definition (Ruling P4-10): the data's fold, copied at load from the screen's vanilla
+/// The screen driver's definition: the data's fold, copied at load from the screen's vanilla
 /// <see cref="RotationAnimationDefinition"/> (<see cref="DcGuids.KvmScreenRotationDef"/>). See
 /// <see cref="KvmDrawerPartDefinition"/>.
 /// </summary>

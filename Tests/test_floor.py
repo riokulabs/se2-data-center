@@ -1,13 +1,13 @@
-"""Plan 3 Task 3: the raised-floor tiles (dc/floor.py), DC_Floor_{Solid,Perf}_{050,100}.
+"""The raised-floor tiles (dc/floor.py), DC_Floor_{Solid,Perf}_{050,100}.
 
 Pure tests check the builder's numbers (collision, hints, pedestal layout, the deck against dims). The build-marked
 tests check the MEASURED blocks (build_report.json geometry / placement / lods, the export manifests):
   * every cell occupied, every face mounts (Up over the whole deck, Down on the base plates, the four sides);
   * the deck flush under the cell-top plane, so a rack placed on the floor sits on it (0..2 mm render gap) and its
-    bottom mount lands on the tiles' Up mounts, at every offset from the tile seams (Review Focus 5);
+    bottom mount lands on the tiles' Up mounts, at every offset from the tile seams;
   * the seams: the same 1 mm inset at every tile edge, inside a 1.0 m block as between blocks, nothing under the
     deck on a shared side plane, only the seal lip reaching it;
-  * Keen's limits, and the breakable export: in-plane tile zones (the main merge: dc/fracture.py _floor; the files
+  * Keen's limits, and the breakable export: in-plane tile zones (dc/fracture.py _floor; the files
     themselves are checked with every breakable block in test_fracture_refine.py / test_fracture_plan.py).
 """
 import json
@@ -21,7 +21,7 @@ from dc import dims as DM
 FLOORS = ("DC_Floor_Solid_050", "DC_Floor_Perf_050", "DC_Floor_Solid_100", "DC_Floor_Perf_100")
 RACKS = ("DC_Rack42_Open", "DC_Rack24_Open")
 MM = 0.001
-LOD_MATERIALS = (8, 6, 4, 1)   # the brief's per-LOD material caps (the last LOD: 1)
+LOD_MATERIALS = (8, 6, 4, 1)   # our per-LOD material caps (the last LOD: 1)
 DECK_MATS = {"PaintedMetalColorable", "PaintedMetalDarker", "MetalPerforationSteel", "PaintedMetalYellow"}
 UNDER_MATS = {"BrushedMetal", "MetalDull", "PaintedMetalDarker"}   # stringers, pedestals, rubber pads
 
@@ -51,13 +51,13 @@ def _manifest(name):
 
 # ---------------------------------------------------------------------------------------------------- pure
 def test_floor_catalogue_and_staging():
-    """The four floor blocks are staged (models, definitions) from this task; menu / recipe / icon loops (BLOCKS)
-    get them in Task 10."""
+    """The four floor blocks are staged (models, definitions) and wired into the menu / recipe / icon loops
+    (BLOCKS)."""
     specs = [catalog.BY_NAME[n] for n in FLOORS]
     assert all(s.family == "floor" for s in specs)
     assert [s.cells for s in specs] == [(2, 1, 2), (2, 1, 2), (4, 1, 4), (4, 1, 4)]
     assert "floor" in catalog.STAGED_ROOM_FAMILIES
-    assert all(s in catalog.STAGED and s in catalog.BLOCKS for s in specs)   # wired with Task 10
+    assert all(s in catalog.STAGED and s in catalog.BLOCKS for s in specs)   # wired into the menu
     assert catalog.STAGED[:len(catalog.BLOCKS)] == catalog.BLOCKS
     import build_dc
     assert build_dc.BUILDERS["floor"] is build_dc.build_floor
@@ -221,7 +221,7 @@ def test_floor_under_rack_plinth(rack, dx, dy, tile):
 @pytest.mark.build
 @pytest.mark.parametrize("name", FLOORS)
 def test_floor_limits(name):
-    """Keen's per-LOD triangle and material limits, the brief's material caps (8, 6, 4, 1) and the 70 % triangle
+    """Keen's per-LOD triangle and material limits, our material caps (8, 6, 4, 1) and the 70 % triangle
     aim on LOD0."""
     e = _entry(name)
     rows = e["lods"]
@@ -237,7 +237,7 @@ def test_floor_limits(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", FLOORS)
 def test_floor_breakable_export(name):
-    """docs/guides/vanilla-fracture-models.md 10.3 (2) / 10.4 (the main merge): the floor is cut IN PLANE, every zone the
+    """docs/guides/vanilla-fracture-models.md 10.3 (2) / 10.4: the floor is cut IN PLANE, every zone the
     full thickness (deck AND understructure): 2 halves of the 0.5 m tile, the 1.0 m block's 4 tiles; every zone has
     deck and understructure materials, break faces (FracturedMaterial01, the pedestal plates and stringers the seams
     cut), its own dented Damaged model; no critical zone (structural)."""
@@ -287,7 +287,7 @@ def test_floor_staged(staged):
         bd = body(_staged(info["block_def_file"]))
         assert bd["PCU"] == 5 and bd["MountPointGeneratorSettings"] == {"Directions": "All"}
         assert bd["UIData"]["Name"] == names.NAMES[n][0]
-        kind = body(_staged(info["kind_file"]))   # Task 10: a size of a multi-size kind (its own clone kind inert)
+        kind = body(_staged(info["kind_file"]))   # a size of a multi-size kind (its own clone kind inert)
         assert (kind["Name"], kind["Description"]) == (menu.kind_text(catalog.BY_NAME[n]) if menu.owns_kind(
             catalog.BY_NAME[n]) else names.NAMES[n])
         comp = body(_staged(f"{config.NAME}/{n}/{n}_ServerComposition.partialdef"))

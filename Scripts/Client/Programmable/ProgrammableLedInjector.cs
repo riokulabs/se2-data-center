@@ -1,5 +1,5 @@
 // ProgrammableLedInjector: with scripts on, the Programmable's script-status lamp (and its LCD status bar) turn green
-// while the block is Working; with scripts off this file never loads and the data keeps them amber (Ruling P4-7).
+// while the block is Working; with scripts off this file never loads and the data keeps them amber.
 //
 // How: the Programmable's client composition carries a vanilla BlockMaterialSwapperComponent whose definition (ours,
 // DcGuids.ProgrammableSwapper) lists our two models and maps no mesh part. At definition load this post-processor
@@ -41,7 +41,7 @@ using Keen.VRage.Library.Utils;
 namespace DataCenter.Programmable;
 
 /// <summary>
-/// Maps the Programmable's status lamp to EmissiveGreen in its material swapper's Working replacements (Ruling P4-7).
+/// Maps the Programmable's status lamp to EmissiveGreen in its material swapper's Working replacements.
 /// Touches only the swapper definition <see cref="DcGuids.ProgrammableSwapper"/>; any surprise leaves it as the data
 /// shipped it (amber in every state) and logs once.
 /// </summary>

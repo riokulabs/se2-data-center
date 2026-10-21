@@ -1,6 +1,6 @@
-"""Task 5: clones, exports, the staged integration package and the install dry run (no Blender needed).
+"""Clones, exports, the staged integration package and the install dry run (no Blender needed).
 
-Ruling 2: the per-model checks apply to the blocks built so far (a placement entry in build_report.json); the
+The per-model checks apply to the blocks built so far (a placement entry in build_report.json); the
 clones cover the whole catalogue."""
 import json
 import os
@@ -49,7 +49,7 @@ def test_every_catalogue_block_cloned():
         assert b.vanilla_source in srcs, (b.name, srcs)
         info = e["info"]
         bd = read_json(os.path.join(config.MOD_ASSETS, info["block_def_file"]))
-        # Task 10: a 24U rack joins its 42U sibling's kind (two sizes of one kind, dc/menu.py)
+        # a 24U rack joins its 42U sibling's kind (two sizes of one kind, dc/menu.py)
         owner = clone.entry(menu.kind_owner(b), cmap)["info"]["kind"]
         assert bd["$Value"]["Manipulator"]["BlockKind"] in (info["kind"], owner), f"{b.name}: BlockKind not rewired"
         assert info["kind"] != info["vanilla"]["kind_guid"]
@@ -84,7 +84,7 @@ def test_door_subparts_renamed():
 
 
 def test_names_for_every_block():
-    assert set(names.NAMES) == {b.name for b in catalog.CATALOGUE}   # Plan 3: room blocks are named before wiring
+    assert set(names.NAMES) == {b.name for b in catalog.CATALOGUE}   # room blocks are named before wiring
     for n, (title, desc) in names.NAMES.items():
         assert title and desc and len(title) <= 40, n
 
@@ -107,8 +107,8 @@ def test_material_slots_resolve():
 
 @pytest.mark.skipif(not os.path.isdir(SDK_MATERIALS), reason="Mod SDK not installed")
 def test_material_guids_are_vanilla_definitions():
-    """Each GUID is its file's own: a .def's Guid, or a Copy .partialdef's Manipulator Guid (Plan 5 Task 3, ruling
-    R7: PaintedMetalDarkerDeformed is a Copy of PaintedMetalColorableDeformed)."""
+    """Each GUID is its file's own: a .def's Guid, or a Copy .partialdef's Manipulator Guid
+    (PaintedMetalDarkerDeformed is a Copy of PaintedMetalColorableDeformed)."""
     for slot, (g, rel) in MATERIAL_GUIDS.items():
         v = read_json(os.path.join(SDK_MATERIALS, rel))["$Value"]
         if rel.endswith(".partialdef"):
@@ -143,7 +143,7 @@ def test_exports_complete():
         zones = [z["id"] for z in m["fractured"]["zones"]]
         nodes = m["fractured"]["collision"]["nodes"]
         if m["fractured"].get("kind") == "cut":
-            # Task 9b (dc/fracture.py; Task 9c: the racks too): planned zones, one convex collider each, every zone's
+            # dc/fracture.py, the racks included: planned zones, one convex collider each, every zone's
             # skin in every LOD but the LastLOD box, the Damaged model with the same groups
             assert 2 <= len(zones) <= 16 and sorted(nodes) == sorted(zones)
             assert sorted(m["damaged"]["collision"]["nodes"]) == sorted(zones)
@@ -264,13 +264,13 @@ def test_render_mesh_within_bounds():
     coplanar face (z-fighting). The box is catalog.bounds in the game frame: cell i spans 0.25 i +- 0.125 after the
     .model's per-axis shift; the mesh (Blender frame, centred) maps to game as (x, z, -y) + shift.
 
-    Exception (Ruling 8): server rack ears overhang the server's cells in x (to |x| 0.288 against 0.25), because
+    Exception: server rack ears overhang the server's cells in x (to |x| 0.288 against 0.25), because
     real ears land on the rack's 19-inch rails in the rack's front zone. So x is exempt for servers only.
     The same front hardware (ear flanges, thumbscrews, pull handles) also stands proud of the server's FRONT plane,
-    into the rack's front zone (Task 4: max 6 cm, test_server_clearance), so the server's front (game -z) is bounded
+    into the rack's front zone (max 6 cm, test_server_clearance), so the server's front (game -z) is bounded
     by that front-zone limit instead of the cell plane; rear, top, bottom (and every rack axis) are strict."""
     rep = read_json(config.REPORT_PATH)["blocks"]
-    every = sorted(n for n, e in rep.items() if e.get("placement", {}).get("total"))   # trays too (Plan 2 T4)
+    every = sorted(n for n, e in rep.items() if e.get("placement", {}).get("total"))   # trays too
     assert set(built()) <= set(every)
     for n in every:
         spec = catalog.BY_NAME[n]
@@ -284,7 +284,7 @@ def test_render_mesh_within_bounds():
         lo, hi = catalog.bounds(spec)
         for ax in range(3):
             if ax == 0 and spec.family == "server":
-                continue   # Ruling 8: the rack ears
+                continue   # the rack ears
             box = (0.25 * lo[ax] - 0.125, 0.25 * hi[ax] + 0.125)
             if ax == 2 and spec.family == "server":   # front hardware in the rack's front zone (see docstring)
                 box = (box[0] - 0.06, box[1])

@@ -1,4 +1,4 @@
-"""PDUs (Plan 3 Task 7, P3-7 / P3-20): the floor PDU cabinet and the zero-U rack PDU strips (Feed A / Feed B).
+"""PDUs: the floor PDU cabinet and the zero-U rack PDU strips (Feed A / Feed B).
 
 Both are decorative (vanilla 2.4 has no power-junction block): WallInsertPanel clones, PCU 5, breakable through the
 planned fracture pipeline (dc/fracture.py _pdu_cabinet / _pdu_strip).
@@ -28,9 +28,9 @@ inlet is never upside down.
     | brackets         | Brushed standoffs with buttons in the bulkhead keyholes | hang the strip on the column           |
 
 ---------------------------------------------------------------------------------------------- the cabinet
-DC_PDU_Cabinet: the rack footprint (4 x 10 x 5 cells; P3-6): the rack's plinth, corner posts and caps, side mounts,
-top rim and containment rail, and the rack's top-entry brush plates at the same place (dims.TOP_ENTRY), so a Plan 2
-Drop lands in it. Its body is a closed cabinet (the front and back keep the rack's 2.7 cm KEEP_OUT).
+DC_PDU_Cabinet: the rack footprint (4 x 10 x 5 cells): the rack's plinth, corner posts and caps, side mounts,
+top rim and containment rail, and the rack's top-entry brush plates at the same place (dims.TOP_ENTRY), so a cable
+tray Drop lands in it. Its body is a closed cabinet (the front and back keep the rack's 2.7 cm KEEP_OUT).
 
     | part                | what it is                                            | purpose                             |
     | meter               | Darker window: L1 / L2 / L3 rows, lit 3-digit readings | the incomer's load per phase        |
@@ -61,9 +61,9 @@ except ImportError:
     Matrix = G = Face = Part = S2 = None
 from .style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, YELLOW, bolt, oct_pts, stencil
 
-RUBBER = "Rubber"          # the cords and plug bodies (vanilla Rubber, Plan 2's black power cable)
+RUBBER = "Rubber"          # the cords and plug bodies (vanilla Rubber, as the trays' black power cable)
 CELL = DM.CELL
-TAG_LIFT = 0.0006          # the cabinet's CONTAINMENT rail tag: 0.6 mm clear of its plate (Plan 3 T11, z-fight); = rack.CONTAIN_TAG_LIFT
+TAG_LIFT = 0.0006          # the CONTAINMENT rail tag 0.6 mm clear of its plate (z-fight); = rack.CONTAIN_TAG_LIFT
 
 # ============================================================================================== the strips
 COL_X = sum(DM.PDU_COL_X) / 2            # 0.375: the strip's origin in the rack (|x|)
@@ -175,7 +175,7 @@ def strip_collision(spec):
     Regular: one box, the envelope (mirrored for B) from the bottom to the body's top. Occupancy: the column cells
     (the whole 1 x n x 1 box, so nothing else is built into the column). Mount hint: Down only (the plug's seat on
     the plinth top: the rack's pdu_seat).
-    Final review I1 (2026-10-19): the strip no longer mounts Forward (its brackets on the bulkhead). The bulkhead's
+    The strip does not mount Forward (its brackets on the bulkhead). The bulkhead's
     render face lies 0.5 mm inside the bracket plane, so the rack mounts Backward over the WHOLE column (the generator
     samples the render; the pdu_bracket hint cannot narrow it), and the placer centres a strip on the aimed cell: aimed
     at the upper half of a 24U column it rose one or two cells, out through the half rack's open top, and one bracket
@@ -195,7 +195,7 @@ def strip_collision(spec):
 
 def strip_directions(spec):
     """The strip's MountPointGeneratorSettings.Directions, read off its hints (the game's names: Blender +Y = game
-    Forward, -Z = Down): "Down" since final review I1 (strip_collision)."""
+    Forward, -Z = Down): "Down" only (strip_collision)."""
     out = []
     H2 = h2(spec)
     c = CELL / 2
@@ -495,7 +495,7 @@ def _decor(P, spec, lod):
         wd = (0.52 * h + 0.22 * h) * 3
         seven_seg(P["lamp"], F, (wa0 + wa1) / 2 - wd / 2 + 0.002, z0 + 0.046, h, AMPS.get(b, "120"), 0.0045,
                   dp=1 if lod == 0 else None)
-        if lod == 0:   # on the bank head's label strip (its face 4.2 mm proud; the glyphs 0.6 mm over it, T11 z-fight)
+        if lod == 0:   # on the bank head's label strip (its face 4.2 mm proud; the glyphs 0.6 mm over it, z-fight)
             stencil(P["decal"], F, (wa0 + wa1) / 2, z0 + 0.088, 0.009, f"BANK {b}", d=0.0028)
             stencil(P["decal"], F, sx * (BX[0] + 0.022), z0 + 0.088, 0.008, "16A", d=0.0028)
     k = tag_slot(spec)
@@ -905,8 +905,8 @@ def _top(P, lod):
 
 
 # ---------------------------------------------------------------------------------------------- the inside
-# Broken interiors, Keen's way (user decision 2026-10-20, NOTES.md "Broken interiors: Keen's way"; it replaces the
-# 597f7c6e panelboard: gear plate, uprights, isolator body and links, CTs, meter body, incomer, looms, PE bar). Behind
+# Broken interiors follow the game's own style (this replaces an earlier modelled panelboard: gear plate, uprights,
+# isolator body and links, CTs, meter body, incomer, looms, PE bar). Behind
 # the dead-front the body is a SOLID CORE whose faces are vanilla FracturedMaterial01 in the Fractured / Damaged
 # models (the `core` part, fracture.CORE_PARTS; Darker in the NonFractured model, where the chassis faces and liners
 # hide it): one block per body section, each standing clear of the body seams (x = 0, PANEL_JOINT_Z), so a dead
@@ -1012,7 +1012,7 @@ def build_cabinet(spec, lod):
         _rear(P, lod)
         _top(P, lod)
         _interior(P, lod)
-        rack._contain_rail(P, d, lod, tag_lift=TAG_LIFT)   # Plan 3 T11: the tag clear of its plate (z-fight)
+        rack._contain_rail(P, d, lod, tag_lift=TAG_LIFT)   # the tag clear of its plate (z-fight)
     parts = [p for p in P.values() if not p.empty()]
     m = Matrix.Translation((0, 0, -H / 2))
     for p in parts:

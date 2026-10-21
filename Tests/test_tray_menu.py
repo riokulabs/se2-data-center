@@ -1,4 +1,4 @@
-"""Plan 2 Task 9: the cable trays' build menu (dc/menu.py), names (dc/names.py), costs (dc/recipes.py) and icons.
+"""The cable trays' build menu (dc/menu.py), names (dc/names.py), costs (dc/recipes.py) and icons.
 
 Menu (plan Decision 11): one "Data Center" subcategory tile per cable density, "Cable Trays: Empty / Low / Moderate /
 Full", each with one kind per shape in menu.TRAY_ORDER, and "Cable Tray Supports" with the Rods and the Chute. The two
@@ -76,7 +76,7 @@ def test_tray_groups(staged):
 
 
 def _owner_name(b):
-    """The expected kind owner, written out from the brief (not menu.kind_owner)."""
+    """The expected kind owner, written out from the design (not menu.kind_owner)."""
     if b.variant == "StraightS":
         return f"DC_Tray_StraightL_{b.density}"
     if b.family == "trayrods":
@@ -103,7 +103,7 @@ def test_vanilla_tile_sort_on_staged_groups(staged):
     assert [g["Name"] for g in tiles] == ["Server Racks", "Rack Servers", "Cable Trays: Empty", "Cable Trays: Low",
                                           "Cable Trays: Moderate", "Cable Trays: Full", "Cable Tray Supports",
                                           "Raised Floor", "Room Cooling & Power", "Aisle Containment",
-                                          "Signs & Labels"]   # Plan 3 Task 10
+                                          "Signs & Labels"]
     assert all(n_kinds[g["Guid"]] > 1 for g in groups)
 
 
@@ -112,7 +112,7 @@ def test_tray_group_tiles_ordered(staged):
     then by name, which alone would put every cable-tray tile first)."""
     orders = [stage(v["file"])["$Value"]["Order"] for v in menu.GROUPS.values()]
     assert list(menu.GROUPS) == ["rack", "server"] + DENSITY_GROUPS + ["traysupport", "floor", "roompower", "contain",
-                                                                        "signs"]   # + Plan 3 Task 10
+                                                                        "signs"]
     assert 0 not in orders and orders == sorted(orders) and len(set(orders)) == len(orders)
 
 
@@ -186,7 +186,7 @@ def test_tray_costs(staged):
         assert c["game_scale"] == 1, b.name
         assert c["cost_source"] == ("StructuralSupportStraight" if b.family == "trayrods" else "WallInsertPipes")
         assert staged["blocks"][b.name]["recipe"]["game_scale"] == 1
-    for d in catalog.TRAY_DENSITIES:   # Ruling P2-26: cost follows run length
+    for d in catalog.TRAY_DENSITIES:   # cost follows run length
         S, L = total(f"DC_Tray_StraightS_{d}"), total(f"DC_Tray_StraightL_{d}")
         assert L == 3 * S, (S, L)
         assert total(f"DC_Tray_TurnDown_{d}") == S < total(f"DC_Tray_TurnH_{d}") == total(f"DC_Tray_TurnUp_{d}")
@@ -239,7 +239,7 @@ def test_tray_density_is_hollow(staged):
 
 
 # name -> (critical, optional, block mass kg): Pipes-sourced pieces pay one base unit (1 SP + 1 C, 1 SP optional) per
-# 0.5 m of run (Ruling P2-26); the rods scale the strut's in-game 2 Steel Plate by volume (1 / 2 / 3)
+# 0.5 m of run; the rods scale the strut's in-game 2 Steel Plate by volume (1 / 2 / 3)
 def _u(n):
     return [("SteelPlate", n), ("Construction", n)], [("SteelPlate", n)]
 

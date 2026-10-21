@@ -1,5 +1,5 @@
 // ScriptingPresence: the game-free verdict on whether a prefab carries the scripting component the way the data
-// ships it (Plan 4 Ruling P4-1 = A': the Programmable's InGameScriptingComponent lives permanently in its data).
+// ships it (the Programmable's InGameScriptingComponent lives permanently in its data; nothing injects it).
 // Tests/CoreTests runs it; Scripts/Simulation/Programmable/ProgrammableCheck.cs feeds it the game's composition.
 //
 // Game APIs: none.

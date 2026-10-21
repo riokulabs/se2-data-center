@@ -33,7 +33,7 @@ NAMES.update({
 })
 
 # ---------------------------------------------------------------------------------------------------- cable trays
-# Plan 2 Tasks 5 and 9. "Full", "Moderate", ... is the cable load; every piece lines its cables up across every joint
+# "Full", "Moderate", ... is the cable load; every piece lines its cables up across every joint
 # with any other piece of the same load (and a Reducer steps one load down). Titles read "Cable Tray, <shape>
 # (<load>)", so a list sorted by name keeps a shape's four loads together and the load is always last. Names carry no
 # size (2026-10-20): the two straights (one kind, two sizes) and the three rod lengths (one kind, three sizes) share
@@ -84,8 +84,8 @@ KIND_NAMES["DC_TrayRods_100"] = ("Cable Tray, Hanger Rods", "Threaded hanger rod
                                  "higher ceiling; snaps onto the tray's rod plates.")
 
 # ---------------------------------------------------------------------------------------------------- room pieces
-# Plan 3 Task 2. Honest about what each block does in game: the CRAC draws power and runs its fans (vanilla 2.4 has
-# no cooling or room atmosphere, Ruling P3-1); the PDUs are decorative (no power-junction block, P3-7).
+# Honest about what each block does in game: the CRAC draws power and runs its fans (vanilla 2.4 has
+# no cooling or room atmosphere); the PDUs are decorative (vanilla has no power-junction block).
 _SIZE = {"050": "0.5", "100": "1.0", "150": "1.5", "200": "2.0"}
 for _b in catalog.ROOM:
     _k = _b.name.rsplit("_", 1)[1]
@@ -132,7 +132,7 @@ for _h in (42, 24):
             f"Rack PDU (Feed {_f})",
             f"Zero-U power strip for a {_h}U rack's {_side} rear column (feed {_f}): one outlet pair per slot, its "
             f"inlet plugged into the plinth socket. Decorative.")
-# Plan 3 Task 10: the tile text of the multi-size room kinds (dc/menu.py kind_owner); the game lists the sizes under it
+# the tile text of the multi-size room kinds (dc/menu.py kind_owner); the game lists the sizes under it
 KIND_NAMES.update({
     "DC_Floor_Solid_100": ("Raised Floor (Solid)",
                            "Raised-floor access panel on adjustable pedestals, 0.25 m high: 0.5 m (one tile) or 1.0 m "

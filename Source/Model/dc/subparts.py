@@ -34,7 +34,7 @@ KVM = "DC_Srv_KVM"
 DRAWER, SCREEN = "KvmDrawer", "KvmScreen"
 SHIFT = (0.125, 0.0, 0.0)            # export_models.shift for cells (2, 1, 3)
 
-TRAVEL = 0.45                        # m, the drawer slides out this far (ruling: about 0.45 m)
+TRAVEL = 0.45                        # m, the drawer slides out this far (about 0.45 m)
 FOLD_DEG = 100.0                     # the screen folds up 100 deg (10 deg past vertical)
 POP_TIME = 1.0                       # s, both animations (equal: the close retraces the open)
 DRAWER_SPEED = TRAVEL / POP_TIME     # m/s (TranslationAnimation.Speed)
@@ -46,7 +46,7 @@ BAY = {"x": 0.209, "y0": -0.170, "z0": -0.105, "z1": -0.026}       # the drawer 
 DRAWER_BOX = {"x": 0.205, "y0": -0.160, "y_fascia": 0.352, "y_front": 0.381, "z0": -0.101, "z1": -0.029}
 LID = {"half_w": 0.184, "len": 0.300, "half_t": 0.009}            # lid local frame: hinge axis = x, lies along +y
 SCREEN_AREA = {"half_w": 0.170, "y0": 0.022, "y1": 0.285}         # the Terminal screen on the lid's underside
-NEIGHBOUR_FRONT_Y = 0.4145           # the deepest front hardware of a server (handles, Task 4 clearance max_y)
+NEIGHBOUR_FRONT_Y = 0.4145           # the deepest front hardware of a server (handles, the clearance max_y)
 FACE_Y = 0.383                       # the bezel front: the KVM's face plane (its upper panel lies behind it)
 
 

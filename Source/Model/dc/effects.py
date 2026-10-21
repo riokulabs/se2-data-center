@@ -1,4 +1,4 @@
-"""Plan 5 Task 4: damage effects (plain Python, no bpy). Which blocks spark, the vanilla 4.0 band they copy, and the
+"""Damage effects (plain Python, no bpy). Which blocks spark, the vanilla 4.0 band they copy, and the
 ParticleEffects-type dummies the bands bind to.
 
 Vanilla 4.0 sources (tools/vanilla-ref = the 4.0.0.3151 Mod SDK GameData/Vanilla/Assets, read-only; the band VALUES
@@ -8,9 +8,9 @@ are read from these files at build time, never copied into this module):
   breaker  CircuitBreaker's Structural BlockEffects Copy: the same band with ElectricalDamageSmall 617b0925 x1: the
            PDU cabinet, the 4 PDU strips and the 4 deco servers (Compute, Storage, Switch, Blank).
   cp25     ControlPanel25's BlockEffects Copy (the KVM's clone source): its band-0 Update (upper 0.99,
-           ElectricalDamageSmall x0.3 instead of the 2.4 SmokeSmall; controller ruling: the KVM sparks like vanilla).
+           ElectricalDamageSmall x0.3 instead of the 2.4 SmokeSmall: the KVM sparks like vanilla).
 
-Where the effects play (decompiled 4.0.0.3151, tools/decompiled-current, R15):
+Where the effects play (decompiled 4.0.0.3151, tools/decompiled-current):
   * a damage band's LOOPED effect spawns once per model dummy of the band's Dummy type (BlockEffectsComponent.cs:536
     GetDummies), and each instance stops when its dummy's SupportingFracture zone is dead (:474-:496; spawned
     stopped if the zone is already dead, :557-:562);
@@ -35,7 +35,7 @@ SPARK_SOURCES = {
 }
 TIMER_EFFECTS = "2cad179b-6b5b-41d9-99ea-e5e44f102485"   # Templates/Blocks/BlockEffects/Timer_BlockEffects... (3 bands)
 DECO_SERVERS = ("Compute", "Storage", "Switch", "Blank")
-# Controller ruling (Task 4 follow-up): at most 3 ParticleEffects-type dummies (spark emitters) per block. Vanilla
+# At most 3 ParticleEffects-type dummies (spark emitters) per block. Vanilla
 # CircuitBreaker has 1; the PDU cabinet's 8 zones sparking at once read too busy.
 MAX_EMITTERS = 3
 
@@ -118,9 +118,9 @@ def zone_dummies(fractured, shift, per_zone, prefer_role=None):
     """[(name, game position, supporting zone id)] of a spark block's ParticleEffects-type dummies: first the centre
     one ("ParticleEffects", at the block centre = shift, supported by centre_zone), then with per_zone one
     "ParticleEffects_<zone>" at the centre of the hull AABB of each emitter_zones zone (at most MAX_EMITTERS in all).
-    prefer_role (Task 9: "hide" for the trays, whose cables are their hide role): a per-zone dummy goes to the centre
+    prefer_role ("hide" for the trays, whose cables are their hide role): a per-zone dummy goes to the centre
     of the zone's box of that role (fractured["role_bounds"][zone][role], Blender [x0, y0, z0, x1, y1, z1]) when the
-    zone has one, so it sparks on the cables; else to its hull AABB's centre. The centre dummy never moves (R11)."""
+    zone has one, so it sparks on the cables; else to its hull AABB's centre. The centre dummy never moves."""
     zones = fractured["zones"]
     rb = fractured.get("role_bounds") or {}
     c = centre_zone(zones)

@@ -1,5 +1,5 @@
 """dc.state_view: the build-stage / damage-state evaluation behind the states preview harness, the vanilla analogues it
-renders beside our blocks, and the pre-4.0-damage baseline (Tests/golden/states_baseline.json) later tasks test
+renders beside our blocks, and the pre-4.0-damage baseline (Tests/golden/states_baseline.json) other tests check
 against (zone ids, criticals, NF mesh parts, stage hash, definition GUIDs)."""
 import copy
 import json
@@ -54,7 +54,7 @@ def test_shots():
 
 
 def test_stages_sha1_ignores_only_the_last_stage_changes():
-    """R3: the baseline hash survives Task 2 replacing the stage-1.0 damaged-only hide, and nothing else."""
+    """The baseline hash survives a change to the stage-1.0 damaged-only hide, and nothing else."""
     a = _stages([_chg("Chrome", show=False, damaged=True)])
     assert SV.stages_sha1(a) == SV.stages_sha1(_stages()) == SV.stages_sha1(_stages([_chg("BrushedMetal", False)]))
     b = copy.deepcopy(a)
@@ -125,7 +125,7 @@ def test_installed_stages_every_block():
 
 @pytest.mark.build
 def test_installed_dummies_resolve():
-    """The marker source: the UPS has its centre ParticleEffects dummy, then one per bay (Plan 5 Task 4, audit G3); a
+    """The marker source: the UPS has its centre ParticleEffects dummy, then one per bay; a
     tray has its centre one first, then one per other zone (ParticleEffects_<zone>)."""
     ups = SV.installed_dummies("DC_Srv_UPS")
     assert {d.get("Name") for d in ups} >= {"CellSlot 0", "CellSlot 1"}
@@ -136,7 +136,7 @@ def test_installed_dummies_resolve():
 
 
 def test_analogues_exist():
-    """R14: ANALOGUE holds vanilla block names; analogue_dir resolves each to its nested vanilla-ref folder (the one
+    """ANALOGUE holds vanilla block names; analogue_dir resolves each to its nested vanilla-ref folder (the one
     holding <name>_BlockModelDefinition.partialdef) with the NF / FR / DM LOD0 FBX the BMD references beside it."""
     fams = {b.family for b in catalog.BLOCKS}
     assert set(SV.ANALOGUE) == fams
@@ -162,8 +162,8 @@ def test_analogue_fractured_timer50():
 
 
 def test_baseline_golden_complete():
-    """The committed baseline holds every block with the six keys (plus the last stage, R3) and real values: the
-    zone list matches the critical list's ids, every definition GUID is a GUID (R16), every block has NF parts."""
+    """The committed baseline holds every block with the six keys (plus the last stage) and real values: the
+    zone list matches the critical list's ids, every definition GUID is a GUID, every block has NF parts."""
     g = json.load(open(GOLDEN))
     shared = g.pop(SV.SHARED_KEY)
     assert sorted(g) == sorted(b.name for b in catalog.BLOCKS) and len(g) == 73
@@ -179,7 +179,7 @@ def test_baseline_golden_complete():
 
 
 def test_baseline_holds_every_definition_guid():
-    """R16 groundwork: the baseline's GUIDs (every block's def_guids plus the shared ones: InitialUnlock, the UI block
+    """The baseline's GUIDs (every block's def_guids plus the shared ones: InitialUnlock, the UI block
     groups, the texts) are exactly the GUIDs every .def / .partialdef under Assets/DataCenter defines at this commit,
     counted from the files directly (no state_view walker)."""
     from dc.assetio import own_guid
@@ -197,8 +197,8 @@ def test_baseline_holds_every_definition_guid():
     base = set(gold.pop(SV.SHARED_KEY)) | {x for r in gold.values() for x in r["def_guids"]}
     assert files >= 1253
     assert base <= live, sorted(base - live)[:5]          # no definition GUID removed since the baseline
-    # Added since the baseline, and only these, each pinned by GUID (the stable asset_guids.json key) AND file: Plan 5
-    # Task 12's rack subpart bindings (binding, server composition, server prefab per bound subpart) and the open
+    # Added since the baseline, and only these, each pinned by GUID (the stable asset_guids.json key) AND file: the
+    # rack subpart bindings (binding, server composition, server prefab per bound subpart) and the open
     # racks' own ConditionalSubParts definition
     from dc.guids import Guids
     reg = Guids().d                                             # (read, never allocate)

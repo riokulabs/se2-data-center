@@ -1,4 +1,4 @@
-"""Final review I1: staging must not depend on what an earlier install left in Assets/.
+"""Staging must not depend on what an earlier install left in Assets/.
 
 The KVM's client composition and client prefab are patched twice in one write_all run: stage_kvm_subparts adds the
 ConditionalSubParts + Working animation controller, then patch_kvm_onoff swaps FunctionalBlockComponent for the
@@ -9,10 +9,10 @@ So: a scratch copy of Assets/ whose KVM is put back to its fresh-clone state (ev
 re-derived from the vanilla file with the KVM's GUID map, as `se2mod.py copy` writes it, and no Subparts/ folder),
 staged into a scratch dir with a scratch asset_guids.json. The staged KVM must carry both patches.
 
-The same scratch copy puts a built cable tray (Plan 2 Task 5) back to its fresh-clone state too: its staged block
+The same scratch copy puts a built cable tray back to its fresh-clone state too: its staged block
 definition must carry PCU 5 and its staged placement definition AutoRotateFace null, equal to the tracked staging.
 
-And the Programmable (Plan 4 Task 3): back to the structural WallInsertPanel clone (CubeBlockComponent, no terminal
+And the Programmable: back to the structural WallInsertPanel clone (CubeBlockComponent, no terminal
 dummy, none of the files write_all adds), it must stage as the functional blade: the Powerable swap, the scripting
 component (server side) and the swapper (client side) on top of it in the same run, equal to the tracked staging."""
 import json
@@ -26,9 +26,9 @@ from dc import catalog, clone, config, guids, integration, scripting
 from dc.assetio import read_json
 
 KVM = "DC_Srv_KVM"
-PROG = "DC_Srv_Programmable"   # Plan 4 Task 3: structural clone -> functional blade, three patches in one run
-TRAY = "DC_Tray_StraightS_Full"   # Plan 2 Task 5: a built tray block (PCU, placer, models) from a fresh clone
-OPEN = "DC_Rack42_Open"   # Plan 5 Task 12: structural clone -> Ruling 15 chain + client-only ConditionalSubParts
+PROG = "DC_Srv_Programmable"   # structural clone -> functional blade, three patches in one run
+TRAY = "DC_Tray_StraightS_Full"   # a built tray block (PCU, placer, models) from a fresh clone
+OPEN = "DC_Rack42_Open"   # structural clone -> powerable functional chain + client-only ConditionalSubParts
 GUID_RE = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 
 
@@ -162,7 +162,7 @@ def test_fresh_clone_kvm_matches_installed(fresh):
     assert fresh["same_guids"], "the fresh-clone run minted new asset GUIDs"
 
 
-# ---------------------------------------------------------------------------------------------- Plan 2: a tray block
+# ---------------------------------------------------------------------------------------------- a tray block
 def test_fresh_clone_restored_the_tray(fresh):
     assert len(fresh["written_tray"]) == clone.entry(catalog.BY_NAME[TRAY])["copies"][1]["definitions"] == 12
     assert f"{TRAY}_PlacementDefinition.def" in fresh["written_tray"]
@@ -177,7 +177,7 @@ def test_fresh_clone_tray_patched(fresh):
     pl = _body(read_json(os.path.join(fresh["stage"], pl_rel)))
     assert pl["AutoRotateFace"] is None and bd["PlacerDefinition"] == pl["Guid"]
     bmd = _body(read_json(os.path.join(fresh["stage"], info["model_def_file"])))
-    assert bmd["Model"].startswith("{G}") and bmd["FractureModel"] != bmd["DamagedModel"]   # Task 9b: dented
+    assert bmd["Model"].startswith("{G}") and bmd["FractureModel"] != bmd["DamagedModel"]   # dented
     assert fresh["summary"]["blocks"][TRAY]["built"]
 
 
@@ -189,7 +189,7 @@ def test_fresh_clone_tray_matches_installed(fresh):
         assert read_json(os.path.join(fresh["stage"], rel)) == read_json(os.path.join(config.STAGE_ASSETS, rel)), rel
 
 
-# ---------------------------------------------------------------------------------------------- Plan 4: the Programmable
+# ---------------------------------------------------------------------------------------------- the Programmable
 def _staged_prog(fresh, pat):
     rel = integration._block_files(catalog.BY_NAME[PROG], pat)[0]
     return _body(read_json(os.path.join(fresh["stage"], rel)))
@@ -234,10 +234,10 @@ def test_fresh_clone_programmable_matches_installed(fresh):
         assert read_json(os.path.join(fresh["stage"], rel)) == read_json(os.path.join(config.STAGE_ASSETS, rel)), rel
 
 
-# ---------------------------------------------------------------------------------------------- Plan 5 Task 12: open rack
+# ---------------------------------------------------------------------------------------------- open rack
 def test_fresh_clone_open_rack_matches_installed(fresh):
     """The open rack from its fresh WallInsertPanel clone (CubeBlockComponent, no Subparts/) stages, in one run, with
-    the static children cleared, the Ruling 15 swap and the client-only ConditionalSubParts + animation controller on
+    the static children cleared, the powerable swap and the client-only ConditionalSubParts + animation controller on
     top of it, equal to the tracked staging."""
     spec = catalog.BY_NAME[OPEN]
     assert len(fresh["written_open"]) == 12

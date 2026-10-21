@@ -1,5 +1,5 @@
-// KvmInjector: the load-time surgery that turns the data-only KVM into the scripted one (Plan 4 Rulings P4-3, P4-10;
-// Task 8). With scripts off this file never loads and the KVM keeps its vanilla Translation/RotationAnimation pair.
+// KvmInjector: the load-time surgery that turns the data-only KVM into the scripted one.
+// With scripts off this file never loads and the KVM keeps its vanilla Translation/RotationAnimation pair.
 // Three edits, all client-side definitions (client entities are never saved):
 //   1. KvmClientPrefab: append KvmSequencerComponent (id DcGuids.KvmSequencerComponentId, no definition, null object
 //      builder) after the PowerableBlockComponent it depends on;
@@ -141,7 +141,7 @@ public sealed class KvmInjector
 
     /// <summary>
     /// Prepares swapping the vanilla part <paramref name="vanillaType"/> for the driver <paramref name="driverType"/>,
-    /// with the driver's own definition (Ruling P4-10) built from the slot's data definition, which must be the one the
+    /// with the driver's own definition type, built from the slot's data definition, which must be the one the
     /// data ships (<paramref name="expected"/>). A slot already swapped prepares as AlreadyDone.
     /// </summary>
     private static SurgeryVerdict PrepareDriver<TData>(EntityCompositeDefinition composite, Type vanillaType, Type driverType, Guid expected,

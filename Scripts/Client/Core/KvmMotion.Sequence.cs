@@ -1,4 +1,4 @@
-// KvmMotion.Sequence: the sequencing rules of the KVM motion (Plan 4 Rulings P4-3, P4-4): the drawer leads on the way
+// KvmMotion.Sequence: the sequencing rules of the KVM motion: the drawer leads on the way
 // out, the lid on the way back; the fold gate and the beat between slide and fold; the retract gate a stow waits for;
 // the hard stops at the drawer's rails and under the lid. See KvmMotion.cs for the stepping.
 //
@@ -50,7 +50,8 @@ public sealed partial class KvmMotion
         {
             // The lid must be under the gate AND on its way down (its lead goal too): a lid caught just after it
             // started to lift is still rising by momentum, and a drawer retracting under it would drive it into the
-            // KVM's own upper panel. So the drawer waits for the lid to turn over (Task 7: open_fast@1.0 found it).
+            // KVM's own upper panel. So the drawer waits for the lid to turn over (the open_fast@1.0 motion graph
+            // showed it).
             if (LidClear(gate))
             {
                 _retracting = true;

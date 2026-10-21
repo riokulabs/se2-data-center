@@ -1,4 +1,4 @@
-"""Task 8: the KVM console (animated pop-out drawer + fold-up screen) and the programmable server shell.
+"""The KVM console (animated pop-out drawer + fold-up screen) and the programmable server shell.
 
 KVM (DC_Srv_KVM, a ControlPanel25 clone: terminal access kept). Two subparts (dc/subparts.py):
   KvmDrawer  spawned by ConditionalSubParts at the block-model dummy "KvmDrawer"; TranslationAnimation 0.45 m forward;
@@ -8,7 +8,7 @@ Trigger: FunctionalBlockAnimationControllerComponent (Working) on the client com
 take the same time, so the open and the close follow the same (simultaneous) path.
 
 Programmable (DC_Srv_Programmable, a WallInsertPanel clone): a blade chassis; its status LED is the static amber
-vanilla ColorIndicatorMaterial (no blink). Plan 4 Task 3 made it a functional On/Off blade with the vanilla scripting
+vanilla ColorIndicatorMaterial (no blink). It is a functional On/Off blade with the vanilla scripting
 component in data (Tests/test_programmable_data.py).
 
 No definition anywhere under DataCenter/ may reference a type outside the Game2: / VRage: bundles (no mod-assembly,
@@ -161,7 +161,7 @@ def test_kvm_trigger_is_working_toggle(staged):
 
 
 def test_kvm_popped_envelope():
-    """Built geometry (build_report "subparts"): the popped-out screen rises into the slot above (the user's decision)
+    """Built geometry (build_report "subparts"): the popped-out screen rises into the slot above (by design)
     and its rearmost point above this slot stays in front of the neighbour's front hardware (ears, handles: max y
     0.4145); stowed, both subparts stay inside the slot box and the front zone like any server."""
     e = _report(KVM)["subparts"]
@@ -207,7 +207,7 @@ def test_programmable_status_led_static_amber():
 
 
 def test_programmable_blade_face():
-    """The blade chassis: six sleds (one pulled for service). Since Plan 4 Task 3 the block is functional (an On/Off
+    """The blade chassis: six sleds (one pulled for service). The block is functional (an On/Off
     Powerable with the vanilla scripting component in data): Tests/test_programmable_data.py."""
     assert catalog.BY_NAME[PROG].functional
     e = _report(PROG)
@@ -246,7 +246,7 @@ def test_no_script_types_in_definitions(staged):
     assert seen > 500
 
 
-# ---------------------------------------------------------------------------------------------- Ruling 15: On/Off
+# ---------------------------------------------------------------------------------------------- On/Off
 TIMER50 = os.path.join(config.VANILLA_REF, "Blocks", "Timer", "50")
 SDK_TEMPLATES = os.path.expanduser("~/.steam/debian-installation/steamapps/common/Space Engineers 2 - Mod SDK/"
                                    "GameData/Vanilla/Assets/Templates")
@@ -263,7 +263,7 @@ def test_kvm_has_vanilla_onoff(staged):
     """The KVM's server and client compositions carry vanilla's On/Off component exactly as Timer50's chain does
     (Templates/BasePowerableBlockBreakable_*: key 4f2bc5f9 = PowerableBlockComponent), bound to the KVM's own block
     definition, now a PowerableBlockDefinition with no consumed resource (always supplied); the prefabs spawn it Off
-    (Enabled = false: Ruling 15 amended 2026-10-18, a new KVM is stowed); the old FunctionalBlockComponent key is gone
+    (Enabled = false: a new KVM is stowed); the old FunctionalBlockComponent key is gone
     and no tag slot points at it."""
     spec = catalog.BY_NAME[KVM]
     van = _body(_vanilla_template("BasePowerableBlockBreakable_ServerComposition.partialdef"))
@@ -297,7 +297,7 @@ def test_kvm_has_vanilla_onoff(staged):
 
 
 def test_kvm_spawns_off_stowed(staged):
-    """Ruling 15 amended 2026-10-18 (in-game: "when placed it's open"): a newly placed KVM spawns Off, so not Working,
+    """A newly placed KVM used to spawn open; now it spawns Off, so not Working,
     so stowed in both script modes (the FBAC follows Working; the sequencer starts stowed and targets Working). The
     initial state is the prefab's PowerableBlockObjectBuilder.Enabled (PowerableBlockComponent.Init reads ob.Enabled,
     PowerableBlockComponent.cs:303-307); a saved KVM keeps its own serialized Enabled (:340-345), so existing worlds do
@@ -312,11 +312,11 @@ def test_kvm_spawns_off_stowed(staged):
 
 
 def test_functional_servers_are_terminal_listed(staged):
-    """In-game: "the KVM doesn't show up in the block list in the grid console". The grid console lists a block only
+    """Every functional server shows in the grid console's block list. The grid console lists a block only
     when its composition has a FunctionalBlockComponent whose tags carry no NO_TERMINAL* tag
     (StreamedControlPanelSessionComponent.IsBlockEligible, Game2.Simulation
     Keen.Game2.Simulation.StreamedUI.Terminal.ControlPanel/StreamedControlPanelSessionComponent.cs:651-656).
-    ControlPanel25 tags its FunctionalBlockComponent NO_TERMINAL_FUNCTIONAL; the Ruling 15 chain drops it. No
+    ControlPanel25 tags its FunctionalBlockComponent NO_TERMINAL_FUNCTIONAL; our On/Off chain drops it. No
     staged DataCenter composition may carry a NO_TERMINAL* tag slot at all (none of our blocks is meant to hide), and
     the two servers we rebase onto vanilla's PowerableBlockComponent carry it in both compositions (Timer, EventCtl,
     UPS and Status inherit theirs from vanilla templates without NO_TERMINAL slots)."""
@@ -368,7 +368,7 @@ def test_kvm_animation_controller_drives_both_subparts(staged):
 
 
 # ---------------------------------------------------------------------------------------------- KVM use-to-toggle
-# Plan 4 Task 9 (Ruling P4-8a): Use on the drawer pops the console out or stows it, data-only (dc/functional.py
+# Use on the drawer pops the console out or stows it, data-only (dc/functional.py
 # KVM_TOGGLE has the design and the vanilla citations).
 SDK_ASSETS = os.path.expanduser("~/.steam/debian-installation/steamapps/common/Space Engineers 2 - Mod SDK/"
                                 "GameData/Vanilla/Assets")
@@ -386,7 +386,7 @@ def _inside(pt, box):
 
 def test_kvm_use_toggle_dummy(staged):
     """The KVM's model carries a vanilla UsePowerable use box (the type the player's UseActionBindings map to
-    UsePowerableAction: Use flips PowerableBlockComponent.Enabled, the Ruling 15 On/Off) over the drawer band, and
+    UsePowerableAction: Use flips PowerableBlockComponent.Enabled, the block's On/Off) over the drawer band, and
     the Terminal box shrinks to the upper modules. The two never overlap, both sit inside the 6U face, the toggle is
     the last dummy (it wins a tie) and is supported by the front fracture zone it sits in; no subpart model carries
     one (UsePowerableAction gets PowerableBlockComponent from the dummy's own entity: a subpart has none)."""
@@ -426,7 +426,7 @@ def test_kvm_use_toggle_dummy(staged):
         assert lo[1] >= -0.125 - 1e-9 and hi[1] <= 0.125 + 1e-9
         assert -0.41 <= lo[2] and hi[2] <= -0.34                         # on the face: game z = -0.375 +- a slab
 
-    # supported by the FRONT service module (Task 9c's 3-zone servers: Fracture_01 the critical core, Fracture_02
+    # supported by the FRONT service module (the 3-zone servers: Fracture_01 the critical core, Fracture_02
     # the front module, Fracture_03 the rear), the zone its centre lies in, as the face's Terminal is
     from dc import fracture
     man = read_json(os.path.join(config.MODELS_DIR, KVM, "export.json"))["fractured"]

@@ -2,10 +2,10 @@
 
 CATALOGUE holds every block the mod defines. BLOCKS is the part of it that the definitions pipeline already carries
 (clones, staging, names, menu, icons, recipes): the families in PIPELINE_FAMILIES. A family joins the pipeline when
-its definitions task wires it (Plan 2 Task 5 added "tray" and "trayrods", so today BLOCKS == CATALOGUE); until then
+its definitions are wired (today every family is, so BLOCKS == CATALOGUE); until then
 its blocks are catalogued (cells, sources, plans, builds by name) but invisible to the pipeline's whole-catalogue loops
-and tests. Within the pipeline, the menu (dc/menu.py GROUPS) and the cost rule (dc/recipes.py costed) cover the trays
-from Plan 2 Task 9 and the room pieces from Plan 3 Task 10."""
+and tests. Within the pipeline, the menu (dc/menu.py GROUPS) and the cost rule (dc/recipes.py costed) cover every
+family, the trays and the room pieces included."""
 from dataclasses import dataclass
 from typing import Optional, Tuple
 
@@ -13,7 +13,7 @@ from .tray_lanes import DENSITIES as TRAY_DENSITIES   # the cable densities (dc/
 
 PANEL = "Blocks/Walls/Inserts/Panel"
 DOOR = "Blocks/Doors/SlideDoorNarrow/250"
-PIPES = "Blocks/Walls/Inserts/Pipes"          # WallInsertPipes: the trays' clone source (Plan 2 Decision 9)
+PIPES = "Blocks/Walls/Inserts/Pipes"          # WallInsertPipes: the trays' clone source
 STRUT = "Blocks/Truss/Struts/Long"            # StructuralSupportStraight: the rod hangers' clone source
 
 
@@ -34,9 +34,9 @@ def _rack(height, variant, source, copy_from, functional):
                      source, copy_from, variant, functional)
 
 
-# Sizes: controller ruling 2026-10-17 (Task 3): racks 4 cells (1.0 m) wide so the 2-cell server slot is centred;
-# servers 3 cells (0.75 m) deep so they sit centred in the 5-cell rack depth. See NOTES.md.
-CORE_BLOCKS = []   # Plan 1: racks and servers
+# Sizes: racks 4 cells (1.0 m) wide so the 2-cell server slot is centered;
+# servers 3 cells (0.75 m) deep so they sit centered in the 5-cell rack depth.
+CORE_BLOCKS = []   # racks and servers
 for _h in (42, 24):
     CORE_BLOCKS.append(_rack(_h, "Open", PANEL, "WallInsertPanel", False))
     CORE_BLOCKS.append(_rack(_h, "SplitFront", DOOR, "SlidingDoorNarrow250", True))
@@ -53,7 +53,7 @@ CORE_BLOCKS += [
     _srv("DC_Srv_KVM", "Blocks/ControlPanel/25", "ControlPanel25", "KVM", True),
     _srv("DC_Srv_UPS", "Blocks/Batteries/Battery/50", "Battery50", "UPS", True, cells=(2, 2, 3)),
     _srv("DC_Srv_Status", "Blocks/LCDPanels/LCD/50", "LCDFlat50", "Status", True),
-    _srv("DC_Srv_Programmable", PANEL, "WallInsertPanel", "Programmable", True),   # Plan 4 P4-2: a Powerable blade
+    _srv("DC_Srv_Programmable", PANEL, "WallInsertPanel", "Programmable", True),   # a Powerable blade
     _srv("DC_Srv_Compute", PANEL, "WallInsertPanel", "Compute", False),
     _srv("DC_Srv_Storage", PANEL, "WallInsertPanel", "Storage", False),
     _srv("DC_Srv_Switch", PANEL, "WallInsertPanel", "Switch", False),
@@ -61,7 +61,7 @@ CORE_BLOCKS += [
 ]
 
 # ---------------------------------------------------------------------------------------------------- cable trays
-# Plan 2 §Piece table. Cells are (along X, up Z, across Y) like every block here; the cable plans (dc/tray_plan.py)
+# Cells are (along X, up Z, across Y) like every block here; the cable plans (dc/tray_plan.py)
 # lay their geometry out in exactly these boxes.
 TRAY_SHAPES = ("StraightS", "StraightL", "TurnH", "TurnUp", "TurnDown", "Tee", "Cross")   # x 4 densities
 TRAY_CELLS = {
@@ -92,14 +92,14 @@ TRAYS += [BlockSpec(f"DC_TrayRods_{_k}", "trayrods", (2, _n, 2), STRUT, "Structu
           for _k, _n in ROD_LENGTHS.items()]
 
 # ---------------------------------------------------------------------------------------------------- room pieces
-# Plan 3 §Decisions 1-8 (the Task 2 table). Each family joins PIPELINE_FAMILIES in its own definitions task; until
+# Each family joins PIPELINE_FAMILIES once its definitions are wired; until
 # then its blocks are catalogued (cells, sources, names, clones, the room layout in dc/room.py) but stay out of the
 # pipeline's whole-catalogue loops. The PDU strips and the PDU cabinet are decorative (the wall-panel chain); the CRAC
-# keeps the gyroscope's powered chain (P3-1, P3-15); doors and signs keep their vanilla door / LCD behaviour.
-CATWALK = "Blocks/Catwalks/CatwalkSquareBase/250"   # CatwalkSquareBase250: the raised floor (P3-5)
-GYRO = "Blocks/Gyroscopes/Gyroscopes/250"           # Gyroscope250: the CRAC (P3-1)
-DECK = "Blocks/DeckPanel/250"                       # DeckPanel250: the containment roof (P3-3)
-NARROW_LCD = "Blocks/LCDPanels/NarrowLCD/50"        # LCDNarrow50: the signs (P3-8, P3-18)
+# keeps the gyroscope's powered chain; doors and signs keep their vanilla door / LCD behavior.
+CATWALK = "Blocks/Catwalks/CatwalkSquareBase/250"   # CatwalkSquareBase250: the raised floor
+GYRO = "Blocks/Gyroscopes/Gyroscopes/250"           # Gyroscope250: the CRAC
+DECK = "Blocks/DeckPanel/250"                       # DeckPanel250: the containment roof
+NARROW_LCD = "Blocks/LCDPanels/NarrowLCD/50"        # LCDNarrow50: the signs
 ROOM_FAMILIES = ("floor", "crac", "pdu_cabinet", "pdu_strip", "contain_door", "contain_roof", "sign")
 AISLE_CELLS = {"100": 4, "150": 6, "200": 8}          # aisle width (name suffix) -> cells (dims.AISLE_WIDTHS)
 
@@ -126,18 +126,17 @@ ROOM += [_room(f"DC_Contain_Roof_{_k}", "contain_roof", (4, 1, _n), DECK, "DeckP
 ROOM += [_room(f"DC_Sign_{_v}", "sign", _c, NARROW_LCD, "LCDNarrow50", _v, True)
          for _v, _c in (("Aisle", (4, 1, 1)), ("AisleHang", (4, 1, 2)), ("Rack", (2, 1, 1)))]
 
-# Plan 2 Task 5 wired the trays (Ruling P2-15); Plan 3 Task 10 the room families (menu, recipes, icons, unlock), so
-# today BLOCKS == CATALOGUE again
+# the trays and the room families (menu, recipes, icons, unlock) are all wired, so today BLOCKS == CATALOGUE
 PIPELINE_FAMILIES = ("rack", "server", "tray", "trayrods") + ROOM_FAMILIES
 CATALOGUE = CORE_BLOCKS + TRAYS + ROOM
 BLOCKS = [b for b in CATALOGUE if b.family in PIPELINE_FAMILIES]   # the definitions pipeline's view
 BY_NAME = {b.name: b for b in CATALOGUE}
-# Plan 3: a room family's models and definitions were staged from its own task (T3 floor, ...), its build-menu group,
-# recipe, icon and unlock came with Task 10 (when every room family joined PIPELINE_FAMILIES). STAGED = what
-# dc/integration.py stages: BLOCKS plus any staged room family not yet in the pipeline (none since Task 10).
+# A room family's models and definitions can be staged before it joins PIPELINE_FAMILIES (which brings its
+# build-menu group, recipe, icon and unlock). STAGED = what dc/integration.py stages: BLOCKS plus any staged room
+# family not yet in the pipeline (none today).
 STAGED_ROOM_FAMILIES = ("floor", "contain_roof", "contain_door", "crac")
-STAGED_ROOM_FAMILIES += ("pdu_cabinet", "pdu_strip")   # Plan 3 Task 7
-STAGED_ROOM_FAMILIES += ("sign",)                 # Plan 3 Task 8
+STAGED_ROOM_FAMILIES += ("pdu_cabinet", "pdu_strip")
+STAGED_ROOM_FAMILIES += ("sign",)
 STAGED = BLOCKS + [b for b in ROOM if b.family in STAGED_ROOM_FAMILIES and b not in BLOCKS]
 
 

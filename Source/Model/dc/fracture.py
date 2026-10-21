@@ -1,5 +1,5 @@
-"""Real fracture models for the racks, servers and cable trays (Plan 2 Tasks 9b / 9c) and the room's raised floor,
-containment roof and containment doors (Plan 3 Tasks 3-5, unified onto this pipeline at the main merge), vanilla-style.
+"""Real fracture models for the racks, servers and cable trays and the room's raised floor, containment roof and
+containment doors, vanilla-style.
 
 Every DC_Rack*, DC_Srv_*, DC_Tray* / DC_TrayRods*, DC_Floor_*, DC_Contain_Roof_* and DC_Contain_Door_* block gets a
 FRACTURE PLAN (this module, plain Python) that the exporter turns into a cut Fractured model and a dented Damaged model (fracture_mesh.py, Blender),
@@ -20,11 +20,13 @@ the way vanilla ships them (measured on Timer50 / Battery50 / EventController100
 
 Zones are convex regions of the block frame (Blender: X width, +Y front / tray plan y, Z up), each an intersection of
 half spaces; a seam is the plane between two zones (Seam: one or several zones on each side). Every rack, server and
-tray has a plan since Task 9c. Fracture_01 is the key zone on functional and hung blocks; only functional blocks (servers) have it critical.
+tray has a plan. Fracture_01 is the key zone on functional and hung blocks; only functional blocks (servers) have it
+critical.
 A critical zone does NOT destroy the block: a dead critical zone makes BreakableBlockComponent.IsBroken true, which
 switches a functional block off (FunctionalBlockComponent.RecomputeFunctional) and shows "Broken"; the block is
 destroyed only when its volume-weighted integrity falls below its DestructionThreshold (0.3 by default,
-CubeBlockComponent.cs:4388-4400). Racks and cable trays are structural (Ruling P2-30: CriticalFractures = [], guide 4.4): no critical zone, except a door rack's columns (the hinges).
+CubeBlockComponent.cs:4388-4400). Racks and cable trays are structural (CriticalFractures = [], guide 4.4): no
+critical zone, except a door rack's columns (the hinges).
 The rod hangers and the Chute stay unfractured and non-breakable (UNFRACTURED).
 
     | family / shape        | zones (critical first)                                          | seams          |
@@ -75,35 +77,35 @@ CUT_MIN = 0.012     # an island is cut by a seam only when it reaches this far p
 THIN_CAP = 0.04     # a cut loop shorter than this is a thin wire's end (6 mm wire: 0.02 m)
 
 SERVER_SEAM_Y = -0.026      # dc/server.py: the middle of the 8 mm shadow gap between the rear cover and the lid
-SERVER_FRONT_Y = 0.19       # Task 9c: the front service module's back edge: behind the lid latch (y 0.26-0.31) and
+SERVER_FRONT_Y = 0.19       # the front service module's back edge: behind the lid latch (y 0.26-0.31) and
 #                             the side intake slots (y 0.21-0.31), in front of the side swages (y < 0.14)
 LONG_CUT = 0.04             # servers / racks: a hardware island reaching this far past a seam on both sides is cut
 UPS_SEAM_Y = 0.016          # dc/servers/ups.py core_bays: where the front bay's core ends and the rear bay's begins
 KEEP_WHOLE = {              # Part names never cut: hardware assigned whole by its centre (a strut is not sawn in two)
     "server": ("screw", "hw", "ear"),
-    "tray": ("hw", "solid", "tiehw"),   # (Task 9: tiehw = the strap buckles and collar bolts, whole as before)
+    "tray": ("hw", "solid", "tiehw"),   # (tiehw = the strap buckles and collar bolts, whole as before)
     "trayrods": ("hw", "solid"),
     "rack": ("hw", "slidebolt", "decal", "holes"),
-    # the room (Plan 3): round hardware, screws, stencils go whole; with ROOM_LONG_CUT the long ones are still cut
+    # the room: round hardware, screws, stencils go whole; with ROOM_LONG_CUT the long ones are still cut
     "floor": ("ped", "fine", "decal", "arrow"),
     "contain_roof": ("frame", "cap", "glass", "clamp", "gasket", "dark", "hw", "tape", "decal", "led"),
     "contain_door": ("hw", "steel", "decal"),
-    # the CRAC (Plan 3 Task 6): hardware, the fan guards, the water stubs, stencils and the brush lips go whole
-    "crac": ("hw", "guard", "pipe", "decal", "brush", "lip"),   # (Task 13: the venturi lips, out of hw, still whole)
-    # Plan 3 Task 7: the PDUs (the cabinet's lit segments and placard go whole with their panel; the strip's cords,
+    # the CRAC: hardware, the fan guards, the water stubs, stencils and the brush lips go whole
+    "crac": ("hw", "guard", "pipe", "decal", "brush", "lip"),   # (the venturi lips, out of hw, still whole)
+    # the PDUs (the cabinet's lit segments and placard go whole with their panel; the strip's cords,
     # plug and brackets go whole: no seam crosses them, dc/pdu.py)
     "pdu_cabinet": ("hw", "decal", "sticker", "lamp"),
     "pdu_strip": ("hw", "decal", "lamp", "cord", "plug", "steel"),
-    "sign": ("hw", "decal"),           # Plan 3 Task 8: bolts, hangers, stencils whole; the screen is cut
+    "sign": ("hw", "decal"),           # bolts, hangers, stencils whole; the screen is cut
 }
-# Broken interiors, Keen's way (user decision 2026-10-20, NOTES.md "Broken interiors: Keen's way"): a zone's inside is
+# Broken interiors follow the game's own style: a zone's inside is
 # a solid core whose exposed faces are vanilla FracturedMaterial01. CORE_PARTS {family: part names}: in the cut
 # (Fractured, Damaged) LODs every face of these parts takes CUT_MATERIAL with box UVs at CUT_UV_PER_M and goes into its
 # zone's break-face object (Group Fracture_NN, CUT_PROPS: hidden until the second sequence, as a cut face), so a
 # broken neighbour shows the core as vanilla's torn wiring; the NonFractured model keeps the part's own material
 # (Darker: at most 8 materials there, and nothing sees it). The parts are cut like any solid (not in KEEP_WHOLE).
 CORE_PARTS = {"crac": ("core",), "pdu_cabinet": ("core",)}
-# Construction roles per face (Plan 5 Task 5, Decision 5; guide B1). A face's role decides its object and Group in
+# Construction roles per face (guide B1). A face's role decides its object and Group in
 # the Fractured model (export_models._group) and so its construction mesh-part props:
 #   skin     the zone's own group Fracture_NN: the panels that build up through both sequences;
 #   hide     Fracture_NN_Hide, AlwaysHidden while under construction: decals, stencils, lamps, screens (HIDE_PREFIXES);
@@ -122,12 +124,12 @@ ROLE_PROPS = {"skin": ("Default", "AlwaysVisible", "Default"), "hide": ("Default
               "glass": ("Default", "AlwaysVisible", "WindowGlass")}
 GLASS_MATERIALS = ("FrostedGlass", "WindowGlass", "WindowGlassThin", "ClearGlass")
 ROLES = {fam: {} for fam in KEEP_WHOLE}
-# Plan 5 Task 8: the servers' rack ears (dc/server.py _ears: the L-bracket flange on the 19" rail and its leg riveted
+# The servers' rack ears (dc/server.py _ears: the L-bracket flange on the 19" rail and its leg riveted
 # to the body) and slide inner members (_slides: the server-side rails riding the rack's slides) are the mounting
 # hardware that carries the server, welded first (vanilla Timer50 11 %, Battery50 8 % support); with them the captive
-# thumbscrews (`screw`: they fasten the ear flange to the rail's square holes, fix round 1)
+# thumbscrews (`screw`: they fasten the ear flange to the rail's square holes)
 ROLES["server"] = {"support": ("ear", "slide", "screw")}
-# Plan 5 Task 9: the cable trays, by what the kit's Parts are (dc/tray_kit.py Parts): the bundles with their boots
+# The cable trays, by what the kit's Parts are (dc/tray_kit.py Parts): the bundles with their boots
 # (`cable`) and their dressing (`tie`: straps, split collars, saddle clamps; `tiehw`: the strap buckles and collar
 # bolts) are pulled into the finished tray, so they arrive on completion (hide), as vanilla CableStraight250 (65 % of
 # its FR LOD0 in _Hide groups); the hangers' and the basket's hardware (`hw`: rods, nuts, rod / splice plates, guide
@@ -135,7 +137,7 @@ ROLES["server"] = {"support": ("ear", "slide", "screw")}
 # wire, the trim and the tray furniture the cables ride on (`guide`: waterfall guide, brush collar, crossover saddle)
 # stay skin. (The rod hangers and the Chute are unfractured: their roles come from the material only.)
 ROLES["tray"] = {"hide": ("cable", "tie", "tiehw"), "support": ("hw", "strut")}
-# Plan 5 Task 10, the room (vanilla CatwalkSquareBase250 / DeckPanel250 / WindowFlat250 / CircuitBreaker / LCDFlat50):
+# The room (vanilla CatwalkSquareBase250 / DeckPanel250 / WindowFlat250 / CircuitBreaker / LCDFlat50):
 # the floor's pedestals (dc/floor.py _pedestal: `ped` the tube, jack, nut and anchor bolts, `pedplate` its base and
 # head plates) stand on the slab and carry the deck; the roof's frame (contain.py _frame: the beams and mullions the
 # panes sit on) and its rail clamps (_clamps: the brackets onto the racks' rail pads) carry the glazing, which stays
@@ -150,11 +152,11 @@ ROLES["contain_door"] = {}
 ROLES["sign"] = {"support": ("hw",)}
 ROLES["pdu_cabinet"] = {"hide": ("lamp", "sticker", "breaker"), "support": ("hw",)}
 ROLES["pdu_strip"] = {"hide": ("lamp", "cord", "plug"), "support": ("hw", "steel")}
-# Plan 5 Task 11: the CRAC's mounting hardware (dc/crac.py `hw`: the levelling feet, the fixing bolts of the fan
+# The CRAC's mounting hardware (dc/crac.py `hw`: the levelling feet, the fixing bolts of the fan
 # modules and panels, the hinges and latches the doors hang on) and its coolant stubs (`pipe`: the CHW supply / return
 # valves and stubs, the condensate stub, where the facility's pipework lands) are its supports, welded first
 ROLES["crac"] = {"support": ("hw", "pipe")}
-# Plan 5 Task 12: the rack's structure (dc/rack.py): `frame` the posts (_columns' corner posts), the plinth frame, the
+# The rack's structure (dc/rack.py): `frame` the posts (_columns' corner posts), the plinth frame, the
 # corner caps' posts, the roof rails and the rear PDU bulkhead the frame is built from; `rail` the 19" mounting rails
 # the servers hang on; `slide` the slide members the servers ride on; `contain` the containment rail along the top
 # front / rear edge the roof clamps onto. Posts and rails first (vanilla Smelter250 24 % support); the side skins,
@@ -164,7 +166,7 @@ TABLE_ROLES = tuple(r for r in ROLE_IDS if ROLE_SUFFIX[r])   # the roles a part 
 
 
 def check_role_tables(roles):
-    """Task 5 review M2: a part table names only suffixed roles. A "skin" entry is the default anyway, and a "glass"
+    """A part table names only suffixed roles. A "skin" entry is the default anyway, and a "glass"
     one would put a glass object and a skin object of the same material in one Group, i.e. one mesh-part name for two
     meshes (the exporter keeps the last object's props, the importer sees two meshes for one part). Glass is decided
     by material (GLASS_MATERIALS) only."""
@@ -199,7 +201,7 @@ def role_props(role):
 
 
 def skin_carrier(present, lod, block, zone):
-    """The role whose piece carries a zone's Group and ColliderMeshGroups at this LOD (R16(b)): the skin when there
+    """The role whose piece carries a zone's Group and ColliderMeshGroups at this LOD: the skin when there
     is one; on a lower LOD the first present role in ROLE_IDS order (a decal-only or glass-only corner of a coarse
     LOD); None when the zone has nothing at that lower LOD. A zone with no LOD0 skin face fails here, by name: its
     group would carry no ColliderMeshGroups (the importer then drops every fracture) and the generator reads LOD0."""
@@ -223,12 +225,12 @@ ROOM_LONG_CUT = 0.04        # room blocks: a keep-whole island is cut only where
 DAMAGED_SLOTS = {"EmissiveOff": "EmissiveOffBroken", "EmissiveGreen": "EmissiveOffBroken",
                  "EmissiveRed": "EmissiveOffBroken", "EmissiveAmber": "EmissiveOffBroken",
                  "Emissive01": "EmissiveOffBroken", "Emissive02": "EmissiveOffBroken",
-                 "EmissiveScriptStatus": "EmissiveOffBroken",   # Plan 4 T4: the Programmable's script-status slot
+                 "EmissiveScriptStatus": "EmissiveOffBroken",   # the Programmable's script-status slot
                  "Terminal": "Display01Broken", "LCDScreen_Off": "LCDScreen_Off_Damaged",
                  "FrostedGlass": "WindowGlassBroken",   # the roof panes (vanilla Deformed: WindowGlass -> broken)
-                 # Plan 3 Task 8: the signs' 4:1 LCD slots (vanilla LCDScreen_Off_4.0; Deformed: LCDScreen_Off_*)
+                 # the signs' 4:1 LCD slots (vanilla LCDScreen_Off_4.0; Deformed: LCDScreen_Off_*)
                  "LCDScreen_Off_4": "LCDScreen_Off_Damaged", "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
-                 # Plan 5 Task 3 (G4): the scratched 4.0 parallax Deformed metals, as vanilla's Deformed models map
+                 # the scratched 4.0 parallax Deformed metals, as vanilla's Deformed models map
                  # them (material_guids: Timer50_Deformed and ~90 % of 269 vanilla Deformed models); the player
                  # colour stays on the Colorable one (its colour mask)
                  "PaintedMetalColorable": "PaintedMetalColorableDeformed",
@@ -240,24 +242,24 @@ DENT = {"server": dict(amp=0.026, freq=5.5, fine=0.008, fine_freq=19.0, max_edge
         "tray": dict(amp=0.014, freq=4.5, fine=0.004, fine_freq=14.0, max_edge=0.05),
         "trayrods": dict(amp=0.010, freq=3.0, fine=0.003, fine_freq=11.0, max_edge=0.05),
         "rack": dict(amp=0.024, freq=3.2, fine=0.007, fine_freq=12.0, max_edge=0.08),
-        # Plan 3: the walking deck and the roof's top caps lie on the model's top face: there the dent may go INWARD
+        # the walking deck and the roof's top caps lie on the model's top face: there the dent may go INWARD
         # (unpin: the bounding-box faces where only the outward component stays pinned), or nothing would show
         "floor": dict(amp=0.016, freq=4.0, fine=0.004, fine_freq=14.0, max_edge=0.06, unpin=("+z",)),
         "contain_roof": dict(amp=0.016, freq=4.0, fine=0.004, fine_freq=14.0, max_edge=0.08, unpin=("+z",)),
-        # the door: Task 5's dent (mean ~7 mm on the 2.5 m frame)
+        # the door's dent (mean ~7 mm on the 2.5 m frame)
         "contain_door": dict(amp=0.022, freq=4.0, fine=0.004, fine_freq=15.0, max_edge=0.16),
         # the CRAC: the rack's dent (a 2.5 m cabinet of 1-2 mm sheet over a frame)
         "crac": dict(amp=0.022, freq=3.4, fine=0.006, fine_freq=12.0, max_edge=0.08),
-        # Plan 3 Task 7: the PDU cabinet dents like a rack; the strip's 9 cm body like a server's shell, gentler
+        # the PDU cabinet dents like a rack; the strip's 9 cm body like a server's shell, gentler
         "pdu_cabinet": dict(amp=0.024, freq=3.2, fine=0.007, fine_freq=12.0, max_edge=0.08),
         "pdu_strip": dict(amp=0.008, freq=9.0, fine=0.002, fine_freq=24.0, max_edge=0.03),
-        # Plan 3 Task 8: the signs (small, a knock dents the housing a few mm; vanilla LCD50 Deformed)
+        # the signs (small, a knock dents the housing a few mm; vanilla LCD50 Deformed)
         "sign": dict(amp=0.010, freq=7.0, fine=0.003, fine_freq=18.0, max_edge=0.05)}
 
 
 def damaged_slot(slot):
     """The material a Damaged .model maps a slot to: its DAMAGED_SLOTS target, or that of its base slot when it is a
-    stand-in slot (`<Mat>_Subpart`, Task 8: the base's Deformed material), else the slot itself (the .model maps by
+    stand-in slot (`<Mat>_Subpart`: the base's Deformed material), else the slot itself (the .model maps by
     slot name, so a stand-in slot needs no re-suffixed Deformed name; material_guids.guid resolves `_Subpart`)."""
     if slot in DAMAGED_SLOTS:
         return DAMAGED_SLOTS[slot]
@@ -266,14 +268,14 @@ def damaged_slot(slot):
     return slot
 
 
-# Subpart stand-ins (Plan 5 Task 8, Decision 9; audit G6): a parked moving part baked into the Fractured (and, dented
+# Subpart stand-ins: a parked moving part baked into the Fractured (and, dented
 # with its zone, the Damaged) model, never the NonFractured, as vanilla Gyroscope250 (17 `_Subpart` parts in FR, 16 in
 # DM, 0 in NF). The subpart's exported LOD src_lods[i] goes into FR LOD i at `at` (its pivot in the block's Blender
 # frame, in the closed / parked pose: no rotation), every slot renamed `<Mat>_Subpart`, Group = the zone holding each
 # face's centroid (zone None, uncut: one subpart spans the zones it sits in, as vanilla Gyroscope50 / O2H2Generator250)
-# or the explicit zone (zone_Hide for a HIDE_PREFIXES material), props Default / AlwaysVisible / SubpartConstruct. The ConditionalSubParts lists them in
-# MeshPartsToHideWhenActive (integration.standin_parts): shown while the block is not Functional (under construction,
-# broken), hidden when the real subparts spawn.
+# or the explicit zone (zone_Hide for a HIDE_PREFIXES material), props Default / AlwaysVisible / SubpartConstruct.
+# The ConditionalSubParts lists them in MeshPartsToHideWhenActive (integration.standin_parts): shown while the block
+# is not Functional (under construction, broken), hidden when the real subparts spawn.
 SUBPART_SUFFIX = "_Subpart"
 STANDIN_PROPS = ("Default", "AlwaysVisible", "SubpartConstruct")
 
@@ -284,37 +286,37 @@ class StandIn:
     zone: str                       # None: its faces split by centroid over the zones (uncut); else all in this zone
     src_lods: tuple                 # (subpart LOD for FR LOD0, for FR LOD1)
     at: tuple = (0.0, 0.0, 0.0)     # the pivot in the block's Blender frame, closed pose
-    yaw: float = 0.0                # turned about Blender +z (game +Y) at the pivot, degrees (Task 12: the left side)
+    yaw: float = 0.0                # turned about Blender +z (game +Y) at the pivot, degrees (the rack's left side)
     cut: bool = False               # zone None: cut along the plan's seams (fracture_mesh.cut_object), each zone's
     #                                 cross-sections closed by FracturedMaterial01_Subpart caps (build_caps)
 
     def __post_init__(self):
-        # Plan 5 final review M4: every auto-zoned stand-in is cut (the racks since Task 13, the KVM since the final
-        # fix round), so a dead zone never leaves a raw edge on its live neighbour's piece; an explicit zone is whole
+        # every auto-zoned stand-in is cut (the racks' and the KVM's), so a dead zone never leaves a raw edge on its
+        # live neighbour's piece; an explicit zone is whole
         if (self.zone is None) != self.cut:
             raise ValueError(f"StandIn {self.subpart}: cut must be set exactly when zone is None")
 
 
-# the KVM's drawer, closed (the KVM is placed with its drawer shut, commit 79378423), and its lid folded down on the
+# the KVM's drawer, closed (the KVM is placed with its drawer shut), and its lid folded down on the
 # keyboard: both pivot at the stowed hinge (dc/subparts.py HINGE; the screen's pivot is the drawer's, SCREEN_LOCAL 0);
-# both split over the zones they sit in (fix round 1: the drawer runs from the front module's fascia through the core
+# both split over the zones they sit in (the drawer runs from the front module's fascia through the core
 # into the rear chassis, the lid over the front module and the core), cut along the seams with break caps as the
-# racks' (final review M4: closed edges when one of its zones dies)
+# racks' (closed edges when one of its zones dies)
 STANDINS = {"DC_Srv_KVM": (StandIn("KvmDrawer", None, (1, 2), _SUB.HINGE, cut=True),
                            StandIn("KvmScreen", None, (1, 1), _SUB.HINGE, cut=True))}
-# Task 11: the CRAC's three CracFan rotors, parked (no power: still), each in its own fan section (Fracture_02..04, the
+# The CRAC's three CracFan rotors, parked (no power: still), each in its own fan section (Fracture_02..04, the
 # zones supporting CracFan1..3), at its own rotor pivot (crac.fan_points: the CracFan1..3 dummies, identity
 # orientation, centred Blender frame). One subpart, three stand-ins: their mesh parts are distinct by zone.
 STANDINS["DC_CRAC"] = tuple(StandIn(_CRAC.FAN, f"Fracture_{k + 2:02d}", (1, 2),
                                     (0.0, _CRAC.ROTOR_Y, zc - _CRAC.H / 2)) for k, zc in enumerate(_CRAC.FAN_ZC))
-# Task 12 (G2, Ruling DB-10 Path A): the racks' side panels (one RackSide model: the right side at the block origin,
+# Rack path "A": the racks' side panels (one RackSide model: the right side at the block origin,
 # the left turned 180 deg, rack_side.SIDES) and the full racks' fan tray (at doors.fan_tray_point) spawn as
 # ConditionalSubParts only on a Functional rack; until then their LOD1 stands in, split over the zones it sits in
 # (the side columns, the tray's top zones). The rotors are not parked separately: the tray's LOD1 shows the housings.
 
 
 def _rack_standins(spec):
-    # (Task 13 fix round 1: cut along the seams with break caps, so a broken side shows no raw edge where its zone
+    # (cut along the seams with break caps, so a broken side shows no raw edge where its zone
     # parts from a dead one; the tray likewise)
     out = [StandIn(_SIDE.SIDE_SUB, None, (1, 2), (0.0, 0.0, 0.0), yaw, cut=True) for _, yaw in _SIDE.SIDES]
     t = _DOORS.fan_tray_point(spec)
@@ -324,7 +326,7 @@ def _rack_standins(spec):
 
 
 def rack_standins(path):
-    """{rack: stand-ins} for Ruling DB-10 path "A" (the side panels and fan tray are ConditionalSubParts: stand-ins
+    """{rack: stand-ins} for RACK_PATH "A" (the side panels and fan tray are ConditionalSubParts: stand-ins
     while not Functional); {} for path "B" (they are static client-prefab children, always present: no stand-ins)."""
     if path not in ("A", "B"):
         raise ValueError(f"RACK_PATH must be 'A' or 'B', not {path!r}")
@@ -335,7 +337,7 @@ STANDINS.update(rack_standins(_CONFIG.RACK_PATH))
 
 
 def dent_seed(name):
-    """The Damaged model's noise seed for block `name` (Plan 5 Task 6: export determinism). Blender's
+    """The Damaged model's noise seed for block `name` (export determinism). Blender's
     mathutils.noise.noise_vector draws a random offset per process unless noise.seed_set is called (two exports of
     one block dented differently, up to ~15 mm apart), so fracture_mesh.dent seeds it with this stable per-block
     value (CRC-32: Python's hash() of a str is salted per process)."""
@@ -344,7 +346,7 @@ def dent_seed(name):
 
 # A Damaged LOD holds at most damaged_tris_x(family) x its Fractured LOD's triangles WITHOUT the construction scaffold
 # (vanilla never has it in the Deformed model). Vanilla Deformed / Fractured: median 1.00, flat panels up to x 4.
-# Plan 5 Task 7 (audit G5, Decision 6): x 1.2, the floor decks and the roof tops x 1.5 (big flat panels need
+# x 1.2, the floor decks and the roof tops x 1.5 (big flat panels need
 # vertices a dent can move); the parallax Deformed materials (DAMAGED_SLOTS) carry the small-scale damage.
 DAMAGED_TRIS_X = {"default": 1.2, "floor": 1.5, "contain_roof": 1.5}
 # the least mean dent (vertex displacement, fracture_mesh.dent) a Damaged model must keep to read as dented
@@ -548,7 +550,7 @@ def clip_box(lo, hi, halfspaces):
 
 
 # ---------------------------------------------------------------------------------------------------- shaped hulls
-# Plan 2 Task 9c (docs/guides/vanilla-fracture-models.md 10.3 (5)): a zone's collider follows its solid. Health is the
+# docs/guides/vanilla-fracture-models.md 10.3 (5): a zone's collider follows its solid. Health is the
 # block's MaxHealth x the collider's VOLUME share (BreakableComponentDefinition.PostProcessPrefabs), and the colliders
 # become the block's physics once anything breaks, so a box over mostly empty space (a bend's inner corner, a
 # waterfall's occupancy column) buys health and phantom collision. Each collider is a k-DOP of the zone's own LOD0
@@ -703,20 +705,20 @@ def health_shares(volumes, critical):
     return {z: round(x / t, 4) for z, x in w.items()}
 
 
-# Audit G10: a zone's health is its collider's volume share, so a thin zone's shaped hull dies at the first hit. A
+# A zone's health is its collider's volume share, so a thin zone's shaped hull dies at the first hit. A
 # zone under MIN_ZONE_SHARE gets an axis box instead (min_share_box): its LOD0 geometry's box thickened on its thinnest
 # axis, to at least MIN_HULL_T and to the share, but never more than MIN_HULL_T beyond its own geometry (the hull is a
 # live collider: after any zone dies the Fractured collision is the block's physics, its debris piece and its re-weld
-# overlap check; Task 10 review C1). A zone that would need more raises, by name; it is re-zoned or listed in
+# overlap check). A zone that would need more raises, by name; it is re-zoned or listed in
 # MIN_SHARE_EXEMPT. Zone ids and critical lists are unchanged; the manifest flags a lifted zone min_share.
 MIN_ZONE_SHARE = 0.01
 MIN_HULL_T = 0.02
 _SHARE_MARGIN = 1.02          # aim 2 % over the floor: the manifest's shares are rounded to 4 places
-# (family, zone) kept on their shaped hull under the floor (controller ruling, Task 10 fix round 1). The containment
+# (family, zone) kept on their shaped hull under the floor. The containment
 # doors' sill (8 mm threshold, 0.06 %): the one non-critical door zone; its death changes no function (the door stays
-# Functional, only the doorway's sill_down mount drops); an 8 mm strip dying early is plausible; audit G10 is rated
-# Low; the only volume cure (a 6-7 cm box) puts an invisible step in the walkway of a broken door. Accepted cost: the
-# sill can die early.
+# Functional, only the doorway's sill_down mount drops); an 8 mm strip dying early is plausible and
+# low-impact; the only volume cure (a 6-7 cm box) puts an invisible step in the walkway of a broken door. Accepted
+# cost: the sill can die early.
 MIN_SHARE_EXEMPT = {("contain_door", "Fracture_08")}
 
 
@@ -846,7 +848,7 @@ def unfractured_reason(spec):
 
 
 def plan(spec, boxes):
-    """The block's fracture plan (every rack, server and cable tray since Task 9c), or None for the non-breakable
+    """The block's fracture plan (every rack, server and cable tray), or None for the non-breakable
     exception (UNFRACTURED). boxes: the collision dict (regular physics boxes in the centred Blender frame)."""
     if spec.family == "server":
         p = _server(spec)
@@ -877,7 +879,7 @@ def plan(spec, boxes):
 
 
 def _server(spec):
-    """6U servers (Task 9c, guide 10.3 (3)): a critical central core (the mainboard / drive cage between the lid
+    """6U servers (guide 10.3 (3)): a critical central core (the mainboard / drive cage between the lid
     and the rear cover: two neighbours, so it always stays in the largest island) with two shell modules: the
     front service module (bezel, face, controls, rack ears, the lid's latch end), which supports the face's
     interaction dummies (functional.DUMMIES: Terminal / LcdPanel die with it), and the rear chassis (rear cover,
@@ -910,7 +912,7 @@ def _server(spec):
     return p
 
 
-# Regular (physics) boxes no fracture zone owns. The racks' rear stop (placement fix 2026-10-18, dc/rack.py
+# Regular (physics) boxes no fracture zone owns. The racks' rear stop (dc/rack.py
 # collision()) is a 2 cm plate across the slot band's back, between the two side columns: no convex zone of the
 # column / plinth / tray plan holds it without its box hull swallowing the slot volume, and the half rack already
 # has Keen's maximum of 4 zones. It stays in the intact model's physics (the block's optimised collider, which the
@@ -920,7 +922,7 @@ UNFRACTURED_BOXES = ("rear_stop",)
 
 
 def _rack(spec):
-    """The racks (Task 9c; they had Task 5's uncut physics-box zones): a frame cut where it would really part
+    """The racks: a frame cut where it would really part
     (guide 10.3 (1)), every zone a full-section chunk. Full rack (8 zones, the guide's 8-12 at 2.5 m): the plinth's
     front and rear halves, each side column (corner posts, 19" rails, cable manager) in a lower and an upper
     half, the top cable tray's front and rear halves. Half rack (Keen allows 4 at 1.25 m): plinth, the two side
@@ -1174,8 +1176,8 @@ def _crac(spec):
     rings critical the same way); each supports its CracFan dummy. The controller (display, lamps, the terminal it
     supports) is a shell plate, as vanilla's terminal plates; so are the two filter-door halves (split on the grille's
     middle rail), the plinth and the top band (headers, rail, brush plates, the CHW well). Seams follow real joints:
-    the door rails, the controller's shadow gap, the grille rail, the plinth top and the slot band's top. Since Task 11
-    the rear's lower half is the bolted service bay (its two O2 / coolant ports supported by it), the upper half the
+    the door rails, the controller's shadow gap, the grille rail, the plinth top and the slot band's top. The
+    rear's lower half is the bolted service bay (its two O2 / coolant ports supported by it), the upper half the
     filter door: the old grille rail is their joint."""
     from . import crac as C
     hz = C.H / 2
@@ -1195,7 +1197,7 @@ def _crac(spec):
              Zone("Fracture_04", [Z(z2, up), Z(zc, down), F_], "fan section F3 (module, plenum)", critical=True),
              Zone("Fracture_05", [Z(zc, up), Z(zt, down), F_], "controller (display, RUN / ALARM lamps, keys, vent)"),
              Zone("Fracture_06", [Z(zp, up), Z(zr, down), R_],
-                  "service bay (the bolted panel, the two O2 / coolant service ports; Plan 3 T11)"),
+                  "service bay (the bolted panel, the two O2 / coolant service ports)"),
              Zone("Fracture_07", [Z(zr, up), Z(zt, down), R_], "filter door (grilles 1-2, filters)"),
              Zone("Fracture_08", [Z(zp, down)], "plinth (feet, nameplate, condensate pan, float switch)"),
              Zone("Fracture_09", [Z(zt, up)], "top band (headers, containment rail, brush plates, CHW well)")]
@@ -1217,7 +1219,7 @@ def _crac(spec):
     return p
 
 
-# ---------------------------------------------------------------------------------------------------- PDUs (Plan 3 T7)
+# ----------------------------------------------------------------------------------------------------------------- PDUs
 def _pdu_cabinet(spec):
     """The PDU cabinet (the rack pattern, guide 10.3 (1): parts at real joints, every zone a full-section chunk): the
     plinth's front and rear halves; the cabinet body in a lower and an upper section, parting at the shadow gap
@@ -1290,13 +1292,13 @@ def _pdu_strip(spec):
     return p
 
 
-# ------------------------------------------------------------------------------------------------- signs (Plan 3 T8)
+# ---------------------------------------------------------------------------------------------------------------- signs
 SIGN_SEAM_X = 0.16          # the 1.0 m signs' seams (|x|): between the screen's thirds, clear of the end tabs and
 #                             the hanging sign's hangers (x +-ROD_S)
 
 
 def _sign(spec):
-    """The signs (Plan 3 Task 8; guide 10.3 (2) "panels split IN PLANE", vanilla LCDNarrow50: 2 zones, none critical):
+    """The signs (guide 10.3 (2) "panels split IN PLANE", vanilla LCDNarrow50: 2 zones, none critical):
     the 1.0 m aisle signs part in three tiles along x (Keen's table: 3 at the measured ~0.95-0.97 m edge), the middle
     one holding the screen's centre (Fracture_01: its LcdPanel dummy is SupportingFracture of it, so the display dies
     with its core) and each end tile its tab / hanger; the 0.5 m rack label in two halves (Keen: 2 at 0.43 m), the

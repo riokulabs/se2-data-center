@@ -1,4 +1,4 @@
-"""Plan 2 Task 5: the tray family in the definitions pipeline (clone, stage, install, first game build).
+"""The tray family in the definitions pipeline (clone, stage, install, first game build).
 
   * every tray block (38) is cloned under its own key in .clonemap.json: the trays, Drops, Reducers and the Chute
     from WallInsertPipes, the rod hangers from StructuralSupportStraight with its second file prefix
@@ -43,7 +43,7 @@ def staged_def(rel):
 
 # ---------------------------------------------------------------------------------------------- catalogue / names
 def test_trays_in_the_pipeline():
-    """Ruling P2-15: Task 5 wires the tray families into the definitions pipeline."""
+    """The tray families are wired into the definitions pipeline."""
     assert {"tray", "trayrods"} <= set(catalog.PIPELINE_FAMILIES)
     assert [b for b in catalog.BLOCKS if b in TRAYS] == TRAYS
     assert len(TRAYS) == 38 and len(PIPES) == 35 and len(RODS) == 3
@@ -103,7 +103,7 @@ def test_tray_pcu_and_placer(staged):
             assert m["PlacerDefinition"] == own_guid(pl) == s["placer"], b.name
             assert meta_id(os.path.join(config.STAGE_ASSETS, rel)) in (None, own_guid(pl))
             assert meta_id(os.path.join(config.MOD_ASSETS, rel)) == own_guid(pl)
-        else:   # Task 8: the strut clone has no placer of its own (its template's), so the rod hangers get one
+        else:   # the strut clone has no placer of its own (its template's), so the rod hangers get one
             rel = s["placer_file"]
             assert rel == f"{config.NAME}/{b.name}/{b.name}_PlacementDefinition.def", (b.name, rel)
             pl = staged_def(rel)
@@ -114,7 +114,7 @@ def test_tray_pcu_and_placer(staged):
 
 
 def test_rods_effects_dummy(staged):
-    """Task 8 (the T5 carry): every built rod hanger's model definition carries a "ParticleEffects" dummy (the
+    """Every built rod hanger's model definition carries a "ParticleEffects" dummy (the
     damage / destruction effects origin every block has; the cloned strut's had none) at the block centre."""
     rods = [b for b in TRAYS if b.family == "trayrods"]
     assert rods
@@ -172,7 +172,7 @@ def _gltf_boxes(path):
 
 
 def test_tray_fractured():
-    """Plan 2 Task 9b (Ruling P2-27): every tray fractures by its plan (dc/fracture.py): 2 .. Keen's maximum zones for
+    """Every tray fractures by its plan (dc/fracture.py): 2 .. Keen's maximum zones for
     its size, one box collider per zone named after it (the zone's hull, in the glTF frame), and the hulls cover
     every NonFractured physics box (the breakable collider is the block's physics once a fracture is damaged)."""
     rep = read_json(config.REPORT_PATH)["blocks"]
@@ -181,7 +181,7 @@ def test_tray_fractured():
     for n in built_trays():
         m = manifest(n)
         if FR.unfractured_reason(C.BY_NAME[n]):     # the rod hangers and the Chute: no fractures (non-breakable);
-            assert m["fractured"]["zones"] == [], n  # their dented debris (Plan 5 Task 7): test_damaged_geometry
+            assert m["fractured"]["zones"] == [], n  # their dented debris: test_damaged_geometry
             continue
         assert m["fractured"]["kind"] == "cut", n
         zones = m["fractured"]["zones"]
@@ -197,7 +197,7 @@ def test_tray_fractured():
             hulls.append(g)
         regular = [box for k, box in nf.items() if not k.lower().startswith(("occupancy", "mountpoints"))]
         assert len(regular) == rep[n]["colliders"]["regular"], n
-        # Task 9c: the colliders follow the zones' solid (test_fracture_refine), not the physics boxes, so they no
+        # the colliders follow the zones' solid (test_fracture_refine), not the physics boxes, so they no
         # longer cover a box's empty corners; every one stays inside the block's cells
         half = [0.125 * c for c in C.BY_NAME[n].cells]     # game cells (x, up, depth) = glTF axes (x, y, -z)
         for lo, hi in hulls:
@@ -206,7 +206,7 @@ def test_tray_fractured():
 
 def test_tray_mesh_parts():
     """Keen's limits (ModelLimitsChecker, decompiled): an unfractured model of 0.5 .. 2 m holds at most 8 materials
-    = mesh parts per LOD; a FRACTURED one 32 materials and 256 mesh parts ("<group>-<material>") per LOD. Task 5's
+    = mesh parts per LOD; a FRACTURED one 32 materials and 256 mesh parts ("<group>-<material>") per LOD. An earlier
     "8 mesh parts" ceiling on a 2-zone server came from a ColliderMeshGroups entry naming a missing group: the
     importer then drops every fracture (ModelProcessorLoader.CollectBreakableCollider) and checks it as unfractured."""
     assert built_trays()

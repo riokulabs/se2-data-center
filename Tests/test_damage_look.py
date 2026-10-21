@@ -1,10 +1,11 @@
-"""Plan 5 Task 3: the damage look (G4) and the fragility fixes (G8), all data.
+"""The damage look and the fragility fixes, all data.
 
-G4  every Damaged .model maps the painted / brushed / chrome slots to vanilla 4.0's scratched parallax Deformed
-    materials, as vanilla's own Deformed models do (tools/vanilla-ref, measured below);
-G8  the Programmable resolves to the Functional fragility (vanilla's PowerableBlockDefinition template value, which
-    every powerable block such as Timer50 inherits), the containment roofs to Windows (controller ruling: vanilla
-    WindowFlat / WallInsertWindowFlat150) with the vanilla Windows BlockEffects (glass shatter, glass audio).
+Look       every Damaged .model maps the painted / brushed / chrome slots to vanilla 4.0's scratched parallax Deformed
+           materials, as vanilla's own Deformed models do (tools/vanilla-ref, measured below);
+Fragility  the Programmable resolves to the Functional fragility (vanilla's PowerableBlockDefinition template
+           value, which every powerable block such as Timer50 inherits), the containment roofs to Windows (as
+           vanilla WindowFlat / WallInsertWindowFlat150) with the vanilla Windows BlockEffects (glass shatter,
+           glass audio).
 """
 import collections
 import glob
@@ -69,24 +70,24 @@ def _damaged(staged):
     return out
 
 
-# ---------------------------------------------------------------------------------------------------- G4
+# ---------------------------------------------------------------------------------------------------- damage look
 def test_deformed_remap(staged):
     """Each Damaged .model maps the four metal slots to the 4.0 Deformed materials; every other slot is mapped as in
     test_fracture_plan.py::test_damaged_model_maps_broken_materials (DAMAGED_SLOTS, else the Fractured .model's)."""
     from dc import fracture as FR
     from dc.material_guids import MATERIAL_GUIDS
     dms = _damaged(staged)
-    assert len(dms) == 73, sorted(dms)   # every block (Plan 5 Task 7: the 4 unfractured ones' dented debris too)
+    assert len(dms) == 73, sorted(dms)   # every block (the 4 unfractured ones' dented debris too)
     seen = collections.Counter()
     for n, p in dms.items():
         fr = _assign(p.replace("Damaged", "Fractured"))
         dm = _assign(p)
-        assert set(dm) <= set(fr) and set(fr) - set(dm) <= {"BrushedMetal"}, n   # the FR-only scaffold (Task 6)
+        assert set(dm) <= set(fr) and set(fr) - set(dm) <= {"BrushedMetal"}, n   # the FR-only scaffold
         for slot, ref in dm.items():
             if slot in DEFORMED:
                 assert ref == DEFORMED[slot], (n, slot, ref)
                 seen[slot] += 1
-            elif FR.damaged_slot(slot) != slot:          # (a stand-in's `_Subpart` slot: its base's, Task 8)
+            elif FR.damaged_slot(slot) != slot:          # (a stand-in's `_Subpart` slot: its base's)
                 assert ref == MATERIAL_GUIDS[FR.damaged_slot(slot)][0], (n, slot)
             else:
                 assert ref == fr[slot], (n, slot)
@@ -109,7 +110,7 @@ def test_deformed_remap_is_vanilla_majority():
         assert ref == want and k >= 0.85 * sum(c[slot].values()), (slot, c[slot])
 
 
-# ---------------------------------------------------------------------------------------------------- G8
+# ---------------------------------------------------------------------------------------------------- fragility
 def _resolved_fragility(staged, sdk, spec):
     info = clone.entry(spec)["info"]
     d = read_json(os.path.join(staged, info["block_def_file"]))["$Value"]

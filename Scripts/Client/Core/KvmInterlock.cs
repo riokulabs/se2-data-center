@@ -1,6 +1,6 @@
-// KvmInterlock: the door interlock and the target rule of the scripted KVM (Plan 4 Ruling P4-4, P4-13; Task 8),
+// KvmInterlock: the door interlock and the target rule of the scripted KVM,
 // with the per-frame inputs it decides from. In order (KvmSequencerCore.cs adds rule 1, the fault snap):
-//   2. the door in front is Closing or Closed, KVM not home: FastStow (the race against the closing leaves, P4-4);
+//   2. the door in front is Closing or Closed, KVM not home: FastStow (the race against the closing leaves);
 //   3. Working, and no door in front or a door Open for DoorOpenDelay: Out;
 //   4. otherwise:                                         Stowed.
 //
@@ -39,7 +39,7 @@ public readonly struct KvmInputs
     /// <summary>The door in front of the face.</summary>
     public readonly KvmDoorState Door;
 
-    /// <summary>The motion its rack slot calls for (Ruling P4-12).</summary>
+    /// <summary>The motion its rack slot calls for (see KvmRackSlot).</summary>
     public readonly KvmMotionPath Path;
 
     /// <summary>Inputs.</summary>

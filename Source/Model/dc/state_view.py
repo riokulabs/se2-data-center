@@ -24,14 +24,14 @@ from .assetio import meta_id, own_guid, read_json
 SHOTS = {"c00": 0.0, "c10": 0.1, "c20": 0.2, "c30": 0.3, "c53": 0.5333, "c77": 0.7667, "done": 1.0}
 DAMAGE_SHOTS = ("done_damaged", "one_hit", "battered", "broken")
 ALL_SHOTS = tuple(SHOTS) + DAMAGE_SHOTS
-# Plan 5 Task 7: a block without fracture zones (the unfractured rod hangers and Chute) has no damage scenario; its
+# A block without fracture zones (the unfractured rod hangers and Chute) has no damage scenario; its
 # Damaged model (the dented debris) is shown whole in this extra panel
 DEBRIS_SHOT = "debris"
 VIEWS = ("front", "rear")
 ZONE_STATES = ("intact", "damaged", "dead")
 
 # family -> vanilla analogue block names (guide §4). Names, not paths: analogue_dir resolves each to its nested
-# vanilla-ref folder (R14).
+# vanilla-ref folder.
 ANALOGUE = {
     "rack": ("SlidingDoorNarrow250", "WallInsertPanel"),
     "server": ("Timer50", "Battery50"),
@@ -81,9 +81,9 @@ def part_state(stages, ratio, damaged=False):
 
 
 def stages_sha1(stages):
-    """SHA-1 of the stage list (JSON, sorted keys) with the LAST stage's PartChanges emptied (R3): Task 2 replaces the
-    stage-1.0 damaged-only hide (today the no-op "Chrome"), so that one list is recorded apart (last_stage_changes)
-    and everything else (keys, ratios, models, every earlier change) stays under the hash."""
+    """SHA-1 of the stage list (JSON, sorted keys) with the LAST stage's PartChanges emptied: the fracture pass replaces
+    the stage-1.0 damaged-only hide (today the no-op "Chrome"), so that one list is recorded apart
+    (last_stage_changes) and everything else (keys, ratios, models, every earlier change) stays under the hash."""
     s = json.loads(json.dumps(stages))
     if s:
         s[-1]["Value"]["PartChanges"] = {"_data": []}
@@ -220,8 +220,8 @@ def shared_def_guids(assets=None):
 
 
 def baseline_record(name):
-    """The identity a save binds to (zones, critical, NF mesh parts), the FR mesh parts, the stage hash (R3: last
-    stage's PartChanges excluded, the last stage recorded apart) and every definition GUID (R16)."""
+    """The identity a save binds to (zones, critical, NF mesh parts), the FR mesh parts, the stage hash (the last
+    stage's PartChanges excluded, the last stage recorded apart) and every definition GUID."""
     fr = manifest(name)["fractured"]
     stages = installed_stages(name)
     last = stages[-1]["Value"]

@@ -109,7 +109,7 @@ public sealed partial class KvmRackLink
         Slot = KvmRackSlot.SlotOf(RackKind, ToInt3(rack.Min), ToInt3(rack.Max), ToInt3(_frontBlock.BlockOrientation.Up.GetIntVector()),
             ToInt3(box.Min), ToInt3(box.Max));
 
-        // Ruling P4-13: a rack's door guards only the sides its leaves are on. The data's front (+y, door side +1) is
+        // A rack's door guards only the sides its leaves are on. The data's front (+y, door side +1) is
         // the block's Forward, the same convention that makes the KVM's own Forward its face.
         DoorSides = KvmRackTable.DoorSidesOf(rackDefinition);
         FaceSide = KvmRackSlot.FaceSide(ToInt3(_kvm.BlockOrientation.Forward.GetIntVector()), ToInt3(_frontBlock.BlockOrientation.Forward.GetIntVector()));

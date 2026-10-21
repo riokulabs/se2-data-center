@@ -1,4 +1,4 @@
-"""Plan 2 Tasks 4, 6, 7 and 8: the tray kit and the Blender build of the straight pieces (StraightS, StraightL, Reducer),
+"""The tray kit and the Blender build of the straight pieces (StraightS, StraightL, Reducer),
 of the turns (TurnH, TurnUp, TurnDown), of the junctions (Tee, Cross) and of the rack interface (Drop, Chute, the rod
 hangers).
 
@@ -44,13 +44,13 @@ PER_METRE = (3000, 600, 150)        # LOD0..2 tris per metre of run at Full (pla
 FITTING_RUN = 1.0                   # a fitting (the Reducer, the turns) is budgeted as 1 m of run (LOD1, LOD2)
 BEND_LOD0 = 0.5                     # a turn's LOD0: <= half of Keen's LOD0 limit (its per-metre share is proven over
 #                                     a 20 m run with turns: test_run20_with_turns)
-JUNCTION_LOD0 = 0.6                 # a junction's LOD0 (Task 7 brief): <= 0.6 x Keen's LOD0 limit; the Full Cross is
+JUNCTION_LOD0 = 0.6                 # a junction's LOD0 budget: <= 0.6 x Keen's LOD0 limit; the Full Cross is
 #                                     the heaviest block (test_run20_with_junctions proves the per-metre share)
 MATS = (8, 6, 4, 1)                 # materials per LOD (the last LOD: 1)
 
 
 def cap_tris(name):
-    """LOD0 triangles of a piece's cable-end caps (Ruling P2-28: outside the plan's LOD0 budgets, inside Keen's)."""
+    """LOD0 triangles of a piece's cable-end caps (outside the plan's LOD0 budgets, inside Keen's)."""
     spec = catalog.BY_NAME[name]
     if spec.family != "tray":
         return 0
@@ -101,7 +101,7 @@ def test_basket_clears_bundles_and_rods():
 
 
 def test_wall_height_steps_down_at_ports():
-    """Ruling P2-20: a junction's 0.15 m walls ramp down to the straights' 0.10 m at each port end."""
+    """A junction's 0.15 m walls ramp down to the straights' 0.10 m at each port end."""
     L = np.linspace(0, 1.0, 101)
     h = XS.wall_height_profile(L, TL.JUNCTION_WALL_H, True, True)
     assert h[0] == pytest.approx(TL.WALL_H) and h[-1] == pytest.approx(TL.WALL_H)
@@ -124,7 +124,7 @@ def test_cable_skin_closed():
 
 @pytest.mark.parametrize("name", BUILT)
 def test_lay_phase_locked_at_ports(name):
-    """V2 fix 1 and the per-piece lay rule (Ruling P2-22): every bundle that runs port to port turns a WHOLE number of
+    """The per-piece lay rule: every bundle that runs port to port turns a WHOLE number of
     cable pitches (60 deg), the number nearest its own length at the nominal rate and at least one
     (tray_xsec.lay_pitches), so every port face shows the same strand pattern and the lay continues across joints.
     In a straight that is exactly the nominal rate; in a bend each lane is its own length (inner lanes shorter), so
@@ -134,7 +134,7 @@ def test_lay_phase_locked_at_ports(name):
     pl = TP.plan(catalog.BY_NAME[name])
     nominal = XS.LAY_TURN / XS.LAY_LEN
     for b in pl.bundles:
-        lock = XS.lay_locked(b)                     # ends on a PORT (a junction's split child too: Task 7)
+        lock = XS.lay_locked(b)                     # ends on a PORT (a junction's split child too)
         q, lay = XS.lay_points(XS.built_centreline(pl, b, 0), lock=lock)
         assert lay[0] == 0.0
         assert np.all(np.diff(lay) >= 0)
@@ -149,7 +149,7 @@ def test_lay_phase_locked_at_ports(name):
             k = lay[-1] / XS.LAY_TURN
             assert abs(k - round(k)) < 1e-9 and round(k) == XS.lay_pitches(L) >= 1, (b.lane, lay[-1])
             if pl.shape in TURNS + JUNCTIONS or b.ends[-1].kind == "ENTRY" or b.params.get("dress"):
-                # (Task 8: a waterfall arrives at its entry in phase 0, so a Chute continues it strand to strand)
+                # (a waterfall arrives at its entry in phase 0, so a Chute continues it strand to strand)
                 assert L >= XS.LAY_LEN / 2, b.lane                      # so one pitch stays within 2 x the rate
                 assert abs(round(k) - L / XS.LAY_LEN) <= 0.5 + 1e-9
             else:
@@ -163,7 +163,7 @@ def test_lay_phase_locked_at_ports(name):
 
 
 def test_lay_rule_covers_every_piece():
-    """P2-22: no port-to-port bundle in the catalogue is shorter than half a lay length, so the 'at least one pitch'
+    """No port-to-port bundle in the catalogue is shorter than half a lay length, so the 'at least one pitch'
     rule never twists a lane faster than twice the nominal rate; the bends' lanes differ in pitch count (inner vs
     outer) but every one turns at least once."""
     for spec in catalog.CATALOGUE:
@@ -179,7 +179,7 @@ def test_lay_rule_covers_every_piece():
 
 
 def test_strap_bites_the_bundle():
-    """V2 fix 1: at LOD0 the band lies slightly inside the bundle radius (it cinches the cables), never deeper than
+    """At LOD0 the band lies slightly inside the bundle radius (it cinches the cables), never deeper than
     the strands' crests."""
     for d in ("Low", "Full"):
         ds = [(l.s, l.h, TL.R_B) for l in TL.lanes(d)]
@@ -190,7 +190,7 @@ def test_strap_bites_the_bundle():
 
 
 def test_strap_groups_share_a_band():
-    """Ruling P2-17: nesting bundles share one band per station; separate bundles get their own."""
+    """Nesting bundles share one band per station; separate bundles get their own."""
     def discs(d):
         return [(l.s, l.h, TL.R_B) for l in TL.lanes(d)]
     assert len(XS.strap_groups(discs("Full"))) == 1
@@ -206,7 +206,7 @@ def test_strap_groups_share_a_band():
 
 
 def test_reducer_clamp_and_straps_at_full():
-    """Carried from the T2 re-review: the Reducer's straps stay clear of its boots and clamps, and the Full clamp
+    """The Reducer's straps stay clear of its boots and clamps, and the Full clamp
     band stays inside the cell (it tops out about level with the safety edge)."""
     pl = TP.plan("Reducer", "Full")
     straps = [f for f in pl.fittings if f.kind == "strap"]
@@ -253,7 +253,7 @@ def test_collision_layout(name):
 
 
 def test_trays_planned_not_simple():
-    """Plan 2 Task 9b: the trays fracture by plan (dc/fracture.py); since Task 9c the racks do too, and the simple
+    """The trays fracture by plan (dc/fracture.py), as do the racks, and the simple
     per-box zones are left to describe an unfractured block's plain colliders (none for one box)."""
     from dc import fracture as FR
     from dc import rack
@@ -305,7 +305,7 @@ def test_tray_built_matches_plan(name):
 @pytest.mark.parametrize("name", T4)
 def test_tray_mount_faces(name):
     """Mount only where hardware exists (game faces: ports Left/Right, across Forward/Backward). A mount is a whole
-    cell face, so the brief's area coverages (< 5 %, < 10 %) are not reachable on a 2 x 2 face; instead the mounting
+    cell face, so the target area coverages (< 5 %, < 10 %) are not reachable on a 2 x 2 face; instead the mounting
     cells are pinned: Up exactly two (one per rod plate, diagonal, so they never merge), Forward/Backward exactly one
     each (the strut end plates), Down the cells under the strut, the ports every cell."""
     rep = report()
@@ -389,7 +389,7 @@ def test_render_inset_from_side_planes(name):
     half = (0.125 * c for c in (spec.cells[0], spec.cells[2], spec.cells[1]))
     pl = TP.plan(spec)
     faces = {(i, int(round(v))) for p in pl.ports.values() for i, v in enumerate(p.t) if abs(v) > 0.5}
-    # (Task 8) an ENTRY plane is a port plane for the waterfalls: they end exactly on it, open
+    # an ENTRY plane is a port plane for the waterfalls: they end exactly on it, open
     faces |= {(i, int(round(v))) for en in pl.entries for i, v in enumerate(en.n) if abs(v) > 0.5}
     for i, h in enumerate(half):
         for sg, v in ((-1, -lo[i]), (1, hi[i])):
@@ -412,8 +412,8 @@ def test_bevel_guard_clean():
 # the LOD chain each piece gets from Keen's table (it follows the measured LOD0, so a small LOD0 edit near a threshold
 # changes it: StraightS Moderate 1400/1414, Reducer Low 1360/1414, StraightL Low 2088/2136). Pinned so such a flip is
 # a deliberate change; "detail" = the kit level each LOD uses (a 3-LOD chain's LOD1 is the card version).
-# (Task 10: the cable-end caps lift StraightS Moderate to 1560 and StraightL Low to 2152, over their thresholds: both
-# now get Keen's 4-LOD chain, a mid LOD between the full model and the card, the P2-22 LOD1 pop gone for them)
+# (the cable-end caps lift StraightS Moderate to 1560 and StraightL Low to 2152, over their thresholds: both
+# now get Keen's 4-LOD chain, a mid LOD between the full model and the card, the lay-rule LOD1 pop gone for them)
 CHAINS = {"DC_Tray_StraightS_Empty": 3, "DC_Tray_StraightS_Low": 3, "DC_Tray_StraightS_Moderate": 4,
           "DC_Tray_StraightS_Full": 4, "DC_Tray_StraightL_Empty": 3, "DC_Tray_StraightL_Low": 4,
           "DC_Tray_StraightL_Moderate": 4, "DC_Tray_StraightL_Full": 4, "DC_Tray_Reducer_Low": 3,
@@ -424,7 +424,7 @@ CHAINS = {"DC_Tray_StraightS_Empty": 3, "DC_Tray_StraightS_Low": 3, "DC_Tray_Str
           # the junctions: the Empty Tee (1816 tris) sits under Keen's next LOD0 row (2100): 3 LODs
           **{f"DC_Tray_{t}_{d}": 3 if (t, d) == ("Tee", "Empty") else 4 for t in JUNCTIONS
              for d in ("Empty", "Low", "Moderate", "Full")},
-          # Task 8: the Drops; the Chute (thin: 3 LODs); the rod hangers (a few hundred tris: Keen gives the 0.25 and
+          # the Drops; the Chute (thin: 3 LODs); the rod hangers (a few hundred tris: Keen gives the 0.25 and
           # 2.0 m ones 2 LODs, LOD0 + the last, and the 1.0 m one 3)
           **{f"DC_Tray_Drop_{d}": 4 for d in ("Low", "Moderate", "Full")}, "DC_Tray_Chute": 3,
           "DC_TrayRods_025": 2, "DC_TrayRods_100": 3, "DC_TrayRods_200": 2}
@@ -439,7 +439,7 @@ def test_lod_chain_pinned(name):
     assert e["tray"]["detail"] == DETAILS.get(name, [0, 1, 2] if CHAINS[name] == 4 else [0, 2])
 
 
-# ---------------------------------------------------------------------------------------------------- turns (Task 6)
+# ------------------------------------------------------------------------------------------------------------- turns
 def test_bend_facets():
     """A bend's longitudinal parts (floor and wall wires, bundles) bend on shared radial lines at most 15 deg apart;
     the LOD0 set keeps both 5 cm port leads straight (the PORT rule); the U-wires stand on exactly the facet radials
@@ -473,7 +473,7 @@ def test_bend_facets():
 
 def test_turn_struts_on_u_wires():
     """Each turn's floor strut sits under a U-wire radial (it carries the basket where a cross wire is): TurnH on the
-    45 deg one, as wide as the basket (its ends at the U-wire legs: Ruling P2-20, nothing past the inner wall);
+    45 deg one, as wide as the basket (its ends at the U-wire legs, nothing past the inner wall);
     TurnUp and TurnDown at the lead-end U-wire 5 cm from their port."""
     for shape in TURNS:
         pl = TP.plan(shape, "Full")
@@ -535,8 +535,8 @@ def _game_cells(spec, cells, shift):
 @pytest.mark.parametrize("name", T6)
 def test_turn_free_cells(name):
     """The built block claims exactly the plan's cells (tray_plan.occupied_cells), in game cell indices: the TurnUp
-    leaves the two cells inside its curve free. (The TurnH's inner corner cell is NOT free: with the T3 radii
-    (Ruling P2-19) its inner wall cuts that cell's corner, so the plan claims it; see the Task 6 report.)"""
+    leaves the two cells inside its curve free. (The TurnH's inner corner cell is NOT free: with the bend radii
+    its inner wall cuts that cell's corner, so the plan claims it.)"""
     rep = report()
     spec = catalog.BY_NAME[name]
     e = rep[name]["placement"]
@@ -606,7 +606,7 @@ def test_keen_material_limits(name):
         assert l["materials"] <= l["max_materials"], (i, l)
 
 
-# ------------------------------------------------------------------------------------------------ junctions (Task 7)
+# --------------------------------------------------------------------------------------------------------- junctions
 FREE = {"Tee": {(0, 2, 0), (3, 2, 0)}, "Cross": {(0, 0, 0), (0, 3, 0), (3, 0, 0), (3, 3, 0)}}
 
 
@@ -615,7 +615,7 @@ def test_t7_blocks():
 
 
 def test_wall_step_between_u_wires():
-    """Ruling P2-20 as built (Task 7): a junction wall stands at the plain 0.10 m up to just past the first U-wire
+    """As built, a junction wall stands at the plain 0.10 m up to just past the first U-wire
     (5 cm from the port: that U-wire and the splice plate stand exactly as a straight's), steps up on a straight 45 deg
     slope over 5 cm, and is at 0.15 m before the second U-wire (15 cm)."""
     L = np.linspace(0, 1.0, 1001)
@@ -699,7 +699,7 @@ def test_split_child_lay_locked():
 
 
 def test_junction_strap_planes():
-    """Straps in rhythm with the neighbours (Decision 13, P2-17): every turning group's mid-arc straps share ONE
+    """Straps in rhythm with the neighbours: every turning group's mid-arc straps share ONE
     radial plane through the group's centre (one band per nest), its lead straps lie in the straight lanes' plane
     0.125 m from port a or b, and its branch straps in the plane 0.125 m from port c."""
     pl = TP.plan("Tee", "Full")
@@ -757,7 +757,7 @@ def test_corner_floor_and_posts_avoid_free_cells():
 @pytest.mark.parametrize("name", T7)
 def test_junction_collision(name):
     """Physics: each path's trough at the plain 0.10 m wall height over its whole length (it steps down at the ports:
-    a neighbour's trough meets it flush, Ruling P2-20) plus one raised box (the Tee: the run between its step-downs at
+    a neighbour's trough meets it flush) plus one raised box (the Tee: the run between its step-downs at
     0.15 m; the Cross: the crossing up to the stack's top over the saddle), <= 3 boxes, none in a free corner cell.
     Mounts: every port face, and Down under the floor strut only."""
     spec = catalog.BY_NAME[name]
@@ -861,7 +861,7 @@ def test_junction_run_length():
 
 
 def test_saddle_ties_on_deck_straps():
-    """Ruling P2-20: the deck straps are tied to the saddle: at each c-d strap station over the deck there is a tie
+    """The deck straps are tied to the saddle: at each c-d strap station over the deck there is a tie
     mount each side of the stack, on the deck top, in the strap's plane, clear of the stack and inside the lips."""
     pl = TP.plan("Cross", "Full")
     (sd,) = [f for f in pl.fittings if f.kind == "crossover_saddle"]
@@ -879,7 +879,7 @@ def test_saddle_ties_on_deck_straps():
         assert across + size[0] / 2 < inner[0][0]                             # inside the lips' bend
 
 
-# ---------------------------------------------------------------------------------------------------- fix round 1 (T7)
+# ---------------------------------------------------------------------------------------------------------- port leads
 def _straight_lane(lane="L1+", L=0.5):
     from dc.tray_plan import Bundle, End
     pts = np.array([(x, 0.25 + 0.085, TL.FLOOR_Z + TL.R_B) for x in np.linspace(0.0, L, 26)])
@@ -889,7 +889,7 @@ def _straight_lane(lane="L1+", L=0.5):
 def test_port_leads_and_simplify_bundle():
     """The PORT rule as built: a bundle whose plain simplification keeps its 5 cm leads straight is unchanged; one
     whose dressing (or ramp) starts right after a lead tilts that lead when simplified plainly, and then keeps the
-    lead's end point, so its port ring stays square (Task 7: the Tee's dressed F1-)."""
+    lead's end point, so its port ring stays square (e.g. the Tee's dressed F1-)."""
     from dc.tray_plan import Bundle, End
     b = _straight_lane()
     assert np.array_equal(XS.simplify_bundle(b, 0.008), XS.simplify(b.points, 0.008))       # straight: 2 points
@@ -910,7 +910,7 @@ def test_port_leads_and_simplify_bundle():
 
 
 # the Reducers' dropped lanes (PORT -> BOOT ramp up onto the boot): points per LOD (TOL 1 / 3 / 8 mm); the kept
-# 5 cm lead adds one point where a plain line would tilt the port ring (fix round 1: rebuilt and installed)
+# 5 cm lead adds one point where a plain line would tilt the port ring
 REDUCER_POINTS = {("Low", "L1+"): (4, 3, 3), ("Moderate", "M0"): (4, 3, 3), ("Moderate", "M2+"): (4, 3, 3),
                   ("Full", "F1+"): (5, 4, 3), ("Full", "F3+"): (5, 4, 3)}      # (plain: 4/2/2 and 5/4/2)
 
@@ -1026,7 +1026,7 @@ def test_built_bundles_clear(name):
     """The contract's "bundles never interpenetrate", on the BUILT LOD0 skins (tray_xsec.skin_rings: the kit's path,
     facets, lay, frame drift and mitres): every sample of each bundle's skin keeps >= 1 mm outside every other
     bundle's skin section, except a split child inside its parent, whose overlap must end within the split zone
-    (Ruling P2-16: collar + peel radius) measured along the parent from the split."""
+    (collar + peel radius) measured along the parent from the split."""
     pl = TP.plan(catalog.BY_NAME[name])
     res = built_clearance(pl)
     for (a, b), (gap, deep) in res.items():
@@ -1044,7 +1044,7 @@ def test_built_bundles_clear(name):
         assert gap >= CLEAR_MIN, (a, b, round(gap * 1000, 2))
 
 
-# ------------------------------------------------------------------------------------------- the rack interface (T8)
+# ------------------------------------------------------------------------------------------------ the rack interface
 DROP_NAMES = [n for n in T8 if catalog.BY_NAME[n].variant == "Drop"]
 RODS_NAMES = [n for n in T8 if catalog.BY_NAME[n].variant == "Rods"]
 
@@ -1172,7 +1172,7 @@ def _station_band(pl, x, lod=0):
 
 @pytest.mark.parametrize("name", DROP_NAMES)
 def test_waterfall_strap_clearance(name):
-    """Carried from the T2 re-review: the run's strap bands (as built: one band per nest, cinched at LOD0) keep
+    """The run's strap bands (as built: one band per nest, cinched at LOD0) keep
     >= 2 mm off the waterfalls' built skins wherever a waterfall passes a station plane, and the waterfalls' own ties
     sit on the fall (plumb), round their bundle only."""
     pl = TP.plan(catalog.BY_NAME[name])
@@ -1195,7 +1195,7 @@ def test_waterfall_strap_clearance(name):
 
 
 def test_guide_over_the_wall():
-    """The guide (Task 8): its plate's underside clears the basket's U-wire turned over the safety edge under it
+    """The guide: its plate's underside clears the basket's U-wire turned over the safety edge under it
     (one stands under each guide) by >= 1 mm and the safety edge by >= 2 mm; its two clamps hook the safety-edge wire
     (the strip's inside on the wire), standing from the plate's underside, between the U-wires; the bundle rides the
     rib crests at the 0.10 m bend radius; the cheeks keep it on the radius."""
@@ -1242,8 +1242,8 @@ def test_landing_collars_seat():
     half = (ey1 - ey0) / 2
     for f in (f for f in pl.fittings if f.kind == "brush_collar"):
         r_out = f.size[1] / 2
-        # (Task 10) seated ON the Drop's ENTRY plane: over a 42U it then floats only the rack's own ENTRY_DROP (1 mm)
-        # over the brush frame (T8: 2 mm), and on a Chute it meets the top plate's face on that plane
+        # seated ON the Drop's ENTRY plane: over a 42U it then floats only the rack's own ENTRY_DROP (1 mm)
+        # over the brush frame (formerly 2 mm), and on a Chute it meets the top plate's face on that plane
         assert f.frame.o[2] - f.size[0] / 2 == pytest.approx(TP.ENTRY_SEAT) and TP.ENTRY_SEAT == 0.0
         assert DM.ENTRY_DROP == 0.001
         assert half < r_out <= half + DM.ENTRY_FLANGE
@@ -1322,7 +1322,7 @@ def test_rods_hints_meet_rod_plates(name):
 def test_rods_mount_only_on_plates(name):
     """Plan Review Focus 4 on the built hanger: Down and Up each mount exactly two cells in two groups (one per rod,
     diagonal: the tray's Up rod-plate cells); Left, Right, Forward and Backward never mount. (A game mount is a whole
-    cell face, so the plates' area share is pinned as cells, as for the trays: Task 4.) The Down cells, placed on a
+    cell face, so the plates' area share is pinned as cells, as for the trays.) The Down cells, placed on a
     StraightS's trapeze, are the StraightS's Up cells."""
     rep = report()
     e = rep[name]["placement"]
@@ -1352,7 +1352,7 @@ def _rack_shift(rack, piece):
 LANDINGS = [(r, "DC_Tray_Drop_Low" if r.startswith("DC_Rack42") else "DC_Tray_Chute")
             for r in ("DC_Rack42_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear", "DC_Rack24_Open",
                       "DC_Rack24_SplitFront", "DC_Rack24_SplitFrontRear")]
-LANDINGS.append(("DC_PDU_Cabinet", "DC_Tray_Drop_Low"))   # Plan 3 Task 7: the PDU cabinet's top-entry brush plates
+LANDINGS.append(("DC_PDU_Cabinet", "DC_Tray_Drop_Low"))   # the PDU cabinet's top-entry brush plates
 
 
 @pytest.mark.build
@@ -1402,14 +1402,14 @@ def test_drop_chute_joint_strands():
             assert d.min(axis=1).max() < 5e-4 and d.min(axis=0).max() < 5e-4, (p, side)
 
 
-# ---------------------------------------------------------------------------------------------------- Task 10
+# --------------------------------------------------------------------------------------------- cable-end caps
 @pytest.mark.build
 @pytest.mark.parametrize("name", [n for n in BUILT if catalog.BY_NAME[n].family == "tray"])
 def test_port_caps(name):
-    """V-T7b: at every port, each bundle that ends there is closed at LOD0 by a cap CAP_INSET inside the port plane
+    """At every port, each bundle that ends there is closed at LOD0 by a cap CAP_INSET inside the port plane
     (7 faces: the hidden centre cable's hexagon and the six strand lobes), so a free run end shows solid cut cables,
     not hollow strand sweeps. Nothing lies on the port plane itself (the open strands do, for the flush join). The
-    Ruling P2-28: every piece, every density (tray_xsec.CAP_SKIP is empty)."""
+    caps cover every piece, every density (tray_xsec.CAP_SKIP is empty)."""
     e = report()[name]
     spec = catalog.BY_NAME[name]
     pl = TP.plan(spec)
@@ -1426,7 +1426,7 @@ def test_port_caps(name):
 
 @pytest.mark.build
 def test_caps_within_keen():
-    """Ruling P2-28: the caps are outside the plan's LOD0 budgets but inside Keen's: every capped Full piece keeps
+    """The caps are outside the plan's LOD0 budgets but inside Keen's: every capped Full piece keeps
     its LOD0 under Keen's limit (and the 60 % rule on the later LODs, which carry no caps)."""
     from se2model import limits
     rep = report()
@@ -1441,10 +1441,10 @@ def test_caps_within_keen():
 
 @pytest.mark.build
 def test_drop_full_hidden_collars():
-    """P2-25: the Full Drop's two split collars lie inside its dressed top layer (no one sees them): the plan keeps
+    """The Full Drop's two split collars lie inside its dressed top layer (no one sees them): the plan keeps
     them (the SPLIT rule), the kit leaves them out, about 400 LOD0 triangles; the Low and Moderate Drops draw theirs."""
     for d in ("Low", "Moderate", "Full"):
         cs = [f for f in TP.plan("Drop", d).fittings if f.kind == "split_collar"]
         assert len(cs) == 2 and all(bool(f.params.get("hidden")) == (d == "Full") for f in cs)
     rep = report()
-    assert rep["DC_Tray_Drop_Full"]["lods"][0]["tris"] < 6452     # (T8: 6452 with them; now with its 288 cap triangles)
+    assert rep["DC_Tray_Drop_Full"]["lods"][0]["tris"] < 6452     # (was 6452 with the collars; now 288 caps)

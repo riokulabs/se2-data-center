@@ -1,4 +1,4 @@
-// CompositionSurgery.Swap: preparing to replace a component's type in a composite, in place (Task 8: the KVM's
+// CompositionSurgery.Swap: preparing to replace a component's type in a composite, in place (used for the KVM's
 // drawer and screen drivers in their subpart composites). See CompositionSurgery.cs for the class and the transaction.
 //
 // Game APIs (decompiled 2.4.0.95, tools/decompiled/...; "N [2.4: M]" = line N in 4.0.0.3151, tools/decompiled-current/...):
@@ -32,7 +32,7 @@ public static partial class CompositionSurgery
     /// object-builder list.
     /// <para>Only parts without an object builder can be swapped (the composite does not own the prefabs' object
     /// builders, and they hold null for such parts). <paramref name="newType"/> must accept the slot's definition, or
-    /// <paramref name="newDefinition"/> when one is given (a part with its own definition type, Ruling P4-10), and its
+    /// <paramref name="newDefinition"/> when one is given (a part with its own definition type), and its
     /// dependencies must sit earlier in the composite.</para>
     /// <para>Tags: the slot may carry only <paramref name="oldType"/>'s default tag, which becomes
     /// <paramref name="newType"/>'s. So <c>Entity.Get&lt;NewType&gt;()</c> finds the new part, and vanilla code asking for

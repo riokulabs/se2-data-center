@@ -6,11 +6,11 @@ the outer faces included; the collision boxes of dc/rack.py) and the servers' st
 
 Asserted per rack (42U and 24U; Open, SplitFront, SplitFrontRear), per server height (6U: 1 cell, the 12U UPS: 2), per
 slot, with the slot's neighbours empty and filled, and for the server facing the rack's front and turned round
-(Ruling P4-13 allows a rear-facing KVM):
+(a rear-facing KVM is allowed):
   * the obvious aim, straight at the middle of the slot's rear stop from the aisle, seats it exactly;
   * over a fan of aims (eyes 0.8-2.2 m out, left / centre / right, low / level / high; looking at the rear stop, at
     the rails and at the floor on every depth row) no aim yields a placement inside the rack that validates and is
-    not exactly a slot seat (the old front zone let a server sit one cell forward on the rails, Ruling 7);
+    not exactly a slot seat (the old front zone let a server sit one cell forward on the rails);
   * placed directly one cell forward or back of its seat, a server never validates (empty cells and a mount point).
 """
 import json
@@ -128,7 +128,7 @@ def test_no_aim_mis_seats(rack_name, srv_name, n_u, dirs):
     slot's rails hold it, as before the fix: the half rack's roof is render-only), asserted to be that and nothing
     else.
 
-    The rack carries its outer-face mounts too (placer_emu.rack_block, final review M1). A high, close eye aiming at
+    The rack carries its outer-face mounts too (placer_emu.rack_block). A high, close eye aiming at
     the top slot's back can meet the rack's outside first (the 42U tray band's front, the top rim), and the ghost then
     stands wholly outside the box on that face: on the top (Down on the rim / roof) or, on a full (42U) rack, hung
     on the containment rail band (Backward on its Forward mounts). That is a placement on the rack's outside,
@@ -156,7 +156,7 @@ def test_no_aim_mis_seats(rack_name, srv_name, n_u, dirs):
                             seated.add(k)
                     elif not r["cells"] & box:
                         # wholly outside the rack (the ray met its outside: the 42U tray band's front, a top), held
-                        # only by the rack's OUTER mounts (final review M1: rack_block now carries them)
+                        # only by the rack's OUTER mounts (rack_block carries them)
                         held = _holds(g, srv, R, r["cells"], rb)
                         row = (k, lab, rl, al, sorted(r["cells"])[:3], sorted(held))
                         (outside if held and all(c in outer[d] for d, c in held) else wrong).append(row)

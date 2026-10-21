@@ -146,7 +146,7 @@ def _lit(i, j=0):
 # ---------------------------------------------------------------------------------------------------- faces
 
 def face_storage(spec, P, lod):
-    """Storage array (visual pass 2): a RAID controller column at the left (two hot-swap controller canisters:
+    """Storage array: a RAID controller column at the left (two hot-swap controller canisters:
     ejector lever with a Yellow tip, two host ports, health + activity lamps, C1 / C2), then the drive wall of
     3 rows x 3 large 3.5" caddies (R720xd / P6300 style), and the control strip at the right."""
     F = server.face_frame(spec)
@@ -377,7 +377,7 @@ def patch_cables(P, F, ports, fl, pb0, a0, lod):
     rack distance is the cable waterfall and the bundle). Each plugged port gets a Darker plug boot; its cable
     leaves straight out, drops (lower row close to the face, upper row in front of it) into a horizontal bundle
     held by two saddle clips below the port plate, and the bundle turns back into the bezel at the left end
-    (towards the rack's cable manager). Everything stays within 4.5 cm of the slot front (Ruling 11: <= 6 cm)."""
+    (towards the rack's cable manager). Everything stays within 4.5 cm of the slot front (limit 6 cm)."""
     bb, bd, br = pb0 - 0.008, 0.022, 0.007      # bundle height (b), depth (d), radius
     cols = sorted({round(ac, 4) for ac, _, _, _ in ports})
     if lod >= 2:

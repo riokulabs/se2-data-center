@@ -1,7 +1,7 @@
-"""Plan 2 Task 9b / 9c: the racks', servers' and cable trays' fracture plans (dc/fracture.py, plain Python) and their
-exported Fractured / Damaged models (Models/<name>/export.json, written by build_dc.py --export). Task 9c moved the
-racks from Task 5's uncut physics-box zones onto the same cutter, and gave the 6U servers a critical core. Plan 3 (the
-main merge) brought the room's staged breakable blocks onto it: the raised floor, the containment roof and doors.
+"""The racks', servers' and cable trays' fracture plans (dc/fracture.py, plain Python) and their
+exported Fractured / Damaged models (Models/<name>/export.json, written by build_dc.py --export). The racks use the
+same cutter (no uncut physics-box zones), and the 6U servers have a critical core. The room's staged breakable
+blocks use it too: the raised floor, the containment roof and doors.
 
 Keen's rules checked here come from the decompiled content pipeline (VRage.ContentPipeline.ModelsValidation
 ModelLimitsChecker / ModelAssetProcessorValidator, VRage.ContentPipeline.ModelsBase ModelProcessorLoader):
@@ -22,7 +22,7 @@ from dc.material_guids import MATERIAL_GUIDS
 FAMILIES = [b for b in catalog.BLOCKS if b.family in ("rack", "server", "tray", "trayrods")]
 PLANNED = [b for b in FAMILIES if not FR.unfractured_reason(b)]
 UNFRACTURED = [b for b in FAMILIES if FR.unfractured_reason(b)]
-ROOM = [b for b in catalog.STAGED if b.family in ("floor", "contain_roof", "contain_door", "crac")]   # Plan 3, staged
+ROOM = [b for b in catalog.STAGED if b.family in ("floor", "contain_roof", "contain_door", "crac")]   # room, staged
 ALL_PLANNED = PLANNED + ROOM
 
 
@@ -43,7 +43,7 @@ def _inside(p, lo, hi, eps=1e-6):
 # ---------------------------------------------------------------------------------------------------- plans
 def test_every_block_has_a_plan():
     """Every rack, server and tray but the justified exception (fracture.UNFRACTURED: the three rod hangers and the
-    Chute, whose independent members no fracture connection can join) has a plan (Task 9c: the racks too)."""
+    Chute, whose independent members no fracture connection can join) has a plan, the racks included."""
     assert len(FAMILIES) == 54 and len(catalog.BLOCKS) == 54 + len(catalog.ROOM) and len(PLANNED) == 50
     assert sorted(b.name for b in UNFRACTURED) == ["DC_TrayRods_025", "DC_TrayRods_100", "DC_TrayRods_200",
                                                    "DC_Tray_Chute"]
@@ -95,9 +95,10 @@ def test_plan_zones(spec):
 
 
 def test_room_plans():
-    """Plan 3 (docs/guides/vanilla-fracture-models.md 10.2 / 10.3): the floor and roof split IN PLANE, every zone the
-    full thickness (2 zones per 0.5 m, 4 per 1.0 m floor; the roof's 0.5 m bays within Keen's table for the panel's
-    measured edge: 3 on the 1.0 m aisle (0.998 m: Keen's 3), 4 on the 1.5 m, a zone per bay on the 2.0 m), no critical zone (structural, as vanilla DeckPanel250); the door's 8 frame segments with the 7 round the
+    """Room blocks (docs/guides/vanilla-fracture-models.md 10.2 / 10.3): the floor and roof split IN PLANE, every
+    zone the full thickness (2 zones per 0.5 m, 4 per 1.0 m floor; the roof's 0.5 m bays within Keen's table for the
+    panel's measured edge: 3 on the 1.0 m aisle (0.998 m: Keen's 3), 4 on the 1.5 m, a zone per bay on the 2.0 m),
+    no critical zone (structural, as vanilla DeckPanel250); the door's 8 frame segments with the 7 round the
     opening critical (vanilla SlidingDoorNarrow250) and the closed leaves supported by the lintel."""
     assert len(ROOM) == 11
     want = {"DC_CRAC": 9, "DC_Floor_Solid_050": 2, "DC_Floor_Perf_050": 2, "DC_Floor_Solid_100": 4, "DC_Floor_Perf_100": 4,
@@ -126,18 +127,18 @@ def test_room_plans():
 
 @pytest.mark.parametrize("spec", PLANNED, ids=lambda s: s.name)
 def test_plan_critical_zone(spec):
-    """Functional blocks: Fracture_01 is the key zone and the only critical one (trays are structural: none, Ruling P2-30): a 6U server's central core
-    (Task 9c: between the front service module and the rear chassis, so it always keeps two neighbours), the UPS's
-    front bay module (vanilla Battery50), the tray zone holding the hanger (trapeze / floor strut: its centre lies
-    in Fracture_01) or the junction hub. Racks are structural: no critical zone, but on a door rack every side column
-    zone (the hinges)."""
+    """Functional blocks: Fracture_01 is the key zone and the only critical one (trays are structural: none): a 6U
+    server's central core (between the front service module and the rear chassis, so it always keeps two
+    neighbours), the UPS's front bay module (vanilla Battery50), the tray zone holding the hanger (trapeze / floor
+    strut: its centre lies in Fracture_01) or the junction hub. Racks are structural: no critical zone, but on a door
+    rack every side column zone (the hinges)."""
     p = _plan(spec)
     if spec.family == "rack":
         from dc import doors
         cols = [z.id for z in p.zones if "column" in z.label]
         assert cols and p.critical() == (cols if doors.has_doors(spec) else []), p.critical()
         return
-    if spec.family == "tray":     # Ruling P2-30: structural, no critical zone (guide 4.4), like the open racks
+    if spec.family == "tray":     # structural, no critical zone (guide 4.4), like the open racks
         assert p.critical() == []
     else:
         assert p.critical() == ["Fracture_01"]
@@ -187,7 +188,7 @@ def test_damaged_slots_are_vanilla_broken_materials():
     for slot, broken in FR.DAMAGED_SLOTS.items():
         g, rel = MATERIAL_GUIDS[broken]
         assert rel in ("EmissiveOffBroken.def", "Display01Broken.def", "LCDScreen_Off.def", "WindowGlassBroken.def",
-                       # Plan 5 Task 3 (G4): the 4.0 parallax Deformed metals
+                       # the 4.0 parallax Deformed metals
                        "PaintedMetalColorable_Deformed/PaintedMetalColorableDeformed.def",
                        "PaintedMetalColorable_Deformed/PaintedMetalDarkerDeformed.partialdef",
                        "BrushedMetalDeformed/BrushedMetalDeformed.def", "Chrome_Deformed/ChromeDeformed.def"), \
@@ -227,7 +228,7 @@ def test_exported_lods_follow_keen(name):
         assert len(lods[-1]["materials"]) == 1
     assert m["damaged"]["size"] == pytest.approx(m["nonfractured"]["size"], abs=2e-4)
     # (the FR carries the construction cage, which stands scaffold.OUTSET proud of each cell face the block fills,
-    # i.e. within FILLS of it: Task 6)
+    # i.e. within FILLS of it)
     from dc import scaffold as SC
     assert m["fractured"]["size"] == pytest.approx(m["nonfractured"]["size"], abs=2 * (SC.OUTSET + SC.FILLS) + 2e-4)
     assert all(f >= n - 2e-4 for f, n in zip(m["fractured"]["size"], m["nonfractured"]["size"]))
@@ -239,9 +240,9 @@ def test_exported_lods_follow_keen(name):
 def test_exported_break_faces(name):
     """The cut zones carry vanilla break faces: closed caps on LOD0, FracturedMaterial01 mesh parts in the zones'
     groups, built like vanilla's Fracture_NN_Cut (Split / HiddenUntilSecondSequenceStart / Fracture), a hidden part's
-    in its zone's _Hide group (Default / AlwaysHidden / Default, Task 13 fix round 1); the
+    in its zone's _Hide group (Default / AlwaysHidden / Default); the
     construction parts and the per-LOD groups of the Damaged model equal the
-    Fractured model's, and its materials too but the scaffold's (Plan 5 Task 6, R7: the FR-only cage brings
+    Fractured model's, and its materials too but the scaffold's (the FR-only cage brings
     BrushedMetal to the FR of the blocks that had none, 15 at the time)."""
     m = _manifest(name)
     closed, _ = m["fractured"]["caps"][0]
@@ -250,7 +251,7 @@ def test_exported_break_faces(name):
         assert not catalog.BY_NAME[name].density or catalog.BY_NAME[name].density == "Empty", name
     else:
         assert closed > 0 and cut_parts, (closed, cut_parts)
-    for k, v in cut_parts.items():       # (Task 13 fix round 1: a hidden part's caps go with it, AlwaysHidden)
+    for k, v in cut_parts.items():       # (a hidden part's caps go with it, AlwaysHidden)
         g = k.split("-")[0]
         assert g.replace("_Hide", "") in {z["id"] for z in m["fractured"]["zones"]}
         want = ["Default", "AlwaysHidden", "Default"] if g.endswith("_Hide") else \
@@ -296,7 +297,7 @@ def test_damaged_model_maps_broken_materials(staged):
         dm = read_json(os.path.join(staged, config.NAME, n, "Models", "Damaged", f"{n}_Damaged.model"))["$Value"]
         a = {x["MaterialName"]: x["MaterialReference"] for x in fr["MaterialAssignments"]}
         b = {x["MaterialName"]: x["MaterialReference"] for x in dm["MaterialAssignments"]}
-        assert set(b) <= set(a) and set(a) - set(b) <= {"BrushedMetal"}, n    # the FR-only scaffold (Task 6)
+        assert set(b) <= set(a) and set(a) - set(b) <= {"BrushedMetal"}, n    # the FR-only scaffold
         for slot, ref in b.items():
             want = MATERIAL_GUIDS[FR.damaged_slot(slot)][0] if FR.damaged_slot(slot) != slot else a[slot]
             assert ref == want, (n, slot)

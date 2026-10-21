@@ -57,7 +57,7 @@ def build_rack(spec, render):
     entry["render_bounds"] = assemble.render_bounds(lods[0][1])
     entry["placement"], raw = assemble.placement(spec, lods[0][1], boxes)
     # every mount cell, the box faces too (the Open racks mount Forward / Backward on the containment rail band, all
-    # racks on the sides and top): dc/placer_emu.rack_block models the rack's outside with them (final review M1)
+    # racks on the sides and top): dc/placer_emu.rack_block models the rack's outside with them
     entry["placement"]["mount_cells"] = {d: [list(c) for c in f.get("mount_cell_list", [])]
                                          for d, f in raw["faces"].items()}
     entry["colliders"] = {"regular": len(boxes["regular"]), "max": lim["colliders"]["max"],
@@ -222,7 +222,7 @@ SX_IN = DM.SLOT_HALF_W - 1e-4   # strictly inside the slot's side planes (the ra
 
 def rack_geometry(spec, objs):
     """Measured on the built LOD0 rack meshes: the slot front plane (front rail ear face), the square-hole column,
-    the slide rails, the slide bolts' reach into the slot, the obstruction over the top slot and (Plan 2) the
+    the slide rails, the slide bolts' reach into the slot, the obstruction over the top slot and the
     top-entry brush plates."""
     from dc import rack
     d = rack.dims(spec)
@@ -251,7 +251,7 @@ def rack_geometry(spec, objs):
 
 
 def room_interface(spec, objs):
-    """Plan 3: the rack's room interface, measured on the built LOD0 parts (and, for the mount rects, read from the
+    """The rack's room interface, measured on the built LOD0 parts (and, for the mount rects, read from the
     mount hints the placement analysis uses), centred block frame:
       * contain_rails: {front, back} -> [x0, x1, y0, y1, z0, z1] of the containment rail ("contain" part; full racks);
       * pdu_receptacles: [[x, y, z_top]] per PDU socket ("socket" part: its ring's centre and top);
@@ -286,7 +286,7 @@ def room_interface(spec, objs):
 
 
 def pdu_clearance(spec, objs, sub):
-    """Plan 3: the rack's LOD0 vertices inside the PDU envelope (dims.PDU_ENVELOPE, mirrored for Feed B) over the PDU
+    """The rack's LOD0 vertices inside the PDU envelope (dims.PDU_ENVELOPE, mirrored for Feed B) over the PDU
     band (rack.pdu_band), counting the rack model and its static side panels (the RackSide subpart, placed at the
     origin and turned 180 deg as the integration places it). 0 = the zero-U PDU strip's space is clear."""
     from dc import rack
@@ -306,7 +306,7 @@ def pdu_clearance(spec, objs, sub):
 
 
 def top_entries(objs):
-    """Plan 2: the FRONT top-entry brush plates, measured on the bristle lips (the "brush" part spans exactly the
+    """The FRONT top-entry brush plates, measured on the bristle lips (the "brush" part spans exactly the
     plate's opening): per entry [x0, x1, y0, y1, z_top] in the centred block frame, sorted by x. The tray plan
     (dims.WF_X / WF_Y / R_WF) must land its waterfalls inside these; the rear (power) entries are not tray ports."""
     vs = [v for v in _verts(objs, "brush") if v[1] > 0]
@@ -459,7 +459,7 @@ def subpart_report(sub):
 
 
 def build_tray(spec, render):
-    """Plan 2: a cable-tray block (dc/tray.py from its cable plan dc/tray_plan.py, dressed by dc/tray_kit.py)."""
+    """A cable-tray block (dc/tray.py from its cable plan dc/tray_plan.py, dressed by dc/tray_kit.py)."""
     import bpy
     from dc import assemble, tray
     from se2model import objects as OB
@@ -500,7 +500,7 @@ def build_tray(spec, render):
             for ob in objs:
                 print("   ", ob.name, OB.stats([ob])["tris"])
     mid = None
-    if spec.family == "tray":   # Task 9b: the kit's mid detail, for a light piece's cut Fractured / Damaged models
+    if spec.family == "tray":   # the kit's mid detail, for a light piece's cut Fractured / Damaged models
         mcoll = OB.new_collection(f"{spec.name}_MID")
         mid = [OB.part_to_object(p, mcoll, f"{spec.name}_MID_{p.name}") for p in tray.mid_parts(spec)]
         bpy.context.scene.view_layers[0].layer_collection.children[mcoll.name].exclude = True
@@ -509,7 +509,7 @@ def build_tray(spec, render):
 
 
 def junction_geometry(spec, objs):
-    """Measured on the BUILT LOD0 mesh of a junction (Task 7): "saddle_top", the crossover saddle's deck top above the
+    """Measured on the BUILT LOD0 mesh of a junction: "saddle_top", the crossover saddle's deck top above the
     cell plane (the largest upward face of the Darker guide part inside the deck's footprint); "corner_graze", how deep
     any render vertex reaches into the plan's free corner cells (tray_plan.corner_cells), from their inner faces."""
     import numpy as np
@@ -539,7 +539,7 @@ def junction_geometry(spec, objs):
 
 
 def entry_sections(spec, objs):
-    """Measured on the BUILT LOD0 cable mesh (Task 8): per ENTRY rectangle of the plan (a Drop's bottom, a Chute's
+    """Measured on the BUILT LOD0 cable mesh: per ENTRY rectangle of the plan (a Drop's bottom, a Chute's
     top and bottom), the cable vertices lying on its plane (within 1 um) inside it, in the centred block frame:
     "centre" (the middle of their extent, on the plane), "r" (their largest distance from it) and "points" ([x, y],
     deduplicated to 0.01 mm: the strand pattern a Chute under a Drop must continue)."""
@@ -593,7 +593,7 @@ def port_sections(objs, ports):
 
 
 def build_floor(spec, render):
-    """Plan 3 Task 3: a raised-floor block (dc/floor.py), breakable: in-plane tile zones (dc/fracture.py _floor)."""
+    """A raised-floor block (dc/floor.py), breakable: in-plane tile zones (dc/fracture.py _floor)."""
     from dc import assemble, floor
     from se2model import objects as OB
     root = OB.new_collection(spec.name)
@@ -662,7 +662,7 @@ def floor_geometry(spec, objs):
 
 
 def build_contain_roof(spec, render):
-    """Plan 3 Task 4: a containment roof panel (dc/contain.py), breakable: a zone per bay (dc/fracture.py _roof)."""
+    """A containment roof panel (dc/contain.py), breakable: a zone per bay (dc/fracture.py _roof)."""
     from dc import assemble, contain
     from se2model import objects as OB
     root = OB.new_collection(spec.name)
@@ -742,7 +742,7 @@ def roof_geometry(spec, objs):
 
 
 def build_contain_door(spec, render):
-    """Plan 3 Task 5: a containment end-of-aisle sliding door (dc/contain.py): the frame, breakable in eight fracture
+    """A containment end-of-aisle sliding door (dc/contain.py): the frame, breakable in eight fracture
     zones (dc/fracture.py _door: the lintel, three pieces per pocket tower, the sill), and its two leaf subparts, each with its own collision box (the vanilla
     DoorBlockCollider compounds them into the block's collider while the door is closed)."""
     from dc import assemble, contain
@@ -824,7 +824,7 @@ def door_geometry(spec, objs, sub):
 
 
 def build_crac(spec, render):
-    """Plan 3 Task 6: the in-row cooler (dc/crac.py): the cabinet, breakable as a functional block (dc/fracture.py
+    """The in-row cooler (dc/crac.py): the cabinet, breakable as a functional block (dc/fracture.py
     _crac: a critical coil core and fan sections, shell plates round them), and its CracFan rotor subpart (spawned
     three times by the cloned ConditionalSubParts, spinning while Working)."""
     from dc import assemble, crac
@@ -850,10 +850,10 @@ def build_crac(spec, render):
                            "stencil glyphs: AtlasFont_BarlowCondensed_CleanWhite boxes from se2model/decals.py",
                            "mechanism: vanilla Gyroscope250 (PowerableBlock, FunctionalBlockAnimationController, "
                            "ConditionalSubParts, BlockMaterialSwapper, BlockEffects hum), cloned, GyroscopeComponent "
-                           "stripped (P3-15)"]
+                           "stripped"]
     from dc import crac_ports
     entry["provenance"].append(
-        "O2 / coolant service ports (Plan 3 T11): Keen's small conveyor port frame as a kit part (read-only import; "
+        "O2 / coolant service ports: Keen's small conveyor port frame as a kit part (read-only import; "
         "geometry, normals and first UV unchanged), tools/vanilla-ref/Blocks/O2H2Generator/250/Models/NonFractured/ "
         + "; ".join(f"LOD{lod}: " + ", ".join(v) for lod, v in sorted(crac_ports.PROVENANCE.items()))
         + "; LOD2+ and the bolted blind plates: generated (dc/crac.py _service_bay)")
@@ -925,7 +925,7 @@ def crac_geometry(spec, objs, sub):
 
 
 def build_pdu(spec, render):
-    """Plan 3 Task 7: the PDU cabinet and the zero-U rack PDU strips (dc/pdu.py), breakable (dc/fracture.py
+    """The PDU cabinet and the zero-U rack PDU strips (dc/pdu.py), breakable (dc/fracture.py
     _pdu_cabinet / _pdu_strip)."""
     from dc import assemble, pdu
     from se2model import objects as OB
@@ -1038,7 +1038,7 @@ def pdu_strip_geometry(spec, objs):
 
 
 def build_sign(spec, render):
-    """Plan 3 Task 8: a sign / label (dc/signs.py), an editable LCD (LCDNarrow50 clone), breakable: in-plane tiles
+    """A sign / label (dc/signs.py), an editable LCD (LCDNarrow50 clone), breakable: in-plane tiles
     along x (dc/fracture.py _sign)."""
     from dc import assemble, signs
     from se2model import objects as OB
@@ -1127,13 +1127,13 @@ def sign_geometry(spec, objs):
 
 
 def _not_yet(spec, render):
-    """Plan 3 room families: catalogued (Task 2) but not built until their task (floor T3, roof T4, door T5, CRAC T6,
-    PDUs T7, signs T8). Each task replaces its family's entry with the real builder."""
+    """Placeholder builder for a room family that is catalogued but has no builder yet. Every room family below
+    replaces its entry with the real builder."""
     raise NotImplementedError(spec.family)
 
 
 def port_caps(objs, ports):
-    """Measured on the BUILT LOD0 cable mesh (Task 10, V-T7b): per port, the cable faces that close a bundle's end
+    """Measured on the BUILT LOD0 cable mesh: per port, the cable faces that close a bundle's end
     there: every vertex tray_xsec.CAP_INSET inside the port plane (within 1 um), facing out along t. -> {port: count}
     (7 per capped bundle: the hexagon of the hidden centre cable and the six strand lobes)."""
     import numpy as np
@@ -1156,13 +1156,13 @@ def port_caps(objs, ports):
 
 BUILDERS = {"rack": build_rack, "server": build_server, "tray": build_tray, "trayrods": build_tray}
 BUILDERS.update({f: _not_yet for f in catalog.ROOM_FAMILIES})
-BUILDERS["floor"] = build_floor          # Plan 3 Task 3
-BUILDERS["contain_roof"] = build_contain_roof   # Plan 3 Task 4
-BUILDERS["contain_door"] = build_contain_door   # Plan 3 Task 5
-BUILDERS["crac"] = build_crac                   # Plan 3 Task 6
-BUILDERS["pdu_cabinet"] = build_pdu        # Plan 3 Task 7
+BUILDERS["floor"] = build_floor
+BUILDERS["contain_roof"] = build_contain_roof
+BUILDERS["contain_door"] = build_contain_door
+BUILDERS["crac"] = build_crac
+BUILDERS["pdu_cabinet"] = build_pdu
 BUILDERS["pdu_strip"] = build_pdu
-BUILDERS["sign"] = build_sign                   # Plan 3 Task 8
+BUILDERS["sign"] = build_sign
 
 
 def select(names):
@@ -1204,10 +1204,10 @@ def main(argv):
             data = json.load(f)
     for spec in specs:
         data["blocks"][spec.name] = BUILDERS[spec.family](spec, render)
-        if spec.family in catalog.ROOM_FAMILIES:   # Plan 3 T11: stencil contrast (before audit_built strips the tags)
+        if spec.family in catalog.ROOM_FAMILIES:   # stencil contrast (before audit_built strips the tags)
             backing = zfight_room.stencil_backing(spec, BUILT.get(spec.name))
         zf = zfight.audit_built(spec, BUILT.get(spec.name))
-        zf.update(zfight_room.contain_door_check(spec, BUILT.get(spec.name)))   # Plan 3 T11: the sliding leaves
+        zf.update(zfight_room.contain_door_check(spec, BUILT.get(spec.name)))   # the sliding leaves
         if spec.family in catalog.ROOM_FAMILIES:
             zf["stencil_backing"] = backing
         data["blocks"][spec.name]["zfight"] = zf
@@ -1221,8 +1221,8 @@ def main(argv):
                 print("   ", row)
         print(f"built {spec.name}")
     old = data["blocks"]
-    # the pipeline's blocks always have an entry; other catalogue blocks (Plan 2 trays until Task 5 wires them into
-    # the pipeline: Ruling P2-15) keep theirs once built
+    # the pipeline's blocks always have an entry; other catalog blocks (a family not yet wired into the pipeline)
+    # keep theirs once built
     data["blocks"] = {b.name: old[b.name] if old.get(b.name, {}).get("placement", {}).get("total") else
                       report.empty_entry(b) for b in catalog.CATALOGUE
                       if b in catalog.BLOCKS or old.get(b.name, {}).get("placement", {}).get("total")}
@@ -1242,8 +1242,8 @@ def main(argv):
                   + (f"; Damaged {[l['tris'] for l in m['damaged']['lods']]} tris, dents {m['damaged']['dent']}"
                      if m.get("damaged") else ""))
     if render and BUILT:
-        # task-4 previews when servers were built (they need both open racks too), else the task-3 rack set;
-        # DC_PREVIEW=task3|task4 forces one
+        # the server previews ("task4") when servers were built (they need both open racks too), else the rack
+        # set ("task3"); DC_PREVIEW=task3|task4 forces one. The other mode strings below pick one preview set each.
         which = os.environ.get("DC_PREVIEW") or ("task4" if any(catalog.BY_NAME[n].family == "server" for n in BUILT)
                                                  else "task3")
         if which.startswith("plan2-t") and which != "plan2-t1":
@@ -1270,7 +1270,7 @@ def main(argv):
         elif which in ("plan3-t8", "p3t8"):   # the signs and labels (their own set + room shots)
             from dc import preview_p3t8
             preview_p3t8.render_all(BUILT)
-        elif which in ("plan3-t11", "p3t11"):   # the visual pass's audit set (DC_T11_PHASE=before|after)
+        elif which in ("plan3-t11", "p3t11"):   # the visual pass's before / after set (DC_T11_PHASE=before|after)
             from dc import preview_p3t11
             preview_p3t11.render_all(BUILT)
         elif which == "showcase":   # the clean presentation stills and clips (dc/preview_showcase.py)
@@ -1279,7 +1279,7 @@ def main(argv):
         elif which in ("plan3-t12", "p3t12"):   # the final hero set: the two-aisle hall (dc/preview_p3t12.py)
             from dc import preview_p3t12
             preview_p3t12.render_all(BUILT)
-        elif which.startswith("plan3-t"):   # Plan 3 Task 2 on: the shots in the reference room (dc/preview_room.py)
+        elif which.startswith("plan3-t"):   # any other plan3-t<N>: the shots in the reference room (dc/preview_room.py)
             from dc import preview_room
             preview_room.render_task(BUILT, task=int(which[len("plan3-t"):]))
         elif which in ("plan2-t1", "p2t1"):
@@ -1288,7 +1288,7 @@ def main(argv):
         elif which == "zfix":
             from dc import preview_zfix
             preview_zfix.render_all(BUILT)
-        elif which == "merge":   # merge main -> plan3-room: racks (rails, strips, placard) and the CRAC
+        elif which == "merge":   # racks (rails, strips, placard) and the CRAC
             from dc import preview_merge
             preview_merge.render_all(BUILT)
         elif which == "pfix":

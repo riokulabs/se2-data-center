@@ -146,7 +146,7 @@ def _hatch(P, Fs, L, lod):
     fa0, fa1, fb0, fb1 = a0 + 0.045, a1 - 0.09, b0 + 0.045, b1 - 0.045      # the rib's inner field
     ac = (fa0 + fa1) / 2
     # rack placard: Yellow frame round a Darker plate, the "RACK ID" caption (white stencil) over a blank Brushed
-    # write-on tag (rack.id_tag). No baked ID or row (controller ruling: every rack read "A1 / ROW A POS 1"); the ID
+    # write-on tag (rack.id_tag). No baked ID or row (otherwise every rack reads "A1 / ROW A POS 1"); the ID
     # comes from the editable rack-label LCD (DC_Sign_Rack).
     pw, ph = 0.17, PLACARD_HH
     pc = (ac, fb1 - LABEL_MARGIN - ph)
@@ -185,7 +185,7 @@ def _vents(P, Fs, L, lod):
             G.prism(P["fine"], Fs, oct_pts((a0 + a1) / 2 - 0.02, b1 - 0.004, (a0 + a1) / 2 + 0.02, b1 + 0.006,
                                            0.003), -0.012, -0.004, YELLOW)
         # (LOD1 keeps LOD0's slat count: louvre_panel halves it there, which doubles the slats' width, and the tilted
-        # slats then stood 17 mm proud of the render inset XO; Plan 5 Task 12 found it baking the stand-ins. LOD2 and
+        # slats then stood 17 mm proud of the render inset XO and got baked into the stand-ins. LOD2 and
         # below have no slats at all: louvre_panel returns there, so the FR LOD1 stand-in, the side's LOD2, has none)
         louvre_panel(P["fine"], Fs.sub(0, 0, -0.004), a0 + 0.008, b0 + 0.008, a1 - 0.008, b1 - 0.008, n,
                      0 if lod == 1 else lod)

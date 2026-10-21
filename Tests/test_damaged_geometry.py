@@ -1,14 +1,14 @@
-"""Plan 5 Task 7: the Damaged ("Deformed") model geometry (audit G5, G12).
+"""The Damaged ("Deformed") model geometry.
 
-G5   a Damaged LOD holds at most fracture.damaged_tris_x(family) x its Fractured LOD's triangles without the
-     construction scaffold (vanilla Deformed / Fractured: median 1.0; ours x 1.2, the floor decks and roof tops x 1.5,
-     Decision 6), densified to at least MIN_RATIO except the named light-tray LODs; the dents still read (mean
+Tris a Damaged LOD holds at most fracture.damaged_tris_x(family) x its Fractured LOD's triangles without the
+     construction scaffold (vanilla Deformed / Fractured: median 1.0; ours x 1.2, the floor decks and roof tops x 1.5),
+     densified to at least MIN_RATIO except the named light-tray LODs; the dents still read (mean
      displacement >= MIN_DENT_MM);
-G12  the 4 unfractured, non-breakable blocks (fracture.UNFRACTURED: the 3 rod hangers and the Chute) gain a dented
+New  the 4 unfractured, non-breakable blocks (fracture.UNFRACTURED: the 3 rod hangers and the Chute) gain a dented
      Damaged model too (vanilla's non-breakable ControlPanel25 / Sensor25 have their Deformed model), with the
      Fractured model's mesh parts, and their BlockModelDefinition's DamagedModel points at it.
-Also the Task 3 review's M1: the <Block>_LastLOD slot keeps its Fractured material in the Damaged .model, as 194 of
-the 196 vanilla Deformed models with a LastLOD slot do (NOTES "Plan 5 Task 7").
+Also the <Block>_LastLOD slot keeps its Fractured material in the Damaged .model, as 194 of
+the 196 vanilla Deformed models with a LastLOD slot do.
 """
 import os
 
@@ -31,7 +31,7 @@ CUT = [n for n in NAMES if _man(n)["fractured"].get("kind") == "cut"]
 
 # ---------------------------------------------------------------------------------------------------- pure
 def test_damaged_tris_x_table():
-    """Decision 6: x 1.2 by default, x 1.5 for the floor decks and the roof tops (big flat panels need vertices a
+    """x 1.2 by default, x 1.5 for the floor decks and the roof tops (big flat panels need vertices a
     dent can move), never above vanilla's flat-panel range used here (1.5)."""
     assert FR.DAMAGED_TRIS_X == {"default": 1.2, "floor": 1.5, "contain_roof": 1.5}
     assert FR.damaged_tris_x("floor") == FR.damaged_tris_x("contain_roof") == 1.5
@@ -44,7 +44,7 @@ def test_damaged_tris_x_table():
 # the least Damaged / (Fractured - scaffold) ratio densify must reach (a silent densify regression fails here)
 MIN_RATIO = 1.15
 # (block, LOD) that cannot reach MIN_RATIO: light trays whose LOD has no edge left longer than DENT max_edge (the
-# densify step stops there; NOTES "Plan 5 Task 7"). Exactly these, measured 2026-10-20: ratios 1.005-1.147.
+# densify step stops there). Exactly these, measured 2026-10-20: ratios 1.005-1.147.
 LIGHT_LODS = {("DC_Tray_TurnH_Empty", 0), ("DC_Tray_TurnUp_Empty", 0), ("DC_Tray_TurnUp_Empty", 1),
               ("DC_Tray_StraightL_Empty", 0), ("DC_Tray_StraightL_Empty", 1), ("DC_Tray_StraightL_Low", 2),
               ("DC_Tray_StraightS_Empty", 1), ("DC_Tray_TurnDown_Empty", 2)}
@@ -78,8 +78,8 @@ def test_light_lods_exist():
 @pytest.mark.build
 def test_two_trays_back_under_ratio():
     """The two light trays the old x 2.0 ratio densified most (DM LOD0 3 574 / 5 174): their LOD0 is now at the x 1.2
-    cap derived from their own manifest (FR LOD0 - scaffold). (The plan's "over-limit tray warnings" did not exist:
-    Keen's fractured limit, ~15.4k / ~22.5k here, was never exceeded; NOTES.)"""
+    cap derived from their own manifest (FR LOD0 - scaffold). (There were never over-limit tray warnings:
+    Keen's fractured limit, ~15.4k / ~22.5k here, was never exceeded.)"""
     for name in ("DC_Tray_Reducer_Low", "DC_Tray_Tee_Empty"):
         m = _man(name)
         sc0 = ((m["fractured"].get("scaffold") or {}).get("tris") or {}).get("0", 0)
@@ -101,7 +101,7 @@ def test_dents_still_read(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", UNFRACTURED)
 def test_unfractured_have_dented_debris(name, stage_package):
-    """G12: the rod hangers and the Chute (non-breakable, no zones) leave dented debris: a Damaged model with the
+    """The rod hangers and the Chute (non-breakable, no zones) leave dented debris: a Damaged model with the
     Fractured model's mesh parts and LOD count, dented >= 1 mm mean, its colliders the Fractured's plain boxes, and
     the staged DamagedModel points at it."""
     from dc import fracture_rules as FRR
@@ -131,8 +131,8 @@ def test_unfractured_have_dented_debris(name, stage_package):
 
 @pytest.mark.build
 def test_lastlod_slot_keeps_its_material(stage_package):
-    """Task 3 review M1: the LastLOD box's <Block>_LastLOD slot is NOT Deformed-remapped: vanilla's Deformed models
-    keep the Fractured / NonFractured LastLOD material (194 of 196 measured, NOTES), and so do ours."""
+    """The LastLOD box's <Block>_LastLOD slot is NOT Deformed-remapped: vanilla's Deformed models
+    keep the Fractured / NonFractured LastLOD material (194 of 196 measured), and so do ours."""
     from dc import integration
     stage_package()
     n = 0

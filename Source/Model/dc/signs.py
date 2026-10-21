@@ -1,8 +1,8 @@
-"""Signs and labels (Plan 3 Task 8): DC_Sign_Aisle, DC_Sign_AisleHang, DC_Sign_Rack, LCDNarrow50 clones (P3-8).
+"""Signs and labels: DC_Sign_Aisle, DC_Sign_AisleHang, DC_Sign_Rack, LCDNarrow50 clones.
 
 Every sign is a real, editable vanilla LCD (the cloned LcdMultiPanel chain): the player types "AISLE 1 COLD" or
-"RACK 1.01" in the terminal. Hot or cold is shown by the frame's PAINT (vanilla has no blue material: Plan 2
-Decision 6), so the frame is Colorable and the screen's surround is Darker. Surfaces (P3-18, the risk spike): the
+"RACK 1.01" in the terminal. Hot or cold is shown by the frame's PAINT (vanilla has no blue
+material), so the frame is Colorable and the screen's surround is Darker. Surfaces: the
 aisle signs' screens are 4:1, patched to 1024 x 256 with AspectRatio 4 (vanilla ControlSeat250 CustomDisplay04) and
 their slot maps to vanilla's 4:1 off-screen material LCDScreen_Off_4.0; the rack label keeps LCDNarrow50's native
 2:1 512 x 256 surface on vanilla LCDScreen_Off_2.0 (dc/functional.py SIGN_LCD).
@@ -13,7 +13,7 @@ Frame (Blender, metres, centred like every builder here): x along the sign, +Y =
                      header fascia (dc/contain.py: the header band is exactly this cell, its threaded inserts at
                      x +-0.42, z +-0.075 take the back plate's four bolts).
   DC_Sign_AisleHang  1.0 x 0.25 x 0.5 (cells 4, 1, 2), double-faced, centred on y = 0. Mounts Up only: under a
-                     Plan 2 rod hanger (DC_TrayRods_*) turned 90 deg to the sign, so the hanger's two rods (its
+                     cable-tray rod hanger (DC_TrayRods_*) turned 90 deg to the sign, so the hanger's two rods (its
                      y = +-ROD_S) land on the sign's two rod plates at x = +-ROD_S along the face (room.reference_room).
   DC_Sign_Rack       0.5 x 0.25 x 0.25 (cells 2, 1, 1). Mounts Down only: on a rack's top front (or back) edge,
                      between the Drop's two waterfall columns (dims.LABEL_X / LABEL_Y: the rack's label pads).
@@ -104,7 +104,7 @@ H_CORNER = (0.4615, 0.072)                   # the end caps' bolts |x|, |z - H_Z
 H_RAIL = (H_Z[1], H_Z[1] + 0.007, 0.036)     # the top rail: z0, z1, half width across (|y|)
 LUG = (0.012, 0.005, H_RAIL[1], H_RAIL[1] + 0.016)   # lifting lug: half x, half y, z0, z1
 PIN_Z = H_RAIL[1] + 0.009
-PLATE_T = 0.006                              # rod plate thickness (Plan 2 tray_plan.ROD_PLATE_T)
+PLATE_T = 0.006                              # rod plate thickness (tray_plan.ROD_PLATE_T)
 PLATE_TOP = H2 - 0.001                       # rod plate top: 1 mm under the top plane (as the tray's rod plates)
 COUPLER_R = 0.0085                           # the coupler nut (hex), under the plate
 TB = (PIN_Z + 0.008, PLATE_TOP - PLATE_T - 0.007)   # the turnbuckle body's z span

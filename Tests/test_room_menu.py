@@ -1,10 +1,10 @@
-"""Plan 3 Task 10: the room pieces' build menu (dc/menu.py), names (dc/names.py), costs (dc/recipes.py), initial unlock,
+"""The room pieces' build menu (dc/menu.py), names (dc/names.py), costs (dc/recipes.py), initial unlock,
 icons, and the mod's en-US texts (dc/texts.py) behind every display string.
 
-Menu (Ruling P3-12): four "Data Center" subcategory tiles after the cable trays, "Raised Floor" (Solid, Perforated:
+Menu: four "Data Center" subcategory tiles after the cable trays, "Raised Floor" (Solid, Perforated:
 0.5 / 1.0 m), "Room Cooling & Power" (CRAC, PDU Cabinet, Rack PDU Feed A / Feed B: 24U / 42U), "Aisle Containment"
-(Door, Roof: 1.0 / 1.5 / 2.0 m aisles) and "Signs & Labels" (Aisle Sign, Hanging Aisle Sign, Rack Label). Task 9 (cable
-looms) did not run, so there is no loom tile."""
+(Door, Roof: 1.0 / 1.5 / 2.0 m aisles) and "Signs & Labels" (Aisle Sign, Hanging Aisle Sign, Rack Label). There are
+no cable looms, so there is no loom tile."""
 import json
 import os
 
@@ -51,8 +51,8 @@ def kind_def(b):
 
 # ---------------------------------------------------------------------------------------------- menu
 def test_room_families_in_pipeline():
-    """Task 10 wires every room family into the pipeline (menu, recipe, icon, unlock): BLOCKS == the whole catalogue,
-    nothing is staged outside it, and no loom family exists (Task 9 did not run)."""
+    """Every room family is wired into the pipeline (menu, recipe, icon, unlock): BLOCKS == the whole catalogue,
+    nothing is staged outside it, and no loom family exists."""
     assert set(catalog.ROOM_FAMILIES) <= set(catalog.PIPELINE_FAMILIES)
     assert catalog.BLOCKS == catalog.CATALOGUE == catalog.STAGED
     assert len(ROOM) == 19 and "loom" not in menu.GROUPS and not hasattr(menu, "LOOM_ORDER")
@@ -168,7 +168,7 @@ def test_room_costs(staged):
 
 
 def test_room_cost_balance():
-    """Plan 3 Task 12 balance (recipes module doc): signs pay one vanilla LCD50 recipe per screen face (vanilla prices
+    """Room balance (recipes module doc): signs pay one vanilla LCD50 recipe per screen face (vanilla prices
     LCDs per screen: the hanging sign's two faces = vanilla's LCD500, never the 3.4x the volume rule gave); the CRAC
     and the PDU cabinet pay the 42U open rack's frame plus their own kit, so the decorative cabinet never needs more
     steel than (or costs as much as) the powered CRAC; and no rack costs less than any server it holds."""
@@ -206,7 +206,7 @@ def test_room_cost_balance():
 
 
 def test_every_staged_block_has_a_recipe_decision(staged):
-    """Task 5 review M3: no staged block ships with its clone's vanilla recipe by accident: every staged block is
+    """No staged block ships with its clone's vanilla recipe by accident: every staged block is
     costed (patched recipe) and has a staged recipe file."""
     for b in catalog.STAGED:
         r = staged["blocks"][b.name]["recipe"]

@@ -1,14 +1,14 @@
-"""Plan 3 Task 8: the signs and labels (dc/signs.py), DC_Sign_Aisle, DC_Sign_AisleHang, DC_Sign_Rack (LCDNarrow50
+"""The signs and labels (dc/signs.py), DC_Sign_Aisle, DC_Sign_AisleHang, DC_Sign_Rack (LCDNarrow50
 clones: editable LCDs).
 
 Pure tests check the builder's numbers (screens and their aspect, collision and mount hints, the rod plates, the
 back plate's bolts on the door header's inserts) and the room couplings on dc/room.reference_room:
   * the rack label on a rack's top front edge between the Drop's waterfall columns: no cell conflict with the Drop,
-    the roof or (on a half rack) the Chute, and its foot's mount hint on the rack's label pad (Review Focus 4);
+    the roof or (on a half rack) the Chute, and its foot's mount hint on the rack's label pad;
   * the hanging sign under a rod hanger turned 90 deg to it: the hanger's rods and coupler hints land on the sign's
-    rod plates and Up hints (the T2 carry).
+    rod plates and Up hints.
 The build-marked tests check the MEASURED blocks (build_report.json, the export manifests, the staged definitions):
-the LCD surfaces (P3-18: 4:1 at 1024 x 256 on the aisle signs, native 2:1 on the label, on the matching vanilla
+the LCD surfaces (4:1 at 1024 x 256 on the aisle signs, native 2:1 on the label, on the matching vanilla
 off-screen material), the faces that mount, Keen's limits, breakable in-plane zones, the aisle sign on every door
 header and the label clear of every built Drop's render mesh.
 """
@@ -87,13 +87,13 @@ def test_sign_catalogue_and_staging():
     assert [s.cells for s in specs] == [(4, 1, 1), (4, 1, 2), (2, 1, 1)]
     assert [round(v, 6) for v in signs.size(specs[1])] == [1.0, 0.5, 0.25]
     staged = {b.name for b in catalog.STAGED}
-    assert set(SIGNS) <= staged and set(SIGNS) <= {b.name for b in catalog.BLOCKS}   # menu / unlock since T10
+    assert set(SIGNS) <= staged and set(SIGNS) <= {b.name for b in catalog.BLOCKS}   # in the menu / unlock
     assert [signs.mount_direction(s) for s in specs] == ["Backward", "Up", "Down"]
 
 
 @pytest.mark.parametrize("name", SIGNS)
 def test_screens_and_surfaces(name):
-    """P3-18: the aisle signs' screens are 4:1 (1024 x 256, AspectRatio 4) on vanilla LCDScreen_Off_4.0, the rack
+    """The aisle signs' screens are 4:1 (1024 x 256, AspectRatio 4) on vanilla LCDScreen_Off_4.0, the rack
     label's 2:1 (LCDNarrow50's native 512 x 256) on LCDScreen_Off_2.0; the screens' slots are the surfaces'
     MeshPartNames, in order; each screen's measured-to-be size has its surface's aspect (1 %)."""
     scr = signs.screens(_spec(name))
@@ -147,7 +147,7 @@ def test_aisle_back_bolts_on_door_inserts():
 
 def test_hang_rod_plates_pure():
     """The hanging sign's two rod plates: x = +-ROD_S on its centre line, ROD_PLATE square, top 1 mm under the top
-    plane (Plan 2's rod-plate convention)."""
+    plane (the cable trays' rod-plate convention)."""
     s = _spec("DC_Sign_AisleHang")
     got = signs.rod_plates(s)
     assert [(x, y) for x, y, _, _ in got] == [(-DM.ROD_S, 0.0), (DM.ROD_S, 0.0)]
@@ -197,7 +197,7 @@ def _occ(p):
 @pytest.mark.parametrize("aisle", ("cold", "hot"))
 @pytest.mark.parametrize("w", DM.AISLE_WIDTHS)
 def test_rack_top_stack_no_conflicts(w, aisle):
-    """Review Focus 4: on every full rack of the reference room (trays on) the label's cells miss the Drop's occupied
+    """On every full rack of the reference room (trays on) the label's cells miss the Drop's occupied
     cells (tray_plan.occupied_cells: the waterfall columns either side of it) and the roof's; the label stands
     between the waterfalls (|x| of its cells < WF_X - R_WF) on the rack's top plane."""
     placed = room.reference_room(w, aisle)
@@ -217,7 +217,7 @@ def test_rack_top_stack_no_conflicts(w, aisle):
 
 
 def _half_rack_with_chute(yaw):
-    """A half rack under a Chute (the Drop's waterfall column continued down, Plan 2 test_chute_continues_drop), its
+    """A half rack under a Chute (the Drop's waterfall column continued down, test_chute_continues_drop), its
     label on the front (yaw 0) or, the rack turned, the other face: floor z = 0, the rack's 5-cell depth on the grid
     (its centre half a cell off a grid line)."""
     hr = room.Placed("DC_Rack24_Open", (0.0, DM.CELL / 2, 0.625), yaw, "H1")
@@ -315,7 +315,7 @@ def _staged(rel):
 def test_sign_lcd_surfaces(staged, name):
     """The staged LcdMultiPanel: one surface per screen, in order, each MeshPartName a material of our NonFractured
     LOD0 (the mesh part the LCD draws into), 1024 x 256 / AspectRatio 4 on the aisle signs and 512 x 256 / 2 on the
-    label (P3-18), vanilla's DefaultScreenMaterial and UseOnlineTexture kept, one delta key per surface; the
+    label, vanilla's DefaultScreenMaterial and UseOnlineTexture kept, one delta key per surface; the
     NonFractured .model maps each screen slot to the matching vanilla off-screen material; the model's LcdPanel
     dummy over the front screen, SupportingFracture of the zone holding it."""
     from dc import clone
@@ -357,7 +357,7 @@ def test_sign_lcd_surfaces(staged, name):
 @pytest.mark.build
 def test_signs_staged(staged):
     """Staged as breakable editable LCDs: PCU 35, mount directions restricted to the sign's one face, our names,
-    the BreakableBlockComponent kept, the menu / unlock left to Task 10."""
+    the BreakableBlockComponent kept, the menu / unlock wired separately."""
     from dc import clone, names
     from dc.assetio import body
     built = integration.built_names()
@@ -381,7 +381,7 @@ def test_signs_staged(staged):
 @pytest.mark.parametrize("name", SIGNS)
 def test_sign_files_declare_their_bundles(staged, name):
     """Every "Bundle:Type" name ($Type, Type, UseActionType) in a staged / installed sign file has its bundle in the
-    file's own $Bundles (the archive serializer resolves types only through them: Plan 4 test_bundles.py)."""
+    file's own $Bundles (the archive serializer resolves types only through them: test_bundles.py)."""
     from dc.assetio import read_json
 
     def types(x, out):
@@ -502,14 +502,14 @@ def test_rack_label_clear_of_drop_render(drop):
 
 @pytest.mark.build
 def test_sign_previews_skip_when_absent():
-    """Previews are generated on disk, never tracked (user direction): nothing here depends on them."""
+    """Previews are generated on disk, never tracked: nothing here depends on them."""
     p = os.path.join(config.PREVIEW_DIR, "p3-task-8")
     if not os.path.isdir(p):
         pytest.skip("no previews rendered")
     assert any(f.endswith(".png") for f in os.listdir(p))
 
 
-# ---------------------------------------------------------------------------------------------------- Plan 3 T11
+# ---------------------------------------------------------------------------------------------------- label side
 def _label_faces_out(lab):
     """The label's screen (its +Y, tilted down) points away from the contained aisle (y = 0)."""
     face = room.rot((0.0, 1.0, 0.0), lab.yaw)
@@ -519,7 +519,7 @@ def _label_faces_out(lab):
 @pytest.mark.parametrize("aisle", ("cold", "hot"))
 @pytest.mark.parametrize("w", DM.AISLE_WIDTHS)
 def test_contained_aisle_labels_go_on_the_open_side(w, aisle):
-    """The T8 carry: in a contained aisle the roof covers the rack tops' aisle edge, so a label there stands above the
+    """In a contained aisle the roof covers the rack tops' aisle edge, so a label there stands above the
     roof (unreadable from inside). The guidance, as the room builds it (reference_room(label_side="open")): every
     label on its rack's OTHER top edge, facing the open aisle: the back pad of a rack facing a contained cold aisle,
     the front pad of one whose back faces a contained hot aisle. No cell of the roof, the Drop or anything else in
@@ -542,7 +542,7 @@ def test_contained_aisle_labels_go_on_the_open_side(w, aisle):
 
 @pytest.mark.parametrize("aisle", ("cold", "hot"))
 def test_reference_room_label_sides(aisle):
-    """label_side as the room builds it: "front" (the default, Review Focus 4) puts every label on its rack's front
+    """label_side as the room builds it: "front" (the default) puts every label on its rack's front
     pad whatever the aisle; "aisle" faces the contained aisle; "open" and "aisle" are mirror images."""
     def pads(side):
         placed = room.reference_room(1.5, aisle, label_side=side)

@@ -1,5 +1,5 @@
-// KvmMotion.Spring: the closed-form damped spring behind each KVM axis, and the axis state it advances (Plan 4
-// Ruling P4-3). Exact for any step, so the motion does not depend on the frame rate. See KvmMotion.cs.
+// KvmMotion.Spring: the closed-form damped spring behind each KVM axis, and the axis state it advances.
+// Exact for any step, so the motion does not depend on the frame rate. See KvmMotion.cs.
 //
 // Game APIs: none (game-free; compiled by Tests/CoreTests and inside DataCenter.Client).
 #nullable enable

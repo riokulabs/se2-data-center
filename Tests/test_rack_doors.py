@@ -1,4 +1,4 @@
-"""Task 9: rack door variants (split front; split front + rear), the tray fans and the hum.
+"""Rack door variants (split front; split front + rear), the tray fans and the hum.
 
 Geometry tests read build_report.json (the Blender build measures the built leaf models: plan hull + z span per
 leaf model); definition tests read the staged integration package (integration.write_all)."""
@@ -13,7 +13,7 @@ from dc.assetio import read_json
 
 DOOR_RACKS = ("DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear", "DC_Rack24_SplitFront", "DC_Rack24_SplitFrontRear")
 FULL_RACKS = ("DC_Rack42_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear")
-SERVER_FRONT_HARDWARE = DM.SLOT_FRONT_Y + 0.06     # Ruling 11: server ears / handles reach <= 6 cm past the slot
+SERVER_FRONT_HARDWARE = DM.SLOT_FRONT_Y + 0.06     # server ears / handles reach <= 6 cm past the slot
 
 
 def _entry(name):
@@ -106,7 +106,7 @@ def test_neighbour_clearance(name):
 @pytest.mark.parametrize("name", DOOR_RACKS)
 def test_door_sweep_clear_of_frame_and_opening(name):
     """Through the swing no leaf point enters the frame (|y| < 0.598) or crosses the side plane; open, the leaves
-    leave the 2-cell slot face clear (KVM pop-out, the UPS's rear cell bay: Ruling 13)."""
+    leave the 2-cell slot face clear (KVM pop-out, the UPS's rear cell bay)."""
     spec = catalog.BY_NAME[name]
     for leaf, s in doors.sweep_report(spec, _hulls(_entry(name))).items():
         assert s["min_abs_y"] >= 0.5985, (leaf, s)
@@ -163,7 +163,7 @@ def test_door_leaf_definitions_wired(staged, name):
     dm = _dummies(name)
     cs = _staged(_files(name, "_Client_ConditionalSubPartsDefinition")[0])["$Value"]["SubParts"]
     lv = doors.leaves(spec)
-    # the leaves plus the bound side panel and (full racks) fan tray entries since Plan 5 Task 12 (test_rack_states)
+    # the leaves plus the bound side panel and (full racks) fan tray entries (test_rack_states)
     assert len(cs) == len(lv) + (2 if name in FULL_RACKS else 1), cs
     for lf in lv:
         closed_t = dm[lf["name"] + "Closed"]["Type"]
@@ -184,7 +184,7 @@ def test_door_leaf_definitions_wired(staged, name):
     br = _staged(_files(name, "_BreakableBlockDefinition")[0])["$Value"]["Manipulator"]
     crit = [f["Id"] for f in br["CriticalFractures"]["Added"]]
     zones = {z["id"]: z for z in read_json(os.path.join(config.MODELS_DIR, name, "export.json"))["fractured"]["zones"]}
-    # Task 9c: the columns are shaped to their members (fracture.shaped_hull) and, on the full rack, cut in a lower
+    # the columns are shaped to their members (fracture.shaped_hull) and, on the full rack, cut in a lower
     # and an upper half: every critical zone lies beside the slot out to the side plane over the full depth, and on
     # each side they stack up to the slot band's height
     assert len(crit) == (4 if catalog.BY_NAME[name].cells[1] == 10 else 2)
@@ -193,7 +193,7 @@ def test_door_leaf_definitions_wired(staged, name):
         (x0, y0, z0), (x1, y1, z1) = zones[zid]["lo"], zones[zid]["hi"]
         assert x0 * x1 >= 0 and min(abs(x0), abs(x1)) >= DM.SLOT_HALF_W - 0.02, (zid, x0, x1)   # beside the slot
         assert max(abs(x0), abs(x1)) >= 0.5 - 0.005                    # out to the side skins (the render's 2.5 mm)
-        # depth: from the PDU bracket plane (Plan 3 Task 1: the rear PDU column is free) to the front plane
+        # depth: from the PDU bracket plane (the rear PDU column is free) to the front plane
         assert y1 - y0 >= 0.625 + DM.SLOT_HALF_D - 0.005, (zid, y0, y1)
         span[1 if x0 > 0 else -1] += z1 - z0
     for sx, h in span.items():
@@ -212,10 +212,10 @@ def test_door_timing_and_detector(staged, name):
 
 @pytest.mark.parametrize("name", FULL_RACKS)
 def test_fan_subparts(staged, name):
-    """Every full rack: the rotors are InfiniteRotation subparts, children of the fan tray's CLIENT prefab (Plan 5
-    Task 12; never an unbound ConditionalSubParts entry, which the door's server walk would reach: see
+    """Every full rack: the rotors are InfiniteRotation subparts, children of the fan tray's CLIENT prefab
+    (never an unbound ConditionalSubParts entry, which the door's server walk would reach: see
     test_conditional_subparts_are_bound and Tests/test_clientserver_walk.py), spun while Working by the rack's
-    FunctionalBlockAnimationController: the door racks', and since Task 12 the open rack's (the Ruling 15 chain gave
+    FunctionalBlockAnimationController: the door racks', and the open rack's (the powerable functional chain gives
     it Working); none on the block's own client prefab."""
     rot = _staged(_files(name, "RackFan_InfiniteRotationAnimationDefinition")[0])["$Value"]
     assert rot["RotationAxis"] == {"X": 0, "Y": 1, "Z": 0} and rot["AngularSpeed"] > 0
@@ -270,7 +270,7 @@ def test_power_lamp_swapped_while_working(staged, name):
 @pytest.mark.path_a
 @pytest.mark.parametrize("name", FULL_RACKS)
 def test_fan_tray_follows_build(staged, name):
-    """Plan 5 Task 12 (G2) replaces visual pass 1's always-present static tray: the fan tray (plate, housings, guards)
+    """No always-present static tray: the fan tray (plate, housings, guards)
     is a bound ConditionalSubParts entry spawned with the rack Functional; below that its LOD1 stand-in, baked into the
     Fractured / Damaged models, fills the fan lane (the lane never shows bare floor openings). The rotors are never an
     entry of their own (they ride on the tray)."""
@@ -288,7 +288,7 @@ PROVIDER_TYPE = "DoorPartsProviderDefinitionObjectBuilder"
 
 def _door_conditional_defs(name):
     """The block's ConditionalSubParts definitions that a DoorPartsProvider references (the door's server walk follows
-    those: main's in-game fix 028c1172), as package-relative paths. A ConditionalSubParts referenced only by a client
+    those: in-game fix 028c1172), as package-relative paths. A ConditionalSubParts referenced only by a client
     composition (the KVM's drawer, the CRAC's fan rotor) is not walked by the server and is not subject to the rule."""
     defs = {}
     for rel in _files(name, ".def"):
@@ -312,7 +312,7 @@ CONDITIONAL_BLOCKS = _conditional_blocks()
 
 
 def test_conditional_subparts_cover_door_like_blocks():
-    """The rule below runs on every door-like block, not only the racks (merge main -> plan3-room): the four door
+    """The rule below runs on every door-like block, not only the racks: the four door
     racks and the three containment doors at least."""
     want = set(DOOR_RACKS) | {b.name for b in catalog.CATALOGUE if b.name.startswith("DC_Contain_Door_")}
     assert len(want) >= 7
@@ -339,7 +339,7 @@ def test_conditional_subparts_are_bound(staged, name):
 
 @pytest.mark.parametrize("name", FULL_RACKS)
 def test_fan_tray_static_and_rotors_spin(staged, name):
-    """Fix 1: the fan tray (housings, guards, leads, lamps) is a STATIC subpart (the plain Subpart composite, no rigid
+    """The fan tray (housings, guards, leads, lamps) is a STATIC subpart (the plain Subpart composite, no rigid
     animation); the rotors stay InfiniteRotation about game +Y, and each rotor sits inside its housing below the guard."""
     comp = _staged(_files(name, f"{doors.FAN_TRAY_SUB}_Composite")[0])["$Value"]["Manipulator"]
     assert all(c["Kind"] == "Update" for c in comp["Components"]["Changed"])
@@ -358,7 +358,7 @@ def test_fan_tray_static_and_rotors_spin(staged, name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", DOOR_RACKS)
 def test_leaf_and_handle_inside_layer(name):
-    """Fix 1: the recessed handle (escutcheon, L-handle, key, stripes) adds nothing outside the 23 mm leaf layer and
+    """The recessed handle (escutcheon, L-handle, key, stripes) adds nothing outside the 23 mm leaf layer and
     stays short of the meeting edge."""
     e = _entry(name)
     for m, h in e["doors"]["hulls"].items():

@@ -1,6 +1,6 @@
-// Tests of the KVM runtime decisions (Plan 4 Task 8): Scripts/Client/Core/{KvmSequencerCore, KvmMotionPaths,
+// Tests of the KVM runtime decisions: Scripts/Client/Core/{KvmSequencerCore, KvmMotionPaths,
 // KvmRackSlot}.cs. The game glue (Scripts/Client/Kvm) only reads the world into KvmInputs, so the target rule, the
-// door interlock, the scene-entry snap, the path routing (Ruling P4-12) and the fault budget are all covered here.
+// door interlock, the scene-entry snap, the path routing and the fault budget are all covered here.
 // With --dump, runtime.routing_table writes routing.json, which Tests/test_kvm_runtime.py checks against
 // dc/kvm_motion.motion_path_for_slot, and runtime.data_only_path writes data_only_open.csv for the same check.
 #nullable enable
@@ -55,7 +55,7 @@ internal static class KvmRuntimeTests
 
     private static bool Finite(KvmPose p) => !float.IsNaN(p.Slide) && !float.IsNaN(p.Fold) && !float.IsInfinity(p.Slide) && !float.IsInfinity(p.Fold);
 
-    // ------------------------------------------------------------------ the target rule (P4-4)
+    // ------------------------------------------------------------------ the target rule
 
     /// <summary>Rules 2 to 4, exhaustively: every door state x Working x home.</summary>
     public static void InterlockRules()
@@ -111,7 +111,7 @@ internal static class KvmRuntimeTests
         Check(c.DoorOpenFor == 0f, "the open timer resets once the door stops reading Open");
     }
 
-    /// <summary>P4-4: a door that starts closing while the KVM is out fast-stows it; once home it is a plain stow.</summary>
+    /// <summary>A door that starts closing while the KVM is out fast-stows it; once home it is a plain stow.</summary>
     public static void FastStowOnClosing()
     {
         KvmSequencerCore c = Settled(working: true);
@@ -202,7 +202,8 @@ internal static class KvmRuntimeTests
         Check(later.Pose.Slide > 0f && later.Pose.Slide < 0.05f && later.Pose.Fold == 0f, "switched On after the window: it animates, starting with the slide");
     }
 
-    /// <summary>P4-3: subparts spawned during play (a weld finished) start stowed and animate; inside the window they snap.</summary>
+    /// <summary>Subparts spawned during play (a weld finished) start stowed and animate; inside the window they
+    /// snap.</summary>
     public static void PartSpawnPolicy()
     {
         KvmSequencerCore c = Settled(working: true);
@@ -225,7 +226,7 @@ internal static class KvmRuntimeTests
         Check(IsOut(entry.Pose), "a spawn inside the window shows the wanted end pose");
     }
 
-    // ------------------------------------------------------------------ faults (Task 8 brief, step 3)
+    // ------------------------------------------------------------------ faults (rule 1)
 
     /// <summary>Three faults stop the sequencing; a faulted KVM snaps to the wanted end pose every frame.</summary>
     public static void FaultBudget()
@@ -247,7 +248,7 @@ internal static class KvmRuntimeTests
         Check(IsOut(c.Pose), "faulted: a spawn shows the end pose too");
     }
 
-    // ------------------------------------------------------------------ the data-only path (P4-12)
+    // ------------------------------------------------------------------ the data-only path
 
     /// <summary>The data-only motion is the data's own: slide = fold, linear, a stroke in DataOnlyStroke s, reversing on the spot.</summary>
     public static void DataOnlyPath()
@@ -390,7 +391,7 @@ internal static class KvmRuntimeTests
         Check(ok, "20000 random frames per path (bad dts, flickering doors and Working, path flips, spawns): finite and within the stops");
     }
 
-    // ------------------------------------------------------------------ the rack slot rule (P4-12)
+    // ------------------------------------------------------------------ the rack slot rule
 
     /// <summary>
     /// Every slot of both rack kinds, in all 24 rack orientations: the KVM's highest slot from its cell bounds, the
@@ -453,7 +454,7 @@ internal static class KvmRuntimeTests
     }
 
     /// <summary>
-    /// Ruling P4-13: the door guards only the face side it has leaves on. Front- and rear-facing KVMs in SplitFront
+    /// The door guards only the face side it has leaves on. Front- and rear-facing KVMs in SplitFront
     /// (front leaves) and SplitFrontRear (both) racks, in all 24 rack orientations, end to end through the interlock:
     /// the door the link hands the core is the rack's when it guards the face, None otherwise.
     /// </summary>

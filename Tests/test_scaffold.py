@@ -1,10 +1,10 @@
-"""Plan 5 Task 6: the construction scaffold (audit G1; dc/scaffold.py, fracture_mesh.scaffold_object,
+"""The construction scaffold (dc/scaffold.py, fracture_mesh.scaffold_object,
 export_models._plan_scaffold). The cage the welders work from: an ungrouped BrushedMetal lattice in the Fractured model
 only (Scaffold / AlwaysVisible / Scaffolding: see-through BrushedMetal_Scaffold until 30 %), never in the Damaged model,
 hidden on a finished block that is shot (the stage-1.0 ApplyOnlyWhenDamaged entry), within the block's cells, and never
-pushing the Fractured model over its LOD row (Decision 4; Review Focus 1 and 3).
+pushing the Fractured model over its LOD row.
 
-Also the export determinism of this task (the Damaged dents are seeded per block) and its opt-in end-to-end check."""
+Also the export determinism (the Damaged dents are seeded per block) and its opt-in end-to-end check."""
 import glob
 import json
 import os
@@ -21,8 +21,8 @@ from dc.assetio import read_json
 
 BM = "BrushedMetal_Scaffold"
 SCAFFOLD_MAT = "4050183d-1340-4643-b8b9-124981f2121d"      # BrushedMetal_Scaffold: the Scaffolding preset's sequence 1
-# R5: the light empty / low trays whose FR LOD0 already sits at its LOD row: not even the edges-only cage fits their
-# budget (NOTES "Plan 5 Task 6"). Exactly these; every other cut block carries a scaffold.
+# the light empty / low trays whose FR LOD0 already sits at its LOD row: not even the edges-only cage fits their
+# triangle budget. Exactly these; every other cut block carries a scaffold.
 NO_ROOM = ("DC_Tray_StraightL_Empty", "DC_Tray_StraightS_Low", "DC_Tray_TurnH_Empty", "DC_Tray_TurnUp_Empty")
 NAMES = [b.name for b in catalog.BLOCKS]
 
@@ -96,7 +96,7 @@ def test_reach_cells():
 
 
 def test_budget_pdu_cabinet():
-    """Decision 4's measured case: the PDU cabinet (FR 21 464 / budget 28 006) gets at most 3 742 triangles."""
+    """A measured case: the PDU cabinet (FR 21 464 / budget 28 006) gets at most 3 742 triangles."""
     size = tuple(_man("DC_PDU_Cabinet")["nonfractured"]["size"])
     b = SC.budget(size, 21464, 28006)
     assert int(0.05 * 21464) <= b <= 3742
@@ -113,8 +113,8 @@ def test_row_margin_is_the_last_safe_k():
 
 
 def test_plan_shrinks_by_pitch_and_reserves_room():
-    """A tighter budget never changes the boxes, only the pitch (then the tube sides); a stand-in reserve (R6, Task
-    8) is counted as FR triangles already there; no room at all is None (R5)."""
+    """A tighter budget never changes the boxes, only the pitch (then the tube sides); a stand-in reserve is
+    counted as FR triangles already there; no room at all is None."""
     zones = [{"lo": (-0.5, -0.4, -0.12), "hi": (0.5, 0.4, 0.12)}]
     lo, hi = zones[0]["lo"], zones[0]["hi"]
     size = (1.0, 0.8, 0.24)
@@ -139,7 +139,7 @@ def test_dent_seed_is_stable_per_block():
 
 
 def test_role_tables_cannot_name_skin_or_glass():
-    """Task 5 review M2: a part table names only the suffixed roles (a glass or skin entry would give two meshes one
+    """A part table names only the suffixed roles (a glass or skin entry would give two meshes one
     mesh-part name); role_of never returns skin/glass from a table."""
     FR.check_role_tables(FR.ROLES)
     for bad in ("glass", "skin"):
@@ -150,7 +150,7 @@ def test_role_tables_cannot_name_skin_or_glass():
 
 # ---------------------------------------------------------------------------------------------- the build
 def test_no_room_list_is_exact():
-    """R5: exactly NO_ROOM of the cut blocks export without a scaffold, each because its budget is below one
+    """Exactly NO_ROOM of the cut blocks export without a scaffold, each because its budget is below one
     edges-only cage (recorded as scaffold: null)."""
     bare = sorted(n for n in CUT if not _man(n)["fractured"].get("scaffold"))
     assert bare == sorted(NO_ROOM)
@@ -194,7 +194,7 @@ def test_every_cut_block_has_scaffold(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", CUT)
 def test_scaffold_keeps_lod_count(name):
-    """Review Focus 3: with its scaffold, the FR keeps Keen's LOD count for its own LOD0 and stays within budget[0];
+    """With its scaffold, the FR keeps Keen's LOD count for its own LOD0 and stays within budget[0];
     each LOD's cage is within the plan's per-LOD triangles (LOD1 only within 90 % of its budget)."""
     from se2model import limits
     m = _man(name)
@@ -230,7 +230,7 @@ def test_dm_is_fr_minus_scaffold(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", CAGED)
 def test_scaffold_never_visible_from_30_or_damaged_finished(name):
-    """Review Focus 1: below 30 % the cage shows in BrushedMetal_Scaffold; from 30 % (and on a finished block
+    """Below 30 % the cage shows in BrushedMetal_Scaffold; from 30 % (and on a finished block
     ground back and welded again past 30 %) it is hidden; a finished block that is shot shows FR with only the
     damaged-only hide, which hides the cage."""
     st = SV.installed_stages(name)
@@ -250,7 +250,7 @@ def test_scaffold_never_visible_from_30_or_damaged_finished(name):
 def test_scaffold_inside_cells(name):
     """Every scaffold vertex lies within the block's cell box + OUTSET (+-0.5 mm), at every LOD that carries it; and
     where the block's skin fills its cell (within 2 mm of the cell face) the cage stands proud of it (>= 3.5 mm past
-    the cell face, the Task 6 ruling: visible, as vanilla's), so it does not hide behind the skin."""
+    the cell face: visible, as vanilla's), so it does not hide behind the skin."""
     spec = catalog.BY_NAME[name]
     half = [0.125 * spec.cells[i] for i in (0, 2, 1)]       # game cells (x, up, depth) -> Blender (x, y, z)
     for i in range(len(_man(name)["fractured"]["lods"]) - 1):
@@ -294,11 +294,11 @@ def _export(blocks, out):
 def test_export_is_deterministic():
     """(Opt-in: DC_BLENDER_EXPORT=1, a windowed Blender with the VRAGE add-on.) Two exports of one block give the
     same mesh data in every model (fracture_rules.fbx_content: objects, geometry arrays, connections) and the same
-    export.json; before Task 6 every Damaged model dented differently per run (Blender's noise_vector draws a random
-    offset per process). DC_Rack24_Open covers the cut-and-capped stand-ins (final review M9)."""
+    export.json; Damaged models once dented differently per run (Blender's noise_vector
+    draws a random offset per process). DC_Rack24_Open covers the cut-and-capped stand-ins."""
     if os.environ.get("DC_BLENDER_EXPORT") != "1":
         pytest.skip("opt-in: set DC_BLENDER_EXPORT=1 (windowed Blender) to export a block twice")
-    blocks = ["DC_Tray_StraightS_Full", "DC_Srv_Timer", "DC_PDU_Cabinet", "DC_TrayRods_100",   # (+ T7: a debris DM)
+    blocks = ["DC_Tray_StraightS_Full", "DC_Srv_Timer", "DC_PDU_Cabinet", "DC_TrayRods_100",   # (+ a debris DM)
               "DC_Rack24_Open"]                                                              # (cut stand-ins)
     with tempfile.TemporaryDirectory(prefix="dc-det-") as t:
         a, b = _export(blocks, os.path.join(t, "a")), _export(blocks, os.path.join(t, "b"))
@@ -317,7 +317,7 @@ DOORS = [n for n in NAMES if catalog.BY_NAME[n].family == "contain_door"]
 @pytest.mark.build
 @pytest.mark.parametrize("name", DOORS)
 def test_door_cage_leaves_opening_clear(name):
-    """Plan 5 Task 13 fix round 1: a containment door's cage follows its posts and lintel (scaffold.HULL_BOXES, the
+    """A containment door's cage follows its posts and lintel (scaffold.HULL_BOXES, the
     zone hulls' boxes), as vanilla SlidingDoorNarrow250's U-shaped cage: no scaffold vertex (FR LOD0 and LOD1) lies in
     the door opening (between the two post towers' inner faces, below the lintel), and the cage still reaches the
     posts' outer faces and the lintel's top."""

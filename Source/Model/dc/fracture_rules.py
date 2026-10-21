@@ -5,7 +5,7 @@ Reusable by any branch for its own blocks (plain Python, standard library only):
     from dc import fracture_rules as FRR
     FRR.check_fractured_model(fbx_lod0_path, collision_gltf_path) -> [problem strings]   (empty: OK)
 
-The two rules (Plan 2 Task 9b fix round 1):
+The two rules:
 
 1. collider_mesh_group_problems: the importer (VRage.ContentPipeline.ModelsBase ModelProcessorLoader
    .CollectBreakableCollider, 2.4.0.95, :581-661) makes a collider a FRACTURE only when LOD0 has a mesh Group of the
@@ -248,7 +248,7 @@ _VOLATILE = ("FBXHeaderExtension", "FileId", "CreationTime", "Creator", "GlobalS
 def fbx_content(path):
     """An FBX's content without what changes between two exports of the same scene (header timestamps, file id,
     the scene's time settings, object uids): the Objects (uid dropped, in file order) and the Connections (uids
-    replaced by their object's index). Two exports of the same meshes compare equal (Task 9 review M-2)."""
+    replaced by their object's index). Two exports of the same meshes compare equal."""
     nodes = fbx_nodes(path, arrays=True)
     objs, ids = [], {}
     conns = []
@@ -272,7 +272,7 @@ def fbx_same_content(a, b):
         return False
 
 
-# ---------------------------------------------------------------------------------------------------- Task 9c
+# --------------------------------------------------------------------------------------------------------- guide checks
 # The guide's checklist (docs/guides/vanilla-fracture-models.md 10.6) on the exported files: T1 recognition, T5
 # Fractured <-> Damaged parity, T8 cut UV density, and the hull-volume rule of 10.3 (5). numpy is imported lazily
 # (only these need it); the two rules above stay standard library only.
@@ -423,7 +423,7 @@ def cut_uv_density(meshes):
     rows = []
     for m in meshes.values():
         cap = m["props"].get("ConstructionMeshPreset") == CUT_PRESET or (m["materials"] and all(
-            x == "FracturedMaterial01" for x in m["materials"]))   # (Task 13: a hidden part's caps, AlwaysHidden)
+            x == "FracturedMaterial01" for x in m["materials"]))   # (a hidden part's caps, AlwaysHidden)
         if not cap or not m["uv"]:
             continue
         v = m["verts"]

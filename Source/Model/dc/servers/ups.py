@@ -1,5 +1,5 @@
 """UPS server (12U, 2x2x3 cells): a Battery50 clone with two OPEN Power Cell bays (no grate, cage, window or door:
-the cell sits exposed in its frame, exactly like vanilla Battery50; v2 review decision).
+the cell sits exposed in its frame, exactly like vanilla Battery50).
 
 Layout (functional.UPS_BAYS). Two vanilla cells (0.30 x 0.31 m face, 0.355 m deep) cannot sit side by side or stacked
 in a 0.5 x 0.5 m face, so the bays run back to back along the 0.75 m depth:

@@ -1,13 +1,13 @@
-"""Cross-section and layout helpers of the tray kit (Plan 2 Task 4). Pure Python (numpy), no Blender.
+"""Cross-section and layout helpers of the tray kit. Pure Python (numpy), no Blender.
 
-dc/tray_kit.py turns the plans (dc/tray_plan.py) into meshes; every decision it makes that can be checked without
+dc/tray_kit.py turns the plans (dc/tray_plan.py) into meshes; every choice it makes that can be checked without
 Blender lives here, so Tests/test_tray_build.py checks it offline:
 
 - the 7-cable lay of a bundle and which cable faces are ever visible (the hidden centre cable and the faces pressed
   against a neighbour are not built);
-- the strap groups: bundles that nest share one band per station (Ruling P2-17), and that band's outline;
+- the strap groups: bundles that nest share one band per station, and that band's outline;
 - the basket's wire stations (U-wires) and the per-point wall height of a path, with the step from a junction's
-  0.15 m walls down to the 0.10 m straight walls at a port (Ruling P2-20);
+  0.15 m walls down to the 0.10 m straight walls at a port;
 - the LOD simplification of bundle centrelines.
 
 Frames: a cross-section point is (s, h) in a path frame (s across, h along the floor normal), as in tray_lanes.
@@ -105,7 +105,7 @@ def _unique(stations, eps=1e-9):
 
 
 def sweep_facets(segs, lod=0, extra=()):
-    """The facet stations (arc lengths along a junction bundle's own sweep, Task 7) at a LOD, the bends' rule
+    """The facet stations (arc lengths along a junction bundle's own sweep) at a LOD, the bends' rule
     generalised to a sweep of several straights and arcs: segs = [(kind, length, angle)].
     LOD0: every segment end, and each turn every <= 15 deg (BEND_FACET; a ramp arc of <= 45 deg is one chord, which
     kinks 15 deg at each end, as a bend's facets do), plus `extra` (a dressed bundle's ramp points);
@@ -143,15 +143,15 @@ def lay_locked(b):
     """Whether a bundle's lay is phase-locked (whole cable pitches): it ends on a PORT or an ENTRY. A bundle that
     starts on its port (a Reducer's dropped lane, from port a) starts in phase 0 anyway; one that ends on its port (a
     junction's split child, from its collar to port c) must arrive in phase 0, so its lay turns whole pitches. A
-    waterfall (Task 8) arrives at its entry in phase 0 too, its frame turned to the entry's a axis (frame_drift): a
+    waterfall arrives at its entry in phase 0 too, its frame turned to the entry's a axis (frame_drift): a
     Drop's waterfall and the Chute under it meet strand to strand."""
     return b.ends[-1].kind in ("PORT", "ENTRY")
 
 
 def bundle_facets(plan, b, lod=0):
     """The facet stations a bend's bundle is built at (its plan points carry their centreline arc lengths in
-    params["along"]; the piece's basket path carries the arc), a junction bundle's own (params["facets"] per LOD,
-    Task 7), or None."""
+    params["along"]; the piece's basket path carries the arc), a junction bundle's own (params["facets"] per
+    LOD), or None."""
     if "facets" in b.params:
         return list(b.params["facets"][min(lod, 2)])
     if "along" not in b.params:
@@ -179,7 +179,7 @@ def resample(points, along, stations):
 
 
 STEP_AT = U_PHASE + 0.01      # a junction wall's step-down ramp starts just past the first U-wire ...
-STEP_RAMP = 0.05              # ... and rises over 5 cm (Ruling P2-20), ending before the second U-wire
+STEP_RAMP = 0.05              # ... and rises over 5 cm, ending before the second U-wire
 
 
 def step_stations(length, port_start=True, port_end=True):
@@ -195,7 +195,7 @@ def step_stations(length, port_start=True, port_end=True):
 def wall_height_profile(lengths, wall_h, port_start=True, port_end=True, ramp=STEP_RAMP, low=TL.WALL_H):
     """Per point (arc lengths `lengths`) the wall top-wire height of a basket path. A straight's wall is `low`
     everywhere. A junction's taller walls (`wall_h` > `low`) step down to `low` at every PORT end so the neighbouring
-    straight meets them flush (Ruling P2-20): flat `low` up to just past the first U-wire (STEP_AT, so that U-wire and
+    straight meets them flush: flat `low` up to just past the first U-wire (STEP_AT, so that U-wire and
     the splice plate stand exactly as a straight's), then a straight 45 deg slope over `ramp` m (the wire bent twice,
     as a real stepped wall wire is), done before the second U-wire."""
     L = np.asarray(lengths, dtype=float)
@@ -312,7 +312,7 @@ STRAP_BITE = 0.0015            # LOD0: a strap's band lies this far inside the b
 
 
 def lay_pitches(length):
-    """The per-piece lay rule (Ruling P2-22): a bundle that runs port to port turns a WHOLE number of cable pitches
+    """The per-piece lay rule: a bundle that runs port to port turns a WHOLE number of cable pitches
     (60 deg), the number nearest its own length at the nominal rate, and at least one. Each lane of a bend is its own
     length (inner lanes are shorter than outer ones), so each lane's rate differs slightly from the nominal 60 deg per
     0.5 m, but every lane leaves both ports in phase 0: the strand pattern is the same on every port face, and the
@@ -367,7 +367,7 @@ def simplify_keep(points, tol, keep=()):
 
 
 # ---------------------------------------------------------------------------------------------------- built skin
-# The kit's sweep frames and a bundle's LOD0 skin, in numpy (Task 7 fix round 1): dc/tray_kit.frames wraps
+# The kit's sweep frames and a bundle's LOD0 skin, in numpy: dc/tray_kit.frames wraps
 # frames_np, and tray_kit.bundle builds exactly the rings skin_rings returns, so the built-mesh clearance of every
 # bundle pair is tested offline (Tests/test_tray_build.py::test_built_bundles_clear).
 def _unit(v):
@@ -544,7 +544,7 @@ def simplify(points, tol):
 # ---------------------------------------------------------------------------------------------------- straps
 def strap_groups(discs, gap=TL.TOUCH_TOL):
     """Connected groups of discs [(s, h, r)] that touch or nest (centre distance <= r1 + r2 + gap): one shared strap
-    band per group and station (Ruling P2-17). Returns lists of indices, each sorted, groups ordered by first index."""
+    band per group and station. Returns lists of indices, each sorted, groups ordered by first index."""
     n = len(discs)
     parent = list(range(n))
 
@@ -640,7 +640,7 @@ def min_clearance(poly, discs):
 # ---------------------------------------------------------------------------------------------------- end caps
 CAP_INSET = 0.0015      # the cap's plane: this far inside the port plane (never on it: no coplanar faces at a joint)
 # The caps cost 16 triangles per bundle end (16 is the least that closes the section: a hexagon and six quads), so
-# 288 on a 2-port Full piece and 576 on the Full Cross. Ruling P2-28 (Task 10 round 2): every piece is capped, the
+# 288 on a 2-port Full piece and 576 on the Full Cross. By design every piece is capped, the
 # four Full pieces they lift over the plan's LOD0 budgets included (StraightS, StraightL, Cross, TurnDown): the cap
 # triangles sit outside the per-metre and share-of-Keen LOD0 budgets (Keen's own limits still hold; LOD1+ has none).
 CAP_TRIS = 16

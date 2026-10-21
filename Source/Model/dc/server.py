@@ -420,7 +420,7 @@ def _rear(P, d, lod, kind="psu", lamp=LAMP_GREEN, variant=None):
     zc = (zb + zt) / 2
     exb = (zc - 0.01, zt - 0.02)
     iob = (zb + 0.018, zc - 0.028)
-    psu = list(DM.SERVER_PSU_X)   # (dims: single-sourced with the inlets, Plan 3 Task 7 live-cabling hook)
+    psu = list(DM.SERVER_PSU_X)   # (dims: single-sourced with the inlets, for live cabling)
     fans = variant in REAR_FANS and lod == 0
     if fans:   # compute: round exhaust fans instead of the louvre (the front fan wall's hot air out)
         fr = min(0.042, (exb[1] - exb[0]) / 2 - 0.004)

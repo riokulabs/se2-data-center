@@ -1,5 +1,5 @@
-// Tests of the Programmable's game-free rules: Scripts/Client/Core/StatusLampRules.cs (the scripted status lamp, Ruling
-// P4-7) and Scripts/Simulation/Shared/Core/ScriptingPresence.cs (the read-only scripting check, Ruling P4-1 = A').
+// Tests of the Programmable's game-free rules: Scripts/Client/Core/StatusLampRules.cs (the scripted status lamp)
+// and Scripts/Simulation/Shared/Core/ScriptingPresence.cs (the read-only scripting check).
 // Mesh parts and materials are strings here; the game's StringId and MaterialDefinition (compared by GUID) behave alike.
 #nullable enable
 using System;

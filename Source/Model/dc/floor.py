@@ -1,4 +1,4 @@
-"""Raised-floor tiles (Plan 3 Task 3): DC_Floor_{Solid,Perf}_{050,100}, CatwalkSquareBase250 clones (P3-5).
+"""Raised-floor tiles: DC_Floor_{Solid,Perf}_{050,100}, CatwalkSquareBase250 clones.
 
 One cell tall (dims.RF_H): the deck's top lies on the cell's top plane (0.5 mm under it, DECK_TOP), so a rack, the
 CRAC, the PDU cabinet or a door standing on the block's top plane sits flush on the deck. The block is a grid of
@@ -25,11 +25,11 @@ Part -> purpose (every part is something a real raised floor has; SE-ified: chun
          earth strap  Brushed braid + MetalDull clamp and lug, one   bonds the floor grid to earth (static, faults)
                       per block
 
-Fracture (user direction: breakable, with real fracture zones; docs/guides/vanilla-fracture-models.md 10.3 (2), at
-the main merge): split IN PLANE, every zone the full thickness (dc/fracture.py _floor): the 1.0 m block's four tiles
-part at their real joints, each with the pedestals and stringers under it (a shared pedestal's head and base plates
-part with the tiles, cut and capped in FracturedMaterial01); the 0.5 m tile cracks in two along its panel line. The
-two physics boxes (deck, pedestal envelope) stay the intact model's collision.
+Fracture (breakable, with real fracture zones; docs/guides/vanilla-fracture-models.md 10.3 (2)): split IN PLANE, every
+zone the full thickness (dc/fracture.py _floor): the 1.0 m block's four tiles part at their real joints, each with the
+pedestals and stringers under it (a shared pedestal's head and base plates part with the tiles, cut and capped in
+FracturedMaterial01); the 0.5 m tile cracks in two along its panel line. The two physics boxes (deck, pedestal envelope)
+stay the intact model's collision.
 
 Grid rules (no z-fighting between neighbours, test_floor_seams): the deck's top edges stand SEAM (1 mm) inside the
 tile edges, so neighbouring tiles leave a 2 mm hairline, the same inside a 1.0 m block as between blocks. Only the

@@ -1,5 +1,5 @@
 """Every "Bundle:Type" name in a Data Center asset file is resolvable: its bundle is declared in the file's own
-$Bundles (Plan 4 Task 3 review C1). In archive-format JSON the serializer resolves a type name only through the
+$Bundles. In archive-format JSON the serializer resolves a type name only through the
 file's bundle set and throws "There is no bundle named X in the serialization context." otherwise
 (VRage.Library/Keen.VRage.Library.Serialization.Migrations.Internal/MigrationsHelper.cs:126-147, reached from
 JsonHelper.TryLocateType :531-535). Every vanilla file that names a Game2: type declares Game2.

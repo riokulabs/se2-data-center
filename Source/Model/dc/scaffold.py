@@ -1,4 +1,4 @@
-"""The construction scaffold (audit G1, Plan 5 Task 6): the cage the welders work from while a block is below 30 %.
+"""The construction scaffold: the cage the welders work from while a block is below 30 %.
 
 Vanilla (guide docs/guides/vanilla-damage-and-build-states.md §2.4): an ungrouped lattice of thin BrushedMetal members
 around the block's bounding box (Timer50 Main_Scaffold, Reactor250 Scaffold_LOD0), ConstructionMeshType Scaffold /
@@ -23,13 +23,13 @@ poles): here the edges of a union of boxes plus every face's grid lines at a cho
           only when the natural one keeps the cage under MIN_SHARE and the budget allows it;
   tubes   round, 8 sides (a coarser pitch before fewer sides); square (4) only when no 8-sided cage fits (the
           lightest trays). Both have a vertex on each perpendicular axis, so the outer surface reaches exactly the box
-          face (a hexagon reaches only 0.87 r on one axis: fix round 1 dropped 6 sides); radius 10 mm on a block of
+          face (a hexagon reaches only 0.87 r on one axis, so 6 sides are out); radius 10 mm on a block of
           1 m or more, else 6 mm;
   LOD1    the same cage at 4 sides, at the smallest pitch >= LOD0's that fits 90 % of the LOD1 budget (or none).
 
-The budget rule (Decision 4): the scaffold may never push the Fractured model over its LOD row, so it gets at most
-min(20 % of FR LOD0, FR budget[0] - FR LOD0 - 10 % of budget[0], the LOD-row margin). Stand-in triangles (R6, Plan 5
-Task 8: the parked subparts baked into FR) count against the same budget: pass them as `reserve` (per LOD) and the
+The budget rule: the scaffold may never push the Fractured model over its LOD row, so it gets at most
+min(20 % of FR LOD0, FR budget[0] - FR LOD0 - 10 % of budget[0], the LOD-row margin). Stand-in triangles (the
+parked subparts baked into FR) count against the same budget: pass them as `reserve` (per LOD) and the
 scaffold plans around them, exactly as if they were already part of the FR LOD.
 
 Pure Python (no bpy): dc/fracture_mesh.scaffold_object builds the tubes, dc/export_models._export_planned plans it.
@@ -245,7 +245,7 @@ def row_margin(size, t0: int, limit: int) -> int:
 
 
 def budget(size, fr_t0: int, budget0: int) -> int:
-    """The scaffold's LOD0 triangle ceiling (Decision 4); negative when the FR LOD0 already sits in the headroom."""
+    """The scaffold's LOD0 triangle ceiling (budget rule); negative when the FR LOD0 already sits in the headroom."""
     return min(int(MAX_SHARE * fr_t0), budget0 - fr_t0 - int(0.10 * budget0),
                row_margin(size, fr_t0, budget0 - fr_t0))
 
@@ -256,7 +256,7 @@ HULL_BOXES = {"tray": 0.0, "contain_door": 0.025}   # family -> the thinnest zon
 def boxes_for(family: str, zones: list[dict], lo, hi) -> list[tuple]:
     """[(lo, hi)]: the envelope (lo, hi: the FR LOD0's render bounds within the cells), except the HULL_BOXES
     families: each zone hull's box within it, so the cage follows the block's outline instead of a square round it:
-    a cable tray (Tee and Cross are not boxes) and, Plan 5 Task 13 fix round 1, a containment door (its posts and
+    a cable tray (Tee and Cross are not boxes) and a containment door (its posts and
     lintel: the doorway stays open, as vanilla SlidingDoorNarrow250's U-shaped cage; the 7.5 mm sill strip, thinner
     than HULL_BOXES's 2.5 cm, gets no box, or its tubes would lie across the threshold)."""
     if family in HULL_BOXES:   # each hull box clipped to the envelope (a hull's 3 % gain must not grow the model)
@@ -288,10 +288,10 @@ def radius_for(lo, hi):
 
 
 def plan(family, zones, lo, hi, size, fr_tris: list[int], budget_lods: list[int], reserve=(0, 0), cap=None):
-    """The block's ScaffoldPlan, or None when not even the edges-only cage fits the budget (R5: the light empty trays,
-    listed in NOTES). fr_tris / budget_lods: the cut Fractured LODs' triangles and fracture.fracture_budget;
-    reserve: triangles still to be added per LOD (the Task 8 stand-ins), counted as already there; cap: a lower LOD0
-    ceiling (the exporter's retry when the cage would move the FR LOD0 across a LOD row: a coarser pitch)."""
+    """The block's ScaffoldPlan, or None when not even the edges-only cage fits the budget (the light empty trays).
+    fr_tris / budget_lods: the cut Fractured LODs' triangles and fracture.fracture_budget;
+    reserve: triangles still to be added per LOD (the parked subparts' stand-ins), counted as already there; cap: a
+    lower LOD0 ceiling (the exporter's retry when the cage would move the FR LOD0 across a LOD row: a coarser pitch)."""
     r = radius_for(lo, hi)
     boxes = _snap_boxes(boxes_for(family, zones, lo, hi), 2 * r)
     t0 = fr_tris[0] + reserve[0]

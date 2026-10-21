@@ -9,7 +9,7 @@ internal static class SurgeryRulesTests
 {
     private static void Check(bool ok, string name) => Program.Check(ok, name);
 
-    /// <summary>Review I1: the composite's dependency order, dependencies first, never reordered by surgery.</summary>
+    /// <summary>The composite's dependency order, dependencies first, never reordered by surgery.</summary>
     public static void DependencyOrder()
     {
         var none = new Dictionary<int, int[]>();
@@ -35,7 +35,7 @@ internal static class SurgeryRulesTests
         Check(SurgeryRules.FirstOutOfOrder(1, i => Deps(self, i)) == 0, "a component cannot depend on its own index");
     }
 
-    /// <summary>Review I2: a swapped slot may carry only the old type's default tag.</summary>
+    /// <summary>A swapped slot may carry only the old type's default tag.</summary>
     public static void Retag()
     {
         string[] oldDefault = { "RigidAnimationComponent" };
@@ -93,7 +93,7 @@ internal static class SurgeryRulesTests
         public object? Read() => Throws ? throw new InvalidOperationException("no entity") : Composition;
     }
 
-    /// <summary>Review I3: a composition used by another prefab is detected before anything changes.</summary>
+    /// <summary>A composition used by another prefab is detected before anything changes.</summary>
     public static void SharedComposition()
     {
         object mine = new object(), theirs = new object();
@@ -116,7 +116,7 @@ internal static class SurgeryRulesTests
         Check(SurgeryRules.FindSharer(lookalike, self, p => p.Read(), new string('s', 1) + "ame") == null, "sharing is by reference, not equality");
     }
 
-    /// <summary>Review M5: the once-budget announces that it is full, once, and then stays quiet.</summary>
+    /// <summary>The once-budget announces that it is full, once, and then stays quiet.</summary>
     public static void OnceGateBudget()
     {
         var gate = new OnceGate(3);
@@ -130,7 +130,7 @@ internal static class SurgeryRulesTests
         Check(new OnceGate(0).Pass("x") == OnceGate.Verdict.LastBeforeFull, "capacity is at least one");
     }
 
-    /// <summary>Task 8: edits that must apply together (the KVM's sequencer and its two part drivers) or not at all.</summary>
+    /// <summary>Edits that must apply together (the KVM's sequencer and its two part drivers) or not at all.</summary>
     public static void CombineVerdicts()
     {
         const SurgeryVerdict R = SurgeryVerdict.Ready, D = SurgeryVerdict.AlreadyDone, X = SurgeryVerdict.Refused;

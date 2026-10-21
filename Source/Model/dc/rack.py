@@ -3,7 +3,7 @@
 Frame (Blender, metres, centred on the origin like vanilla: X width, +Y = front = game Forward, Z up):
     x +-0.5 (4 cells), y +-0.625 (5 cells), z +-H/2.  Built in "local" z (0 = floor) and shifted by -H/2.
 
-Cells (controller ruling 2026-10-17, NOTES.md): the server slot is the centred 2 x 1 x 3 cells (x +-0.25,
+Cells: the server slot is the centred 2 x 1 x 3 cells (x +-0.25,
 y +-0.375); each side keeps a 0.25 m column for the corner posts, the 19" rails and an integrated vertical
 cable manager; a 0.25 m front zone (door leaves, server ears, KVM travel) and a 0.25 m rear zone stay clear.
 
@@ -13,8 +13,8 @@ cable manager; a 0.25 m front zone (door leaves, server ears, KVM travel) and a 
     | ZT .. H          | 0.25 m top cable tray | -- (thin render-only roof)      |
 
 Placement design (docs/guides/modeling-keen-style.md 7-8, se2model.placement):
-- Regular collision (physics) = the frame: plinth, the two side columns, the top tray, and (placement fix
-  2026-10-18) a thin rear stop plate behind each slot column's back plane (4-5 boxes).
+- Regular collision (physics) = the frame: plinth, the two side columns, the top tray, and (for
+  placement) a thin rear stop plate behind each slot column's back plane (4-5 boxes).
 - Free cells: the slot cells (SLOT_CELLS) and, in front of them, the slot columns' front-zone cells, so the block
   placer's ray reaches into the slot (its targeting stops at the first OCCUPIED cell it crosses). The rear zone
   stays occupied (the rear stop's cells): nothing can be built into the cable space.
@@ -47,7 +47,7 @@ SX = DM.SLOT_HALF_W  # slot half width (2 cells): the rail plane
 SD = DM.SLOT_HALF_D  # slot half depth (3 cells)
 YK = D2 - KEEP_OUT  # 0.598: nothing on the front / back reaches past this (non-mounting openings)
 SLOT_H = DM.SLOT_H
-# Fix round 1 (Task 5): no render vertex may reach the side planes. XO is the render mesh's outer side plane, 1 mm
+# No render vertex may reach the side planes. XO is the render mesh's outer side plane, 1 mm
 # inside the cell bounds, so two racks placed flush leave a 2 mm hairline gap instead of coplanar (z-fighting) faces;
 # the side skins sit 6 mm in, so the hardware standing up to 5 mm proud of them (latches, studs) still ends at XO.
 XO = W2 - DM.RACK_SIDE_INSET
@@ -60,13 +60,13 @@ RAIL_X = DM.RAIL_X
 CH_X = DM.MANAGER_CH_X
 SPINE_Y = DM.MANAGER_SPINE_Y   # channel back wall (front channel; mirrored at the rear)
 IX, IY = DM.RACK_TRAY_IX, DM.RACK_TRAY_IY   # full-rack top trough interior half sizes (the rim's inner edges)
-# Controller ruling (merge main -> plan3-room, 2026-10-18): no baked rack ID. Every rack used to read "A1" (front
-# header, side hatch placard "A1 / ROW A POS 1", half-rack roof); the ID now comes from the editable rack-label LCD
+# No baked rack ID: otherwise every rack reads "A1" (front header, side hatch placard "A1 / ROW A POS 1", half-rack
+# roof). The ID comes from the editable rack-label LCD
 # (DC_Sign_Rack). The racks carry a neutral caption and a blank Brushed write-on tag (id_tag) instead.
 LABEL = "RACK"          # the caption stencil on the front header / kick plate and the half rack's roof plate
 ID_CAPTION = "RACK ID"  # the side hatch placard's caption (rack_side.py)
 ID_TAG_T = 0.0015       # the blank tag's thickness (proud of its Darker plate: clear of the 0.3 mm z-fight epsilon)
-# placement fix (2026-10-18): the slot's rear stop and mount key (collision()), and the render clearances they need
+# placement: the slot's rear stop and mount key (collision()), and the render clearances they need
 REAR_STOP_GAP = 0.003   # rear stop plate (physics) this far behind the slot's back plane (server render ends 3 mm in)
 REAR_STOP_T = 0.02      # its thickness
 KEY_ROW = 0.25          # the keyed mount row: the slot's rear cell row (Blender y -SD .. -SD + KEY_ROW)
@@ -155,8 +155,8 @@ def _plinth(P, d, lod):
     # placement fix: the deck sits MOUNT_CLEAR under the slot floor plane, so it does not mount; only the slot-floor
     # hint (rear row) does. Slot 1's server rides on its slides like every other slot, over a 25 mm air gap.
     zd = 0.25 - MOUNT_CLEAR
-    # the solid core under the deck (Keen's way, NOTES.md "Broken interiors: Keen's way"): a plinth half's break shows
-    # the other half's FracturedMaterial01 cap, not the hollow of a load frame (597f7c6e, reverted 2026-10-20)
+    # the solid core under the deck (broken interiors in the game's own style): a plinth half's break shows the other
+    # half's FracturedMaterial01 cap, not the hollow of a load frame
     G.box(dk, (-0.47, -0.57, 0.014), (0.47, 0.57, zd - 0.008), DARK)              # core
     G.box(dk, (-W2 + SKIN, -YK + 0.012, zd - 0.008), (W2 - SKIN, YK - 0.012, zd), DARK)   # thin dark deck
     for F, front in ((F_front(YK - 0.012), True), (F_back(-YK + 0.012), False)):
@@ -195,7 +195,7 @@ def _plinth(P, d, lod):
 
 def id_tag(P, F, a0, a1, b0, b1, d, lod):
     """A blank write-on ID tag: a Brushed plate ID_TAG_T proud of the face at depth d, riveted at both ends (LOD0).
-    Neutral by design (controller ruling): the operator stamps or writes the rack ID on it; the game's ID is the
+    Neutral by design: the operator stamps or writes the rack ID on it; the game's ID is the
     editable rack-label LCD. Geometry only (no decal), so no stencil can fight it."""
     c = min(0.004, (b1 - b0) * 0.2)
     G.prism(P["hw"], F, oct_pts(a0, b0, a1, b1, c), d, d + ID_TAG_T, STEEL)
@@ -208,7 +208,7 @@ def id_tag(P, F, a0, a1, b0, b1, d, lod):
 
 def _label(P, F, a, b, d, w, cap, lod, lamp_mat=LAMP_GREEN):
     """Rack label plate: Darker clipped plate with the neutral "RACK" caption and a blank write-on ID tag (id_tag; no
-    baked ID, the controller ruling), plus the power-OK lamp."""
+    baked ID), plus the power-OK lamp."""
     G.prism(P["dark"], F, oct_pts(a - w, b - cap * 0.95, a + w, b + cap * 0.95, cap * 0.35), d, d + 0.006, DARK)
     if lod <= 1:
         a0 = a - w + cap * 0.45                       # clear of the plate's clipped corners
@@ -256,7 +256,7 @@ def _columns(P, d, lod):
       rear = power, half as dense), and lacing bars per slot."""
     ZT = d["ZT"]
     # the manager channel's back and finger roots end at the slot band's top under the full rack's tray; under the
-    # half rack's roof rail they stop 1 mm below the rail (Plan 2: its brush-plate holes open into the channel)
+    # half rack's roof rail they stop 1 mm below the rail (its brush-plate holes open into the channel)
     ZC = ZT if d["tray"] else ZT - ROOF_RAIL_T - 0.001
     z0 = 0.25
     slots = [0.25 + SLOT_H * k for k in range(d["nslots"])]
@@ -307,7 +307,7 @@ def _columns(P, d, lod):
                     G.prism(P["dark"], Fr, G.rect(0.2525, 0.2875, zf + DM.SLOT_TAB_Z[0], zf + DM.SLOT_TAB_Z[1]), 0.0,
                             0.002, DARK)
                     stencil(P["decal"], Fr, 0.27, zf + 0.125, 0.026, str(i), d=0.002)
-        # the front (data) cable manager; the rear column is the zero-U PDU column since Plan 3 (_pdu_column)
+        # the front (data) cable manager; the rear column is the zero-U PDU column (_pdu_column)
         sy = 1
         xc = X(CH_X[0], CH_X[1])
         ys = sorted((sy * SPINE_Y[0], sy * SPINE_Y[1]))
@@ -345,9 +345,9 @@ def _columns(P, d, lod):
 
 
 # ---------------------------------------------------------------------------------------------------- PDU columns
-# Plan 3 Task 1: the rear of each side column is the zero-U PDU column (dims.PDU_COL_X x PDU_COL_Y over the slot
-# band; Feed A = +x, the right column seen from the hot aisle; Feed B mirrored). It replaces the visual-pass-2 rear
-# power manager (its built-in strip and cords): the PDU strip is now its own block (Plan 3 Task 7), so the rack keeps
+# The rear of each side column is the zero-U PDU column (dims.PDU_COL_X x PDU_COL_Y over the slot
+# band; Feed A = +x, the right column seen from the hot aisle; Feed B mirrored). It replaces the earlier rear
+# power manager (its built-in strip and cords): the PDU strip is now its own block, so the rack keeps
 # the column's clear envelope (dims.PDU_ENVELOPE) and provides the strip's three interfaces:
 #   * the PDU bulkhead: the column's back wall on the bracket plane y = -SLOT_HALF_D (Colorable, 6 mm, 0.5 mm inside
 #     the plane) with a keyhole slot per slot (the strip's mounting buttons hang in them), the FEED stencil plate;
@@ -383,7 +383,7 @@ def PDU_CELLS(spec, feed):  # noqa: N802 (interface name from the plan)
 
 
 def OPENING_CELLS(spec):  # noqa: N802
-    """The slot columns' front-zone row (placement fix 2026-10-18): the cells in front of the slots, left free so the
+    """The slot columns' front-zone row: the cells in front of the slots, left free so the
     block placer's ray can enter a slot (Forward = game -z, the box's first z row)."""
     (x0, y0, z0), (x1, y1, z1) = catalog.bounds(spec)
     xs = sorted({c[0] for c in SLOT_CELLS(spec)})
@@ -392,8 +392,8 @@ def OPENING_CELLS(spec):  # noqa: N802
 
 
 def FREE_CELLS(spec):  # noqa: N802
-    """Every cell of the rack box a block may occupy: the server slots, their front opening row (main's placement
-    fix) and both PDU columns (Plan 3)."""
+    """Every cell of the rack box a block may occupy: the server slots, their front opening row and both PDU
+    columns."""
     return SLOT_CELLS(spec) + OPENING_CELLS(spec) + PDU_CELLS(spec, "A") + PDU_CELLS(spec, "B")
 
 
@@ -466,7 +466,7 @@ CONTAIN_Z = (0.170, DM.CONTAIN_RAIL_DZ[1])   # the rail's z above ZT (its top 12
 CONTAIN_PADS = (-0.375, -0.125, 0.125, 0.375)   # clamp pads every 0.25 m: one per mount cell of the band
 
 
-CONTAIN_TAG_LIFT = 0.0006   # the CONTAINMENT tag's stencil 0.6 mm clear of its Darker plate (z-fight; T11 deferred R2)
+CONTAIN_TAG_LIFT = 0.0006   # the CONTAINMENT tag's stencil 0.6 mm clear of its Darker plate (z-fight)
 # In game 2026-10-20 (a 42U open rack seen from below): the clamp pads were exactly as tall as the rail and sat flush on
 # its back plane, so their top, bottom and back faces lay in the rail's planes (the Darker pad and the Colorable rail
 # flickered), and the standoff behind each pad read as a loose dark block under it. Now each pad is a clip that wraps
@@ -521,7 +521,7 @@ def _contain_rail(P, d, lod, tag_lift=CONTAIN_TAG_LIFT):
     geometry.contain_rails); the standoffs, screws and tag are not part of it.
     tag_lift: lifts the tag's stencil off the Darker plate under it (at 0 the glyphs sit 0.2 mm over it: coplanar for
     the z-fight rule, dc/zfight.py GEOM_EPS_D 0.3 mm). Default CONTAIN_TAG_LIFT (0.6 mm) for every user: the racks
-    (since the main merge, which brought main's test_zfight over the racks), the CRAC and the PDU cabinet."""
+    (checked by test_zfight), the CRAC and the PDU cabinet."""
     ZT = d["ZT"]
     z0, z1 = ZT + CONTAIN_Z[0], ZT + CONTAIN_Z[1]
     y0, yp = DM.CONTAIN_RAIL_Y
@@ -587,7 +587,7 @@ def _brush_lips(p, sx, sy, opening, ym, z_root, lod):
 
 
 def _entry_fitting(P, sx, sy, opening, H, z_bottom, lod, sleeve_front=True):
-    """Plan 2: a top-entry brush plate (the cable gland where an overhead waterfall drops into a cable manager).
+    """A top-entry brush plate (the cable gland where an overhead waterfall drops into a cable manager).
     - a Darker frame plate, its top ENTRY_DROP (1 mm) under the rack's top plane, standing ENTRY_FLANGE round the
       opening;
     - the Yellow edge: the frame's inner ENTRY_EDGE band, 0.3 mm lower (the safety edge the cables slide over);
@@ -636,7 +636,7 @@ def _tray(P, d, lod):
     front header carrying the label plate and power lamp, and a louvred rear header (hot-air exhaust)."""
     H, ZT = d["H"], d["ZT"]
     fr, dk, hw = P["frame"], P["dark"], P["hw"]
-    # tray floor (= the slot ceiling) and trough bottom. Task 9: the rear lane is the exhaust-fan lane: two round
+    # tray floor (= the slot ceiling) and trough bottom. The rear lane is the exhaust-fan lane: two round
     # openings through the floor; the fan module itself (housings, shroud lips, finger guards, leads, lamps) is the
     # static RackFanTray subpart and the rotors are InfiniteRotation subparts (dc/rack_doors.fan_tray / fan);
     # the fans pull the servers' hot air up out of the rear zone and blow it out of the open-top trough
@@ -673,7 +673,7 @@ def _tray(P, d, lod):
         for yy in (-0.15, 0.15):
             G.box(hw, (-IX + 0.06, yy - 0.004, ZT + 0.05), (IX - 0.06, yy + 0.004, ZT + 0.11), STEEL)
         if lod <= 1:
-            # Task 9 fix 1: each cable lane gets a framed perforated tray floor (cables lie on it, air passes), a
+            # Each cable lane gets a framed perforated tray floor (cables lie on it, air passes), a
             # Brushed frame with a 3 mm inset seam to the perforated sheet (the leaves' perforation)
             Ft = F_top(0.0)
             for y0, y1 in ((-0.142, 0.142), (0.158, SPINE_Y[1] - 0.012)):
@@ -690,7 +690,7 @@ def _tray(P, d, lod):
             xc = sorted((sx * CH_X[0], sx * CH_X[1]))
             G.box(dk, (xc[0] - 0.008, SPINE_Y[1] - 0.008, ZT + 0.05), (xc[1] + 0.008, IY, ZT + 0.062), YELLOW)
             G.box(dk, (xc[0], SPINE_Y[1], ZT + 0.051), (xc[1], IY - 0.004, ZT + 0.064), DARK)
-    # Plan 2: the top-entry brush plates where the overhead tray's waterfalls come in (dims.TOP_ENTRY), each with
+    # The top-entry brush plates where the overhead tray's waterfalls come in (dims.TOP_ENTRY), each with
     # a sealed sleeve down to the floor grommet above (the trough carries the fans' hot exhaust; the front managers
     # are on the cold side, so the drop path is ducted from the top plane to the manager)
     (ex0, ex1), (ey0, ey1) = DM.TOP_ENTRY
@@ -725,8 +725,8 @@ def _roof(P, d, lod):
     """Half rack: no tray (the user's call). Visual pass 1: a layered roof instead of one flat sheet.
     - Over the slots (|x| < ROOF_RAIL_X) the roof stays a render-only 5 mm plate inside the top slot cells (no
       collision; the top slot stays free): a raised 5 mm border round a 3 mm field, an exhaust slot field over the
-      rear (hot) half, a Darker ID plate at the front ("RACK" caption, a blank write-on tag: no baked ID, the
-      controller ruling) and an asset barcode.
+      rear (hot) half, a Darker ID plate at the front ("RACK" caption, a blank write-on tag: no baked ID)
+      and an asset barcode.
     - Over each side column a 28 mm Colorable roof rail (the columns hold no slot space): the brush-grommet cable
       entries above the front / rear manager channels (Darker split brush lips in a deep pocket), a recessed
       lifting eye (Brushed ring in a Darker pocket) in the middle, and recessed fixing bolts."""
@@ -786,7 +786,7 @@ def _roof(P, d, lod):
         # end face fought it, a subpart-vs-block z-fight found by dc/zfight.py subpart_frame_check, 2026-10-20)
         x0, x1 = sorted((sx * rx, sx * (a - 0.002)))
         ys = YK - c         # between the corner caps
-        # Plan 2: the cable entries over the manager channels (front = data, rear = power) take the same top-entry
+        # The cable entries over the manager channels (front = data, rear = power) take the same top-entry
         # brush plate as the full rack (dims.HALF_TOP_ENTRY): the rail's hole is the plate's outline + 0.5 mm, the
         # plate's sleeve lines the hole down to the rail's underside, and the hole opens into the channel below
         (hx0, hx1), (hy0, hy1) = DM.HALF_TOP_ENTRY
@@ -873,11 +873,11 @@ def build(spec, lod):
         return last_lod(spec)
     d = dims(spec)
     P = {"frame": Part("frame"), "dark": Part("dark"), "fine": Part("fine"), "hw": Part("hw"), "decal": Part("decal"),
-         "brush": Part("brush"),   # Plan 2: the top-entry bristle lips (measured: build_report geometry.top_entries)
+         "brush": Part("brush"),   # the top-entry bristle lips (measured: build_report geometry.top_entries)
          # interface parts kept as separate objects so the build can measure them (build_report "geometry")
          "rail": Part("rail"), "slide": Part("slide"), "slidebolt": Part("slidebolt"), "holes": Part("holes"),
          "ceiling": Part("ceiling"), "perf": Part("perf"),
-         # Plan 3: the containment rail and the PDU receptacles' sockets (build_report geometry.contain_rails,
+         # the containment rail and the PDU receptacles' sockets (build_report geometry.contain_rails,
          # pdu_receptacles)
          "contain": Part("contain"), "socket": Part("socket")}
     P["decal"].decal = True
@@ -912,7 +912,7 @@ def collision(spec):
     """{"regular": [(name, lo, hi)], "occupancy": [...], "mount": [...]}: axis-aligned boxes, Blender frame,
     centred like the render model. Regular = physics (frame only); occupancy = extra occupied cells; mount =
     mountpoints hints (boxes whose face lies exactly on the mounting plane).
-    Plan 3: the side columns' physics starts at the PDU bracket plane y = -SLOT_HALF_D, so the rear PDU columns are
+    The side columns' physics starts at the PDU bracket plane y = -SLOT_HALF_D, so the rear PDU columns are
     free (FREE_CELLS); their strips mount on the pdu_bracket (the column's rear face) and pdu_seat (the plinth top)
     hints. The full racks' containment rail band mounts (contain_front / back: the only Forward / Backward mounts on
     the box planes); the half rack's top cross rails take the label pads (top_front / back)."""
@@ -925,7 +925,7 @@ def collision(spec):
         reg.append((nm, (x0, -SD, 0.25 - e), (x1, D2, ZT + e if d["tray"] else H)))
     if d["tray"]:
         reg.append(("tray", (-W2, -D2, ZT + e), (W2, D2, H)))
-    # Placement fix (2026-10-18, docs/superpowers/sdd/data-center-ingame/placement-fix-report.md): the slot is open
+    # Placement: the slot is open
     # to the front (no front-zone occupancy), and a thin physical REAR STOP closes its back: the block placer's ray
     # needs a physics body to hit at the back of an empty slot, and the first occupied cell it then crosses is the
     # stop's (rear-zone) cell, entered from the slot side, so the ghost lands in the slot's rear row and the server

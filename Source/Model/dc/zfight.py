@@ -1,4 +1,4 @@
-"""Z-fight audit (visual fix pass, in-game report: rack side labels flickering, door edges "fighting").
+"""Z-fight audit (in-game report: rack side labels flickering, door edges "fighting").
 
 Two faults make two surfaces fight for the same pixels:
   (a) two DECAL ELEMENTS (a stencil line, an atlas sticker, a stripe band) overlap in-plane at (nearly) the same depth;

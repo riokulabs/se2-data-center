@@ -1,5 +1,5 @@
-// KvmFrontCell: which grid cell sits directly in front of the KVM's face (Plan 4 Ruling P4-4, the door interlock).
-// The Task 8 rack link reads the block in that cell and, if it is a door, its state. Since the placement fix
+// KvmFrontCell: which grid cell sits directly in front of the KVM's face (for the door interlock).
+// The rack link reads the block in that cell and, if it is a door, its state. Since the placement fix
 // (2026-10-18) a rack's front zone is free cells (the slot opening), so the link also looks BESIDE the KVM (Beside,
 // Contains) for the rack that holds it.
 //

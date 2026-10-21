@@ -1,4 +1,4 @@
-"""What a broken block shows inside: Keen's way (user decision 2026-10-20, NOTES.md "Broken interiors: Keen's way"):
+"""What a broken block shows inside, in the game's own style:
 a zone's inside is a solid core whose exposed faces are FracturedMaterial01, plus a few large recognisable parts; no
 zone opens onto an empty hollow, and the inside is not a modelled machine. dc/interior.py surveys the cut Fractured
 LOD0 at export (export.json fractured.interior): per zone its interior detail, its core faces, whether its death
@@ -13,7 +13,7 @@ from dc import interior as IN
 
 # Families with a closed shell round a machine: every exposing zone must leave a covered seam (a core, not a hollow)
 # and the interior holds only a few large parts. (The racks, trays, floors, doors, roofs and signs are open frames or
-# thin panels; the 6U servers are on the follow-up list, NOTES.md "Visual fix 2026-10-20".)
+# thin panels; the 6U servers are a known follow-up.)
 INTERIOR_FAMILIES = ("pdu_cabinet", "crac")
 # Blocks whose plinth is split in two halves (rack._plinth): a half's break shows the other half's core
 PLINTH_HALVES = {"DC_Rack42_Open": ("Fracture_01", "Fracture_02"), "DC_Rack42_SplitFront": ("Fracture_01", "Fracture_02"),

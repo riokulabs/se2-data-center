@@ -1,6 +1,6 @@
-"""dc.construction: the BlockModelDefinition.BuildProgressModels generator, in the mod (Ruling DB-1). The stage-1.0
-ApplyOnlyWhenDamaged hide names exactly the block's Scaffold-type mesh parts (Decision 2, audit G9: no scaffold -> an
-empty last stage, as vanilla writes it), and the 4.0 presets the later tasks use (WindowGlass, SubpartConstruct)."""
+"""dc.construction: the BlockModelDefinition.BuildProgressModels generator, in the mod. The stage-1.0
+ApplyOnlyWhenDamaged hide names exactly the block's Scaffold-type mesh parts (no scaffold -> an
+empty last stage, as vanilla writes it), and the 4.0 presets (WindowGlass, SubpartConstruct)."""
 import json
 import os
 
@@ -72,7 +72,7 @@ def test_presets_match_sdk_names():
 
 
 def test_unknown_preset_raises():
-    """Task 2 review M3: a mistyped preset ("WindowGlas") raises instead of silently building with no materials; no
+    """A mistyped preset ("WindowGlas") raises instead of silently building with no materials; no
     preset (None / "") stays the plain no-material form."""
     with pytest.raises(KeyError, match="WindowGlas"):
         _gen(dict([DEFAULT, ("Fracture_01-X", ("Default", "AlwaysVisible", "WindowGlas"))]))
@@ -110,7 +110,7 @@ def _vanilla_last_stage_lists():
 
 
 def test_empty_last_stage_form_is_vanilla():
-    """G9: an empty last-stage PartChanges is a form vanilla 4.0 itself ships (so a block without a scaffold writes [],
+    """An empty last-stage PartChanges is a form vanilla 4.0 itself ships (so a block without a scaffold writes [],
     not a hide naming a part it lacks)."""
     lists = _vanilla_last_stage_lists()
     assert lists, "no vanilla BuildProgressModels found under tools/vanilla-ref/Blocks"
@@ -134,14 +134,14 @@ def test_installed_stages_regenerate():
 
 @pytest.mark.build
 def test_installed_stages_match_baseline_except_last():
-    """R3: moving the generator changed only the stage-1.0 hide (the stray "Chrome" is gone); every other stage is
-    the baseline's, byte for byte under the hash, and the last stage keeps its ratio and model. Task 5 (G11): the
+    """Moving the generator changed only the stage-1.0 hide (the stray "Chrome" is gone); every other stage is
+    the baseline's, byte for byte under the hash, and the last stage keeps its ratio and model. The
     roofs' glass builds as glass, so their hash moved (test_construction_roles.test_roof_glass_builds_as_glass).
-    Task 6: the scaffold's own changes (BrushedMetal_Scaffold at 0, hidden at 0.3) are new; with them taken out the
+    The scaffold's own changes (BrushedMetal_Scaffold at 0, hidden at 0.3) are new; with them taken out the
     installed stages are the baseline's, and the last stage hides exactly the scaffold on a damaged finished block
     (vanilla's hand-added entry), or nothing on a block without one (the unfractured blocks and
     test_scaffold.NO_ROOM). The generator now writes every time as a float; INT_ZERO blocks had stage 0 keyed and
-    ratioed from an int 0 in the baseline, so their stage 0 is compared in that form. Task 8: the support and stand-in
+    ratioed from an int 0 in the baseline, so their stage 0 is compared in that form. The support and stand-in
     parts (_role_and_standin_parts) are new and taken out likewise."""
     golden = read_json(SV.BASELINE_PATH)
     for b in catalog.BLOCKS:
@@ -173,7 +173,7 @@ def test_installed_stages_match_baseline_except_last():
         assert all(c["ApplyOnlyWhenDamaged"] and c["ShowPart"] is False for c in SV.last_stage_changes(st)), b.name
 
 
-# Broken interiors, Keen's way (2026-10-20, NOTES.md): the CRAC's coil face (dc/crac.py _inside: the perforated fin
+# Broken interiors follow the game's own style: the CRAC's coil face (dc/crac.py _inside: the perforated fin
 # faces in the core zone) is a material that zone had none of: a new mesh part whose stage changes are new; taken
 # out like the roles. (Its solid cores' faces join the zones' existing break-face parts.)
 INTERIOR_PARTS = {"DC_CRAC": ("Fracture_01-MetalPerforationSteel",)}
@@ -181,10 +181,11 @@ INTERIOR_PARTS = {"DC_CRAC": ("Fracture_01-MetalPerforationSteel",)}
 
 def _role_and_standin_parts(man):
     """The mesh parts the role tables and stand-ins add, whose changes are new too: every role group's parts
-    (`Fracture_NN_Support` / `_Frame`: Task 8's server ears, slides and thumbscrews first; a `Fracture_NN_Hide` part of a
-    material that is not a HIDE_PREFIXES one: Task 9's tray cables, Task 10's PDU breakers / cords) and every baked
-    stand-in (`_Subpart`: the KVM's drawer and lid first, Task 11's CRAC fans). The standing mechanism the later role / stand-in tasks (PDUs, CRAC,
-    racks) rely on to keep the baseline hash check: with _without_roles_and_standins it covers every family."""
+    (`Fracture_NN_Support` / `_Frame`: the servers' ears, slides and thumbscrews; a `Fracture_NN_Hide` part of a
+    material that is not a HIDE_PREFIXES one: the tray cables, the PDU breakers / cords) and every baked
+    stand-in (`_Subpart`: the KVM's drawer and lid, the CRAC fans). The standing mechanism every role / stand-in
+    family (PDUs, CRAC, racks) relies on to keep the baseline hash check: with _without_roles_and_standins it covers
+    every family."""
     return [p for p in man["fractured"]["parts"]
             if p.split("-", 1)[0].endswith(("_Support", "_Frame")) or p.endswith("_Subpart")
             or (p.split("-", 1)[0].endswith("_Hide") and not FR.is_hide(p.split("-", 1)[1]))]
@@ -195,21 +196,21 @@ def _without_roles_and_standins(man):
     the zone's skin part of that material (where the ears / slides were a zone's only faces of a material, e.g. the
     Timer's Fracture_01-BrushedMetal, that skin part vanished when they moved to Fracture_01_Support).
     test_installed_stages_regenerate holds the installed stages to generate_stages(parts), so regenerating from these
-    parts is the pre-Task-8 stage list."""
+    parts is the stage list from before the support parts existed."""
     parts = {k: tuple(v) for k, v in man["fractured"]["parts"].items()}
     new = set(_role_and_standin_parts(man))
     out = {k: v for k, v in parts.items() if k not in new}
     cut = tuple(FR.CUT_PROPS.values())
     for k in new:
         g, mat = k.split("-", 1)
-        if not k.endswith("_Subpart"):     # (Task 13 fix round 1: a hidden part's caps were the zone's break faces)
+        if not k.endswith("_Subpart"):     # (a hidden part's caps were the zone's break faces)
             out.setdefault(f"{g.rsplit('_', 1)[0]}-{mat}",
                            cut if mat == FR.CUT_MATERIAL else tuple(FR.ROLE_PROPS["skin"]))
     return out
 
 
 # the blocks whose baseline stage 0 came from an int 0 (their first part by name started hidden; the roofs too, but
-# their hash is exempt): Task 6 made the generator's times floats
+# their hash is exempt): the generator's times are now floats
 INT_ZERO = ("DC_CRAC", "DC_Sign_Aisle", "DC_Sign_AisleHang", "DC_Sign_Rack")
 
 

@@ -1,16 +1,16 @@
-"""Plan 5 final review I1: Ruling DB-10's Path B fallback is a switch (config.RACK_PATH = "B"), not a revert.
+"""The racks' Path B fallback is a switch (config.RACK_PATH = "B"), not a revert.
 
-If Path A (the racks' side panels and fan tray as bound ConditionalSubParts, task-12-spike.md) fails the world load in
+If Path A (the racks' side panels and fan tray as bound ConditionalSubParts) fails the world load in
 game, setting config.RACK_PATH = "B" and re-running the rack pipeline must give back the structure the racks shipped
-with before Task 12 (commit 10455382's parent): the rotors, the fan tray and both side panels as static children of
+with before Path A (commit 10455382's parent): the rotors, the fan tray and both side panels as static children of
 the rack's client prefab, with no bindings, no rack ConditionalSubParts entries and no stand-ins, while every rack
-keeps On/Off (user 2026-10-20). Here the B package is staged into a temp dir (the committed A package is untouched)
+keeps On/Off. Here the B package is staged into a temp dir (the committed A package is untouched)
 and must:
-  (a) stage exactly the pre-Task-12 client-prefab children (compared with the commit's own files),
+  (a) stage exactly the pre-Path-A client-prefab children (compared with the commit's own files),
   (b) stage no Path A definition (bindings, server compositions, the open racks' ConditionalSubParts),
   (c) keep On/Off and the rotor controller on every full rack, the door's CSP listing only its leaves,
   (d) pass the client/server walk gate (Tests/clientserver_walk.py) over vanilla + the mod without its Path A files,
-  (e) need no new GUID (asset_guids.json unchanged: every child key is the pre-Task-12 one).
+  (e) need no new GUID (asset_guids.json unchanged: every child key is the pre-Path-A one).
 """
 import json
 import os
@@ -29,7 +29,7 @@ RACKS = ("DC_Rack42_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear",
 PRE_TASK12 = "10455382^"
 C_CSP = "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.ConditionalSubPartsComponent"
 OB_HIERARCHY = "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder"
-# the Path A-only rack definitions (the B recipe removes them from Assets/: INGAME-CHECKLIST "Next session")
+# the Path A-only rack definitions (the B recipe removes them from Assets/)
 PATH_A_ONLY = re.compile(r"^DC_Rack\w+/Subparts/DC_Rack\w+_(Rack(Side|FanTray)_(Binding|Server|ServerComposition)"
                          r"|Open_ConditionalSubPartsDefinition)\.def$")
 
@@ -79,12 +79,12 @@ def test_standins_follow_the_path():
 
 
 def test_b_needs_no_new_guid(path_b):
-    assert not path_b["guids_changed"], "Path B allocated new asset_guids.json keys (it must reuse pre-Task-12 ones)"
+    assert not path_b["guids_changed"], "Path B allocated new asset_guids.json keys (it must reuse the existing ones)"
 
 
 @pytest.mark.parametrize("name", RACKS)
 def test_b_restores_pre_task12_children(path_b, name):
-    """The B client prefab's Hierarchy children equal the ones committed before Task 12 (rotors, tray, both sides:
+    """The B client prefab's Hierarchy children equal the ones committed before Path A (rotors, tray, both sides:
     same keys, composites, transforms and rotor animation keys)."""
     rel = f"Assets/{config.NAME}/{name}/{name}_Client.partialdef"
     old = _git("show", f"{PRE_TASK12}:{rel}")

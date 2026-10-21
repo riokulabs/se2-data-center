@@ -1,17 +1,17 @@
-"""Plan 5 Task 9: the cable trays' construction states and sparks.
+"""The cable trays' construction states and sparks.
 
 Roles     fracture.ROLES["tray"] follows what the kit's Parts are (dc/tray_kit.py Parts): the cable bundles and their
           dressing (straps, split collars, saddle clamps; their buckles and collar bolts, `tiehw`) are `hide`: pulled
           into the finished tray, they arrive on completion, as vanilla CableStraight250 (65 % of its FR LOD0 in
           `_Hide` groups); the hangers' and the basket's hardware (`hw`) and the strut channels that carry the basket
           (`strut`) are `support`; the basket wire, the tray furniture (`guide`) and the trim stay skin.
-Sparks    each per-zone spark dummy (ParticleEffects_<zone>, R11) sits on its zone's cables: the centre of the
+Sparks    each per-zone spark dummy (ParticleEffects_<zone>) sits on its zone's cables: the centre of the
           zone's `hide` role box (effects.zone_dummies prefer_role="hide").
 Scaffold  a tray's cage follows its zone hulls (scaffold.boxes_for), so a Tee or a Cross is caged along its own
           outline, not as a square round it.
 
-Share floors (R18: set from the shares measured on the exported FR LOD0, break faces and scaffold included, NOTES):
-  hide     Full >= 40 % (the brief's figure; measured 42-60 %), Moderate >= 35 % (38.5-55 %), Low >= 20 %
+Share floors (set from the shares measured on the exported FR LOD0, break faces and scaffold included):
+  hide     Full >= 40 % (the design target; measured 42-60 %), Moderate >= 35 % (38.5-55 %), Low >= 20 %
            (23.7-48.5 %: one or two thin bundles over a full basket); the Empty trays < 10 % (stencils only, 0-0.6 %);
   support  1.5-30 % (measured 1.7 % on the Tee Full, whose cables dwarf its floor strut, to 24.5 % on the StraightS
            Low, a short basket on a trapeze)."""
@@ -33,7 +33,7 @@ SUPPORT_RANGE = (0.015, 0.30)
 EMPTY_CEIL = 0.10
 SHOTS_BELOW_DONE = sorted(r for r in SV.SHOTS.values() if r < 1)
 GROW = 0.005
-NEAR_CABLE = 0.2      # fix round 1: a spark dummy within this of its zone's nearest cable vertex (measured <= 0.142 m)
+NEAR_CABLE = 0.2      # a spark dummy within this of its zone's nearest cable vertex (measured <= 0.142 m)
 
 
 def _man(name):
@@ -122,7 +122,7 @@ def test_tray_supports(name):
 
 @pytest.mark.build
 def test_spark_dummies_on_cables(staged):
-    """R11: every ParticleEffects_<zone> dummy of a tray, back in the Blender frame, lies inside its zone's `hide`
+    """Every ParticleEffects_<zone> dummy of a tray, back in the Blender frame, lies inside its zone's `hide`
     role box grown by 5 mm and within NEAR_CABLE of the nearest vertex of that zone's hide meshes in the FR LOD0 (it
     sparks on the cables, not in the empty air of a bend: the box centre alone could miss a bundle)."""
     seen = 0

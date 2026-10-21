@@ -335,8 +335,8 @@
     "plinth, corner posts and caps, containment rail, top-entry brush plates: the rack's own builders (dc/rack.py), so every room interface matches the rack's",
     "perforated grilles: vanilla MetalPerforationSteel; break faces (Fractured model): vanilla FracturedMaterial01 (dc/fracture_mesh.py caps)",
     "stencil glyphs: AtlasFont_BarlowCondensed_CleanWhite boxes from se2model/decals.py",
-    "mechanism: vanilla Gyroscope250 (PowerableBlock, FunctionalBlockAnimationController, ConditionalSubParts, BlockMaterialSwapper, BlockEffects hum), cloned, GyroscopeComponent stripped (P3-15)",
-    "O2 / coolant service ports (Plan 3 T11): Keen's small conveyor port frame as a kit part (read-only import; geometry, normals and first UV unchanged), tools/vanilla-ref/Blocks/O2H2Generator/250/Models/NonFractured/ LOD0: O2Generator250.fbx:ConveyorPortSmall_Border_low.001; LOD1: O2Generator250_LOD1.fbx:ConveyorPortSmall_Border_low.003; LOD2+ and the bolted blind plates: generated (dc/crac.py _service_bay)"
+    "mechanism: vanilla Gyroscope250 (PowerableBlock, FunctionalBlockAnimationController, ConditionalSubParts, BlockMaterialSwapper, BlockEffects hum), cloned, GyroscopeComponent stripped",
+    "O2 / coolant service ports: Keen's small conveyor port frame as a kit part (read-only import; geometry, normals and first UV unchanged), tools/vanilla-ref/Blocks/O2H2Generator/250/Models/NonFractured/ LOD0: O2Generator250.fbx:ConveyorPortSmall_Border_low.001; LOD1: O2Generator250_LOD1.fbx:ConveyorPortSmall_Border_low.003; LOD2+ and the bolted blind plates: generated (dc/crac.py _service_bay)"
    ],
    "render_bounds": [
     [

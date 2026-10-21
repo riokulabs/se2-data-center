@@ -1,4 +1,4 @@
-// KvmSpawnPolicy: snap or animate when the KVM's subparts spawn (Plan 4 Ruling P4-3, vanilla-animations Q1).
+// KvmSpawnPolicy: snap or animate when the KVM's subparts spawn.
 // ConditionalSubParts respawns the drawer on scene entry (world load, streaming in) and on every Functional change
 // (finishing a weld). Scene entry must show the settled pose at once; a weld finished during play should animate.
 //

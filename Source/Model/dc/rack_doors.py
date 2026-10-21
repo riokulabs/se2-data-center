@@ -1,4 +1,4 @@
-"""Rack door leaves and tray fan rotors (Task 9): the subpart models (Blender; numbers in dc/dims.py, dc/doors.py).
+"""Rack door leaves and tray fan rotors: the subpart models (Blender; numbers in dc/dims.py, dc/doors.py).
 
 Leaf (APC-style split door, one of two per side; model frame: origin ON the hinge axis at the block's mid-height,
 +Y = the leaf's outside face, Z up). DoorLeafR is hinged on its +x edge and extends toward -x (s = +1), DoorLeafL is

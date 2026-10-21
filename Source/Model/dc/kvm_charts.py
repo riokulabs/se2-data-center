@@ -1,9 +1,9 @@
-"""Plan 4 Task 7: the scripted KVM's motion as charts (stdlib SVG, no bpy, no plotting library).
+"""The scripted KVM's motion as charts (stdlib SVG, no bpy, no plotting library).
 
   kvm_timing.svg         slide (m) and fold (deg) against t for the open, the close and the fast stow, plus the door
                          race (door_close_while_out) with the rack door's OpenRatio in its own row; the sequencer's
                          FoldGate, OpenBeat and RetractGate moments are marked.
-  kvm_motion_graphs.svg  before | after the Task 7 retune: position AND velocity of the slide (m, m/s) and of the fold
+  kvm_motion_graphs.svg  before | after the feel retune: position AND velocity of the slide (m, m/s) and of the fold
                          (deg, deg/s) for the open, the close and the fast stow.
 
 Both read the CoreTests dumps (Source/Model/preview/plan4/traj/*.csv; the pre-retune copies in traj_before/) and the
@@ -21,11 +21,11 @@ from . import subparts as S
 
 OUT = os.path.join(K.MODEL_DIR, "preview", "plan4")
 BEFORE_DIR = os.path.join(OUT, "traj_before")
-# the shipped tuning before the Task 7 retune (commit 2d824cc), for the "before" markers
+# the shipped tuning before the feel retune (commit 2d824cc), for the "before" markers
 BEFORE_TUNING = {"FoldGate": 0.91, "OpenBeat": 0.06, "RetractGate": 0.02, "RetractGateFast": 0.08}
-DOOR_LEAD = 0.1          # the leaves start this long before the sequencer is told (P4-4's replication latency)
+DOOR_LEAD = 0.1          # the leaves start this long before the sequencer is told (the door's replication latency)
 
-# reference palette (dataviz skill, references/palette.md): categorical slots 1-2; text and grid in ink tokens
+# reference palette: categorical slots 1-2; text and grid in ink tokens
 STYLE = """
 .bg { fill: #fcfcfb; }
 text { font-family: system-ui, -apple-system, 'Segoe UI', 'DejaVu Sans', sans-serif; fill: #52514e; font-size: 11px; }

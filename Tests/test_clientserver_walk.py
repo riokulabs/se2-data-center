@@ -1,4 +1,4 @@
-"""Plan 5 Task 12a: the offline client/server composition walk (Tests/clientserver_walk.py) gates the racks' Path A.
+"""The offline client/server composition walk (Tests/clientserver_walk.py) gates the racks' Path A.
 
 The 2026-10-18 world-load failure ("Client component ... should not be on server compositions") came from
 BindingsBasedClientServerInfo's SERVER walk reaching an unbound client prefab (the fan rotor) through the door's
@@ -7,7 +7,7 @@ rejecting its render components. clientserver_walk ports that walk over fully re
 Assets + the mod's Assets + this run's staging) and the validator; here it must:
   (a) pass the DataCenter package as staged today,
   (b) FAIL the 10-18 structure and the other server-side mistakes Path A could make,
-  (c) pass the Path A rack structure (task-12-spike.md Q1 (a)-(d)),
+  (c) pass the Path A rack structure,
   (d) pass vanilla (the whole SDK, and SlidingDoorNarrow250 / Gyroscope50 / Reactor250 walked explicitly), so the
       port is not over-strict.
 """
@@ -148,7 +148,7 @@ def test_type_classification_follows_the_decompiled_attributes(types):
 
 
 def test_missing_decompile_fails_with_a_named_cause(tmp_path):
-    """I1: a missing decompile root (decompiled-current or its -extra tree) raises MissingDecompile naming the path and
+    """A missing decompile root (decompiled-current or its -extra tree) raises MissingDecompile naming the path and
     the README recipe, instead of silently classifying fewer types."""
     gone = str(tmp_path / "decompiled-9.9-extra")
     with pytest.raises(csw.MissingDecompile, match="decompiled-9.9-extra.*README"):
@@ -156,7 +156,7 @@ def test_missing_decompile_fails_with_a_named_cause(tmp_path):
 
 
 def test_unparseable_and_duplicate_definition_files_are_errors(tmp_path, vanilla):
-    """I2 / M1: a definition file that is not JSON, and a GUID defined by two files, are load errors (the pipeline
+    """A definition file that is not JSON, and a GUID defined by two files, are load errors (the pipeline
     rejects the first; DefinitionLoader throws "already contained" on the second), never silently dropped or
     last-wins."""
     root = tmp_path / "Assets"
@@ -175,7 +175,7 @@ def test_unparseable_and_duplicate_definition_files_are_errors(tmp_path, vanilla
 
 
 def test_unresolved_references_are_counted(package_walk):
-    """M6: GUIDs the walk meets that resolve to no loaded definition are not followed (an under-approximation); they
+    """GUIDs the walk meets that resolve to no loaded definition are not followed (an under-approximation); they
     are counted per (side, referring type, field) so a game update that moves definitions out of the SDK shows up."""
     counts = csw.unresolved(package_walk)
     report = csw.unresolved_report(package_walk)
@@ -312,7 +312,7 @@ def test_binding_without_server_prefab_fails(package, types):
 
 
 # ------------------------------------------------------------------------------------------------------ (c) Path A
-# Task 12 shipped the Path A structure (task-12-spike.md Q1 (a)-(d), Q3): RackSide (one entry, two dummies) and the
+# The Path A structure: RackSide (one entry, two dummies) and the
 # full racks' RackFanTray are bound ConditionalSubParts entries with a server composition (Model + ChildTransform +
 # Hierarchy) and a server prefab with Children []; the rotors are children of the tray's CLIENT prefab only; door
 # racks list them in the door's ConditionalSubParts (walked by the server), open racks in a client-only

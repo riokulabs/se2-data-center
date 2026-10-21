@@ -1,9 +1,9 @@
-"""Plan 3 Task 11: nothing in a ROOM block fights for the same pixels, and its stencils read on any paint.
+"""Nothing in a ROOM block fights for the same pixels, and its stencils read on any paint.
 
-The in-game lessons from main (2026-10-18, commit 4f7288a5): decal elements overlapping in-plane at the same depth,
+The in-game lessons (2026-10-18, commit 4f7288a5): decal elements overlapping in-plane at the same depth,
 decals coplanar with or buried under mesh faces, and a sliding / hinged leaf coplanar with its frame all flicker in
-game; white stencils straight on a light paint read poorly. dc/zfight.py (ported unchanged from main, so the main
-merge brings Tests/test_zfight.py for the racks and servers) audits every built block; dc/zfight_room.py adds the
+game; white stencils straight on a light paint read poorly. dc/zfight.py (Tests/test_zfight.py covers the racks
+and servers) audits every built block; dc/zfight_room.py adds the
 containment door's sliding leaves (closed and open) and the stencil backing check. build_dc.py records both in
 build_report.json "zfight"; these tests re-check the room blocks from it.
 """
@@ -98,8 +98,8 @@ def test_contain_door_leaf_audit_poses(name):
 
 
 def test_contain_tag_lift_is_the_default():
-    """T11 deferred R2 (paid at the main merge): the CONTAINMENT tag's 0.6 mm lift is _contain_rail's DEFAULT, so the
-    racks get it too (main's test_zfight audits them); the CRAC and the PDU cabinet use the same value."""
+    """The CONTAINMENT tag's 0.6 mm lift is _contain_rail's DEFAULT, so the
+    racks get it too (test_zfight audits them); the CRAC and the PDU cabinet use the same value."""
     import inspect
 
     from dc import crac, pdu, rack

@@ -73,7 +73,7 @@ def pytest_configure(config):
                                 "running, a crashed one left it behind: move .Scripts.hidden-for-build back to Scripts/.")
     config.addinivalue_line("markers", "build: needs a prior Blender build (build_report.json); skipped if absent")
     config.addinivalue_line("markers", "sdkbuild: runs the real SDK content build (se2mod.py build); opt-in with DC_SDK_BUILD=1")
-    config.addinivalue_line("markers", "path_a: pins Ruling DB-10 Path A (rack subparts as ConditionalSubParts); skipped "
+    config.addinivalue_line("markers", "path_a: pins Path A (rack subparts as ConditionalSubParts); skipped "
                                        "when dc.config.RACK_PATH is 'B' (Tests/test_rack_path_b.py covers B)")
     config.addinivalue_line("markers", "slow: a long check (seconds each); runs by default and in the gate, deselect "
                                        "with -m 'not slow' only for a quick inner loop")
@@ -85,9 +85,9 @@ def pytest_unconfigure(config):
 
 
 def pytest_collection_modifyitems(config, items):
-    """Without Scripts/ the mod is its data-only self (Plan 4: scripts are optional): the script tests skip, and every
-    data test still runs and must pass (Task 11 checks exactly that by moving Scripts/ aside). Under Ruling DB-10
-    Path B (dc.config.RACK_PATH "B") the Path A pins skip."""
+    """Without Scripts/ the mod is its data-only self (scripts are optional): the script tests skip, and every
+    data test still runs and must pass (checked by moving Scripts/ aside). Under the rack Path B fallback
+    (dc.config.RACK_PATH "B") the Path A pins skip."""
     if _dc_config.RACK_PATH != "A":
         skip_a = pytest.mark.skip(reason="Path A only: dc.config.RACK_PATH is " + repr(_dc_config.RACK_PATH))
         for item in items:

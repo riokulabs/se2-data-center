@@ -1,4 +1,4 @@
-"""Survival cost balancing (Ruling 10), no Blender.
+"""Survival cost balancing, no Blender.
 
 How SE2 2.4 turns a recipe into a cost (decompiled Game2.Simulation, CubeBlockDefinition.ComputeMassAndHP and
 ComputeRecipeAmounts, called from GeneratedBlockDataLoader with the block's own mass):
@@ -18,24 +18,24 @@ lifted to 1, never more). Door racks: the open frame of the same height (wall-pa
 vanilla door's mechanism (2 Motor + 1 Electronic Parts) per door side; their Density is set to the open frame's
 Mostly Hollow (they are the same hollow frame; the door's Mostly Solid made them 1.8x heavier and tougher).
 
-Cable trays (Plan 2 Task 9): the same rule against their clone sources. Tray pieces, Drops, Reducers and the Chute
+Cable trays: the same rule against their clone sources. Tray pieces, Drops, Reducers and the Chute
 cost from WallInsertPipes (whose recipe is the wall panel's), at Hollow density (an open wire basket); the rod
 hangers from StructuralSupportStraight (Mostly Hollow as cloned), whose in-game cost is 2 Steel Plate (its 1-plate
 recipe x the game's scale 2). The cables are decoration, so the cable density never changes a cost: occupancy is the
 same for the four densities of a shape.
 
-Run-length floor (Ruling P2-26): the volume rule alone puts every tray piece at the minimum-1 floor (13-35 kg blocks),
+Run-length floor: the volume rule alone puts every tray piece at the minimum-1 floor (13-35 kg blocks),
 so a 1.5 m straight cost the same as a 0.5 m one. Tray pieces therefore pay at least one BASE UNIT (one of each item
 of the Pipes mix: 1 Steel Plate + 1 Construction, 1 Steel Plate optional) per 0.5 m of tray run, RUN_LENGTH below:
 each item = max(the volume rule's amount, units x 1). The rod hangers are not floored: they already scale (1 / 2 / 3).
 
-Plan 3 Task 12 balance (three outliers of the volume rule, each replaced by a rule that names what is being paid for):
+Balance (three outliers of the volume rule, each replaced by a rule that names what is being paid for):
 - SIGNS pay per SCREEN FACE, not per cell: one vanilla LCD50 recipe (3 Electronic Parts, 2 Wire, 2 Glass, plus 3 Steel
   Plate) per face (SIGN_FACES). Vanilla prices its LCDs per screen, not per area (the narrow LCD, the 0.5 m LCD and
   the 2.5 m LCD all use that one recipe; the 5 m LCD doubles it). The volume rule made the hanging sign 3.4x a vanilla
   LCD (10 / 7 / 7 + 10); now the aisle sign and the rack label cost one vanilla LCD and the double-faced hanging sign
   two (= vanilla's LCD500).
-- IN-ROW UNITS (CRAC, PDU cabinet; plan Decision 6: they share the full rack's footprint and are built on its frame:
+- IN-ROW UNITS (CRAC, PDU cabinet: they share the full rack's footprint and are built on its frame:
   plinth, corners, containment rail) pay the 42U open rack's frame (INROW_FRAME, by the rule above) plus their own
   machinery (INROW_KIT): the CRAC the gyroscope's 3 Motor + 2 Wire (its fans), the cabinet 1 Electronic Parts + 2 Wire
   (meter, breakers, busbars). The volume rule priced the decorative cabinet from the wall panel's heavy mix at 200
@@ -99,7 +99,7 @@ SOURCES = {
     "LCDFlat50": {"cells": (2, 2, 1), "density": "MostlyHollow",
                   "critical": (("ElectronicParts", 3), ("Wire", 2), ("Glass", 2)), "optional": (("SteelPlate", 3),),
                   "time": 3300000, "file": "Blocks/LCDPanels/Recipes/LCDPanel50_CubeBlockRecipeDefinition.def"},
-    # Plan 2 Task 9: the cable trays' clone sources. Both inherit through partial-definition Copy chains, so the
+    # the cable trays' clone sources. Both inherit through partial-definition Copy chains, so the
     # SDK check (test_sources_match_sdk) follows "recipe_chain" / "block_chain" (each file's BaseDefinition is the
     # next file's Guid) and reads the cell box from the "collision" glTF (the collider's extent on the 0.25 m grid).
     # The pipes' recipe IS the wall panel's (an unchanged Copy); both blocks take Mostly Hollow from the
@@ -118,7 +118,7 @@ SOURCES = {
         "block_chain": ("Blocks/Truss/Struts/Long/StructuralSupportStraight_StructuralCubeBlockDefinition.partialdef",
                         "Templates/Blocks/BaseDefinitions/StructuralCubeBlockDefinition.partialdef"),
         "collision": "Blocks/Truss/Struts/Long/Models/NonFractured/TrussFrame_Long_collision.gltf"},
-    # Plan 3 Task 10: the room pieces' clone sources (Rulings P3-1, 3, 5, 8). The cell box is the union of the glTF
+    # the room pieces' clone sources. The cell box is the union of the glTF
     # colliders (the catwalk and gyroscope have several convex pieces) on the 0.25 m grid.
     "CatwalkSquareBase250": {
         "cells": (10, 1, 10), "density": "MostlyHollow", "critical": (("SteelPlate", 1),), "optional": (),
@@ -173,14 +173,14 @@ OUR_DENSITY = {"WallInsertPanel": "MostlyHollow", "SlidingDoorNarrow250": "Mostl
                "LCDNarrow50": "MostlyHollow"}
 
 
-# Ruling P2-26: metres of tray run per piece (plan Decision 3 and the piece table). Turns, Tee and Cross count the
+# metres of tray run per piece (the run-length floor). Turns, Tee and Cross count the
 # centreline from each port to the junction point (their "arms"); the Drop is its 1.0 m through run; the Reducer counts
 # as a 1 m run (it carries two loads' worth of fittings: boots, saddle clamp); the Chute is its 1.25 m ladder.
 RUN_LENGTH = {"StraightS": 0.5, "StraightL": 1.5, "TurnH": 1.0, "TurnUp": 0.91, "TurnDown": 0.59, "Tee": 1.5,
               "Cross": 2.0, "Drop": 1.0, "Reducer": 1.0, "Chute": 1.25}
 RUN_UNIT = 0.5   # metres of run per base unit
 
-# Plan 3 Task 12 balance (see the module doc)
+# balance outliers (see the module doc)
 SIGN_FACES = {"Aisle": 1, "AisleHang": 2, "Rack": 1}       # screen faces per sign (DC_Sign_<variant>)
 INROW_FRAME = "DC_Rack42_Open"                             # the frame an in-row unit is built on (same footprint)
 INROW_KIT = {"crac": (("Motor", 3), ("Wire", 2)),            # Gyroscope250's fan motors and wiring, unscaled
@@ -196,7 +196,7 @@ def run_units(spec):
 
 
 def costed(spec):
-    """Whether our cost rule covers the block (every catalogue block since Plan 2 Task 9)."""
+    """Whether our cost rule covers the block (every catalogue block)."""
     return spec.copy_from in COST_SOURCE
 
 
@@ -236,7 +236,7 @@ def occupied(spec, report=None):
 
 def door_sides(spec):
     """Door mechanisms (DOOR_KIT) on top of the frame: one per door side of a door rack, one for a containment door
-    (Plan 3 Task 10: its two leaves run on one slide, as the vanilla sliding door's two leaves do)."""
+    (its two leaves run on one slide, as the vanilla sliding door's two leaves do)."""
     if spec.family == "contain_door":
         return 1
     return {"SplitFront": 1, "SplitFrontRear": 2}.get(spec.variant, 0) if spec.family == "rack" else 0

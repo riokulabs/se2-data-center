@@ -1,14 +1,13 @@
-"""Plan 4 Task 3: the Programmable as a functional blade (data), and the GUID bridge to the scripts.
+"""The Programmable as a functional blade (data), and the GUID bridge to the scripts.
 
-Rulings (docs/superpowers/sdd/data-center-scripts/progress.md):
-  P4-1 = A'  the vanilla InGameScriptingComponent lives PERMANENTLY in the Programmable's server data (its
+Design:
+  scripting  the vanilla InGameScriptingComponent lives PERMANENTLY in the Programmable's server data (its
              InGameScriptingDefinition a full .def, its object builder in the server prefab), so a save is identical
-             with and without -loadScripts. Without the switch a Run ends in an ordinary compile error
-             (docs/research/dc-scripts-save-safety.md section 2).
-  P4-2       the Programmable moves to the KVM's Ruling 15 chain: PowerableBlockComponent (ConsumedResource null,
+             with and without -loadScripts. Without the switch a Run ends in an ordinary compile error.
+  On/Off     the Programmable moves to the KVM's chain: PowerableBlockComponent (ConsumedResource null,
              Enabled true), ControlPanel25's Terminal use dummy over the management module; same block GUID.
-  P4-6       Scripts/Simulation/Shared/DcGuids.g.cs is generated from the staged definitions + asset_guids.json.
-  P4-7       data-only the LED stays amber; the swapper exists for the scripts and maps nothing in data; the
+  GUIDs      Scripts/Simulation/Shared/DcGuids.g.cs is generated from the staged definitions + asset_guids.json.
+  lamp       data-only the LED stays amber; the swapper exists for the scripts and maps nothing in data; the
              management LCD reads state-neutral ("SCRIPT HOST" / "PRG-06").
 
 Both modes are covered: the "scripts off" tests are what a player without -loadScripts gets (all of it data), the
@@ -94,7 +93,7 @@ def _staged_guids():
     return out
 
 
-# ---------------------------------------------------------------------------------------------- P4-6: GUID bridge
+# ---------------------------------------------------------------------------------------------- GUID bridge
 @pytest.mark.scripts
 def test_script_guids_current(staged):
     """DcGuids.g.cs is exactly what the generator makes of the current staging (a stale file fails here: rerun
@@ -119,7 +118,7 @@ def test_script_guids_current(staged):
     ints = dict(re.findall(r"public const int (\w+) = (\d+);", text))
     assert {k: int(v) for k, v in ints.items()} == {f"Rack{h}{v}DoorSides": {"Open": 0, "SplitFront": 1, "SplitFrontRear": 3}[v]
                                                     for h in (42, 24) for v in ("Open", "SplitFront", "SplitFrontRear")}
-    # the ones the brief pins (the KVM subpart chain of core Task 8)
+    # the ones pinned by value (the KVM subpart chain)
     for name, prefix in (("KvmDrawerComposite", "e3a9e30c"), ("KvmScreenComposite", "8874b2aa"),
                          ("KvmDrawerTranslationDef", "48311d48"), ("KvmScreenRotationDef", "736752c2")):
         assert consts[name].startswith(prefix), (name, consts[name])
@@ -160,9 +159,9 @@ def test_script_guids_file_is_a_valid_script():
     assert "static Guid" not in body.replace("static readonly Guid", "")
 
 
-# ---------------------------------------------------------------------------------------------- P4-2: functional blade
+# ---------------------------------------------------------------------------------------------- functional blade
 def test_programmable_is_terminal_powerable(staged):
-    """Both compositions carry vanilla's On/Off component at the Ruling 15 key (PowerableBlockComponent bound to the
+    """Both compositions carry vanilla's On/Off component at the KVM's key (PowerableBlockComponent bound to the
     block's own definition, now a PowerableBlockDefinition with no consumed resource), the structural
     CubeBlockComponent is gone and no tag slot points at it; both prefabs spawn it Enabled (built ON, as vanilla)."""
     spec = _spec()
@@ -206,8 +205,8 @@ def test_programmable_slots_follow_the_structural_template(sdk):
 def test_programmable_block_definition_keeps_its_values(staged, sdk):
     """Rebasing the block definition from StructuralCubeBlockDefinition onto PowerableBlockDefinition changes no
     value the block had: every field the two template chains resolve differently is set by our manipulator, to the
-    structural value, except the deliberate ConsumedResource (null: no sink, always supplied) and, since Plan 5 Task 3
-    (G8), Fragility: Functional, the Powerable template's own value (Tests/test_damage_look.py)."""
+    structural value, except the deliberate ConsumedResource (null: no sink, always supplied) and
+    Fragility: Functional, the Powerable template's own value (Tests/test_damage_look.py)."""
     structural = sdk.resolve(integration.STRUCTURAL_DEF_BASE)
     powerable = sdk.resolve(integration.POWERABLE_DEF_BASE)
     m = _stage(_info()["block_def_file"])["$Value"]["Manipulator"]
@@ -252,9 +251,9 @@ def test_programmable_terminal_over_management_module(staged):
     assert t["Transform"]["Transform"]["Orientation"] == {"X": 0, "Y": 0, "Z": 0, "W": 1}
 
 
-# ---------------------------------------------------------------------------------------------- P4-1 A': scripting
+# ---------------------------------------------------------------------------------------------- scripting
 def test_programmable_scripting_component_matches_route(staged):
-    """Route A': the server composition holds vanilla's InGameScriptingComponent bound to our full
+    """The server composition holds vanilla's InGameScriptingComponent bound to our full
     InGameScriptingDefinition, the server prefab its object builder (the starter program, not running). The client
     side carries none: the terminal's script UI is the server's (ProgrammableBlockDetailModelServer, a replicated
     [BlockDetailProvider]), and a client copy would run a saved Running program a second time."""
@@ -305,7 +304,7 @@ def test_starter_program_fits_the_entry_contract():
 
 # ---------------------------------------------------------------------------------------------- scripts off (data only)
 def test_programmable_led_amber_data_only(staged):
-    """P4-7, data-only: the client composition carries a BlockMaterialSwapper over our models that maps nothing, so
+    """Data-only: the client composition carries a BlockMaterialSwapper over our models that maps nothing, so
     with scripts off every lamp keeps its authored static amber (the status slot and the PSU slot are both amber)."""
     G = guids.Guids(guids.GUIDS_PATH)
     key = G.d[f"key/{PROG}/swapper"]
@@ -326,7 +325,7 @@ def test_programmable_led_amber_data_only(staged):
 
 
 def test_programmable_status_slot_is_its_own(staged):
-    """Plan 4 Task 4: the script-status lamp and the LCD status bar have their own mesh part, so the scripts' green
+    """The script-status lamp and the LCD status bar have their own mesh part, so the scripts' green
     swap reaches them and nothing else (the rear PSU lamps keep EmissiveAmber). Data-only both slots map to the same
     vanilla amber, so the scripts-off block renders exactly as before the split."""
     assert functional.PROG_LED != functional.PROG_PSU_LAMP == "EmissiveAmber"
@@ -360,7 +359,7 @@ def test_programmable_scripts_off_is_safe(staged):
 
 
 def test_programmable_lcd_state_neutral():
-    """P4-7: the baked management LCD and lamp legend read the same in both modes (no OFFLINE, no N/A)."""
+    """The baked management LCD and lamp legend read the same in both modes (no OFFLINE, no N/A)."""
     face = read_json(config.REPORT_PATH)["blocks"][PROG]["face"]
     assert face["lcd"] == ["SCRIPT HOST", "PRG-06"]
     assert face["lamp_legend"] == ["SCRIPT", "STATUS"]
@@ -374,7 +373,7 @@ BREAKABLE_KEY = "bc5652a0-1296-4040-adc3-a2b9c35d5afc"   # BreakableBlockCompone
 @pytest.fixture(scope="module", params=[False, True], ids=["non_breakable", "breakable"])
 def prog_from_clone(request, tmp_path_factory):
     """The Programmable staged from its fresh structural clone (BreakableBlockComponent present) into a scratch dir,
-    once kept breakable (as shipped since Plan 2 Task 9b: real fracture and damaged models, ensure_breakable) and
+    once kept breakable (as shipped: real fracture and damaged models, ensure_breakable) and
     once forced through make_non_breakable (the exception path): every Programmable patch must hold either way."""
     import shutil
     from test_fresh_clone import _fresh_clone
@@ -394,7 +393,7 @@ def prog_from_clone(request, tmp_path_factory):
     mp.setattr(config, "MOD_ASSETS", mod_assets)
     mp.setattr(config, "STAGE_ASSETS", stage)
     mp.setattr(integration, "Guids", lambda: guids.Guids(gpath))
-    # since Plan 2 Task 9b the Programmable really fractures (keeps_breakable is True for it): the non_breakable run
+    # the Programmable really fractures (keeps_breakable is True for it): the non_breakable run
     # forces it through make_non_breakable (the exception path) so both orders stay covered
     mp.setattr(integration, "keeps_breakable", lambda man: breakable if man["name"] == PROG else keeps(man))
     try:
@@ -434,7 +433,7 @@ def test_programmable_patches_hold_with_or_without_breakable(prog_from_clone):
     assert sob[script_key]["$Type"] == scripting.OB_TYPE and sob[integration.POWERABLE_KEY]["Enabled"] is True
 
 
-# ---------------------------------------------------------------------------------------------- Task 4: scripts on
+# ---------------------------------------------------------------------------------------------- scripts on
 SCRIPTS = os.path.join(config.MOD_DIR, "Scripts")
 LED_INJECTOR = os.path.join(SCRIPTS, "Client", "Programmable", "ProgrammableLedInjector.cs")
 PROBE = os.path.join(config.MOD_DIR, "Tests", "InGame", "probe_scripts.csx")
@@ -447,7 +446,7 @@ def _text(p):
 
 @pytest.mark.scripts
 def test_led_injector_names_the_data_through_dcguids():
-    """P4-7 with scripts on: the injector targets exactly our swapper, mesh part and green, and only through the
+    """With scripts on: the injector targets exactly our swapper, mesh part and green, and only through the
     generated DcGuids (no literal GUID or slot name that could drift from the data)."""
     t = _text(LED_INJECTOR)
     for const in ("DcGuids.ProgrammableSwapper", "DcGuids.ProgrammableStatusMeshPart", "DcGuids.EmissiveGreenMaterial"):
@@ -459,7 +458,7 @@ def test_led_injector_names_the_data_through_dcguids():
 
 
 def test_no_route_b_injection_under_a_prime():
-    """Ruling P4-1 = A': the scripting component is in the data, so no script adds it (no AddComponent of it, no
+    """The scripting component is in the data, so no script adds it (no AddComponent of it, no
     ProgrammableInjector) and no script carries a copy of the starter program (the data's scripting.TEMPLATE is the
     one source)."""
     assert config.PROGRAMMABLE_ROUTE == "A'"

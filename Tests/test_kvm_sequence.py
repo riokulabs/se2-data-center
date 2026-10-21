@@ -1,4 +1,4 @@
-"""Plan 4 Task 6: the scripted KVM sequence, checked in geometry (dc/kvm_motion.py).
+"""The scripted KVM sequence, checked in geometry (dc/kvm_motion.py).
 
 The trajectories are the motion core's own (Tests/CoreTests --dump: Source/Model/preview/plan4/traj/*.csv, 240 Hz).
 Every clearance below is a LOWER bound over the swept motion (convex hulls of each part over each sample interval,
@@ -17,7 +17,7 @@ from dc import dims as DM
 # The trajectories are CoreTests output outside git: the conftest fixture regenerates them when stale or absent.
 pytestmark = [pytest.mark.scripts, pytest.mark.usefixtures("trajectories")]
 
-LEAF_MARGIN = 0.005       # P4-4: the fast stow beats the closing leaves by 5 mm, with 0.1 s replication latency
+LEAF_MARGIN = 0.005       # the fast stow beats the closing leaves by 5 mm, with 0.1 s replication latency
 LATENCY = 0.1
 STATIC_MARGIN = 0.002     # frame and neighbours: no latency, built-mesh AABBs; 2 mm keeps a visible gap
 DOOR_RACKS = K.DOOR_RACKS
@@ -45,7 +45,7 @@ def _decimate(traj, k):
 # ------------------------------------------------------------------------------------------------ subparts change
 
 def _lid_at_before(f):
-    """subparts.lid_at as it was before Task 6 (frozen copy): the data-only simultaneous slide and fold."""
+    """subparts.lid_at before the scripted sequence (frozen copy): the data-only simultaneous slide and fold."""
     f = min(1.0, max(0.0, f))
     dy, ang = S.TRAVEL * f, S.FOLD_DEG * f
     a = math.radians(ang)
@@ -116,7 +116,7 @@ def test_trajectories_shape(sweep):
         tr = K.load(name)
         assert len(tr) > 100 and all(b[0] > a[0] for a, b in zip(tr, tr[1:])), name
         assert all(0.0 <= s <= 1.0 and 0.0 <= f <= 1.03 for _, s, f in tr), name
-    assert len(sweep) == 16 + 16 + 18 + 18                                 # CoreTests kvm.reversal_sweep (Task 7 ranges)
+    assert len(sweep) == 16 + 16 + 18 + 18                                 # CoreTests kvm.reversal_sweep
     assert {rid.split("@")[0] for rid in sweep} == {"open_stow", "open_fast", "close_out", "close_fast"}
     for rid, (tr, at, target) in sweep.items():
         end = (1.0, 1.0) if target == "Out" else (0.0, 0.0)
@@ -128,7 +128,7 @@ def test_read_tuning():
     t = K.read_tuning()
     assert t["FoldGate"] == pytest.approx(0.91)
     assert t["MaxSubstep"] == pytest.approx(1 / 120)
-    assert t["SlideOmegaFast"] <= 20 and t["FoldOmegaFast"] <= 20          # P4-4's spring ceiling
+    assert t["SlideOmegaFast"] <= 20 and t["FoldOmegaFast"] <= 20          # the spring ceiling
     assert t["RetractGateFast"] >= 0.04
 
 
@@ -159,7 +159,7 @@ def test_convex_distance_exact():
 
 
 def test_grid_agrees_with_hulls():
-    """The brief's leaf sampling (a 41 x 9 grid over the leaf's mid-plane, less its half thickness) agrees with the
+    """A uniform leaf sampling (a 41 x 9 grid over the leaf's mid-plane, less its half thickness) agrees with the
     exact box-to-box distance at the race's closest instant, to within the grid's resolution."""
     spec = catalog.BY_NAME["DC_Rack42_SplitFront"]
     tr = K.load("door_close_while_out")
@@ -183,7 +183,7 @@ def test_swept_bound_brackets_samples():
 
 
 def test_self_intrusion_reproduces_the_data_only_rule():
-    """The data-only motion (slide and fold together, linear) run through self_intrusion gives Task 8's 0.1325 m
+    """The data-only motion (slide and fold together, linear) run through self_intrusion gives the data's 0.1325 m
     (the swept bound may only add to it), so the rule is the same one the scripted motion now passes."""
     data_only = [(i / 240, i / 240, i / 240) for i in range(241)]
     v = K.self_intrusion(data_only)
@@ -191,14 +191,14 @@ def test_self_intrusion_reproduces_the_data_only_rule():
     assert 0.1325 - 0.0005 <= v <= 0.1325 + 0.003, v
 
 
-# ------------------------------------------------------------------------------------------------ the pads bite (I1)
+# ------------------------------------------------------------------------------------------------ the pads bite
 
 @pytest.mark.parametrize("k", [6, 12, 24])
 def test_swept_bounds_hold_when_decimated(k):
     """The pads (interpolation slack, rotation sagitta) are what keep a swept bound on the safe side of the truth. At
     240 Hz they are tiny, so test them where they matter: decimate a trajectory to 40, 20 and 10 Hz and the swept
     bound must still sit on the safe side of the fine (240 Hz) instant samples, which approximate the truth from the
-    other side. Zeroing the pads, the slack or the sagitta fails this (task-6-report.md, fix round 1)."""
+    other side. Zeroing the pads, the slack or the sagitta fails this."""
     spec = catalog.BY_NAME["DC_Rack24_SplitFront"]
     race = K.load("door_close_while_out")
     fine = K.leaf_clearance_report(race, spec, 2, DM.DOOR_SECONDS, LATENCY)["sampled"]
@@ -221,12 +221,11 @@ def test_sagitta_covers_a_coarse_arc():
     assert K.max_y_above(coarse, 0.20) >= K.max_y_above(fine, 0.20, swept=False)
 
 
-# ------------------------------------------------------------------------------------------------ per-slot paths (P4-12)
+# ------------------------------------------------------------------------------------------------ per-slot paths
 
 def test_motion_path_for_slot():
-    """Ruling P4-12: a full rack's top slot (Plan 3's containment rail and roof above) runs the data-only path; every
-    other slot, and every slot of a half rack (Plan 3 gives half racks top-rim label pads, no containment), runs the
-    sequence."""
+    """A full rack's top slot (the containment rail and roof above) runs the data-only path; every other slot, and
+    every slot of a half rack (half racks get top-rim label pads, no containment), runs the sequence."""
     for name, spec in catalog.BY_NAME.items():
         if spec.family != "rack":
             continue
@@ -262,8 +261,8 @@ def test_sequence_never_enters_upper_panel(name):
 
 def test_no_trajectory_enters_upper_panel(sweep):
     """The sequence never enters the KVM's own upper panel. The data-only path (a full rack's top slot) does, by the
-    accepted transient (core Task 8 concern 3: 0.1325 m, the lid cutting through its own port bank mid-motion), and
-    never by more: at the instants it is that transient (0.1328 exact; Task 8 sampled 41 points); the swept bound adds
+    accepted transient (0.1325 m, the lid cutting through its own port bank mid-motion), and
+    never by more: at the instants it is that transient (0.1328 exact; 41 samples gave 0.1325); the swept bound adds
     its pads, most at a reversal's kink, where the second-difference slack over-estimates (on the safe side)."""
     worst = max((K.self_intrusion(tr), rid) for rid, tr, _ in _runs(K.SEQUENCED, sweep))
     assert worst[0] <= 0.0, worst
@@ -287,9 +286,9 @@ def _door_run(path, sweep):
 
 @pytest.mark.parametrize("name", DOOR_RACKS)
 def test_fast_stow_clears_closing_leaves(name, sweep):
-    """Ruling P4-4: the rack doors close (OpenRatio 1 -> 0 linear over DOOR_SECONDS) while the KVM is out; the
+    """The rack doors close (OpenRatio 1 -> 0 linear over DOOR_SECONDS) while the KVM is out; the
     leaves start LATENCY before the trajectory's t = 0 (so 0.2 s before the sequencer reacts at t = 0.1: strict).
-    Every slot, on the path that slot runs (P4-12), the front-facing KVM and (FrontRear) the rear-facing one."""
+    Every slot, on the path that slot runs, the front-facing KVM and (FrontRear) the rear-facing one."""
     spec = catalog.BY_NAME[name]
     for facing in [s for s in (1, -1) if s in doors.door_sides(spec)]:
         for slot in _slots(spec):
@@ -343,7 +342,7 @@ def test_middle_slots_are_alike():
 def test_sequence_clears_frame_and_neighbours(name, sweep):
     """No run of the path a slot uses brings the drawer or the lid within STATIC_MARGIN of the rack's side columns, its
     plinth, its top or a server in the slot above or below (the sequence's six trajectories; the data-only path's
-    runs). The top slot's lid already reaches into the tray / roof at rest (core Task 8 concern 7, accepted): there
+    runs). The top slot's lid already reaches into the tray / roof at rest (accepted): there
     the motion may rise no higher than the lid's own fold arc (its apex, passing vertical, is 2.5 mm above its 100
     degree rest; both paths pass it): exactly at the instants, and within the swept bound's pad (at most 1.5 mm, at a
     reversal's kink) over the intervals."""
@@ -370,10 +369,10 @@ def test_sweep_clears_frame_and_neighbours(sweep):
             assert d >= STATIC_MARGIN, (rid, k, d)
 
 
-# ------------------------------------------------------------------------------------------------ Plan 3's room
+# ------------------------------------------------------------------------------------------------ the room
 
 def _z_cut(spec, slot):
-    """ZT (the slot band's top) in slot `slot`'s KVM frame; the same as Plan 3's local-z rule (d["ZT"] vs its zc)."""
+    """ZT (the slot band's top) in slot `slot`'s KVM frame; the same as the room's local-z rule (d["ZT"] vs its zc)."""
     H, ZT, _ = doors.rack_dims(spec)
     n = K.nslots(spec)
     assert K.slot_centre_z(spec, n) + H / 2 == pytest.approx(0.25 + DM.SLOT_H * (n - 1) + DM.SLOT_H / 2)
@@ -381,12 +380,12 @@ def _z_cut(spec, slot):
 
 
 def test_sequence_clears_plan3_roof_and_rail(sweep):
-    """Plan 3's rules over the motion each slot actually runs (P4-12), in every full rack's two highest slots (no
+    """The room's rules over the motion each slot actually runs, in every full rack's two highest slots (no
     lower slot reaches the tray band) and for both facings (the rail and the roof run along front and back):
     - test_kvm_clear_of_rail: wherever any part rises above the slot band, it stays behind the containment rail;
     - test_roof_clears_kvm_and_rack_doors: over the aisle (beyond the cell plane), every part stays under the roof
       (ZT + ROOF_CLEAR).
-    Plan 3's values come from dims once it merges (kvm_motion.PLAN3_*); until then from Plan 3 Task 1's."""
+    The values come from dims when it defines them, else kvm_motion's fallbacks (kvm_motion.PLAN3_*)."""
     rail, clear = K.PLAN3_RAIL_Y[0], K.PLAN3_ROOF_CLEAR
     cases = {}                                      # the three 42U variants share the frame: measure each case once
     for name in ("DC_Rack42_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear"):
@@ -402,7 +401,7 @@ def test_sequence_clears_plan3_roof_and_rail(sweep):
 
 
 def test_sequence_would_hit_the_rail_in_the_top_slot():
-    """Why P4-12 routes the full rack's top slot to the data-only path: the sequence's lid folds with the drawer fully
+    """Why the full rack's top slot is routed to the data-only path: the sequence's lid folds with the drawer fully
     out and would rise above the slot band in front of the rail. If the sequence ever clears it, drop the routing."""
     spec = catalog.BY_NAME["DC_Rack42_Open"]
     assert K.max_y_above(K.load("open"), _z_cut(spec, K.nslots(spec))) >= K.PLAN3_RAIL_Y[0]

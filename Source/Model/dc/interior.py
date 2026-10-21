@@ -1,11 +1,11 @@
 """What a broken block shows inside. Plain Python: the exporter (dc/export_models.py) runs it on the cut Fractured
 LOD0 (export.json fractured.interior); Tests/test_interior.py holds the rule.
 
-The standard (user decision 2026-10-20, Keen's way; NOTES.md "Broken interiors: Keen's way"): a fracture zone's
+The standard follows the game's own broken blocks: a fracture zone's
 inside is a SOLID CORE whose exposed faces are vanilla FracturedMaterial01 (the cut caps, and the faces of the
 family's core parts, fracture.CORE_PARTS), plus only a few large, recognisable parts you would see through the hole
 (the CRAC's fan wall and coil faces, the PDU cabinet's busbars and breaker rows). No zone may open onto an empty
-hollow, and the inside is not a modelled machine (the 597f7c6e interiors: pipes, valves, boards, looms).
+hollow, and the inside is not a modeled machine (no pipes, valves, boards or looms).
 
 The INTERIOR of a block is its model bounds shrunk by INSET (at most a quarter of the extent) on every side: an outer
 skin, a cover stack or a liner lies within a few centimetres of the bounds and never counts; what lies deeper is

@@ -2,7 +2,7 @@
 
 - Half-rack roof: only the 5 mm render-only plate may reach into the top slot's cells; the deep roof parts (28 mm
   rails over the side columns, front / rear headers) stay outside the slot footprint and in front of / behind the
-  servers' hardware zone (<= 6 cm past the slot planes, Ruling 11) and behind the door leaves.
+  servers' hardware zone (<= 6 cm past the slot planes) and behind the door leaves.
 - Every server type carries its own lid ID (unique, stencillable glyphs); the switch's patch cables and the compute
   fan wall stay in the 6 cm front zone (max_y) and inside the slot sides; LOD0/LOD1 keep the material cap.
 """
@@ -52,7 +52,7 @@ def test_server_type_ids():
 def test_server_front_zone_and_caps(name):
     e = _entry(name)
     c = e["clearance"]
-    assert c["max_y"] <= DM.SLOT_FRONT_Y + 0.06 + 1e-6          # cables / fan wall / lid: Ruling 11
+    assert c["max_y"] <= DM.SLOT_FRONT_Y + 0.06 + 1e-6          # cables / fan wall / lid: the 6 cm front zone
     assert c["max_abs_x_in_slot"] <= DM.SIDE_LIMIT_X + 1e-6
     for lod in e["lods"]:
         assert lod["materials"] <= lod["max_materials"] and lod["tris"] <= lod["max_tris"]
@@ -90,7 +90,7 @@ def test_side_model_within_limits_and_bounds(name):
 
 @pytest.mark.parametrize("name", RACKS)
 def test_side_panels_spawn_on_both_sides(staged, name):  # noqa: F811 (pytest fixture)
-    """Every rack's side model spawns twice from one ConditionalSubParts entry (Plan 5 Task 12, G2: it was a static
+    """Every rack's side model spawns twice from one ConditionalSubParts entry (it was a static
     child pair): RackSideR at the block origin, RackSideL turned 180 deg about game +Y (quaternion and Euler hint
     agree), both of the side's own dummy type, which maps to the side's client prefab."""
     info = clone.entry(catalog.BY_NAME[name])["info"]

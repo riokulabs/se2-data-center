@@ -1,14 +1,14 @@
-"""Plan 2 Task 9c: the fracture refinement pass against docs/guides/vanilla-fracture-models.md, checked offline on the
-EXPORTED files of every breakable block (6 racks, 10 servers, 34 trays; since the Plan 3 merge also the room's staged
+"""The fracture refinement pass against docs/guides/vanilla-fracture-models.md, checked offline on the
+EXPORTED files of every breakable block (6 racks, 10 servers, 34 trays; also the room's staged
 4 raised floors, 3 containment roofs and 3 containment doors), Fractured AND Damaged (dc/fracture_rules.py).
 
-T1   recognition (guide 1 / 9.1 B4-B9): every collider is a fracture because its name equals a LOD0 Group, fractures
+Recognition (guide 1 / 9.1 B4-B9): every collider is a fracture because its name equals a LOD0 Group, fractures
      and plain colliders never mix, 2 .. 16 of them and no more than Keen's table allows for the model's size, every
      ColliderMeshGroups entry names a LOD0 group; on the colliders' real convex shapes, one connected graph at 0.1 m.
-T5   the Damaged model (guide 2): every breakable block has its OWN Deformed model (a separate .model, never the
+Damaged  the Damaged model (guide 2): every breakable block has its OWN Deformed model (a separate .model, never the
      FractureModel), whose LOD0 carries exactly the Fractured LOD0's Fracture_NN-Material mesh parts (the renderer
      shows the damaged zones' parts BY NAME, BlockModelRenderer.cs:277-297), at most ~2 x its triangles.
-T8   break faces at vanilla's texel density (guide 3): FracturedMaterial01 at 0.40 +- 0.04 UV/m.
+UV   break faces at vanilla's texel density (guide 3): FracturedMaterial01 at 0.40 +- 0.04 UV/m.
 Hull every zone collider is shaped to its solid (guide 4 / 10.3 (5)): health is the collider's volume share, so no
      zone may buy it with empty space: >= HULL_FILL of each collider lies within its zone geometry's extent.
 """
@@ -22,7 +22,7 @@ from dc import fracture as FR
 from dc import fracture_rules as FRR
 from dc.assetio import body, read_json
 
-HULL_FILL = 0.85       # (T9b's boxes: a Drop waterfall 0.22, a TurnH half 0.68, a Cross arm 0.80)
+HULL_FILL = 0.85       # (the old plain boxes: a Drop waterfall 0.22, a TurnH half 0.68, a Cross arm 0.80)
 UV_DENSITY = (0.36, 0.44)
 
 
@@ -32,20 +32,20 @@ def _manifest(n):
 
 
 BREAKABLE = [b.name for b in catalog.STAGED if len((_manifest(b.name) or {}).get("fractured", {}).get("zones", [])) >= 2]
-# the breakable blocks per family, pinned (one line per family: a task adding a family adds its own line, so parallel
-# branches merge without re-summing literals); the pipeline count is derived from the catalogue
+# the breakable blocks per family, pinned (one line per family: a new family adds its own line, so
+# no literal needs re-summing); the pipeline count is derived from the catalogue
 PIPELINE_EXPECT = {"rack": 6, "server": 10, "tray": 34}   # of 54 pipeline blocks, 4 stay whole (FR.UNFRACTURED)
 ROOM_EXPECT = {
     "floor": 4,
     "contain_roof": 3,
     "contain_door": 3,
-    "crac": 1,            # Plan 3 Task 6
-    "pdu_cabinet": 1,     # Plan 3 Task 7
-    "pdu_strip": 4,       # Plan 3 Task 7
-    "sign": 3,            # Plan 3 Task 8
+    "crac": 1,
+    "pdu_cabinet": 1,
+    "pdu_strip": 4,
+    "sign": 3,
 }
 N_PIPELINE = sum(1 for b in catalog.BLOCKS if b.family not in catalog.ROOM_FAMILIES and not FR.unfractured_reason(b))
-N_BLOCKS = 69             # after Plan 3 T6 + T7 + T8
+N_BLOCKS = 69             # with the CRAC, the PDUs and the signs
 
 
 def _files(name, key):
@@ -75,10 +75,10 @@ def test_every_breakable_block_is_covered():
     assert len(BREAKABLE) == N_PIPELINE + sum(ROOM_EXPECT.values()) == N_BLOCKS, len(BREAKABLE)
 
 
-# ---------------------------------------------------------------------------------------------------- T1
+# ---------------------------------------------------------------------------------------------------- recognition
 @pytest.mark.parametrize("name,kind", MODELS, ids=lambda v: _id(v))
 def test_fractures_recognised(name, kind):
-    """T1: the importer recognises every zone (collider name = Group, no mixing, 2 .. 16 and within Keen's size
+    """Recognition: the importer recognises every zone (collider name = Group, no mixing, 2 .. 16 and within Keen's size
     table, ColliderMeshGroups consistent), and the zone colliders' convex shapes connect at Havok's 0.1 m."""
     fbx, gltf = _files(name, kind)
     props = FRR.fbx_model_props(fbx)
@@ -116,13 +116,13 @@ def test_hull_gap_is_convex_distance():
     assert FRR.hull_connectivity_problems({"a": a, "b": b})
 
 
-# ---------------------------------------------------------------------------------------------------- T5
+# ---------------------------------------------------------------------------------------------------- damaged model
 @pytest.mark.parametrize("name", BREAKABLE)
 def test_own_damaged_model(name):
-    """T5: a separate Damaged model with the Fractured LOD0's exact Fracture_NN-Material mesh-part set, its zone
+    """A separate Damaged model with the Fractured LOD0's exact Fracture_NN-Material mesh-part set, its zone
     colliders, and at most damaged_tris_x(family) (+ 2 % for the densify step's granularity) x the Fractured
-    triangles without the scaffold (Plan 5 Task 7, R7: the per-family ratio; exact bound in test_damaged_geometry).
-    Plan 5 Task 6 (R7): the Fractured model also carries the ungrouped construction scaffold (BrushedMetal), which
+    triangles without the scaffold (the per-family ratio; exact bound in test_damaged_geometry).
+    The Fractured model also carries the ungrouped construction scaffold (BrushedMetal), which
     vanilla leaves out of the Deformed model (the one FR / DM mesh-part difference, guide §2.4): the parts compare
     without it."""
     from dc import scaffold as SC
@@ -147,8 +147,8 @@ def staged(stage_package):
 
 
 def test_damaged_model_is_its_own_asset(staged):
-    """T5: every breakable block's BlockModelDefinition points DamagedModel at its own Damaged .model, never at
-    the FractureModel (the racks did until Task 9c: damage was invisible until a zone died)."""
+    """Every breakable block's BlockModelDefinition points DamagedModel at its own Damaged .model, never at
+    the FractureModel (pointing there made damage invisible until a zone died)."""
     from dc import integration
     for n in BREAKABLE:
         rel = clone.entry(catalog.BY_NAME[n])["info"]["model_def_file"]
@@ -158,10 +158,10 @@ def test_damaged_model_is_its_own_asset(staged):
         assert bmd["DamagedModel"] == dmg and bmd["DamagedModel"] != bmd["FractureModel"], n
 
 
-# ---------------------------------------------------------------------------------------------------- T8
+# ---------------------------------------------------------------------------------------------------- UV density
 @pytest.mark.parametrize("name", BREAKABLE)
 def test_cut_uv_density(name):
-    """T8: the break faces tile at vanilla's 0.40 UV/m (FracturedMaterial01, the painted metals' density)."""
+    """The break faces tile at vanilla's 0.40 UV/m (FracturedMaterial01, the painted metals' density)."""
     d = FRR.cut_uv_density(FRR.fbx_meshes(_files(name, "fractured")[0]))
     if d is None:      # a light empty basket whose cut 6 mm wire ends stay open (test_fracture_plan)
         assert "no wire-end caps" in _manifest(name)["fractured"]["cut_mode"], name

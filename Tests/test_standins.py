@@ -1,4 +1,4 @@
-"""Plan 5 Task 8: the servers' construction supports and the baked subpart stand-ins (audit G6, Decision 9).
+"""The servers' construction supports and the baked subpart stand-ins.
 
 Supports  fracture.ROLES["server"]: the rack ears and the slide (inner) members are the server's mounting hardware,
           built first (Fracture_NN_Support, the Support preset), as vanilla Timer50 (11 %) / Battery50 (8 %).
@@ -7,7 +7,7 @@ Stand-ins the parked moving parts baked into the Fractured and Damaged models (n
           pose, its slots renamed `<Mat>_Subpart` (the SubpartConstruct preset), in its owning zone; the block's
           ConditionalSubParts lists them in MeshPartsToHideWhenActive, so they show while the block is not Functional
           (under construction, broken) and hide when the real subparts spawn. The KVM: the drawer, closed, and its lid.
-Review Focus 5: player paint on a damaged stand-in: every `<Mat>_Subpart` slot resolves to its base slot's GUID on FR
+Player paint on a damaged stand-in: every `<Mat>_Subpart` slot resolves to its base slot's GUID on FR
 and to its base's Deformed GUID on DM (fracture.damaged_slot), never a KeyError or an unpainted fallback."""
 import math
 import os
@@ -45,7 +45,7 @@ def _violation(zone, p):
 
 def _standin_faces_in_zone(name):
     """Every FR LOD0 stand-in face is in the group of the zone holding its centroid and no vertex of it lies more
-    than 2 cm past that zone (Task 8 re-review: copied for every stand-in block). The zones are convex (half-space
+    than 2 cm past that zone (shared by every stand-in block). The zones are convex (half-space
     intersections) and a violation is convex, so the vertex bound bounds the whole face: no edge or face can cross a
     third zone's volume between two in-zone vertices. Returns the stand-in triangles counted."""
     man = _man(name)
@@ -104,9 +104,9 @@ def _staged_model(name, variant):
 # ---------------------------------------------------------------------------------------------------- pure
 def test_standin_table():
     """The KVM's drawer (FR LOD0 <- its LOD1, FR LOD1 <- its LOD2) and lid (its LOD1 for both), each split over the
-    zones it sits in (zone None; fix round 1, vanilla Gyroscope50 / O2H2Generator250) and cut along the seams with
-    break caps (final review M4, as the racks')."""
-    racks = {b.name for b in catalog.BLOCKS if b.family == "rack"}      # Task 12: test_rack_states
+    zones it sits in (zone None, as vanilla Gyroscope50 / O2H2Generator250) and cut along the seams with
+    break caps (as the racks')."""
+    racks = {b.name for b in catalog.BLOCKS if b.family == "rack"}      # their own tests: test_rack_states
     assert len(racks) == 6 and set(FR.rack_standins("A")) == racks
     assert set(FR.STANDINS) == {KVM, CRAC} | set(FR.rack_standins(config.RACK_PATH))
     s = {x.subpart: x for x in FR.STANDINS[KVM]}
@@ -116,7 +116,7 @@ def test_standin_table():
 
 
 def test_crac_standin_table():
-    """Task 11 (G6): the CRAC's three CracFan rotors, parked (no power: still, not spinning), each in its own fan
+    """The CRAC's three CracFan rotors, parked (no power: still, not spinning), each in its own fan
     section (Fracture_02..04, the zones supporting CracFan1..3), FR LOD0 <- the rotor's LOD1, FR LOD1 <- its LOD2,
     each at its own rotor pivot (crac.fan_points, the CracFan1..3 dummies' order)."""
     from dc import crac
@@ -131,7 +131,7 @@ def test_crac_standin_table():
 def test_crac_role_table():
     """The CRAC's mounting hardware (dc/crac.py `hw`: the levelling feet, the fan modules' and panels' fixing bolts,
     hinges and latches) and its coolant stubs (`pipe`: the CHW supply / return and condensate stubs the facility's
-    pipework lands on) are its supports, built first. Task 13: the fan modules' venturi lip rings (`lip`, the orifice
+    pipework lands on) are its supports, built first. The fan modules' venturi lip rings (`lip`, the orifice
     trim) are no mount: their own part, skin (built with the housing they trim), still kept whole."""
     from dc import crac
     assert FR.ROLES["crac"] == {"support": ("hw", "pipe")}
@@ -142,8 +142,8 @@ def test_crac_role_table():
 
 @pytest.mark.build
 def test_crac_support_share():
-    """Task 13: without the lips the CRAC's supports are 16.4 % of its FR LOD0 (Task 11: 18.7 %; vanilla Smelter250
-    24 %, Gyroscope250 11 %, Timer50 11 %): inside the servers' 3-25 % band, below Task 11's share."""
+    """Without the lips the CRAC's supports are 16.4 % of its FR LOD0 (with them 18.7 %; vanilla Smelter250
+    24 %, Gyroscope250 11 %, Timer50 11 %): inside the servers' 3-25 % band, below the share with the lips."""
     fr = _man(CRAC)["fractured"]
     share = fr["role_tris"]["support"] / fr["lods"][0]["tris"]
     assert 0.08 <= share < 0.187, round(share, 4)
@@ -157,7 +157,7 @@ def test_server_role_table():
 
 
 def test_subpart_slots_resolve(staged):
-    """Review Focus 5. A `_Subpart` slot wears its base slot's material (player paint on the Colorable one) on the
+    """A `_Subpart` slot wears its base slot's material (player paint on the Colorable one) on the
     Fractured model and its base's Deformed material on the Damaged one, on every staged model that has one."""
     SUBPART_SUFFIX = FR.SUBPART_SUFFIX              # (export_models.SUBPART_SUFFIX: the same constant, bpy-side)
     assert SUBPART_SUFFIX == "_Subpart"
@@ -191,8 +191,8 @@ def test_subpart_slots_resolve(staged):
 @pytest.mark.build
 def test_kvm_standins(staged):
     """The KVM FR and DM LOD0 carry the stand-ins split by zone (the drawer's fascia in the front module Fracture_02,
-    its tray in the core Fracture_01, its tail in the rear chassis Fracture_03), cut along the seams with break caps
-    (final review M4), every face in the group of the zone holding its centroid and no vertex more than 2 cm past it
+    its tray in the core Fracture_01, its tail in the rear chassis Fracture_03), cut along the seams with break caps,
+    every face in the group of the zone holding its centroid and no vertex more than 2 cm past it
     (_standin_faces_in_zone); its NF none; the staged ConditionalSubParts hides exactly them (_hide_list_matches)."""
     man = _man(KVM)
     for key in ("fractured", "damaged"):
@@ -257,7 +257,7 @@ def test_fr_budget_with_standins():
 
 @pytest.mark.build
 def test_crac_fan_standins(staged):
-    """Task 11 (G6): the CRAC's FR and DM LOD0 carry a parked fan in each fan section (`_Subpart` parts in exactly
+    """The CRAC's FR and DM LOD0 carry a parked fan in each fan section (`_Subpart` parts in exactly
     Fracture_02, _03 and _04), its NF none; every stand-in face sits in its zone (<= 2 cm past it); each section's
     stand-in is that fan's rotor, still, at its pivot (inside the blade-tip circle about the rotor axis, between the
     blades' front and back); the staged ConditionalSubParts hides exactly them while the fans run (Functional); the

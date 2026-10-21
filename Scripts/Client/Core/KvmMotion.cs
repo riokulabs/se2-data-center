@@ -1,4 +1,4 @@
-// KvmMotion: the game-free spring sequencer behind the scripted KVM (Plan 4 Ruling P4-3, P4-4).
+// KvmMotion: the game-free spring sequencer behind the scripted KVM.
 //   Out:      the drawer slides out; once it passes the fold gate, a beat; then the lid lifts and settles on its detent.
 //   Stowed:   the lid folds flat first; once it is within the retract gate, the drawer slides home.
 //   FastStow: the same as Stowed with stiffer springs and a looser gate: the race against a closing rack door.
