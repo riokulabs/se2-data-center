@@ -44,7 +44,7 @@ def test_damaged_tris_x_table():
 # the least Damaged / (Fractured - scaffold) ratio densify must reach (a silent densify regression fails here)
 MIN_RATIO = 1.15
 # (block, LOD) that cannot reach MIN_RATIO: light trays whose LOD has no edge left longer than DENT max_edge (the
-# densify step stops there). Exactly these, measured 2026-10-20: ratios 1.005-1.147.
+# densify step stops there). Exactly these, measured: ratios 1.005-1.147.
 LIGHT_LODS = {("DC_Tray_TurnH_Empty", 0), ("DC_Tray_TurnUp_Empty", 0), ("DC_Tray_TurnUp_Empty", 1),
               ("DC_Tray_StraightL_Empty", 0), ("DC_Tray_StraightL_Empty", 1), ("DC_Tray_StraightL_Low", 2),
               ("DC_Tray_StraightS_Empty", 1), ("DC_Tray_TurnDown_Empty", 2)}

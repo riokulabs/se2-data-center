@@ -237,7 +237,7 @@ def test_floor_limits(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", FLOORS)
 def test_floor_breakable_export(name):
-    """docs/guides/vanilla-fracture-models.md 10.3 (2) / 10.4: the floor is cut IN PLANE, every zone the
+    """Vanilla-style fracture: the floor is cut IN PLANE, every zone the
     full thickness (deck AND understructure): 2 halves of the 0.5 m tile, the 1.0 m block's 4 tiles; every zone has
     deck and understructure materials, break faces (FracturedMaterial01, the pedestal plates and stringers the seams
     cut), its own dented Damaged model; no critical zone (structural)."""

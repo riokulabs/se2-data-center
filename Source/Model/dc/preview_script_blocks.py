@@ -17,12 +17,12 @@ import os
 from . import config, functional
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_indicator_servers as P6
-from . import preview_kvm as P8
+from . import preview_indicator_servers as pv_indicator_servers
+from . import preview_kvm as pv_kvm
 from .preview import Shot, T, want
 
 OUT = os.path.join(config.PREVIEW_DIR, "scripts")
-PROG = P8.PROG
+PROG = pv_kvm.PROG
 
 # (camera, target, lens): front and 3q as the KVM set's, plus a close-up square on the management module's LCD
 PROG_VIEWS = {
@@ -36,7 +36,7 @@ BACK_VIEW = ((0.6, -1.7, 0.45), (0, 0, 0.12), 45)       # the KVM set's "back": 
 def scripted(built, lod=0):
     """The Programmable as the scripts show it while Working: the status slot lit green (the indicator servers' lit-green indicator
     stand-in), every other slot as the data-only block."""
-    return P6.stated(built, PROG, lod, "keen", {functional.PROG_LED: "act"})
+    return pv_indicator_servers.stated(built, PROG, lod, "keen", {functional.PROG_LED: "act"})
 
 
 def programmable(built):
@@ -45,7 +45,7 @@ def programmable(built):
         if not want(nm):
             continue
         s = Shot(nm, res=(1600, 1200), floor=(-1.5, 1.5, -1.5, 1.5))
-        P8.prog(s, built)
+        pv_kvm.prog(s, built)
         s.camera(loc, tgt, lens)
         s.render()
 
@@ -58,9 +58,9 @@ def programmable_scripts_on(built):
             continue
         s = Shot(nm, res=(1600, 1200), floor=(-1.5, 1.5, -1.5, 1.5))
         if "scripts_on" in nm:
-            s.inst(scripted(built), T(0, 0, P8.H / 2))
+            s.inst(scripted(built), T(0, 0, pv_kvm.H / 2))
         else:
-            P8.prog(s, built)
+            pv_kvm.prog(s, built)
         s.camera(loc, tgt, lens)
         s.render()
 
@@ -71,9 +71,9 @@ def render_all(built):
     if PROG in built:
         programmable(built)
         programmable_scripts_on(built)
-    if P8.KVM in built:   # the KVM's use boxes (dc/preview_use_boxes.py)
+    if pv_kvm.KVM in built:   # the KVM's use boxes (dc/preview_use_boxes.py)
         from . import preview_use_boxes
         preview_use_boxes.render_all(built)
-    if P8.KVM in built:   # the scripted KVM motion (dc/preview_scripts.py)
+    if pv_kvm.KVM in built:   # the scripted KVM motion (dc/preview_scripts.py)
         from . import preview_scripts
         preview_scripts.render_all(built)

@@ -1,6 +1,6 @@
 """The offline client/server composition walk (Tests/clientserver_walk.py) gates the racks' Path A.
 
-The 2026-10-18 world-load failure ("Client component ... should not be on server compositions") came from
+The world-load failure seen in game ("Client component ... should not be on server compositions") came from
 BindingsBasedClientServerInfo's SERVER walk reaching an unbound client prefab (the fan rotor) through the door's
 DoorBlockCollider -> DoorPartsProvider -> ConditionalSubParts chain, and ConveyorGraphPostProcessor.ValidateClientTypes
 rejecting its render components. clientserver_walk ports that walk over fully resolved definitions (vanilla SDK
@@ -105,7 +105,7 @@ def has(u, name, suffix):
 
 
 def guid(*parts):
-    return str(uuid.uuid5(uuid.NAMESPACE_URL, "dc-t12a/" + "/".join(parts)))
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, "dc-walk/" + "/".join(parts)))
 
 
 def as_def(type_, value):
@@ -247,7 +247,7 @@ def test_datacenter_door_racks_are_walked_through_the_door_chain(package, packag
 
 
 # ----------------------------------------------------------------------------------------------------- (b) must FAIL
-FIX_1018 = "028c11723f133d7fabb3d7a664c50d90136e623c"   # DataCenter: rotors out of the door ConditionalSubParts
+ROTOR_FIX = "028c11723f133d7fabb3d7a664c50d90136e623c"   # the commit that took the rotors out of the door ConditionalSubParts
 
 
 def committed_assets(tmp_path, rev):
@@ -262,25 +262,25 @@ def committed_assets(tmp_path, rev):
     return os.path.join(tmp_path, "Assets")
 
 
-@pytest.mark.slow   # ~15 s: extracts the 10-18 package from git and walks it twice
-def test_the_real_10_18_package_fails_and_its_fix_passes(tmp_path, types):
-    """The package exactly as committed when the world load failed (028c1172^) fails with the in-game message
+@pytest.mark.slow   # ~15 s: extracts the failing package from git and walks it twice
+def test_the_real_failing_package_fails_and_its_fix_passes(tmp_path, types):
+    """The package exactly as committed when the world load failed (the fix commit's parent) fails with the in-game message
     ("Client component ... should not be on server compositions") on the rotor composites, reached through
     DoorBlockCollider -> DoorPartsProvider -> ConditionalSubParts; the fix commit itself passes."""
-    before = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "before", FIX_1018 + "^")])
+    before = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "before", ROTOR_FIX + "^")])
     w, errs = run(before, types)
     assert errs and {e[0] for e in errs} == {"client-type-on-server"}, csw.format_errors(errs, before)
     rotors = {e[2] for e in errs}
     assert len(rotors) == 2 and all(before.origin(r).endswith("_RackFan_Composite.partialdef") for r in rotors)
     assert all(any("ConditionalSubPartsDefinition" in step for step in e[3]) for e in errs)
-    after = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "after", FIX_1018)])
+    after = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "after", ROTOR_FIX)])
     w, errs = run(after, types)
     assert not errs, csw.format_errors(errs, after)
 
 
 @pytest.mark.parametrize("rack", FAN_DOOR_RACKS)
-def test_10_18_unbound_rotor_in_door_conditional_subparts_fails(package, types, rack):
-    """The 2026-10-18 structure (DataCenter 028c1172 removed it): the unbound RackFan client prefab as a door-rack
+def test_unbound_rotor_in_door_conditional_subparts_fails(package, types, rack):
+    """The failing structure (since removed): the unbound RackFan client prefab as a door-rack
     ConditionalSubParts entry. The server walk reaches its render composite -> "Client component ... should not be on
     server compositions"."""
     csp = res(package, own(package, rack, "Client_ConditionalSubPartsDefinition.def"))

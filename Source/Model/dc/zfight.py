@@ -373,7 +373,7 @@ def leaf_frame_check(spec, built):
 
 
 # ------------------------------------------------------------------------------------------------ model faces
-# In game (2026-10-20, DC_Rack42_Open seen from below): the containment rail's clamp pads were exactly as tall as the
+# In game (DC_Rack42_Open seen from below) the containment rail's clamp pads were exactly as tall as the
 # rail (their top / bottom faces in the rail's top / bottom planes) and the Feed A tag band stood exactly as proud as
 # the PDU face plate: same-facing coplanar faces of different boxes, the Darker / Yellow and the Colorable flicker.
 # The decal rules never saw them (neither is a decal); this checks every mesh face of the close LODs.

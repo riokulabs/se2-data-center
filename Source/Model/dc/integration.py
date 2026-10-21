@@ -26,7 +26,7 @@ the exports (Models/<name>/export.json + files, written by build_dc.py --export)
       the cloned indicator definition's ReplacementModels pointed at our models (its states, materials and
       IndicatorMeshParts unchanged: our lamp slots carry those mesh-part names);
       the status display's LCD surface (MeshPartName kept) set to our 2:1 screen (1024 x 512, AspectRatio 2);
-      mount directions without Forward (the working face never takes a block) and, since the placement fix, without
+      mount directions without Forward (the working face never takes a block) and without
       Up (SERVER_MOUNTS; the deco servers get the same);
   * the built UPS (dc/functional.py UPS_*) also gets, keeping Battery50's components:
       two Power Cell slots: the cloned server composition gets a second InventoryComponent (the cloned Battery50
@@ -349,7 +349,7 @@ def patch_lcd(spec, surfaces, G=None):
             **{k: changed[0]["Value"][k] for k in ("Resolution", "AspectRatio")}}
 
 
-# Placement fix (2026-10-18): no server mounts on its TOP (Up) any more. A rack slot's mounts are keyed to its rear
+# No server mounts on its TOP (Up). A rack slot's mounts are keyed to its rear
 # row (dc/rack.py collision()), so a server one cell too far forward touches none of the rack's; its only other way
 # in was its bottom (Down) on the top (Up) of a correctly seated server below, which overlaps on two of three rows.
 # With Up gone the wrong depth fails placement everywhere. Cost: nothing builds onto a server's lid (no stacking
@@ -1433,7 +1433,7 @@ def write_all(specs=None, report=None):
                 s["critical"] = man["fractured"].get("critical")
             else:
                 s["non_breakable"] = make_non_breakable(spec)
-            if spec.family == "server":   # deco ones too (placement fix: no Up)
+            if spec.family == "server":   # deco ones too (no Up mount)
                 body(bd)["MountPointGeneratorSettings"] = {"Directions": UPS_MOUNTS if spec.variant == "UPS"
                                                            else SERVER_MOUNTS}
             s.update(built=True, models=models, model_def=info["model_def"],
@@ -1669,7 +1669,7 @@ def _stage_tray(spec, man, G, sub=None, children=None):
 # BOUND client prefab. The door's DoorPartsProvider (a SERVER definition) references the door racks' ConditionalSubParts,
 # so BindingsBasedClientServerInfo's server walk follows its prefabs, stopping only at a binding's ClientPrefab
 # (BindingsBasedClientServerInfo.cs:134-135, 222-230); an unbound one put render components on a "server" composite
-# and failed the world load on 2026-10-18. The binding's server side is vanilla SlideDoorNarrow_250_LeftDoor's minus
+# and fails the world load. The binding's server side is vanilla SlideDoorNarrow_250_LeftDoor's minus
 # the door-segment components: a server composition of ModelComponent (the subpart's own model component),
 # ChildTransform and Hierarchy (no client type: ConveyorGraphPostProcessor.ValidateClientTypes), and ONE server prefab
 # on it (the prefab-by-composition map throws on two) whose Hierarchy Children is [] (its children would be walked as
@@ -1811,7 +1811,7 @@ def patch_hum(spec, sound):
 # SE2 4.0.0.3151 turned the generic damage / destruction particle effects into ParticleEffectSetDefinitions (V1/V2/V3,
 # weight 0.33 each; the 2.4 effect is now variant V1 under .../V1/) and vanilla BlockEffects point at the sets. Our
 # cloned BlockEffects (cloned from 2.3/2.4 vanilla) still named the V1 effects; the user accepted the 4.0 vanilla
-# damage bands (2026-10-19), so we only swap the effect for its set, as the small vanilla blocks (Timer, Sensor,
+# damage bands, so we only swap the effect for its set, as the small vanilla blocks (Timer, Sensor,
 # Buttons, EventController BlockEffects templates) do. Verified in the 4.0 SDK: each set's Effects list holds the V1
 # GUID (System/Particles/Generic/{Smoke/SmokeSmall,Fire/FireSmall,Explosion/Regular/GridExplosions}_ParticleSet.def).
 PARTICLE_SETS = {

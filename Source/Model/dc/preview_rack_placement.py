@@ -9,7 +9,7 @@ from mathutils import Vector
 
 from . import config
 from . import preview as PV
-from . import preview_icons as P10
+from . import preview_icons as pv_icons
 from . import preview_block_views as VP
 
 SET = os.environ.get("DC_RACK_PLACEMENT_SET", "after")
@@ -20,7 +20,7 @@ MIX = (None, "DC_Srv_Compute", None, "DC_Srv_Compute", None, None, "DC_Srv_Compu
 
 def _shot(built, name, cam, tgt, lens=40):
     s = VP._scene(name)
-    P10.rack(s, built, RACK, paint="keen", mix=MIX, fan=20, working=True)
+    pv_icons.rack(s, built, RACK, paint="keen", mix=MIX, fan=20, working=True)
     s.camera(tuple(cam), tuple(tgt), lens)
     VP._lights(s, tgt)
     PV.OUT = OUT

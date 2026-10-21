@@ -12,7 +12,7 @@ cable manager; a 0.25 m front zone (door leaves, server ears, KVM travel) and a 
     | 0.25 .. ZT       | 8 slots               | 4 slots                         |
     | ZT .. H          | 0.25 m top cable tray | -- (thin render-only roof)      |
 
-Placement design (docs/guides/modeling-keen-style.md 7-8, se2model.placement):
+Placement design (se2model.placement):
 - Regular collision (physics) = the frame: plinth, the two side columns, the top tray, and (for
   placement) a thin rear stop plate behind each slot column's back plane (4-5 boxes).
 - Free cells: the slot cells (SLOT_CELLS) and, in front of them, the slot columns' front-zone cells, so the block
@@ -152,7 +152,7 @@ def _plinth(P, d, lod):
                     G.cylinder(hw, (c[0], c[1], 0.006), (c[0], c[1], 0.014), 0.016, 6, HARDWARE)
     else:
         G.box(dk, (-W2 + SKIN, -YK, 0.0), (W2 - SKIN, YK, 0.014), DARK)          # base frame (flush bottom)
-    # placement fix: the deck sits MOUNT_CLEAR under the slot floor plane, so it does not mount; only the slot-floor
+    # placement: the deck sits MOUNT_CLEAR under the slot floor plane, so it does not mount; only the slot-floor
     # hint (rear row) does. Slot 1's server rides on its slides like every other slot, over a 25 mm air gap.
     zd = 0.25 - MOUNT_CLEAR
     # the solid core under the deck (broken interiors in the game's own style): a plinth half's break shows the other
@@ -294,7 +294,7 @@ def _columns(P, d, lod):
                         zc = zf + zo
                         _quad(P["holes"], Fr, ah - hs, ah + hs, zc - hs, zc + hs, 0.0006, DARK)
             if lod <= 1 and sy < 0:
-                # placement fix: the rear stop brackets, one per slot on each rear rail (Brushed tabs on the rail's
+                # placement: the rear stop brackets, one per slot on each rear rail (Brushed tabs on the rail's
                 # back face, between its 2nd and 3rd hole, reaching 18 mm into the slot past the server's body side):
                 # what a pushed-in server comes up against. The physics stop is the rear_stop plate (collision()).
                 xb = X(REAR_BRACKET_X, RAIL_X[1] - 0.002)
@@ -467,7 +467,7 @@ CONTAIN_PADS = (-0.375, -0.125, 0.125, 0.375)   # clamp pads every 0.25 m: one p
 
 
 CONTAIN_TAG_LIFT = 0.0006   # the CONTAINMENT tag's stencil 0.6 mm clear of its Darker plate (z-fight)
-# In game 2026-10-20 (a 42U open rack seen from below): the clamp pads were exactly as tall as the rail and sat flush on
+# Seen in game (a 42U open rack from below): the clamp pads would be exactly as tall as the rail and sat flush on
 # its back plane, so their top, bottom and back faces lay in the rail's planes (the Darker pad and the Colorable rail
 # flickered), and the standoff behind each pad read as a loose dark block under it. Now each pad is a clip that wraps
 # the rail: the rail body stands CONTAIN_WRAP inside the band (z0..z1 stays the pads' extent, so the measured rail and
@@ -640,7 +640,7 @@ def _tray(P, d, lod):
     # openings through the floor; the fan module itself (housings, shroud lips, finger guards, leads, lamps) is the
     # static RackFanTray subpart and the rotors are InfiniteRotation subparts (dc/rack_doors.fan_tray / fan);
     # the fans pull the servers' hot air up out of the rear zone and blow it out of the open-top trough
-    # placement fix: the floor's underside sits MOUNT_CLEAR over the slot ceiling plane (it would mount there on
+    # placement: the floor's underside sits MOUNT_CLEAR over the slot ceiling plane (it would mount there on
     # every row otherwise; only the slot-ceiling hint, rear row, does)
     zc = ZT + MOUNT_CLEAR
     if lod <= 1:
@@ -783,7 +783,7 @@ def _roof(P, d, lod):
     # ---- the roof rails over the side columns
     for sx in (-1, 1):
         # (2 mm inside the side skin plane: the spawned RackSide panel's outer face lies in that plane, and the rail's
-        # end face fought it, a subpart-vs-block z-fight found by dc/zfight.py subpart_frame_check, 2026-10-20)
+        # end face fought it, a subpart-vs-block z-fight found by dc/zfight.py subpart_frame_check)
         x0, x1 = sorted((sx * rx, sx * (a - 0.002)))
         ys = YK - c         # between the corner caps
         # The cable entries over the manager channels (front = data, rear = power) take the same top-entry

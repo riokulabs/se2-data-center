@@ -2,7 +2,7 @@
 
 If Path A (the racks' side panels and fan tray as bound ConditionalSubParts) fails the world load in
 game, setting config.RACK_PATH = "B" and re-running the rack pipeline must give back the structure the racks shipped
-with before Path A (commit 10455382's parent): the rotors, the fan tray and both side panels as static children of
+with before Path A (the earlier layout): the rotors, the fan tray and both side panels as static children of
 the rack's client prefab, with no bindings, no rack ConditionalSubParts entries and no stand-ins, while every rack
 keeps On/Off. Here the B package is staged into a temp dir (the committed A package is untouched)
 and must:
@@ -127,7 +127,7 @@ def test_b_keeps_on_off_and_the_door(path_b, name):
 
 
 def test_b_passes_the_walk_gate(path_b, tmp_path):
-    """The client/server walk (the 2026-10-18 world-load failure's offline gate) passes the B package: vanilla, then
+    """The client/server walk (the offline gate for the world-load failure) passes the B package: vanilla, then
     the mod's Assets without its Path A rack files (as the B recipe leaves them), then the B staging."""
     if not os.path.isdir(csw.SDK_ASSETS):
         pytest.fail(f"walk gate input missing: {csw.SDK_ASSETS}", pytrace=False)
@@ -149,7 +149,7 @@ def test_b_passes_the_walk_gate(path_b, tmp_path):
 
 def test_path_b_passes_the_schema_gate(path_b):
     """The 4.0 schema gate (non-null members, component definition types: Tests/definition_schema.py) holds under Path B
-    too: the 2026-10-20 open-rack load failure was a stale build, not a Path A structure."""
+    too: the open-rack load failure was a stale build, not a Path A structure."""
     import clientserver_walk as csw
     import definition_schema as ds
     if not os.path.isdir(csw.SDK_ASSETS):

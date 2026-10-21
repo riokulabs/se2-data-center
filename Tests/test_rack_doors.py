@@ -288,7 +288,7 @@ PROVIDER_TYPE = "DoorPartsProviderDefinitionObjectBuilder"
 
 def _door_conditional_defs(name):
     """The block's ConditionalSubParts definitions that a DoorPartsProvider references (the door's server walk follows
-    those: in-game fix 028c1172), as package-relative paths. A ConditionalSubParts referenced only by a client
+    those: the world-load fix), as package-relative paths. A ConditionalSubParts referenced only by a client
     composition (the KVM's drawer, the CRAC's fan rotor) is not walked by the server and is not subject to the rule."""
     defs = {}
     for rel in _files(name, ".def"):
@@ -323,7 +323,7 @@ def test_conditional_subparts_cover_door_like_blocks():
 def test_conditional_subparts_are_bound(staged, name):
     """The door's DoorPartsProvider (server) references the ConditionalSubParts definition, so the game's server walk
     (BindingsBasedClientServerInfo) follows every prefab in it unless it is a bound client prefab. An unbound one (the
-    rotors, 2026-10-18) puts client render components on a "server" composition and ConveyorGraphPostProcessor fails
+    rotors) puts client render components on a "server" composition and ConveyorGraphPostProcessor fails
     the world load. Every entry of every door-walked ConditionalSubParts definition must be some PrefabBinding's
     ClientPrefab (door racks, containment doors, any door-like block)."""
     bound = set()

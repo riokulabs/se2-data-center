@@ -880,7 +880,7 @@ internal static class KvmMotionTests
     }
 
     /// <summary>
-    /// Placement fix (2026-10-18): the rack's front zone is free cells (the slot opening), so the rack link looks BESIDE
+    /// The rack's front zone is free cells (the slot opening), so the rack link looks BESIDE
     /// the KVM. In the full and half rack's cell layout (dc/rack.py: the box minus the slots and the slots' front row),
     /// for a KVM in every slot facing the front: the front cell is free, some Beside cell is the rack's and the rack's
     /// box contains the KVM's; facing the rear, the front cell (the rear stop's) is the rack's. Beside cells are outside

@@ -95,7 +95,7 @@ def test_plan_zones(spec):
 
 
 def test_room_plans():
-    """Room blocks (docs/guides/vanilla-fracture-models.md 10.2 / 10.3): the floor and roof split IN PLANE, every
+    """Room blocks (vanilla-style fracture): the floor and roof split IN PLANE, every
     zone the full thickness (2 zones per 0.5 m, 4 per 1.0 m floor; the roof's 0.5 m bays within Keen's table for the
     panel's measured edge: 3 on the 1.0 m aisle (0.998 m: Keen's 3), 4 on the 1.5 m, a zone per bay on the 2.0 m),
     no critical zone (structural, as vanilla DeckPanel250); the door's 8 frame segments with the 7 round the
@@ -138,7 +138,7 @@ def test_plan_critical_zone(spec):
         cols = [z.id for z in p.zones if "column" in z.label]
         assert cols and p.critical() == (cols if doors.has_doors(spec) else []), p.critical()
         return
-    if spec.family == "tray":     # structural, no critical zone (guide 4.4), like the open racks
+    if spec.family == "tray":     # structural, no critical zone, like the open racks
         assert p.critical() == []
     else:
         assert p.critical() == ["Fracture_01"]

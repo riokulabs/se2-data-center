@@ -24,8 +24,8 @@ from mathutils import Matrix
 from . import config
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_indicator_servers as P6
-from . import preview_ups as P7
+from . import preview_indicator_servers as pv_indicator_servers
+from . import preview_ups as pv_ups
 from . import subparts as S
 from .preview import Rz, Shot, T, human, want
 
@@ -43,7 +43,7 @@ def Rx(deg):
 def _sub(built, sub, lod=0, paint="keen"):
     """A painted collection of one subpart LOD (screen art via the Terminal stand-in)."""
     objs = built[KVM]["subparts"][sub][lod][1]
-    return P6.stated(objs, f"{KVM}_{sub}", lod, paint, {}, key=(KVM, sub, lod, paint))
+    return pv_indicator_servers.stated(objs, f"{KVM}_{sub}", lod, paint, {}, key=(KVM, sub, lod, paint))
 
 
 def kvm_part_matrices(m, slide, fold):
@@ -58,7 +58,7 @@ def kvm(s, built, x=0.0, y=0.0, z=0.0, paint="keen", f=1.0, lod=0, sub_lod=None,
     together), or at the scripted normalised pose (slide, fold) when both are given (the scripted motion). Returns the base
     matrix; with a pose, also the drawer and screen instance objects (for animating them)."""
     m = T(x, y, z + H / 2) @ Rz(rot)
-    s.inst(P6.stated(built, KVM, lod, paint, {}), m)
+    s.inst(pv_indicator_servers.stated(built, KVM, lod, paint, {}), m)
     parts = None
     if lod < len(built[KVM]["lods"]) - 1:
         md, ms = kvm_part_matrices(m, *((slide, fold) if slide is not None and fold is not None else (f, f)))
@@ -71,7 +71,7 @@ def kvm(s, built, x=0.0, y=0.0, z=0.0, paint="keen", f=1.0, lod=0, sub_lod=None,
 
 def prog(s, built, x=0.0, y=0.0, z=0.0, paint="keen", lod=0, rot=0):
     m = T(x, y, z + H / 2) @ Rz(rot)
-    s.inst(P6.stated(built, PROG, lod, paint, {}), m)
+    s.inst(pv_indicator_servers.stated(built, PROG, lod, paint, {}), m)
     return m
 
 
@@ -81,9 +81,9 @@ def srv(s, built, name, x=0.0, y=0.0, z=0.0, paint="keen", f=1.0):
     elif name == "PROG":
         prog(s, built, x, y, z, paint)
     elif name == "UPS":
-        P7.ups(s, built, x, y, z, paint)
+        pv_ups.ups(s, built, x, y, z, paint)
     elif name:
-        P6.srv(s, built, name, x, y, z, paint)
+        pv_indicator_servers.srv(s, built, name, x, y, z, paint)
 
 
 def rack(s, built, name, mix, x=0.0, y=0.0, paint="keen", f=1.0):
@@ -331,7 +331,7 @@ def render_all(built):
         lods(built)
         paints(built)
         vanilla_compare(built)
-        if all(n in built for n in P6.FUNC + P6.DECO + ("DC_Srv_UPS",)):
+        if all(n in built for n in pv_indicator_servers.FUNC + pv_indicator_servers.DECO + ("DC_Srv_UPS",)):
             lineup(built)
             if all(n in built for n in (FULL, HALF)):
                 in_rack(built)

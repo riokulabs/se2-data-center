@@ -45,7 +45,7 @@ public sealed class KvmPrefabInjector : SimpleDefinitionPostProcessor<PrefabDefi
 /// <remarks>
 /// Not ForceInstantiation: forcing EntityCompositeDefinition into the Engine set (loaded first, no compositions of its
 /// own) also instantiates vanilla's ConveyorGraphPostProcessor there, whose Validate asserts on the missing
-/// ClientServerInfoPostProcessor and crashes the load (in-game 2026-10-18, -loadScripts). Our compositions live in our
+/// ClientServerInfoPostProcessor and crashes the load (seen in game with -loadScripts). Our compositions live in our
 /// own set, which instantiates this post-processor anyway.
 /// </remarks>
 [DefinitionPostProcessor]

@@ -203,7 +203,7 @@ def test_costs_scale_with_volume_and_game_scale_is_one():
     racks = [b.name for b in catalog.BLOCKS if b.family == "rack"]
     servers = [b.name for b in catalog.BLOCKS if b.family == "server"]
     # the game's mass follows the OCCUPIED cells, and the half rack frees its slots'
-    # front row (the placement fix) and its PDU columns: 60 cells, 370 kg-equivalent, just under the
+    # front row (free for placement) and its PDU columns: 60 cells, 370 kg-equivalent, just under the
     # Timer server's 375 (4 Hard Drives). Every rack's cost is floored at the dearest server (recipes.FRAME_FLOOR):
     # no rack costs less than a server it holds.
     assert max(total(n) for n in servers) < min(total(n) for n in racks if "Rack42" in n)
@@ -215,7 +215,7 @@ def test_costs_scale_with_volume_and_game_scale_is_one():
 
 # three costs worth checking in game
 GOLDEN_COSTS = {
-    # the freed PDU columns (16 cells) + the placement fix (the slots' front-zone row, 16 cells):
+    # the freed PDU columns (16 cells) + the free front row (the slots' front-zone row, 16 cells):
     # 120 occupied cells, not 152: 11 -> 9 plates, 8 -> 7 construction, 8 -> 7 optional
     "DC_Rack42_Open": ([("SteelPlate", 9), ("Construction", 7)], [("SteelPlate", 7)]),
     "DC_Srv_Compute": ([("SteelPlate", 1), ("Construction", 1)], [("SteelPlate", 1)]),

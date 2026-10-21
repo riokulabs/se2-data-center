@@ -1,4 +1,4 @@
-"""Offline emulation of SE2's block placer, for a server aimed into a rack slot (placement fix, 2026-10-18).
+"""Offline emulation of SE2's block placer, for a server aimed into a rack slot.
 
 Plain Python (no Blender). The game's placer, decompiled 4.0.0.3151 (tools/decompiled-current/Game2.Client/
 Keen.Game2.Client.GameSystems.BlockPlacement.BlockPlacer/; first ported from 2.4.0.95, tools/decompiled/, whose
@@ -296,7 +296,7 @@ def rack_block(spec, entry):
     the box faces: the sides, the top, the Open racks' containment rail band, so a block mounted on
     the rack's outside is seen too) and the regular collision boxes (dc/rack.py collision(), Blender frame ->
     collision glTF (x, z, -y) -> grid metres (+ the .model shift)).
-    A report without mount_cells (built before 2026-10-19) is refused: rebuild the rack (build_dc.py, headless)."""
+    A report without mount_cells (built before mount cells were recorded) is refused: rebuild the rack (build_dc.py, headless)."""
     from . import catalog, rack
     lo, hi = catalog.bounds(spec)
     p = entry["placement"]

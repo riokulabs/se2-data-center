@@ -105,8 +105,8 @@ def lods(built, name):
         s.inst(PV.painted(built, name, i), T(x, 0, ZC))
         for lf in contain.door_leaves(catalog.BY_NAME[name]):
             lods_ = built[name]["subparts"][lf.model]
-            from . import preview_rack_doors as P9
-            s.inst(P9.sub(built, name, lf.model, "keen", min(i, len(lods_) - 1)),
+            from . import preview_rack_doors as pv_rack_doors
+            s.inst(pv_rack_doors.sub(built, name, lf.model, "keen", min(i, len(lods_) - 1)),
                    T(x + contain.leaf_centre_x(catalog.BY_NAME[name], lf.side, 0.3), 0, ZC + contain.LEAF_ORIGIN_Z))
         lr = rep.get("lods", [{}] * n)[i]
         s.caption(f"LOD{i}\n{lr.get('tris', '?')}/{lr.get('max_tris', '?')} tris", (x, 0.3, 2.85), 0.11)
@@ -140,14 +140,14 @@ def collision(built, name):
     nm = f"{name}_collision_open"
     if not want(nm):
         return
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     s = _studio(nm, w, light=0.9)
     for nm_, lo, hi in b["regular"]:
         wf = PV.wire_copy(_box_obj(f"col_{nm_}", lo, hi, "GhostReg", M), t=0.012)
         wf.data.materials[0] = PM.get("EmAmber")
         s.link(wf)
     for lf in contain.door_leaves(spec):
-        s.inst(P9.sub(built, name, lf.model, "keen"), M @ T(contain.leaf_centre_x(spec, lf.side, 1.0), 0, contain.LEAF_ORIGIN_Z))
+        s.inst(pv_rack_doors.sub(built, name, lf.model, "keen"), M @ T(contain.leaf_centre_x(spec, lf.side, 1.0), 0, contain.LEAF_ORIGIN_Z))
     for m, (lo, hi) in contain.leaf_boxes(spec, 1.0).items():
         s.link(_box_obj(f"leafo_{m}", lo, hi, "GhostSlot", M))
     for m, (lo, hi) in contain.leaf_boxes(spec, 0.0).items():
@@ -169,21 +169,21 @@ def plan_sweep(built, name, rk="DC_Rack42_SplitFront"):
     if not want(nm) or rk not in built:
         return
     from . import doors as RD
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     s = PV.Shot(nm, res=(1800, 1600), floor=(-2.0, 2.5, -w - 2, w + 2), light=1.1)
     zc = contain.DH
     Md = T(-0.125, 0, zc) @ Rz(90)                       # room.reference_room: the west door at yaw 1
     door(s, built, name, Md, 0.0)
     for lf in contain.door_leaves(catalog.BY_NAME[name]):
-        s.inst(P9.sub(built, name, lf.model, "blue"), Md @ T(contain.leaf_centre_x(catalog.BY_NAME[name], lf.side, 1.0), 0, contain.LEAF_ORIGIN_Z))
+        s.inst(pv_rack_doors.sub(built, name, lf.model, "blue"), Md @ T(contain.leaf_centre_x(catalog.BY_NAME[name], lf.side, 1.0), 0, contain.LEAF_ORIGIN_Z))
     spec = catalog.BY_NAME[rk]
     for sg in (-1, 1):
         yaw = 0 if sg < 0 else 180
         C = T(0.5, sg * (w / 2 + 0.625), 1.25) @ Rz(yaw)
-        s.inst(P9.body(built, rk, "keen", False), C)
+        s.inst(pv_rack_doors.body(built, rk, "keen", False), C)
         for k, f in enumerate((0.0, 0.25, 0.5, 0.75, 1.0)):
             for lf in RD.leaves(spec):
-                s.inst(P9.sub(built, rk, lf["model"], "keen" if f in (0.0, 1.0) else "orange"),
+                s.inst(pv_rack_doors.sub(built, rk, lf["model"], "keen" if f in (0.0, 1.0) else "orange"),
                        C @ T(lf["axis"][0], lf["axis"][1], 0) @ Rz(RD.swing_yaw(lf, f)))
     s.link(_box_obj("row_end", (-0.0015, -w / 2 - 1.3, 0.0), (0.0015, w / 2 + 1.3, 2.0), "EmRed"))
     s.camera((0.2, 0.002, 12.0), (0.2, 0.0, 0.0), 50, ortho=2 * w + 2.8)
@@ -199,7 +199,7 @@ def plan_sweep(built, name, rk="DC_Rack42_SplitFront"):
 def closeups(built, name="DC_Contain_Door_150"):
     if name not in built:
         return
-    from . import preview_contain_roof as P4
+    from . import preview_contain_roof as pv_contain_roof
     spec = catalog.BY_NAME[name]
     w = _w(name)
     M = T(0, 0, ZC)
@@ -234,10 +234,10 @@ def closeups(built, name="DC_Contain_Door_150"):
     nm = "closeup_pocket_cutaway"
     if want(nm):   # the pocket with its cover cut away (y < 0.075 kept): back plate, slotted brackets, parked leaf
         s = _studio(nm, w, light=1.0)
-        s.inst(P4.section(built, name, "y", 0.075), M)
-        from . import preview_rack_doors as P9
+        s.inst(pv_contain_roof.section(built, name, "y", 0.075), M)
+        from . import preview_rack_doors as pv_rack_doors
         for lf in contain.door_leaves(spec):
-            s.inst(P9.sub(built, name, lf.model, "keen"), M @ T(contain.leaf_centre_x(spec, lf.side, 1.0), 0, contain.LEAF_ORIGIN_Z))
+            s.inst(pv_rack_doors.sub(built, name, lf.model, "keen"), M @ T(contain.leaf_centre_x(spec, lf.side, 1.0), 0, contain.LEAF_ORIGIN_Z))
         s.camera((0.75 * w + 0.4, 1.9, 1.5), (0.75 * w, 0.0, 1.1), 36)
         s.caption("pocket, cover cut away: back plate on the rack side, 4 slotted brackets, the parked leaf",
                   (0.5 * w, 0.1, 2.75), 0.05)
@@ -246,7 +246,7 @@ def closeups(built, name="DC_Contain_Door_150"):
 
 def _zone_colls(built, name, paint="keen"):
     """{zone id: collection} of the LOD0 faces each fracture zone gets (fracture.plan, as the export)."""
-    from . import preview_contain_roof as P4
+    from . import preview_contain_roof as pv_contain_roof
     from . import fracture as FR
     spec = catalog.BY_NAME[name]
     plan = FR.plan(spec, contain.door_collision(spec))   # the export's zones (fracture.plan; faces by centroid)
@@ -262,7 +262,7 @@ def _zone_colls(built, name, paint="keen"):
             for o in src.objects:
                 if o.type != "MESH":
                     continue
-                me = P4._copy_world(o)
+                me = pv_contain_roof._copy_world(o)
                 bm = bmesh.new()
                 bm.from_mesh(me)
                 drop = [f for f in bm.faces if plan.zones[plan.zone_index(tuple(f.calc_center_median()))].id != z]

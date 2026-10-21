@@ -880,7 +880,7 @@ def _export_planned(spec, lods, plan, ops, tmp, man, fr_dir, dm_dir, made, mid, 
             # every zone keeps a skin at every LOD but the LastLOD box (its collider needs a mesh): _promote
             _promote(pieces, i, spec.name, z.id)
             _group(pieces, cut, z.id, lod_objs, cut_hide)
-        if i == 0:   # what a broken zone shows inside (dc/interior.py: Keen's way, 2026-10-20), on the cut LOD0
+        if i == 0:   # what a broken zone shows inside (dc/interior.py: Keen's way), on the cut LOD0
             from . import interior as IN
             pts = [p for body, _ in interior_tris.values() for t in body for p in t]
             lo = [min(p[k] for p in pts) for k in range(3)]

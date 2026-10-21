@@ -77,7 +77,7 @@ Builders/EntityBuilder.cs; RuntimeComponentInfo.ForDefinition -> ComponentInfoIn
 D/VRage.DCS/Keen.VRage.DCS.Internal/ComponentInfoIndexer.cs). The decompile is decompiled-current (20 assemblies) plus
 <its target>-extra: the runtime assemblies decompiled-current lacks (VRage.Audio, VRage.Game.Client, VRage.Client,
 VRage.AI, VRage.Water, VRage.Water.Client, VRage.Physics.Client, VRage.Input, VRage.UI, VRage.UI.Shared, VRage.Steam,
-VRage.Analytics), decompiled 2026-10-20 the same way (`ilspycmd -p -r Game2/`). Without them, e.g. SpatialAudioComponent
+VRage.Analytics), decompiled the same way (`ilspycmd -p -r Game2/`). Without them, e.g. SpatialAudioComponent
 (VRage.Audio, [assembly: ClientAssembly]) is an unknown type, and the validator fails rather than guesses.
 """
 import copy

@@ -36,8 +36,8 @@ from . import kvm_charts as KC
 from . import kvm_motion as K
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_kvm as P8
-from . import preview_rack_doors as P9
+from . import preview_kvm as pv_kvm
+from . import preview_rack_doors as pv_rack_doors
 from . import subparts as S
 from .kvm_preview_plan import FPS, PLAN, SLOT, TOP, runs  # noqa: F401  (bpy-free: the tests read it)
 from .preview import Shot, T, want
@@ -48,7 +48,7 @@ GIF_FPS = 15
 RES = (1280, 720)
 RACK = "DC_Rack42_SplitFront"
 SECTION_X = 0.26                                  # the side view's cut plane (the KVM spans x +-0.21)
-KVM = P8.KVM
+KVM = pv_kvm.KVM
 
 # camera, target, lens (perspective) or ("ortho", camera, target, ortho scale, near-plane distance)
 VIEWS = {
@@ -63,10 +63,10 @@ TOP_VIEW = ("plan", (0.0, 0.78, 6.0), 1.7, 6.0 - TOP_SECTION_Z)
 def _mix(built, kvm_slot):
     """The populated rack (preview_rack_doors.MIX42) with the animated KVM's slot left empty; a stowed KVM in slot 5 when
     the animated one is elsewhere; anything not built becomes an empty slot."""
-    mix = list(P9.MIX42)
+    mix = list(pv_rack_doors.MIX42)
     mix[SLOT - 1] = "KVM0" if kvm_slot != SLOT else None
     mix[kvm_slot - 1] = None
-    names = {"UPS": "DC_Srv_UPS", "PROG": P8.PROG, "KVM0": KVM}
+    names = {"UPS": "DC_Srv_UPS", "PROG": pv_kvm.PROG, "KVM0": KVM}
     return tuple(n if n and names.get(n, n) in built else None for n in mix)
 
 
@@ -84,15 +84,15 @@ class Scene:
         self.s = s
         spec = catalog.BY_NAME[RACK]
         self.spec = spec
-        P9.rack(s, built, RACK, f=run.door(0.0), mix=_mix(built, run.slot), fan=15, working=True)
+        pv_rack_doors.rack(s, built, RACK, f=run.door(0.0), mix=_mix(built, run.slot), fan=15, working=True)
         self.leaves = []
         for lf in doors.leaves(spec):
             cname = f"pv9_{RACK}_{lf['model']}_L0_keen"
             ob = next(o for o in s.sc.collection.objects if o.instance_collection and o.instance_collection.name == cname)
             self.leaves.append((ob, lf))
-        self.C = T(0, 0, P9._H(RACK) / 2)
-        _, self.parts = P8.kvm(s, built, 0.0, 0.0, 0.25 * run.slot, slide=0.0, fold=0.0)
-        self.base = T(0, 0, 0.25 * run.slot + P8.H / 2)
+        self.C = T(0, 0, pv_rack_doors._H(RACK) / 2)
+        _, self.parts = pv_kvm.kvm(s, built, 0.0, 0.0, 0.25 * run.slot, slide=0.0, fold=0.0)
+        self.base = T(0, 0, 0.25 * run.slot + pv_kvm.H / 2)
         self._camera(view)
         self.hud = self._hud()
 
@@ -162,12 +162,12 @@ class Scene:
     def pose(self, t):
         run = self.run
         slide, fold = run.at(t)
-        md, ms = P8.kvm_part_matrices(self.base, slide, fold)
+        md, ms = pv_kvm.kvm_part_matrices(self.base, slide, fold)
         self.parts[0].matrix_world = md
         self.parts[1].matrix_world = ms
         f = run.door(t)
         for ob, lf in self.leaves:
-            ob.matrix_world = self.C @ T(lf["axis"][0], lf["axis"][1], 0) @ P9.Rz(doors.swing_yaw(lf, f))
+            ob.matrix_world = self.C @ T(lf["axis"][0], lf["axis"][1], 0) @ pv_rack_doors.Rz(doors.swing_yaw(lf, f))
         door = f"   door {f:.2f}" if run.name == "door_close_while_out" else ""
         self.hud.data.body = (f"{run.label}\nt = {t:5.3f} s   drawer {slide * S.TRAVEL:5.3f} m   "
                               f"lid {fold * S.FOLD_DEG:5.1f} deg{door}")

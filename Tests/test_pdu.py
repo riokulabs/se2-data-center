@@ -387,7 +387,7 @@ def test_pdu_limits_and_materials(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", ALL)
 def test_pdu_breakable_export(name):
-    """Breakable through the planned pipeline (guide docs/guides/vanilla-fracture-models.md): the plan's zones, cut
+    """Breakable through the planned pipeline: the plan's zones, cut
     and capped (FracturedMaterial01), no critical zone, its own Damaged model (the lamps -> EmissiveOffBroken)."""
     m = _manifest(name)
     zones = [z["id"] for z in m["fractured"]["zones"]]

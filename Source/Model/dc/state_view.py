@@ -4,7 +4,7 @@ vanilla analogues rendered beside our blocks, and the pre-4.0-damage baseline (T
 Pure Python (no Blender): it reads the installed definitions (Assets/DataCenter/<name>/), the build outputs
 (Source/Model/Models/<name>/export.json and FBX) and, read-only, tools/vanilla-ref.
 
-What a shot shows (guide docs/guides/vanilla-damage-and-build-states.md §1, §2.1, §3.5):
+What a shot shows:
   c00 .. c77    the Fractured model (FR) with the cumulative stage changes up to that ratio (part_state);
   done          the NonFractured model (NF), no changes;
   done_damaged  a finished block that took damage: FR with only the last stage's ApplyOnlyWhenDamaged changes, every
@@ -30,7 +30,7 @@ DEBRIS_SHOT = "debris"
 VIEWS = ("front", "rear")
 ZONE_STATES = ("intact", "damaged", "dead")
 
-# family -> vanilla analogue block names (guide §4). Names, not paths: analogue_dir resolves each to its nested
+# family -> vanilla analogue block names. Names, not paths: analogue_dir resolves each to its nested
 # vanilla-ref folder.
 ANALOGUE = {
     "rack": ("SlidingDoorNarrow250", "WallInsertPanel"),
@@ -58,7 +58,7 @@ def part_state(stages, ratio, damaged=False):
 
     ratio < 1: the cumulative changes of every stage with BuildRatioLowerBound <= ratio (QueryChanges accumulates from
     the last model swap, which is stage 0's FractureModel). ratio >= 1: the finished block has no changes ({}); when
-    `damaged`, it renders FR with the last stage's ApplyOnlyWhenDamaged changes only (guide §2.1 / §3.5). A part a
+    `damaged`, it renders FR with the last stage's ApplyOnlyWhenDamaged changes only. A part a
     change never touched is shown in its skin and is absent from the result: read it as state.get(p, (True, None))."""
     st = {}
     if ratio >= 1:

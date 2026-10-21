@@ -25,7 +25,7 @@ critical.
 A critical zone does NOT destroy the block: a dead critical zone makes BreakableBlockComponent.IsBroken true, which
 switches a functional block off (FunctionalBlockComponent.RecomputeFunctional) and shows "Broken"; the block is
 destroyed only when its volume-weighted integrity falls below its DestructionThreshold (0.3 by default,
-CubeBlockComponent.cs:4388-4400). Racks and cable trays are structural (CriticalFractures = [], guide 4.4): no
+CubeBlockComponent.cs:4388-4400). Racks and cable trays are structural (CriticalFractures = []): no
 critical zone, except a door rack's columns (the hinges).
 The rod hangers and the Chute stay unfractured and non-breakable (UNFRACTURED).
 
@@ -105,7 +105,7 @@ KEEP_WHOLE = {              # Part names never cut: hardware assigned whole by i
 # broken neighbour shows the core as vanilla's torn wiring; the NonFractured model keeps the part's own material
 # (Darker: at most 8 materials there, and nothing sees it). The parts are cut like any solid (not in KEEP_WHOLE).
 CORE_PARTS = {"crac": ("core",), "pdu_cabinet": ("core",)}
-# Construction roles per face (guide B1). A face's role decides its object and Group in
+# Construction roles per face. A face's role decides its object and Group in
 # the Fractured model (export_models._group) and so its construction mesh-part props:
 #   skin     the zone's own group Fracture_NN: the panels that build up through both sequences;
 #   hide     Fracture_NN_Hide, AlwaysHidden while under construction: decals, stencils, lamps, screens (HIDE_PREFIXES);
@@ -550,7 +550,7 @@ def clip_box(lo, hi, halfspaces):
 
 
 # ---------------------------------------------------------------------------------------------------- shaped hulls
-# docs/guides/vanilla-fracture-models.md 10.3 (5): a zone's collider follows its solid. Health is the
+# A zone's collider follows its solid (vanilla's breakable blocks do the same). Health is the
 # block's MaxHealth x the collider's VOLUME share (BreakableComponentDefinition.PostProcessPrefabs), and the colliders
 # become the block's physics once anything breaks, so a box over mostly empty space (a bend's inner corner, a
 # waterfall's occupancy column) buys health and phantom collision. Each collider is a k-DOP of the zone's own LOD0
@@ -879,7 +879,7 @@ def plan(spec, boxes):
 
 
 def _server(spec):
-    """6U servers (guide 10.3 (3)): a critical central core (the mainboard / drive cage between the lid
+    """6U servers: a critical central core (the mainboard / drive cage between the lid
     and the rear cover: two neighbours, so it always stays in the largest island) with two shell modules: the
     front service module (bezel, face, controls, rack ears, the lid's latch end), which supports the face's
     interaction dummies (functional.DUMMIES: Terminal / LcdPanel die with it), and the rear chassis (rear cover,
@@ -923,7 +923,7 @@ UNFRACTURED_BOXES = ("rear_stop",)
 
 def _rack(spec):
     """The racks: a frame cut where it would really part
-    (guide 10.3 (1)), every zone a full-section chunk. Full rack (8 zones, the guide's 8-12 at 2.5 m): the plinth's
+    (as vanilla's breakables do), every zone a full-section chunk. Full rack (8 zones, within vanilla's 8-12 at 2.5 m): the plinth's
     front and rear halves, each side column (corner posts, 19" rails, cable manager) in a lower and an upper
     half, the top cable tray's front and rear halves. Half rack (Keen allows 4 at 1.25 m): plinth, the two side
     columns, the roof over the slots (it owns the slot roof's mount cells, which no zone covered before). The
@@ -1087,7 +1087,7 @@ def _quadrants(xs, ys, label):
 
 
 def _floor(spec):
-    """The raised floor (guide 10.3 (2): panels split IN PLANE, every zone the full thickness): a 1.0 m block parts at
+    """The raised floor (panels split IN PLANE, every zone the full thickness): a 1.0 m block parts at
     its real tile joints, each 0.5 m tile with the pedestals, stringers and pads under it (the shared pedestals on the
     joints: their round column goes whole to one tile, their head and base plates part with the tiles); the 0.5 m
     block is one tile, cracked in two along its panel line (the solid tile's skin plates part there). Structural: no
@@ -1106,7 +1106,7 @@ def _floor(spec):
 
 
 def _roof(spec):
-    """The containment roof (guide 10.4: split in plane per bay): every 0.5 m bay its own zone with its pane, caps,
+    """The containment roof (split in plane per bay): every 0.5 m bay its own zone with its pane, caps,
     frame segment, clamps and fire release, parting along the mullions (a member centred on its mullion goes whole
     to one side; the beams and caps across it are cut). Keen's table is keyed on the model's largest edge: the
     panel's gaskets and clamps stop 1 mm inside the cell planes, so the 1.0 m panel measures 0.998 m and is allowed 3
@@ -1132,7 +1132,7 @@ def _roof(spec):
 
 
 def _door(spec):
-    """The containment door's frame (guide 4.1 "frame segments around an opening", vanilla SlidingDoorNarrow250: 8
+    """The containment door's frame ("frame segments around an opening", vanilla SlidingDoorNarrow250: 8
     zones, 7 critical): the lintel over the opening and the posts (it carries the track the closed leaves hang from:
     their Closed dummies are SupportingFracture of it), each pocket tower in three pieces at the cover's panel lines
     (real joints), the top piece with the header over its pocket, and the threshold. The seams are straight, at the
@@ -1167,7 +1167,7 @@ def _door(spec):
 
 
 def _crac(spec):
-    """The in-row cooler (guide 4.1 / 10.3 (3) "functional core + shell plates"; 9 zones, the guide's 8-12 at 2.5 m).
+    """The in-row cooler ("functional core + shell plates"; 9 zones, within vanilla's 8-12 at 2.5 m).
     The machine is the coil core between the filter section and the fan plenums: it holds the function, is critical
     and is the volume-dominant zone, with every other zone its neighbour (it always stays in the largest island). In
     front of it the three fan sections (each a fan module with its plenum, split on the door rails between the
@@ -1221,7 +1221,7 @@ def _crac(spec):
 
 # ----------------------------------------------------------------------------------------------------------------- PDUs
 def _pdu_cabinet(spec):
-    """The PDU cabinet (the rack pattern, guide 10.3 (1): parts at real joints, every zone a full-section chunk): the
+    """The PDU cabinet (the rack pattern: parts at real joints, every zone a full-section chunk): the
     plinth's front and rear halves; the cabinet body in a lower and an upper section, parting at the shadow gap
     between the isolator panel and the hinged breaker cover (dc/pdu.py PANEL_JOINT_Z), each split left / right at
     x = 0 (between the two breaker columns); the top band's front and rear halves. Decorative (no function to
@@ -1268,7 +1268,7 @@ def pdu_strip_seams(spec):
 
 
 def _pdu_strip(spec):
-    """The zero-U strip (guide 10.3 (4), a linear block: sections along the run): the extruded body and its cord
+    """The zero-U strip (a linear block: sections along the run): the extruded body and its cord
     channel snap across between two slots' outlets, 3 sections on the 42U strip (Keen allows 10 at 2.0 m), 2 on the
     24U (3 at 0.88 m); Fracture_01 is the bottom section with the inlet cord and plug. Decorative: no critical zone."""
     zs = pdu_strip_seams(spec)
@@ -1298,7 +1298,7 @@ SIGN_SEAM_X = 0.16          # the 1.0 m signs' seams (|x|): between the screen's
 
 
 def _sign(spec):
-    """The signs (guide 10.3 (2) "panels split IN PLANE", vanilla LCDNarrow50: 2 zones, none critical):
+    """The signs ("panels split IN PLANE", vanilla LCDNarrow50: 2 zones, none critical):
     the 1.0 m aisle signs part in three tiles along x (Keen's table: 3 at the measured ~0.95-0.97 m edge), the middle
     one holding the screen's centre (Fracture_01: its LcdPanel dummy is SupportingFracture of it, so the display dies
     with its core) and each end tile its tab / hanger; the 0.5 m rack label in two halves (Keen: 2 at 0.43 m), the

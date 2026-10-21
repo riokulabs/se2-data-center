@@ -350,7 +350,7 @@ def test_roof_measured_parts(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", ROOFS)
 def test_roof_breakable_export(name):
-    """docs/guides/vanilla-fracture-models.md 10.4: split IN PLANE by 0.5 m bays within Keen's table
+    """Vanilla-style fracture: split IN PLANE by 0.5 m bays within Keen's table
     for the measured panel (1.0 m aisle: 3, the -y row one zone; 1.5 m: 4; 2.0 m: a zone per bay), each with its pane, caps and frame segment (glazing AND frame materials), break faces
     where the seams cut the beams and caps, no critical zone; its own Damaged model, whose panes map to vanilla's
     WindowGlassBroken (fracture.DAMAGED_SLOTS)."""
@@ -700,7 +700,7 @@ def test_door_measured_leaves(name):
 @pytest.mark.build
 @pytest.mark.parametrize("name", DOORS)
 def test_door_breakable_export(name):
-    """docs/guides/vanilla-fracture-models.md applied through the shared pipeline (dc/fracture.py _door;
+    """Vanilla-style fracture applied through the shared pipeline (dc/fracture.py _door;
     recognition, connectivity, cap UVs, hull fill and the Damaged model's parity are test_fracture_refine.py's,
     on the files): the 8 zones of the plan, the door's frame members cut and capped at every seam (each pocket piece,
     the lintel and the sill carry FracturedMaterial01 break faces), the 7 frame zones critical, the closed leaves

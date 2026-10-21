@@ -148,7 +148,7 @@ The 38 tray blocks are in the pipeline (`catalog.PIPELINE_FAMILIES` has `tray` a
   Rods kind (owned by `DC_TrayRods_100`) holds 0.25 / 1.0 / 2.0 m. `patch_kind` replaces every tray kind's cloned
   vanilla groups (Structural > Walls, Trusses), and empties the non-owner kinds.
 - **Names** (`dc/names.py`): "Cable Tray, <shape> (<load>)", e.g. "Cable Tray, Straight (Full)". No block name carries
-  a size (2026-10-20): the sizes of a kind share its name ("Cable Tray, Straight (Full)", "Cable Tray, Hanger Rods")
+  a size: the sizes of a kind share its name ("Cable Tray, Straight (Full)", "Cable Tray, Hanger Rods")
   and the game's size selector tells them apart; the descriptions keep the lengths.
 - **Costs** (`dc/recipes.py`): the core rule against WallInsertPipes (its recipe is the wall panel's; trays at Hollow
   density, written to the block definition) and StructuralSupportStraight (in game 2 Steel Plate: scale 2), with a

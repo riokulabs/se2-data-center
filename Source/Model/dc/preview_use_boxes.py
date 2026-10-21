@@ -20,11 +20,11 @@ from mathutils import Matrix, Vector
 from . import functional as FN
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_kvm as P8
+from . import preview_kvm as pv_kvm
 from . import subparts as S
 from .preview import Shot, T, want
 
-KVM = P8.KVM
+KVM = pv_kvm.KVM
 PAIR_X = 0.33                                  # the stowed KVM at +x (viewer's left from the front), the out one at -x
 BOXES = ((FN.KVM_TOGGLE, FN.KVM_TOGGLE_BOX, "GhostOcc"), ("Terminal", FN.KVM_TERMINAL_BOX, "GhostSlot"))
 RAY_MAT = {FN.KVM_TOGGLE: "EmAmber", "Terminal": "Terminal", None: "MetalDull"}
@@ -78,8 +78,8 @@ def pair(view, loc, tgt, lens):
         return
     s = Shot(nm, res=(1800, 1100), floor=(-1.5, 1.5, -1.5, 2.0))
     for x, f, tag in ((PAIR_X, 0.0, "stowed"), (-PAIR_X, 1.0, "out")):
-        P8.kvm(s, P8_BUILT[0], x=x, f=f)
-        _boxes(s, Vector((x, 0.0, P8.H / 2)), tag)
+        pv_kvm.kvm(s, KVM_BUILT[0], x=x, f=f)
+        _boxes(s, Vector((x, 0.0, pv_kvm.H / 2)), tag)
     s.camera(loc, tgt, lens)
     if view != "front":                        # the captions are placed for the front camera
         s.render()
@@ -95,8 +95,8 @@ def rays_side():
     if not want(nm):
         return
     s = Shot(nm, res=(1800, 1100), floor=(-1.5, 1.5, -1.5, 2.0))
-    base = Vector((0.0, 0.0, P8.H / 2))
-    P8.kvm(s, P8_BUILT[0], f=1.0)
+    base = Vector((0.0, 0.0, pv_kvm.H / 2))
+    pv_kvm.kvm(s, KVM_BUILT[0], f=1.0)
     _boxes(s, base, "out")
     eye = Vector(EYE) + base
     for i in range(11):
@@ -117,13 +117,13 @@ def rays_side():
     s.render()
 
 
-P8_BUILT = [None]
+KVM_BUILT = [None]
 
 
 def render_all(built):
     if KVM not in built:
         return
-    P8_BUILT[0] = built
+    KVM_BUILT[0] = built
     pair("front", (0.0, 2.3, 0.42), (0.0, 0.40, 0.14), 40)
     pair("3q", (-1.35, 1.95, 1.05), (0.0, 0.40, 0.12), 38)
     rays_side()

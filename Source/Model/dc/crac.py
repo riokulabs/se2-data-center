@@ -324,7 +324,7 @@ def _fan_module(P, k, lod):
     G.plate(P["fine"], F, sq, [_circle(ORIFICE_R, n, 0, zc)], MOD_Y[0], MOD_Y[1], DARK)
     G.ring(P["lip"], F, _circle(VENTURI[0], n, 0, zc), _circle(ORIFICE_R, n, 0, zc), VENTURI[1], VENTURI[2], HARDWARE)
     g = P["guard"]
-    # (12-sided wires: a 3.6 mm ring reads round at 12; 2026-10-20 budget, the project's 90 % cap)
+    # (12-sided wires: a 3.6 mm ring reads round at 12; within the project's 90 % triangle cap)
     rings, ng = (GUARD_R[:3], 12) if lod == 0 else ((), 0)      # LOD1: the wires are sub-pixel, the spokes stay
     for r in rings:
         G.ring(g, F, _circle(r + 0.0018, ng, 0, zc), _circle(r - 0.0018, ng, 0, zc), GUARD_Y[0], GUARD_Y[1], HARDWARE)

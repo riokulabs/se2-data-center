@@ -247,8 +247,8 @@ MIX = ("DC_Srv_Compute", "DC_Srv_Storage", None, "DC_Srv_Switch", "DC_Srv_Comput
 
 
 def run_racks(built):
-    from . import preview_rack_tops as P2
-    from . import preview_rack_doors as P9
+    from . import preview_rack_tops as pv_rack_tops
+    from . import preview_rack_doors as pv_rack_doors
     need = ("DC_Rack42_Open", "DC_Tray_StraightL_Full", "DC_Tray_StraightS_Full")
     if not all(n in built for n in need):
         return
@@ -263,12 +263,12 @@ def run_racks(built):
             continue
         s = scene(nm, res=(2200, 1250), floor=(-2.5, 5.0, -3.0, 4.0), light=1.3)
         for x, n in ((0.0, "DC_Rack42_Open"), (1.0, "DC_Rack42_Open"), (2.0, "DC_Rack42_Open"), (3.0, half)):
-            P9.rack(s, built, n, x, 0.0, mix=mix if n != half else mix[:4], working=True)
+            pv_rack_doors.rack(s, built, n, x, 0.0, mix=mix if n != half else mix[:4], working=True)
         piece(s, built, "DC_Tray_StraightL_Full", -1.0, y0, z0, paint="blue")
         piece(s, built, "DC_Tray_StraightS_Full", 1.5, y0, z0, paint="blue")
         piece(s, built, "DC_Tray_StraightS_Full", 2.0, y0, z0, paint="blue")
-        P2._interface(s, 1.0, 2.5, full_top)                       # the Drop ghost over rack 2, its waterfalls
-        P2._interface(s, 3.0, 2.5 if half.endswith("42_Open") else 1.25, full_top, chute=not half.endswith("42_Open"))
+        pv_rack_tops._interface(s, 1.0, 2.5, full_top)                       # the Drop ghost over rack 2, its waterfalls
+        pv_rack_tops._interface(s, 3.0, 2.5 if half.endswith("42_Open") else 1.25, full_top, chute=not half.endswith("42_Open"))
         if view == "34":
             s.camera((-2.6, 4.6, 3.9), (1.2, 0.0, 2.6), 30)
             s.caption("Drop (ghost) over rack 2; Drop + Chute over the half rack", (1.6, 0.6, 3.75), 0.07)
@@ -875,10 +875,10 @@ RACK = "DC_Rack42_Open"
 
 def _ghosts_row(s, xs, M, full_top):
     """Drop ghosts (preview_rack_tops._interface) over the racks at rack-local xs, moved by M (a turned row)."""
-    from . import preview_rack_tops as P2
+    from . import preview_rack_tops as pv_rack_tops
     before = set(bpy.data.objects)
     for x in xs:
-        P2._interface(s, x, full_top, full_top)
+        pv_rack_tops._interface(s, x, full_top, full_top)
     for o in set(bpy.data.objects) - before:
         o.matrix_world = M @ o.matrix_world
 
@@ -887,7 +887,7 @@ def grid_layout(built):
     """An overhead grid over a rack row: two rows of four racks facing each other across a 1.0 m aisle, a tray over
     each row (Drop ghosts over its racks), joined by a connector: a Tee on row A's tray, two straights across the
     aisle, a Cross on row B's tray whose far port feeds on over row B (to the next room)."""
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     d = "Full"
     need = [RACK, f"DC_Tray_Tee_{d}", f"DC_Tray_Cross_{d}", f"DC_Tray_StraightS_{d}", f"DC_Tray_StraightL_{d}"]
     if not all(n in built for n in need):
@@ -903,8 +903,8 @@ def grid_layout(built):
             continue
         s = scene(nm, res=(2400, 1600), floor=(-3.0, 6.0, -3.0, 6.5), light=1.3)
         for x in range(4):
-            P9.rack(s, built, RACK, float(x), 0.0, mix=mix[:4], working=True)
-            P9.rack(s, built, RACK, float(x), YB, rot=180.0, mix=mix[4:], working=True)
+            pv_rack_doors.rack(s, built, RACK, float(x), 0.0, mix=mix[:4], working=True)
+            pv_rack_doors.rack(s, built, RACK, float(x), YB, rot=180.0, mix=mix[4:], working=True)
         # row A tray (centreline y 0.125): S | Drop 0 | Tee over rack 1 | Drop 2 | Drop 3 | S
         ya = DM.TRAY_RACK_Y - 0.25
         piece(s, built, S, -1.0, ya, z0)
@@ -1022,7 +1022,7 @@ def _drop_on_rack(s, built, drop, rack_x, full=True, chute=None, paint="blue"):
 def landing(built):
     """The brush-plate landings close up ON the real core racks: the 42U (a Drop) and the 24U (a Chute under a
     Drop), open and with doors (open 85 deg), at each top entry; and the half rack's chute foot."""
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     D_ = "DC_Tray_Drop_Full"
     if D_ not in built:
         return
@@ -1039,7 +1039,7 @@ def landing(built):
                 if not want(nm):
                     continue
                 s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-                P9.rack(s, built, r, 0.0, 0.0, f=1.0 if "Split" in r else 0.0, working=True)
+                pv_rack_doors.rack(s, built, r, 0.0, 0.0, f=1.0 if "Split" in r else 0.0, working=True)
                 _drop_on_rack(s, built, D_, 0.0, chute="DC_Tray_Chute" if half else None)
                 p = Vector((sx * DM.WF_X, DM.WF_Y, top))
                 if view == "34":
@@ -1053,7 +1053,7 @@ def landing(built):
     nm = "land_chute_top"
     if "DC_Rack24_Open" in built and "DC_Tray_Chute" in built and want(nm):   # the Drop's collar on the Chute's top
         s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-        P9.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
+        pv_rack_doors.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
         _drop_on_rack(s, built, D_, 0.0, chute="DC_Tray_Chute")
         p = Vector((DM.WF_X, DM.WF_Y, FULL42))
         s.camera(tuple(p + Vector((0.30, 0.42, -0.10))), tuple(p + Vector((0.0, 0.0, 0.0))), 34)
@@ -1062,7 +1062,7 @@ def landing(built):
     nm = "land_collar_macro"
     if "DC_Rack42_Open" in built and want(nm):           # the brush collar and its bristles, from above
         s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-        P9.rack(s, built, "DC_Rack42_Open", 0.0, 0.0, working=True)
+        pv_rack_doors.rack(s, built, "DC_Rack42_Open", 0.0, 0.0, working=True)
         _drop_on_rack(s, built, D_, 0.0)
         p = Vector((DM.WF_X, DM.WF_Y, FULL42))
         s.camera(tuple(p + Vector((0.09, 0.13, 0.16))), tuple(p + Vector((0.0, 0.0, 0.0))), 40)
@@ -1071,7 +1071,7 @@ def landing(built):
     nm = "land_chute_foot"
     if "DC_Rack24_Open" in built and "DC_Tray_Chute" in built and want(nm):
         s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-        P9.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
+        pv_rack_doors.rack(s, built, "DC_Rack24_Open", 0.0, 0.0, working=True)
         _drop_on_rack(s, built, D_, 0.0, chute="DC_Tray_Chute")
         p = Vector((DM.WF_X, DM.WF_Y, HALF24))
         s.camera(tuple(p + Vector((0.38, 0.55, 0.35))), tuple(p + Vector((-0.02, 0.0, 0.12))), 34)
@@ -1113,7 +1113,7 @@ def rack_row(s, built, paint="blue", rods=True, mix=None, doors=0.0, row=None):
     Reducer F>M -> Drop Moderate (rack 3) -> Reducer M>L -> Drop Low (rack 4) -> Drop Low over the half rack with a
     Chute -> Reducer L>0 -> StraightS Empty; Rods 1.0 m from every trapeze to a ceiling 1.0 m over the tray.
     -> {rack x: rack name}, the x of every joint, the ceiling height."""
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     x, racks, joints = -1.0, {}, []
     mix = mix if mix is not None else tuple(m if (m is None or m in built) else None for m in MIX)
     top = FULL42 + 0.75
@@ -1131,7 +1131,7 @@ def rack_row(s, built, paint="blue", rods=True, mix=None, doors=0.0, row=None):
         joints.append(x)
     for rx, rack in racks.items():
         if rack in built:
-            P9.rack(s, built, rack, rx, 0.0, mix=mix if rack.startswith("DC_Rack42") else mix[:4], working=True,
+            pv_rack_doors.rack(s, built, rack, rx, 0.0, mix=mix if rack.startswith("DC_Rack42") else mix[:4], working=True,
                     f=doors)
     return racks, joints[:-1], top + 1.0
 
@@ -1341,7 +1341,7 @@ def detail_shots(built):
             route(s, built, [(name, "a", "b")], start=ORIGIN)
             s.camera(loc, tgt, 30)
             done(s)
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     D_ = "DC_Tray_Drop_Full"
     if D_ in built and "DC_Rack42_Open" in built:
         for nm, rack, chute, top, off, tgt_dz, lens in (
@@ -1351,7 +1351,7 @@ def detail_shots(built):
             if not want(nm) or rack not in built or (chute and chute not in built):
                 continue
             s = scene(nm, res=(1500, 1050), floor=(-3, 3, -3, 3), light=1.2)
-            P9.rack(s, built, rack, 0.0, 0.0, working=True)
+            pv_rack_doors.rack(s, built, rack, 0.0, 0.0, working=True)
             _drop_on_rack(s, built, D_, 0.0, chute=chute)
             p = Vector((DM.WF_X, DM.WF_Y, top))
             s.camera(tuple(p + Vector(off)), tuple(p + Vector((0, 0, tgt_dz))), lens)

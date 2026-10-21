@@ -37,7 +37,7 @@ from mathutils import Matrix, Vector
 from . import catalog, config, doors
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_rack_doors as P9
+from . import preview_rack_doors as pv_rack_doors
 from .preview import Rz, Shot, T, want
 
 ICON_DIR = os.path.join(config.HERE, "UI")
@@ -50,7 +50,7 @@ SHORT = {"DC_Srv_Timer": "TIMER", "DC_Srv_EventCtl": "EVENT CONTROLLER", "DC_Srv
          "DC_Srv_Status": "STATUS DISPLAY", "DC_Srv_UPS": "UPS 12U", "DC_Srv_Programmable": "PROGRAMMABLE",
          "DC_Srv_Compute": "COMPUTE", "DC_Srv_Storage": "STORAGE", "DC_Srv_Switch": "NETWORK SWITCH",
          "DC_Srv_Blank": "BLANKING PANEL"}
-# P9 mix tokens for the special servers
+# pv_rack_doors mix tokens for the special servers
 TOKEN = {"DC_Srv_UPS": "UPS", "DC_Srv_KVM": "KVM", "DC_Srv_Programmable": "PROG"}
 # icon mixes: sparse, so the slots show what is behind them (nothing / the rear door)
 ICON_MIX42 = ("DC_Srv_Storage", "DC_Srv_Compute", None, "DC_Srv_Switch", None, "DC_Srv_Timer", None, "DC_Srv_Storage")
@@ -68,9 +68,9 @@ def tok(n):
 # ------------------------------------------------------------------------------------------------ placing blocks
 def rack(s, built, name, x=0.0, y=0.0, rot=0.0, f=0.0, f_rear=None, paint="black", srv_paint="keen", mix=(),
          fan=0.0, working=None, kvm_f=1.0):
-    """A rack (doors at f / f_rear, P9 pose) with its servers from slot 1 up in their own paint. A KVM behind
+    """A rack (doors at f / f_rear, pv_rack_doors pose) with its servers from slot 1 up in their own paint. A KVM behind
     closed front doors is shown stowed (switched Off): Working it would pop through the leaves (in-game checklist)."""
-    M = P9.rack(s, built, name, x, y, rot, f=f, paint=paint, mix=(), fan=fan, working=working, f_rear=f_rear)
+    M = pv_rack_doors.rack(s, built, name, x, y, rot, f=f, paint=paint, mix=(), fan=fan, working=working, f_rear=f_rear)
     spec = catalog.BY_NAME[name]
     for k, n in enumerate(mix, 1):
         if not n:
@@ -78,7 +78,7 @@ def rack(s, built, name, x=0.0, y=0.0, rot=0.0, f=0.0, f_rear=None, paint="black
         n = tok(n)
         if n == "KVM" and (kvm_f < 1.0 or (doors.door_sides(spec) and f < 1.0)):
             n = "KVM0"
-        P9.srv(s, built, n, M, 0.25 * k, srv_paint)
+        pv_rack_doors.srv(s, built, n, M, 0.25 * k, srv_paint)
     return M
 
 
@@ -86,7 +86,7 @@ def server(s, built, name, x=0.0, y=0.0, z=0.0, rot=0.0, paint="keen", kvm_f=1.0
     n = tok(name)
     if n == "KVM" and kvm_f < 1.0:
         n = "KVM0"
-    P9.srv(s, built, n, T(x, y, 0) @ Rz(rot), z, paint)
+    pv_rack_doors.srv(s, built, n, T(x, y, 0) @ Rz(rot), z, paint)
 
 
 # ------------------------------------------------------------------------------------------------ bounds / fit
@@ -305,8 +305,8 @@ def _room_icon_subject(built, name, s):
     elif spec.family == "crac":
         PR.crac_unit(s, built, name, M, angle=17.0, working=True, paint="keen")
     elif spec.family == "sign":
-        from . import preview_signs as P8
-        P8.place(s, built, name, M, paint="keen", text=SIGN_ICON_TEXT[name])
+        from . import preview_signs as pv_signs
+        pv_signs.place(s, built, name, M, paint="keen", text=SIGN_ICON_TEXT[name])
     elif spec.family == "pdu_strip":   # leaned across the tile (a 0.25 x 2 m strip upright is a hairline at 64 px)
         s.inst(PV.painted(built, name, 0, "keen"), Matrix.Rotation(math.radians(STRIP_ICON_LEAN), 4, "Y"))
     else:
@@ -628,8 +628,8 @@ def hero_layout_top(built):
     for ln in (-1.0, AISLE_Y / 2, 5.0):
         s.soft((3.0, ln, 6.0), (3.0, ln, 0.0), 700, size=8.0, name=f"top{ln}")
     s.cam.rotation_euler = (0, 0, 0)
-    P9.flat(s, "COLD AISLE", (5.6, AISLE_Y / 2, 0.005), 0.16)
-    P9.flat(s, "HOT AISLE", (6.0, AISLE_Y + 0.625 + 0.5, 0.005), 0.16)
+    pv_rack_doors.flat(s, "COLD AISLE", (5.6, AISLE_Y / 2, 0.005), 0.16)
+    pv_rack_doors.flat(s, "HOT AISLE", (6.0, AISLE_Y + 0.625 + 0.5, 0.005), 0.16)
     _hero(s)
 
 

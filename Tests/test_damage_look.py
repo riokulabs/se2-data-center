@@ -91,7 +91,7 @@ def test_deformed_remap(staged):
                 assert ref == MATERIAL_GUIDS[FR.damaged_slot(slot)][0], (n, slot)
             else:
                 assert ref == fr[slot], (n, slot)
-    # the remap reaches real slots (2026-10-19: Darker 69, BrushedMetal 63, Colorable 62 of 69 Damaged models; no
+    # the remap reaches real slots (Darker 69, BrushedMetal 63, Colorable 62 of 69 Damaged models; no
     # block has a Chrome slot yet, its vanilla mapping is kept for the first one that does)
     assert min(seen["PaintedMetalColorable"], seen["PaintedMetalDarker"], seen["BrushedMetal"]) >= 50, seen
 
@@ -99,7 +99,7 @@ def test_deformed_remap(staged):
 @pytest.mark.skipif(not os.path.isdir(VANILLA_BLOCKS), reason="tools/vanilla-ref not present")
 def test_deformed_remap_is_vanilla_majority():
     """In vanilla 4.0's Deformed models each of the four slots maps, in the large majority, to exactly the material
-    we map it to (measured 2026-10-19: Colorable 249/264, Darker 239/251, BrushedMetal 87/97, Chrome 131/134)."""
+    we map it to (measured: Colorable 249/264, Darker 239/251, BrushedMetal 87/97, Chrome 131/134)."""
     c = collections.defaultdict(collections.Counter)
     for f in glob.glob(os.path.join(VANILLA_BLOCKS, "**", "*Deformed*.model"), recursive=True):
         for slot, ref in _assign(f).items():

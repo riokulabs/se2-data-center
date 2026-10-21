@@ -121,7 +121,7 @@ def test_empty_last_stage_form_is_vanilla():
 
 @pytest.mark.build
 def test_installed_stages_regenerate():
-    """B5: the installed stages are exactly what dc.construction generates from export.json's FR LOD0 parts with the
+    """The installed stages are exactly what dc.construction generates from export.json's FR LOD0 parts with the
     block's seed and its installed Model / FractureModel refs."""
     for b in catalog.BLOCKS:
         man = read_json(os.path.join(config.MODELS_DIR, b.name, "export.json"))

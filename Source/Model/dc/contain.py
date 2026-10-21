@@ -33,7 +33,7 @@ of the flush top therefore stays within RAY_FREE (48.8 mm) of the cell planes it
 wide; the mullions lie on cell boundaries), and the panes' top stays more than 20 mm under the top plane: no top cell
 gets 4 hits. The underside is 18 mm and more above the bottom plane, so Down gets none either.
 
-Fracture (breakable, real fracture zones; docs/guides/vanilla-fracture-models.md 10.4): split IN PLANE per 0.5 m bay
+Fracture (breakable, real fracture zones, as vanilla's panels do): split IN PLANE per 0.5 m bay
 (dc/fracture.py _roof): each zone is a bay's pane with its caps, frame segment, clamps and fire release, parting along
 the mullions (the beams and caps across a seam are cut and capped in FracturedMaterial01; the 1.5 m aisle's middle panes
 crack across its centre line). The two physics slabs (glazing over frame, split at ZS, the panes' bed) stay the intact

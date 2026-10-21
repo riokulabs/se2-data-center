@@ -30,7 +30,7 @@ from mathutils import Matrix, Vector
 from . import catalog, crac
 from . import preview as PV
 from . import preview_room as PR
-from . import preview_rack_doors as P9
+from . import preview_rack_doors as pv_rack_doors
 from .preview import Rz, T, want
 
 NAME = "DC_CRAC"
@@ -77,7 +77,7 @@ def hero(built):
         s = _studio(nm, floor=(-2.5, 2.5, -2.0, 2.0))
         unit(s, built, T(0, 0, ZC), 17.0)
         if "DC_Rack42_SplitFront" in built:
-            P9.rack(s, built, "DC_Rack42_SplitFront", x=-1.0, y=0.0, mix=P9.MIX42)
+            pv_rack_doors.rack(s, built, "DC_Rack42_SplitFront", x=-1.0, y=0.0, mix=pv_rack_doors.MIX42)
         s.inst(PV.human(), T(1.15, 0.9, 0))
         s.camera((1.8, 5.6, 1.9), (0.1, 0, 1.2), 40)
         s.render()
@@ -114,7 +114,7 @@ def _blur(s, empties, omega):
 
 
 def _rotors(s, built, M, angle, paint="keen"):
-    rot = P9.sub(built, NAME, crac.FAN, paint)
+    rot = pv_rack_doors.sub(built, NAME, crac.FAN, paint)
     out = []
     for i, p in enumerate(crac.fan_points(catalog.BY_NAME[NAME])):
         base = M @ T(*p) @ _ry(angle + 23.0 * i)
@@ -130,7 +130,7 @@ def fans(built):
             continue
         s = _studio(nm, res=(1500, 1300))
         M = T(0, 0, ZC)
-        s.inst(P9.body(built, NAME, "keen", working), M)
+        s.inst(pv_rack_doors.body(built, NAME, "keen", working), M)
         emp = _rotors(s, built, M, 17.0)
         s.camera(*cam)
         if omega:
@@ -139,7 +139,7 @@ def fans(built):
     nm = "crac_fan_rotor"
     if want(nm):
         s = _studio(nm, res=(1500, 800), floor=(-1, 1, -1, 1))
-        rot = P9.sub(built, NAME, crac.FAN, "keen")
+        rot = pv_rack_doors.sub(built, NAME, crac.FAN, "keen")
         s.inst(rot, T(-0.28, 0, 0.35) @ Rz(0))
         s.inst(rot, T(0.28, 0, 0.35) @ Rz(180))
         s.camera((0.0, 1.55, 0.62), (0.0, 0.0, 0.33), 45)
@@ -182,7 +182,7 @@ def anim(built):
     os.makedirs(out, exist_ok=True)
     s = _studio("crac_fan_anim", res=(720, 720))
     M = T(0, 0, ZC)
-    lit, dark = (s.inst(P9.body(built, NAME, "keen", w), M) for w in (True, False))
+    lit, dark = (s.inst(pv_rack_doors.body(built, NAME, "keen", w), M) for w in (True, False))
     emp = _rotors(s, built, M, 0.0)
     s.camera((0.62, 1.55, 1.95), (0.0, 0.45, 1.66), 40)
     sc = s.sc
@@ -273,7 +273,7 @@ def vanilla_compare(built):
     labels.append(("ours: DC_CRAC\n1.0 x 1.25 x 2.5 m", (1.0, 0.7, H + 0.35)))
     x = -0.2
     if "DC_Rack42_SplitFront" in built:
-        P9.rack(s, built, "DC_Rack42_SplitFront", x=x, y=0.0, mix=P9.MIX42)
+        pv_rack_doors.rack(s, built, "DC_Rack42_SplitFront", x=x, y=0.0, mix=pv_rack_doors.MIX42)
         labels.append(("ours: 42U rack", (x, 0.7, H + 0.35)))
     x -= 1.0
     for rel, label in (("Gyroscopes/Gyroscopes/250/Models/NonFractured/Base/Gyroscope250_Base.fbx",

@@ -55,7 +55,7 @@ def test_tray_names():
         assert len(title) <= 40 and desc.endswith("."), b.name
         if b.density:
             assert b.density in title, (b.name, title)
-    assert names.NAMES["DC_Tray_StraightS_Full"][0] == "Cable Tray, Straight (Full)"   # no size in names (2026-10-20)
+    assert names.NAMES["DC_Tray_StraightS_Full"][0] == "Cable Tray, Straight (Full)"   # no size in names
     # titles are unique per kind: only the sizes of one kind (the two straights, the three rods) share a title
     assert len({names.NAMES[b.name][0] for b in TRAYS}) == len({menu.kind_owner(b).name for b in TRAYS}) == 32
 

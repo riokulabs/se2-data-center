@@ -125,7 +125,7 @@ def test_broken_zones_show_a_core(name):
 @pytest.mark.parametrize("name", sorted(PLINTH_HALVES))
 def test_plinth_half_shows_a_core(name):
     """A plinth half's break shows the other half's solid core (its FracturedMaterial01 cap), not the hollow of a
-    load frame (597f7c6e's welded rails left 17 cm of nothing behind the seam)."""
+    load frame (the welded rails once left 17 cm of nothing behind the seam)."""
     rows = _export(name)["fractured"]["interior"]
     a, b = PLINTH_HALVES[name]
     for z, other in ((a, b), (b, a)):

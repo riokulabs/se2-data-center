@@ -98,7 +98,7 @@ def test_entries_mirror(name):
 # The golden placement summaries (the analysis' one-line summary minus the block name). Hard-coded so any drift
 # fails. They reflect the freed rear PDU columns (16 / 8 cells more free and the pdu_bracket inner Backward mounts;
 # the 42U containment rail band: Forward / Backward 1 row = 10 %; the side faces lose the PDU cells: 84 %; the half
-# rack's label pads add Up groups) and the slot placement fix (the slots' front-zone row is free, 16 / 8 cells; the
+# rack's label pads add Up groups) and the free slot front row (the slots' front-zone row is free, 16 / 8 cells; the
 # slot floor / ceiling mount only on the rear row, so the full rack's Down groups drop to 2; on the half rack the
 # front label pad's two cells are now free top cells, so its Up plane loses them: 6 groups, 50 %). Change these only
 # deliberately.

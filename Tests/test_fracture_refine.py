@@ -1,15 +1,15 @@
-"""The fracture refinement pass against docs/guides/vanilla-fracture-models.md, checked offline on the
+"""The fracture refinement pass against what vanilla breakable blocks do, checked offline on the
 EXPORTED files of every breakable block (6 racks, 10 servers, 34 trays; also the room's staged
 4 raised floors, 3 containment roofs and 3 containment doors), Fractured AND Damaged (dc/fracture_rules.py).
 
-Recognition (guide 1 / 9.1 B4-B9): every collider is a fracture because its name equals a LOD0 Group, fractures
+Recognition: every collider is a fracture because its name equals a LOD0 Group, fractures
      and plain colliders never mix, 2 .. 16 of them and no more than Keen's table allows for the model's size, every
      ColliderMeshGroups entry names a LOD0 group; on the colliders' real convex shapes, one connected graph at 0.1 m.
-Damaged  the Damaged model (guide 2): every breakable block has its OWN Deformed model (a separate .model, never the
+Damaged  the Damaged model: every breakable block has its OWN Deformed model (a separate .model, never the
      FractureModel), whose LOD0 carries exactly the Fractured LOD0's Fracture_NN-Material mesh parts (the renderer
      shows the damaged zones' parts BY NAME, BlockModelRenderer.cs:277-297), at most ~2 x its triangles.
-UV   break faces at vanilla's texel density (guide 3): FracturedMaterial01 at 0.40 +- 0.04 UV/m.
-Hull every zone collider is shaped to its solid (guide 4 / 10.3 (5)): health is the collider's volume share, so no
+UV   break faces at vanilla's texel density: FracturedMaterial01 at 0.40 +- 0.04 UV/m.
+Hull every zone collider is shaped to its solid (a zone collider follows its solid): health is the collider's volume share, so no
      zone may buy it with empty space: >= HULL_FILL of each collider lies within its zone geometry's extent.
 """
 import os
@@ -93,12 +93,12 @@ def test_recognition_rule_bites():
     ok = {"a": {"Group": "Fracture_01", "ColliderMeshGroups": "Fracture_01"},
           "b": {"Group": "Fracture_02", "ColliderMeshGroups": "Fracture_02"}}
     assert FRR.recognition_problems(ok, ["Fracture_01", "Fracture_02", "mountpoints_x"]) == []
-    assert FRR.recognition_problems(ok, ["Fracture_01", "Fracture_02", "frame"])               # B9: mixed
-    assert FRR.recognition_problems(ok, ["Fracture_01", "Fracture_2"])                         # B4: name != Group
-    assert FRR.recognition_problems({"a": ok["a"]}, ["Fracture_01"])                            # B7: one zone
+    assert FRR.recognition_problems(ok, ["Fracture_01", "Fracture_02", "frame"])               # fractures and plain colliders mixed
+    assert FRR.recognition_problems(ok, ["Fracture_01", "Fracture_2"])                         # name != Group
+    assert FRR.recognition_problems({"a": ok["a"]}, ["Fracture_01"])                            # one zone
     many = {f"m{i}": {"Group": f"F{i}", "ColliderMeshGroups": f"F{i}"} for i in range(17)}
-    assert FRR.recognition_problems(many, [f"F{i}" for i in range(17)])                       # B8: > 16
-    assert FRR.recognition_problems(ok, ["Fracture_01", "Fracture_02"], (0.25, 0.1, 0.1))      # B13: 2 > 1 at 25 cm
+    assert FRR.recognition_problems(many, [f"F{i}" for i in range(17)])                       # more than 16
+    assert FRR.recognition_problems(ok, ["Fracture_01", "Fracture_02"], (0.25, 0.1, 0.1))      # 2 fractures exceed the table for a 25 cm model
 
 
 def test_hull_gap_is_convex_distance():
@@ -123,7 +123,7 @@ def test_own_damaged_model(name):
     colliders, and at most damaged_tris_x(family) (+ 2 % for the densify step's granularity) x the Fractured
     triangles without the scaffold (the per-family ratio; exact bound in test_damaged_geometry).
     The Fractured model also carries the ungrouped construction scaffold (BrushedMetal), which
-    vanilla leaves out of the Deformed model (the one FR / DM mesh-part difference, guide §2.4): the parts compare
+    vanilla leaves out of the Deformed model (the one FR / DM mesh-part difference): the parts compare
     without it."""
     from dc import scaffold as SC
     m = _manifest(name)

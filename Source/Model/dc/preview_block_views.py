@@ -23,7 +23,7 @@ from mathutils import Vector
 
 from . import catalog, config
 from . import preview as PV
-from . import preview_icons as P10
+from . import preview_icons as pv_icons
 from .preview import Rz, T, want
 
 SET = os.environ.get("DC_BLOCK_VIEWS_SET", "before")
@@ -43,14 +43,14 @@ VANILLA = {   # block -> (vanilla FBX rel to Blocks/, label, yaw so its front fa
     "server": ("Conveyors/ConveyorSorter/50/Models/NonFractured/ConveyorSorter50.fbx", "vanilla ConveyorSorter50", 0),
 }
 
-MIX42 = P10.MIX_KVM
+MIX42 = pv_icons.MIX_KVM
 MIX24 = ("UPS", None, "DC_Srv_Switch", "DC_Srv_Status")
 IN_RACK = ("DC_Srv_Compute", "DC_Srv_Storage", "DC_Srv_Switch", "DC_Srv_Blank", "DC_Srv_Timer", "DC_Srv_EventCtl",
            "DC_Srv_Status", "DC_Srv_Programmable")
 
 
 def _scene(name):
-    s = P10.Mood(name, res=RES, room=(-4.0, 4.0, -4.0, 4.0), walls=False, ceiling_visible=False,
+    s = pv_icons.Mood(name, res=RES, room=(-4.0, 4.0, -4.0, 4.0), walls=False, ceiling_visible=False,
                  strips=((-2.0, 2.0, 0.0),), world=(0.020, 0.021, 0.025))
     s.sc.render.resolution_percentage = 100
     try:
@@ -82,7 +82,7 @@ def _render(s):
 def _pedestal(s, x=0.0, y=0.0, h=PED, w=0.44, d=0.6):
     bm = bmesh.new()
     s._box(bm, (x - w / 2, y - d / 2, 0.0), (x + w / 2, y + d / 2, h - 0.002), 0)
-    s._obj("mood_pedestal", bm, [P10._mat("mood_ped", (0.03, 0.031, 0.035), 0.5, 0.4)])
+    s._obj("mood_pedestal", bm, [pv_icons._mat("mood_ped", (0.03, 0.031, 0.035), 0.5, 0.4)])
 
 
 def _place(s, built, name):
@@ -90,11 +90,11 @@ def _place(s, built, name):
     spec = catalog.BY_NAME[name]
     if spec.family == "rack":
         H = 0.25 * spec.cells[1]
-        P10.rack(s, built, name, f=0.0, f_rear=0.0, paint="keen", mix=MIX42 if H > 2 else MIX24, fan=20, working=True)
+        pv_icons.rack(s, built, name, f=0.0, f_rear=0.0, paint="keen", mix=MIX42 if H > 2 else MIX24, fan=20, working=True)
         return 0.6, H / 2, H, -0.6
     h = 0.25 * spec.cells[1]
     _pedestal(s)
-    P10.server(s, built, name, z=PED, kvm_f=1.0)
+    pv_icons.server(s, built, name, z=PED, kvm_f=1.0)
     return 0.375, PED + h / 2, h, -0.375
 
 
@@ -176,8 +176,8 @@ def servers_in_rack(built):
         if not want(nm):
             continue
         s = _scene(nm)
-        P10.rack(s, built, "DC_Rack42_Open", paint="keen", mix=IN_RACK, fan=10, working=True)
-        P10.rack(s, built, "DC_Rack24_Open", x=1.0, paint="keen", mix=("UPS", None, "KVM", "DC_Srv_Blank"), fan=10, working=True)
+        pv_icons.rack(s, built, "DC_Rack42_Open", paint="keen", mix=IN_RACK, fan=10, working=True)
+        pv_icons.rack(s, built, "DC_Rack24_Open", x=1.0, paint="keen", mix=("UPS", None, "KVM", "DC_Srv_Blank"), fan=10, working=True)
         tgt = Vector((0.3, 0.3, 1.2 if dist == 3 else 1.25))
         d = Vector((-0.35, 1.0, 0.0)).normalized()
         loc = Vector((0.3, 0.6, 0.0)) + d * dist
@@ -190,14 +190,14 @@ def servers_in_rack(built):
 def hero(built):
     nm = "vp1_hero_aisle"
     if want(nm):
-        s = P10.aisle_scene(built, nm, res=(1600, 860))
+        s = pv_icons.aisle_scene(built, nm, res=(1600, 860))
         s.camera((0.05, 2.05, 1.55), (1.25, 0.55, 1.05), 20)
         s.soft((-1.6, 2.6, 1.7), (1.2, 0.6, 1.0), 70, size=2.5, name="front")
         s.soft((3.8, 1.6, 2.4), (1.0, 0.6, 1.0), 40, size=2.0, col=(0.7, 0.85, 1.0), name="back")
         _render(s)
     nm = "vp1_hero_aisle_wide"
     if want(nm):
-        s = P10.aisle_scene(built, nm, res=(1600, 860))
+        s = pv_icons.aisle_scene(built, nm, res=(1600, 860))
         s.camera((-4.4, 1.375, 2.6), (1.0, 1.375, 0.95), 28)
         s.soft((-4.8, 1.4, 2.2), (1.0, 1.4, 1.0), 60, size=3.0, name="front")
         s.soft((4.6, 1.4, 2.6), (1.0, 1.4, 1.0), 40, size=2.0, col=(0.7, 0.85, 1.0), name="back")

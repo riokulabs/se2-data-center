@@ -30,7 +30,7 @@ from . import dims as DM
 from . import preview as PV
 from . import preview_mats as PM
 from . import preview_room as PR
-from . import preview_rack_doors as P9
+from . import preview_rack_doors as pv_rack_doors
 from .preview import Rz, T, want
 
 CAB = "DC_PDU_Cabinet"
@@ -72,7 +72,7 @@ def rack_with_strips(s, built, rk, x=0.0, y=0.0, rot=0.0, f_rear=0.0, paint="kee
                      f=0.0):
     """A populated rack with its strips (both feeds by default) in the rear PDU columns. Returns the base matrix."""
     mix = mix if mix is not None else (MIX42 if catalog.BY_NAME[rk].cells[1] == 10 else MIX24)
-    M = P9.rack(s, built, rk, x, y, rot, f=f, paint=paint, mix=mix, f_rear=f_rear)
+    M = pv_rack_doors.rack(s, built, rk, x, y, rot, f=f, paint=paint, mix=mix, f_rear=f_rear)
     h = 42 if catalog.BY_NAME[rk].cells[1] == 10 else 24
     for feed in feeds:
         n = f"DC_PDU_Rack{h}_{feed}"
@@ -197,7 +197,7 @@ def closeups(built):
         nm = "closeup_strip_inlet_unplugged"
         if want(nm):   # the receptacle alone (the strip lifted out of its column by 0.35 m)
             s = PV.Shot(nm, floor=(-2, 2, -2.5, 2))
-            M = P9.rack(s, built, rk, 0, 0, 0, f=0.0, mix=MIX42, f_rear=1.0)
+            M = pv_rack_doors.rack(s, built, rk, 0, 0, 0, f=0.0, mix=MIX42, f_rear=1.0)
             s.inst(PV.painted(built, "DC_PDU_Rack42_A", 0, "keen"),
                    T(0, 0, 0.35) @ strip_matrix(rk, "DC_PDU_Rack42_A", M))
             s.camera((x - 0.25, -1.0, 0.85), (x - 0.02, -0.49, 0.42), 45)
@@ -268,7 +268,7 @@ def paints(built):
 # ---------------------------------------------------------------------------------------------------- fracture
 def _zone_colls(built, name, paint="keen"):
     """{zone id: collection} of the LOD0 faces each fracture zone gets (fracture.plan, faces by centroid)."""
-    from . import preview_contain_roof as P4
+    from . import preview_contain_roof as pv_contain_roof
     from . import fracture as FR
     spec = catalog.BY_NAME[name]
     plan = FR.plan(spec, pdu.collision(spec))
@@ -281,7 +281,7 @@ def _zone_colls(built, name, paint="keen"):
         for o in src.objects:
             if o.type != "MESH":
                 continue
-            me = P4._copy_world(o)
+            me = pv_contain_roof._copy_world(o)
             bm = bmesh.new()
             bm.from_mesh(me)
             drop = [f for f in bm.faces if plan.zones[plan.zone_index(tuple(f.calc_center_median()))].id != z]

@@ -23,8 +23,8 @@ from mathutils import Vector
 from . import catalog, config, dims as DM
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_icons as P10
-from . import preview_rack_doors as P9
+from . import preview_icons as pv_icons
+from . import preview_rack_doors as pv_rack_doors
 from .preview import Rz, T, want
 
 SET = os.environ.get("DC_RACK_TOPS_SET", "after")
@@ -39,7 +39,7 @@ def _H(name):
 
 
 def _scene(name, res=(1600, 1000)):
-    s = P10.Mood(name, res=res, room=(-4.0, 5.0, -4.0, 4.0), walls=False, ceiling_visible=False,
+    s = pv_icons.Mood(name, res=res, room=(-4.0, 5.0, -4.0, 4.0), walls=False, ceiling_visible=False,
                  world=(0.030, 0.032, 0.037))
     s.sc.render.resolution_percentage = 100
     return s
@@ -69,7 +69,7 @@ def _render(s):
 
 
 def _rack(s, built, name, x=0.0, lod=0, paint="keen"):
-    return P9.rack(s, built, name, x, 0.0, 0.0, f=0.0, paint=paint, mix=(), fan=20, working=True, lod=lod)
+    return pv_rack_doors.rack(s, built, name, x, 0.0, 0.0, f=0.0, paint=paint, mix=(), fan=20, working=True, lod=lod)
 
 
 def _ortho_down(s, x, y, z_top, scale, height=3.0, near=None):
@@ -249,8 +249,8 @@ def row_shots(built):
             _cap_x(s, "section x = -WF_X (front = left)", (xd, 0.05, z + 1.06), 0.04)
         elif view == "plan":
             for n, x, h in row:
-                P9.flat(s, n.replace("DC_", ""), (x, -0.45, full + 0.01), 0.07)
-            P9.flat(s, "section 6 cm above the full racks' top: the bundles' footprints in the entries; "
+                pv_rack_doors.flat(s, n.replace("DC_", ""), (x, -0.45, full + 0.01), 0.07)
+            pv_rack_doors.flat(s, "section 6 cm above the full racks' top: the bundles' footprints in the entries; "
                     "amber = the Drop's footprint", (1.0, -0.85, full + 0.01), 0.05)
         tgt = (1.0, 0.1, 2.4) if view != "landing" else (-DM.WF_X, DM.WF_Y, 2.5)
         _lights(s, tgt, 1.4 if view != "landing" else 0.6)
@@ -275,7 +275,7 @@ def rack_tops(built):
             s = _scene(nm, res=(1150, 1400))
             _ortho_down(s, 0.0, 0.0, H, 1.40)
             _rack(s, built, name)
-            P9.flat(s, "FRONT", (0.0, 0.66, H + 0.01), 0.05)
+            pv_rack_doors.flat(s, "FRONT", (0.0, 0.66, H + 0.01), 0.05)
             _lights(s, (0, 0, H))
             _render(s)
 
@@ -348,7 +348,7 @@ def vanilla(built):
         bm = bmesh.new()
         w = max(hi.x - lo.x, hi.y - lo.y) * 0.5 + 0.02
         s._box(bm, (x - w, -w, 0.0), (x + w, w, H - (hi.z - lo.z) - 0.002), 0)
-        s._obj("mood_ped", bm, [P10._mat("mood_ped", (0.03, 0.031, 0.035), 0.5, 0.4)])
+        s._obj("mood_ped", bm, [pv_icons._mat("mood_ped", (0.03, 0.031, 0.035), 0.5, 0.4)])
     s.caption("OURS (24U roof)", (0.0, 0.0, H + 0.2), 0.06)
     _lights(s, (0, 0, H), 1.2)
     _render(s)

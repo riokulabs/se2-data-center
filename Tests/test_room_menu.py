@@ -123,7 +123,7 @@ def test_room_names():
 
 
 def test_no_size_in_block_names():
-    """User request 2026-10-20: a block's display name carries no rack units or size; the build menu's size selector
+    """A block's display name carries no rack units or size; the build menu's size selector
     tells a kind's sizes apart, and the descriptions keep the size. Two blocks share a name only inside one kind."""
     import re
     size = re.compile(r"\b\d+U\b|\b\d+(\.\d+)? m\b|\b(Short|Long) \(")

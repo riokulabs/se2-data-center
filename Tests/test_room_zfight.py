@@ -1,6 +1,6 @@
 """Nothing in a ROOM block fights for the same pixels, and its stencils read on any paint.
 
-The in-game lessons (2026-10-18, commit 4f7288a5): decal elements overlapping in-plane at the same depth,
+The in-game lessons: decal elements overlapping in-plane at the same depth,
 decals coplanar with or buried under mesh faces, and a sliding / hinged leaf coplanar with its frame all flicker in
 game; white stencils straight on a light paint read poorly. dc/zfight.py (Tests/test_zfight.py covers the racks
 and servers) checks every built block; dc/zfight_room.py adds the

@@ -253,7 +253,7 @@ FACEPLATE_T = 0.0015       # the Colorable face plate's thickness on the body's 
 
 def feed_band_outline(lod):
     """The feed tag band's plan outline (strip-local x, y): 1.5 mm proud of the body on the sides and the back, and
-    1.5 mm proud of the face plate on the front. In game 2026-10-20 the band stood only 1.5 mm off the body's front,
+    1.5 mm proud of the face plate on the front. In game the band once stood only 1.5 mm off the body's front,
     exactly as proud as the face plate: its front face lay in the plate's plane and the Yellow band flickered
     through the Colorable plate (only its side wraps showed, as loose yellow tabs by the cords)."""
     e = 0.0015

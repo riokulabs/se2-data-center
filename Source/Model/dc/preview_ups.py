@@ -18,7 +18,7 @@ from mathutils import Matrix, Vector
 from . import config, functional
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_indicator_servers as P6
+from . import preview_indicator_servers as pv_indicator_servers
 from .preview import Rz, Shot, T, human, want
 
 OUT = os.path.join(config.PREVIEW_DIR, "ups")
@@ -70,7 +70,7 @@ def cell_matrices():
 def ups(s, built, x=0.0, y=0.0, z=0.0, paint="keen", lod=0, rot=0, cells=True):
     """The UPS standing with its bottom at z; cells = True puts a vanilla Power Cell in both bays."""
     m = T(x, y, z + HU / 2) @ Rz(rot)
-    s.inst(P6.stated(built, UPS, lod, paint, {}), m)
+    s.inst(pv_indicator_servers.stated(built, UPS, lod, paint, {}), m)
     if cells and lod <= 2:
         for cm in cell_matrices():
             s.inst(cell(), m @ cm)
@@ -78,7 +78,7 @@ def ups(s, built, x=0.0, y=0.0, z=0.0, paint="keen", lod=0, rot=0, cells=True):
 
 
 def srv6(s, built, name, x=0.0, y=0.0, z=0.0, paint="keen"):
-    P6.srv(s, built, name, x, y, z, paint)
+    pv_indicator_servers.srv(s, built, name, x, y, z, paint)
 
 
 def rack(s, built, name, mix, x=0.0, y=0.0, paint="keen", cells=True):
@@ -288,7 +288,7 @@ def render_all(built):
     panel(built)
     paints(built)
     vanilla_compare(built)
-    if all(n in built for n in P6.FUNC + P6.DECO):
+    if all(n in built for n in pv_indicator_servers.FUNC + pv_indicator_servers.DECO):
         lineup(built)
-    if all(n in built for n in P6.FUNC + P6.DECO + (FULL, HALF)):
+    if all(n in built for n in pv_indicator_servers.FUNC + pv_indicator_servers.DECO + (FULL, HALF)):
         in_rack(built)

@@ -1,6 +1,6 @@
 """The construction scaffold: the cage the welders work from while a block is below 30 %.
 
-Vanilla (guide docs/guides/vanilla-damage-and-build-states.md §2.4): an ungrouped lattice of thin BrushedMetal members
+Vanilla: an ungrouped lattice of thin BrushedMetal members
 around the block's bounding box (Timer50 Main_Scaffold, Reactor250 Scaffold_LOD0), ConstructionMeshType Scaffold /
 AlwaysVisible / Scaffolding preset: shown from the first weld in the see-through BrushedMetal_Scaffold (4050183d),
 hidden at 0.3, never in the Damaged model, and hidden by the stage-1.0 ApplyOnlyWhenDamaged entry so a finished block

@@ -21,9 +21,9 @@ from . import catalog, config, doors
 from . import dims as DM
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_indicator_servers as P6
-from . import preview_ups as P7
-from . import preview_kvm as P8
+from . import preview_indicator_servers as pv_indicator_servers
+from . import preview_ups as pv_ups
+from . import preview_kvm as pv_kvm
 from .preview import Rz, Shot, T, human, want
 
 OUT = os.path.join(config.PREVIEW_DIR, "rack-doors", os.environ.get("DC_PREVIEW_SUB", ""))
@@ -110,15 +110,15 @@ def srv(s, built, n, M, z, paint):
     rot = math.degrees(M.to_euler().z)
     x, y = loc.x, loc.y
     if n == "KVM":
-        P8.kvm(s, built, x, y, z, paint, f=1.0, rot=rot)
+        pv_kvm.kvm(s, built, x, y, z, paint, f=1.0, rot=rot)
     elif n == "KVM0":
-        P8.kvm(s, built, x, y, z, paint, f=0.0, rot=rot)
+        pv_kvm.kvm(s, built, x, y, z, paint, f=0.0, rot=rot)
     elif n == "UPS":
-        P7.ups(s, built, x, y, z, paint, rot=rot)
+        pv_ups.ups(s, built, x, y, z, paint, rot=rot)
     elif n == "PROG":
-        P8.prog(s, built, x, y, z, paint, rot=rot)
+        pv_kvm.prog(s, built, x, y, z, paint, rot=rot)
     else:
-        P6.srv(s, built, n, x, y, z, paint, rot=rot)
+        pv_indicator_servers.srv(s, built, n, x, y, z, paint, rot=rot)
 
 
 def flat(s, txt, loc, size):
@@ -179,7 +179,7 @@ def per_variant(built):
 def neighbours(built):
     name = "DC_Rack42_SplitFrontRear"
     spec = catalog.BY_NAME[name]
-    rep = P8._rep(name).get("doors", {})
+    rep = pv_kvm._rep(name).get("doors", {})
     H = _H(name)
     hulls = {m: [tuple(p) for p in h] for m, h in rep["hulls"].items()}
     lv = {lf["name"]: lf for lf in doors.leaves(spec)}
@@ -372,7 +372,7 @@ def lods(built):
         nm = f"{name}_leaf_lods"
         if not want(nm):
             continue
-        rep = P8._rep(name).get("subparts", {}).get("models", {})
+        rep = pv_kvm._rep(name).get("subparts", {}).get("models", {})
         lodsL = built[name]["subparts"][doors.LEAF_R]
         s = Shot(nm, res=(2200, 1300), floor=(-2.5, 1.0, -1.0, 2.0))
         s.camera((-0.95, 4.5, _H(name) / 2 + 0.3), (-0.95, 0, _H(name) / 2), 35)
@@ -388,7 +388,7 @@ def lods(built):
 def render_all(built):
     PV.OUT = OUT
     PM.get("Caption")
-    need = DOOR_RACKS + ("DC_Srv_KVM", "DC_Srv_UPS", "DC_Srv_Programmable") + P6.FUNC + P6.DECO
+    need = DOOR_RACKS + ("DC_Srv_KVM", "DC_Srv_UPS", "DC_Srv_Programmable") + pv_indicator_servers.FUNC + pv_indicator_servers.DECO
     missing = [n for n in need if n not in built]
     if missing:
         print("rack-doors previews need", missing)

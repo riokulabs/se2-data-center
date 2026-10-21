@@ -52,7 +52,7 @@ COLD, HOT = (0.30, 0.62, 1.00), (1.00, 0.42, 0.10)
 LUM_W = 32.0                           # one linear luminaire (W): pools of light, not a showroom
 ROOF_W = 9.0                           # the roof LED strip fill, per metre of aisle (stand-in while no roof is built)
 ROOF_LED_W = 11.0                      # a built roof's LED batten: area light per metre of diffuser
-# per rack: the slots from the bottom (P9.srv names; unbuilt servers are left out). KVM0 = the KVM stowed
+# per rack: the slots from the bottom (pv_rack_doors.srv names; unbuilt servers are left out). KVM0 = the KVM stowed
 MIXES = (
     ("DC_Srv_Storage", "DC_Srv_Storage", "DC_Srv_Compute", "DC_Srv_Compute", "DC_Srv_Switch", "DC_Srv_Compute",
      "DC_Srv_Blank", "DC_Srv_Switch"),
@@ -266,39 +266,39 @@ def _rack(sink, built, p, mix, f=0.0, paint="keen"):
     """A built rack at its placed matrix, as preview_rack_doors.rack shows it (side panels, door leaves at open fraction
     f, tray fans, servers from slot 1 up), standing on the raised floor."""
     from . import doors
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     spec = room.spec(p)
     H = 0.25 * spec.cells[1]
     C = _M(p)
     M = C @ T(0, 0, -H / 2)                                 # the rack's floor point (preview_rack_doors's base matrix)
-    sink.inst(P9.body(built, p.name, paint, True), C)
+    sink.inst(pv_rack_doors.body(built, p.name, paint, True), C)
     side = (built[p.name].get("subparts") or {}).get("RackSide")
     if side:
         for yaw in (0, 180):
-            sink.inst(P9.sub(built, p.name, "RackSide", paint), C @ Rz(yaw))
+            sink.inst(pv_rack_doors.sub(built, p.name, "RackSide", paint), C @ Rz(yaw))
     for lf in doors.leaves(spec):
-        sink.inst(P9.sub(built, p.name, lf["model"], paint), C @ T(lf["axis"][0], lf["axis"][1], 0) @
+        sink.inst(pv_rack_doors.sub(built, p.name, lf["model"], paint), C @ T(lf["axis"][0], lf["axis"][1], 0) @
                   Rz(doors.swing_yaw(lf, f)))
     tp = doors.fan_tray_point(spec)
     if tp:
-        sink.inst(P9.sub(built, p.name, doors.FAN_TRAY_SUB, paint), C @ T(*tp))
+        sink.inst(pv_rack_doors.sub(built, p.name, doors.FAN_TRAY_SUB, paint), C @ T(*tp))
     for i, q in enumerate(doors.fan_points(spec)):
-        sink.inst(P9.sub(built, p.name, doors.FAN, paint), C @ T(*q) @ Rz(23 + 41 * i))
+        sink.inst(pv_rack_doors.sub(built, p.name, doors.FAN, paint), C @ T(*q) @ Rz(23 + 41 * i))
     z0 = p.origin[2] - H / 2
     for k, n in enumerate(mix, 1):
         if n:
-            P9.srv(sink, built, n, M, z0 + 0.25 * k, paint)
+            pv_rack_doors.srv(sink, built, n, M, z0 + 0.25 * k, paint)
 
 
 def contain_door(sink, built, name, M, f=0.0, paint="keen", lod=0):
     """A built containment door at matrix M (its cell-box centre): the frame and both leaves at open fraction f (the
     leaves slide by contain.leaf_travel; the vanilla slide is linear in OpenRatio)."""
     from . import contain
-    from . import preview_rack_doors as P9
+    from . import preview_rack_doors as pv_rack_doors
     spec = catalog.BY_NAME[name]
     sink.inst(PV.painted(built, name, lod, paint), M)
     for lf in contain.door_leaves(spec):
-        sink.inst(P9.sub(built, name, lf.model, paint, lod),
+        sink.inst(pv_rack_doors.sub(built, name, lf.model, paint, lod),
                   M @ T(contain.leaf_centre_x(spec, lf.side, f), 0, contain.LEAF_ORIGIN_Z))
 
 
@@ -307,16 +307,16 @@ def crac_unit(sink, built, name, M, angle=0.0, working=True, paint="keen", lod=0
     EmissiveOff -> EmissiveGreen) and its three CracFan rotors at their pivots, turned `angle` deg about the fans'
     axis (Blender -y, the game's +Z: the way InfiniteRotation turns them), each a little out of phase."""
     from . import crac
-    from . import preview_rack_doors as P9
-    sink.inst(P9.body(built, name, paint, working, lod), M)
-    rot = P9.sub(built, name, crac.FAN, paint, lod)
+    from . import preview_rack_doors as pv_rack_doors
+    sink.inst(pv_rack_doors.body(built, name, paint, working, lod), M)
+    rot = pv_rack_doors.sub(built, name, crac.FAN, paint, lod)
     for i, p in enumerate(crac.fan_points(catalog.BY_NAME[name])):
         sink.inst(rot, M @ T(*p) @ Matrix.Rotation(math.radians(angle + 23.0 * i), 4, Vector((0, -1, 0))))
 
 
 def _mix(built, i):
-    from . import preview_kvm as P8
-    ok = lambda n: n and (n in built or (n in ("KVM0", "KVM") and P8.KVM in built))  # noqa: E731   KVM = popped
+    from . import preview_kvm as pv_kvm
+    ok = lambda n: n and (n in built or (n in ("KVM0", "KVM") and pv_kvm.KVM in built))  # noqa: E731   KVM = popped
     return tuple(n if ok(n) else None for n in MIXES[i % len(MIXES)])
 
 
@@ -458,9 +458,9 @@ def sign_text(p, aisle):
 def built_sign(coll, sink, built, p, aisle, paint=None):
     """A built sign at its placed matrix, its frame painted for the aisle (SIGN_PAINT), white sample text on every
     LCD surface (dc/preview_signs.screen_text)."""
-    from . import preview_signs as P8
+    from . import preview_signs as pv_signs
     sink.inst(PV.painted(built, p.name, 0, paint or SIGN_PAINT[aisle]), _M(p))
-    P8.screen_text(coll, p.name, _M(p), sign_text(p, aisle))
+    pv_signs.screen_text(coll, p.name, _M(p), sign_text(p, aisle))
 
 
 # ---------------------------------------------------------------------------------------------------- the hall

@@ -46,7 +46,7 @@ Mount faces: only the mounting face of each sign mounts (hints; every other face
 plane where the game's mount rays can reach them); the definitions also restrict MountPointGeneratorSettings to that
 one direction (dc/integration.py sign_patch).
 
-Fracture (docs/guides/vanilla-fracture-models.md: panels split IN PLANE; vanilla LCDNarrow50: 2 zones, no critical):
+Fracture (panels split IN PLANE; vanilla LCDNarrow50: 2 zones, no critical):
 the 1.0 m signs in 3 tiles along x (Keen's table: 3 at the measured ~0.95 m edge), the rack label in 2 halves
 (dc/fracture.py _sign). The middle zone holds the screen's centre, so the LcdPanel dummy is SupportingFracture of it.
 """

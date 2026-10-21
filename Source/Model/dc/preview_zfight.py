@@ -8,7 +8,7 @@ from mathutils import Vector
 
 from . import catalog, config, rack_side
 from . import preview as PV
-from . import preview_icons as P10
+from . import preview_icons as pv_icons
 from . import preview_block_views as VP
 
 SET = os.environ.get("DC_ZFIGHT_SET", "after")
@@ -19,7 +19,7 @@ RACK = "DC_Rack42_SplitFrontRear"
 def _shot(built, name, cam, tgt, lens=50, f=0.0):
     s = VP._scene(name)
     spec = catalog.BY_NAME[RACK]
-    P10.rack(s, built, RACK, f=f, f_rear=0.0, paint="keen", mix=(), fan=20, working=True)
+    pv_icons.rack(s, built, RACK, f=f, f_rear=0.0, paint="keen", mix=(), fan=20, working=True)
     s.camera(tuple(cam), tuple(tgt), lens)
     VP._lights(s, tgt)
     PV.OUT = OUT

@@ -109,8 +109,8 @@ def _place(s, built, name, M, paint="keen", lod=0):
     elif fam == "contain_door":
         PR.contain_door(s, built, name, M, 0.0, paint, lod)
     elif fam == "sign":
-        from . import preview_signs as P8
-        P8.place(s, built, name, M, paint="blue", lod=lod)
+        from . import preview_signs as pv_signs
+        pv_signs.place(s, built, name, M, paint="blue", lod=lod)
     else:
         s.inst(PV.painted(built, name, lod, paint), M)
 

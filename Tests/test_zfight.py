@@ -21,7 +21,7 @@ from dc import zfight as Z
 HERE = os.path.dirname(os.path.abspath(__file__))
 DC_SRC = os.path.join(HERE, "..", "Source", "Model", "dc")
 
-# The rack side panel's decal elements as git HEAD 028c1172 built them (DC_Rack42_*, model RackSide_LOD0, facing +x):
+# The rack side panel's decal elements as an earlier build made them (DC_Rack42_*, model RackSide_LOD0, facing +x):
 # the in-game report's two overlaps must be caught by the rule.
 HEAD_SIDE = [
     ("rack_side.py:146 A1", 0.492, (-0.85057, -0.00953, -0.74143, 0.09953)),
@@ -146,12 +146,12 @@ def test_racks_carry_no_baked_id(name):
 
 
 # ------------------------------------------------------------------------------------------------ model faces
-# In game 2026-10-20 (DC_Rack42_Open from below, beside a Feed A strip): the containment rail's clamp pads were exactly
+# In game (DC_Rack42_Open from below, beside a Feed A strip): the containment rail's clamp pads were exactly
 # as tall as the rail and sat in its back plane (their top / bottom / back faces in the rail's planes: the Darker pad
 # and the Colorable rail flickered, under each clip a dark block read loose), and the strip's Yellow feed band stood
 # exactly as proud as the Colorable face plate (only its side wraps showed, as loose tabs; its LEDs 0.1 mm proud too).
 def _old_clamp_layout(sy=1):
-    """The rail and pads as dc/rack.py built them before the fix (HEAD 9887bab7), z relative to ZT."""
+    """The rail and pads as dc/rack.py built them before the fix, z relative to ZT."""
     from dc import dims as DM
     from dc import rack
     z0, z1 = rack.CONTAIN_Z
@@ -210,7 +210,7 @@ def test_pdu_feed_band_clears_the_face_plate():
     assert "FACEPLATE_T + 0.0006)" in src     # the LEDs' depth (lit_quad in _decor)
 
 
-# Pre-existing visible coplanar faces of different materials (the catalogue-wide check added 2026-10-20), per block:
+# Pre-existing visible coplanar faces of different materials (the catalogue-wide check), per block:
 # (part a / material, part b / material) with the part names' block prefix and LOD removed. They are known
 # follow-ups; the test fails on any pair not listed, so none can come back or appear new.
 KNOWN_COPLANAR = {

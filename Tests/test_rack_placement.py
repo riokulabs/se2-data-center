@@ -34,7 +34,7 @@ def _entry(name):
 
 @pytest.mark.parametrize("name,n_slot_cells", [(n, (8 if "42" in n else 4) * 2 * 1 * 3) for n in ALL_RACKS])
 def test_rack_slots_free_and_mountable(name, n_slot_cells):
-    """Placement fix (2026-10-18): the free cells are the slots AND, in front of each, the slot columns' front-zone
+    """The free cells are the slots AND, in front of each, the slot columns' front-zone
     row (the opening the placer's ray enters by; the old front-zone occupancy sealed every slot, the bug); the rear
     zone stays occupied (the rear stop). The slot mounts only on its REAR row: the rails (inner faces of the side
     columns), the slot floor (plinth top) and, on the full rack, the slot ceiling (tray floor)."""

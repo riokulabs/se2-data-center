@@ -1,6 +1,6 @@
 """Animated subparts (adapted from an earlier prototype): the KVM console's drawer and screen.
 
-Vanilla pattern (docs/guides/vanilla-animations.md section 3, 10 P2): every subpart is its own model (FBX per LOD,
+Vanilla pattern: every subpart is its own model (FBX per LOD,
 no collision, the FBX origin = the pivot), spawned by the block's ConditionalSubPartsComponent at every block-model
 dummy of a dedicated DummyType, its prefab a copy of Templates/Blocks/Subparts/Subpart (composite = a copy of
 Subpart_Composite + one rigid animation component). Nested motion = a child entity inside the prefab (the

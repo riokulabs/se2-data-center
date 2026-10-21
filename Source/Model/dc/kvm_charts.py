@@ -21,7 +21,7 @@ from . import subparts as S
 
 OUT = os.path.join(K.MODEL_DIR, "preview", "scripts")
 BEFORE_DIR = os.path.join(OUT, "traj_before")
-# the shipped tuning before the feel retune (commit 2d824cc), for the "before" markers
+# the shipped tuning before the feel retune, for the "before" markers
 BEFORE_TUNING = {"FoldGate": 0.91, "OpenBeat": 0.06, "RetractGate": 0.02, "RetractGateFast": 0.08}
 DOOR_LEAD = 0.1          # the leaves start this long before the sequencer is told (the door's replication latency)
 
@@ -221,7 +221,7 @@ def graphs_svg(path=None, traj_dir=K.TRAJ_DIR, before_dir=BEFORE_DIR):
                "Dashed grey: before (drawer omega 11, lid 10 / 10); blue: after (drawer omega 5.2, lid 6.5 open / "
                "8 close, fast 16 / 18). Gate lines: after.",
                [r[1] for r in runs], [r[1] for r in rows], pw=300, ph=120)
-    ch.legend([("swb", "before (2d824cc)"), ("sw1", "after (retune)")])
+    ch.legend([("swb", "before (earlier tuning)"), ("sw1", "after (retune)")])
     for c, (n, label, kind) in enumerate(runs):
         after = K.load(os.path.join(traj_dir, n + ".csv"))
         before = K.load(os.path.join(before_dir, n + ".csv"))

@@ -27,8 +27,8 @@ from mathutils import Vector
 from . import catalog, config, dims as DM
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_rack_tops as P21
-from . import preview_rack_doors as P9
+from . import preview_rack_tops as pv_rack_tops
+from . import preview_rack_doors as pv_rack_doors
 from .preview import T, want
 
 SET = os.environ.get("DC_RACK_ROOM_SET", "after")
@@ -66,7 +66,7 @@ def _rack(s, built, name, x=0.0, y=0.0, rot=0.0, f=0.0, f_rear=None, lod=0, serv
         mix = tuple(None if m == "KVM" else m for m in mix)
     if "UPS" in mix and "DC_Srv_UPS" not in built:
         mix = tuple(None if m == "UPS" else m for m in mix)
-    return P9.rack(s, built, name, x, y, rot, f=f, paint=paint, mix=mix, fan=20, working=True, lod=lod,
+    return pv_rack_doors.rack(s, built, name, x, y, rot, f=f, paint=paint, mix=mix, fan=20, working=True, lod=lod,
                    f_rear=f_rear)
 
 
@@ -85,7 +85,7 @@ def _envelopes(s, name, x=0.0):
     z0, z1 = _pdu_band(name)
     for sx in (-1, 1):
         a, b = sorted((sx * x0, sx * x1))
-        P21._ghost_box(s, f"pdu_env_{sx}", (x + a, y0, z0 + 0.002), (x + b, y1, z1), "GhostMount")
+        pv_rack_tops._ghost_box(s, f"pdu_env_{sx}", (x + a, y0, z0 + 0.002), (x + b, y1, z1), "GhostMount")
 
 
 # ---------------------------------------------------------------------------------------------------- racks
@@ -99,17 +99,17 @@ def rack_views(built):
             nm = f"{name}_{v}"
             if not want(nm):
                 continue
-            s = P21._scene(nm, res=(1500, 1500) if v == "plan" else (1500, 1150))
+            s = pv_rack_tops._scene(nm, res=(1500, 1500) if v == "plan" else (1500, 1150))
             if v == "front34":
                 s.camera((-1.55, 2.35, H + 0.95), (0.0, 0.1, H * 0.62), 34)
             elif v == "rear34":
                 s.camera((1.6, -2.4, H + 0.9), (0.0, -0.1, H * 0.6), 34)
             else:
-                P21._ortho_down(s, 0.0, 0.0, H, 1.45)
+                pv_rack_tops._ortho_down(s, 0.0, 0.0, H, 1.45)
             _rack(s, built, name, f=0.0, f_rear=1.0 if (doors and v == "rear34") else 0.0)
             if v == "plan":
-                P9.flat(s, "FRONT", (0.0, 0.67, H + 0.01), 0.05)
-            P21._lights(s, (0, 0, H * 0.6), 1.0 if v != "plan" else 0.8)
+                pv_rack_doors.flat(s, "FRONT", (0.0, 0.67, H + 0.01), 0.05)
+            pv_rack_tops._lights(s, (0, 0, H * 0.6), 1.0 if v != "plan" else 0.8)
             _render(s)
 
 
@@ -122,29 +122,29 @@ def pdu_shots(built):
         fr = 1.0 if doors else 0.0
         nm = f"{name}_pdu_cols"
         if want(nm):
-            s = P21._scene(nm, res=(1500, 1250))
+            s = pv_rack_tops._scene(nm, res=(1500, 1250))
             s.camera((0.0, -2.9, H * 0.55 + 0.6), (0.0, -0.4, H * 0.5), 38)
             _rack(s, built, name, f_rear=fr)
             _envelopes(s, name)
             z0, z1 = _pdu_band(name)
             s.caption("ghost: dims.PDU_ENVELOPE x the PDU band (green), both columns", (0.0, -0.7, z1 + 0.35), 0.045)
-            P21._lights(s, (0, -0.5, H * 0.5), 1.0)
+            pv_rack_tops._lights(s, (0, -0.5, H * 0.5), 1.0)
             _render(s)
         rx, ry = DM.PDU_RECEPTACLE
         nm = f"{name}_pdu_close"
         if want(nm):
-            s = P21._scene(nm, res=(1300, 1500))
+            s = pv_rack_tops._scene(nm, res=(1300, 1500))
             zc = min(1.0, H * 0.45)
             s.camera((rx - 0.45, -1.35, zc + 0.30), (rx, -0.47, zc - 0.05), 36)
             _rack(s, built, name, f_rear=fr)
-            P21._lights(s, (rx, -0.5, zc), 0.6)
+            pv_rack_tops._lights(s, (rx, -0.5, zc), 0.6)
             _render(s)
         nm = f"{name}_receptacle"
         if want(nm):
-            s = P21._scene(nm, res=(1400, 1100))
+            s = pv_rack_tops._scene(nm, res=(1400, 1100))
             s.camera((rx - 0.22, ry - 0.50, 0.78), (rx, ry, 0.25), 34)
             _rack(s, built, name, f_rear=fr)
-            P21._lights(s, (rx, ry, 0.3), 0.4)
+            pv_rack_tops._lights(s, (rx, ry, 0.3), 0.4)
             _render(s)
 
 
@@ -157,11 +157,11 @@ def rail_shots(built):
             nm = f"{name}_rail_{side}"
             if not want(nm):
                 continue
-            s = P21._scene(nm, res=(1600, 1000))
+            s = pv_rack_tops._scene(nm, res=(1600, 1000))
             tgt = Vector((0.12, sy * 0.6, ZT + 0.16))
             s.camera(tuple(tgt + Vector((-0.55, sy * 1.05, 0.38))), tuple(tgt), 38)
             _rack(s, built, name, f=0.0)
-            P21._lights(s, tgt, 0.6)
+            pv_rack_tops._lights(s, tgt, 0.6)
             _render(s)
 
 
@@ -171,18 +171,18 @@ def half_top(built):
     if name not in built or not want(nm):
         return
     H = _H(name)
-    s = P21._scene(nm, res=(1600, 1150))
+    s = pv_rack_tops._scene(nm, res=(1600, 1150))
     s.camera((-1.25, 1.75, H + 1.1), (0.0, 0.0, H - 0.05), 32)
     _rack(s, built, name)
     for sy in (1, -1):
         y0, y1 = sorted(sy * v for v in DM.LABEL_Y)
-        P21._ghost_box(s, f"pad_{sy}", (DM.LABEL_X[0], y0, H + 0.001), (DM.LABEL_X[1], y1, H + 0.012), "GhostMount")
+        pv_rack_tops._ghost_box(s, f"pad_{sy}", (DM.LABEL_X[0], y0, H + 0.001), (DM.LABEL_X[1], y1, H + 0.012), "GhostMount")
         # the rack label's cell (0.5 x 0.25 x 0.25 m) standing on the pad
-        P21._ghost_box(s, f"label_{sy}", (DM.LABEL_X[0] + 0.004, y0 + 0.004, H + 0.016),
+        pv_rack_tops._ghost_box(s, f"label_{sy}", (DM.LABEL_X[0] + 0.004, y0 + 0.004, H + 0.016),
                        (DM.LABEL_X[1] - 0.004, y1 - 0.004, H + 0.25 - 0.004), "GhostSlot")
     s.caption("label pads: LABEL_X x LABEL_Y front and back (green); ghost rack label cell (cyan)",
               (0.0, 0.0, H + 0.45), 0.045)
-    P21._lights(s, (0, 0, H), 1.0)
+    pv_rack_tops._lights(s, (0, 0, H), 1.0)
     _render(s)
 
 
@@ -195,7 +195,7 @@ def kvm_rail(built):
         nm = f"kvm_rail_{v}"
         if not want(nm):
             continue
-        s = P21._scene(nm, res=(1600, 1250))
+        s = pv_rack_tops._scene(nm, res=(1600, 1250))
         if v == "34":
             s.camera((-1.25, 2.1, ZT + 0.75), (0.0, 0.45, ZT - 0.05), 34)
         else:   # an ortho section at x = 0 seen from -x (front = right)
@@ -206,17 +206,17 @@ def kvm_rail(built):
         z0, z1 = ZT + DM.CONTAIN_RAIL_DZ[0], ZT + DM.CONTAIN_RAIL_DZ[1]
         if v == "side":
             xd = 0.001
-            P21._ghost_box(s, "rail_band", (xd - 0.002, y0, z0), (xd, y1, z1), "GhostOcc", wire=False)
-            P21._ghost_box(s, "roof_cell", (xd - 0.002, 0.625, ZT), (xd, 0.625 + 0.5, H), "GhostSlot", wire=False)
-            P21._dim(s, (xd, 0.66, ZT), (xd, 0.66, H), "roof cell ZT..H", (0, 0.02, 0), off=(0, 0.22, 0), size=0.03,
+            pv_rack_tops._ghost_box(s, "rail_band", (xd - 0.002, y0, z0), (xd, y1, z1), "GhostOcc", wire=False)
+            pv_rack_tops._ghost_box(s, "roof_cell", (xd - 0.002, 0.625, ZT), (xd, 0.625 + 0.5, H), "GhostSlot", wire=False)
+            pv_rack_tops._dim(s, (xd, 0.66, ZT), (xd, 0.66, H), "roof cell ZT..H", (0, 0.02, 0), off=(0, 0.22, 0), size=0.03,
                      flat_x=True)
-            P21._dim(s, (xd, y0, z1 + 0.06), (xd, y1, z1 + 0.06), "CONTAIN_RAIL_Y 0.600..0.624", (0, 0, 0.015),
+            pv_rack_tops._dim(s, (xd, y0, z1 + 0.06), (xd, y1, z1 + 0.06), "CONTAIN_RAIL_Y 0.600..0.624", (0, 0, 0.015),
                      off=(0, 0, 0.04), size=0.025, flat_x=True)
-            P21._line(s, (xd, -0.3, ZT), (xd, 1.1, ZT), 0.003)
-            P21._cap_x(s, "ZT (slot band top)", (xd, -0.15, ZT - 0.03), 0.025)
-            P21._cap_x(s, "section x = 0: the KVM lid stays behind the rail band (orange) above ZT",
+            pv_rack_tops._line(s, (xd, -0.3, ZT), (xd, 1.1, ZT), 0.003)
+            pv_rack_tops._cap_x(s, "ZT (slot band top)", (xd, -0.15, ZT - 0.03), 0.025)
+            pv_rack_tops._cap_x(s, "section x = 0: the KVM lid stays behind the rail band (orange) above ZT",
                        (xd, 0.35, H + 0.2), 0.03)
-        P21._lights(s, (0, 0.4, ZT), 0.9)
+        pv_rack_tops._lights(s, (0, 0.4, ZT), 0.9)
         _render(s)
 
 
@@ -229,11 +229,11 @@ def doors85(built):
             nm = f"doors85_{name}_{v}"
             if not want(nm):
                 continue
-            s = P21._scene(nm, res=(1500, 1150))
+            s = pv_rack_tops._scene(nm, res=(1500, 1150))
             s.camera(loc, (0.0, 0.0, H * 0.55), 34)
             _rack(s, built, name, f=1.0, f_rear=1.0)
             s.caption(f"doors open {DM.DOOR_OPEN_DEG:.0f} deg", (0.0, 0.0, H + 0.25), 0.05)
-            P21._lights(s, (0, 0, H * 0.5), 1.0)
+            pv_rack_tops._lights(s, (0, 0, H * 0.5), 1.0)
             _render(s)
 
 
@@ -243,13 +243,13 @@ def lods(built):
         if name not in built or not want(nm):
             continue
         H = _H(name)
-        s = P21._scene(nm, res=(1900, 1000))
+        s = pv_rack_tops._scene(nm, res=(1900, 1000))
         s.camera((3.6, -3.6, H + 1.2), (1.2, 0.0, H * 0.5), 34)
         n = min(3, len(built[name]["lods"]) - 1)
         for L in range(n):
             _rack(s, built, name, x=1.2 * L, lod=L, servers=False)
             s.caption(f"LOD{L}", (1.2 * L, -0.7, H + 0.15), 0.08)
-        P21._lights(s, (1.2, -0.5, H * 0.5), 1.3)
+        pv_rack_tops._lights(s, (1.2, -0.5, H * 0.5), 1.3)
         _render(s)
 
 
@@ -259,7 +259,7 @@ def vanilla(built):
     if name not in built or not want(nm):
         return
     H, ZT = _H(name), _ZT(name)
-    s = P21._scene(nm, res=(1800, 1150))
+    s = pv_rack_tops._scene(nm, res=(1800, 1150))
     s.camera((-2.4, 3.4, 2.3), (0.3, 0.6, 1.4), 30)
     _rack(s, built, name)
     # vanilla DeckPanel250 at the roof position: in the aisle's top cell, its edge against the rail
@@ -272,7 +272,7 @@ def vanilla(built):
     s.inst(c, T(1.6, 0.6, 0.0) @ T(-ctr.x, -ctr.y, -lo.z))
     s.caption("vanilla NarrowSlidingDoor (door clone source)", (1.6, 0.6, (hi.z - lo.z) + 0.2), 0.045)
     s.caption("OURS 42U (rail, PDU columns)", (0.0, 0.0, H + 0.12), 0.05)
-    P21._lights(s, (0.5, 0.5, 1.4), 1.4)
+    pv_rack_tops._lights(s, (0.5, 0.5, 1.4), 1.4)
     _render(s)
 
 
@@ -289,14 +289,14 @@ def _row(s, built, name="DC_Rack42_Open", n=3, W=W_AISLE):
 def _ghost_room(s, name, n=3, W=W_AISLE):
     H, ZT = _H(name), _ZT(name)
     for i in range(n):   # roof panels: 1.0 m along the row x W, the aisle's top cell (ZT .. H)
-        P21._ghost_box(s, f"roof_{i}", (i - 0.5 + 0.004, -W / 2 + 0.002, ZT + 0.004),
+        pv_rack_tops._ghost_box(s, f"roof_{i}", (i - 0.5 + 0.004, -W / 2 + 0.002, ZT + 0.004),
                        (i + 0.5 - 0.004, W / 2 - 0.002, H - 0.002), "GhostSlot")
     xe = n - 0.5        # the row end: the door slice x xe .. xe + 0.25, 2W across (the aisle + a pocket each side)
-    P21._ghost_box(s, "door_frame", (xe + 0.004, -W, 0.004), (xe + 0.25 - 0.004, W, H - 0.004), "GhostOcc")
+    pv_rack_tops._ghost_box(s, "door_frame", (xe + 0.004, -W, 0.004), (xe + 0.25 - 0.004, W, H - 0.004), "GhostOcc")
     for sy in (-1, 1):   # the leaf pockets in front of the end racks' side panels
         a, b = sorted((sy * W / 2, sy * W))
-        P21._ghost_box(s, f"pocket_{sy}", (xe + 0.03, a + 0.01, 0.02), (xe + 0.22, b - 0.01, ZT - 0.02), "GhostMount")
-    P21._ghost_box(s, "door_header", (xe + 0.01, -W / 2, ZT), (xe + 0.24, W / 2, H - 0.004), "GhostReg", wire=False)
+        pv_rack_tops._ghost_box(s, f"pocket_{sy}", (xe + 0.03, a + 0.01, 0.02), (xe + 0.22, b - 0.01, ZT - 0.02), "GhostMount")
+    pv_rack_tops._ghost_box(s, "door_header", (xe + 0.01, -W / 2, ZT), (xe + 0.24, W / 2, H - 0.004), "GhostReg", wire=False)
 
 
 def row_ghost(built):
@@ -309,7 +309,7 @@ def row_ghost(built):
         nm = f"row_ghost_{v}"
         if not want(nm):
             continue
-        s = P21._scene(nm, res=(1900, 1250) if v != "section" else (1800, 1400))
+        s = pv_rack_tops._scene(nm, res=(1900, 1250) if v != "section" else (1800, 1400))
         s.sc.render.film_transparent = False
         if v == "34":
             s.camera((-2.6, 4.2, 4.6), (1.2, 0.0, 1.6), 30)
@@ -319,34 +319,34 @@ def row_ghost(built):
             cam = s.camera((-4.0, 0.0, 1.9), (1.0, 0.0, 1.9), 50, ortho=4.6)
             cam.data.clip_start = 5.0 - 0.002
         else:
-            P21._ortho_down(s, 1.4, 0.0, H, 6.2, height=4.0)
+            pv_rack_tops._ortho_down(s, 1.4, 0.0, H, 6.2, height=4.0)
         _row(s, built, name, n, W)
         _ghost_room(s, name, n, W)
         y0, y1 = DM.CONTAIN_RAIL_Y
         if v in ("34", "end"):
-            P21._dim(s, (-0.75, -W / 2, H + 0.12), (-0.75, W / 2, H + 0.12), f"aisle W {W:.1f}", (0.03, 0, 0),
+            pv_rack_tops._dim(s, (-0.75, -W / 2, H + 0.12), (-0.75, W / 2, H + 0.12), f"aisle W {W:.1f}", (0.03, 0, 0),
                      off=(0, 0, 0.1), size=0.07)
-            P21._dim(s, (-0.5, -W / 2 - 0.3, H + 0.3), (0.5, -W / 2 - 0.3, H + 0.3), "roof panel 1.0 (rack pitch)",
+            pv_rack_tops._dim(s, (-0.5, -W / 2 - 0.3, H + 0.3), (0.5, -W / 2 - 0.3, H + 0.3), "roof panel 1.0 (rack pitch)",
                      (0, 0.03, 0), off=(0, 0, 0.1), size=0.06)
             s.caption("ghosts from dc/dims.py: roof panels (cyan) on the containment rails, end door (amber) with "
                       "leaf pockets (green) and header (red)", (1.0, 0.0, H + 0.85), 0.06)
         elif v == "section":
             xd = 1.0 + 0.002
             yr = W / 2 + 0.625 - y0    # rail band |y| in the aisle frame
-            P21._dim(s, (xd, -W / 2, H + 0.1), (xd, W / 2, H + 0.1), f"aisle W = {W:.1f} (rack front planes)",
+            pv_rack_tops._dim(s, (xd, -W / 2, H + 0.1), (xd, W / 2, H + 0.1), f"aisle W = {W:.1f} (rack front planes)",
                      (0, 0, 0.03), off=(0, 0, 0.08), size=0.06, flat_x=True)
-            P21._dim(s, (xd, W / 2 + 0.05, ZT), (xd, W / 2 + 0.05, H), "roof cell\nZT..H 0.25", (0, 0.03, 0),
+            pv_rack_tops._dim(s, (xd, W / 2 + 0.05, ZT), (xd, W / 2 + 0.05, H), "roof cell\nZT..H 0.25", (0, 0.03, 0),
                      off=(0, 0.35, 0), size=0.045, flat_x=True)
-            P21._dim(s, (xd, -yr, ZT + DM.CONTAIN_RAIL_DZ[0]), (xd, -yr, ZT + DM.CONTAIN_RAIL_DZ[1]),
+            pv_rack_tops._dim(s, (xd, -yr, ZT + DM.CONTAIN_RAIL_DZ[0]), (xd, -yr, ZT + DM.CONTAIN_RAIL_DZ[1]),
                      "CONTAIN_RAIL_DZ\n0.012..0.238", (0, 0.03, 0), off=(0, -0.45, 0.0), size=0.04, flat_x=True)
-            P21._dim(s, (xd, -W / 2 - 1.25, 0.0), (xd, -W / 2 - 1.25, H), f"H {H:.2f}", (0, 0.03, 0),
+            pv_rack_tops._dim(s, (xd, -W / 2 - 1.25, 0.0), (xd, -W / 2 - 1.25, H), f"H {H:.2f}", (0, 0.03, 0),
                      off=(0, -0.2, 0), size=0.05, flat_x=True)
-            P21._cap_x(s, "section x = 1.0 across the cold aisle (rack fronts face the aisle)", (xd, 0.0, H + 0.55),
+            pv_rack_tops._cap_x(s, "section x = 1.0 across the cold aisle (rack fronts face the aisle)", (xd, 0.0, H + 0.55),
                        0.06)
         else:
-            P9.flat(s, f"cold aisle W {W:.1f}: roof panels 1.0 x W (cyan), door slice 0.25 x 2W (amber)",
+            pv_rack_doors.flat(s, f"cold aisle W {W:.1f}: roof panels 1.0 x W (cyan), door slice 0.25 x 2W (amber)",
                     (1.4, 0.0, H + 0.02), 0.08)
-        P21._lights(s, (1.2, 0.0, 1.5), 2.2)
+        pv_rack_tops._lights(s, (1.2, 0.0, 1.5), 2.2)
         _render(s)
 
 

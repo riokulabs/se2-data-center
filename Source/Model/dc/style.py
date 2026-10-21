@@ -2,7 +2,7 @@
 
 Ported from the v2 "SE-ified" mockups (tools/mockups/datacenter/dclib2.py) onto the se2model library:
 - player paint: the bodies are PaintedMetalColorable (black is a paint choice, not baked in);
-- material roles (docs/guides/modeling-keen-style.md 1d): Colorable shells, Darker housings and recesses, Brushed
+- material roles (as in vanilla blocks): Colorable shells, Darker housings and recesses, Brushed
   load-bearing steel (rails), MetalDull black-oxide hardware, Yellow as thin trim lines only;
 - chunky chamfers toward Keen's ~9 cm on big edges, crisp small breaks;
 - fewer, larger lights: lenses in Darker bezels;
@@ -31,10 +31,10 @@ LAMP_GREEN = "EmissiveGreen"   # always-lit "power OK" lamp (vanilla EmissiveGre
 
 CHAMFER_LARGE = 0.09   # Keen's big 45 deg chamfer on outer housing edges
 CHAMFER_SMALL = 0.015  # the crisp small break
-SHADOW_GAP = 0.016     # gap between split cover plates (reads at distance; guide 1c)
+SHADOW_GAP = 0.016     # gap between split cover plates (reads at distance)
 LED_SIZE = 0.012       # lens radius of a status lamp (Keen: 1.5-3 cm lenses in bezels)
 BOLT_R = 0.009         # chunky bolt head radius (readable at first-person range)
-KEEP_OUT = 0.027       # parts on a non-mounting face stay >= 2.5 cm inside the box plane (guide 8)
+KEEP_OUT = 0.027       # parts on a non-mounting face stay >= 2.5 cm inside the box plane
 
 
 def oct_pts(a0, b0, a1, b1, c):

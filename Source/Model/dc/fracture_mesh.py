@@ -498,8 +498,8 @@ def build_caps(whole, plan, coll, name, thin_caps=True, min_len=None):
         for f in cb.faces:
             s = plan.seams[f[kl] - 1]
             # projected on the seam plane; a cap face tilted more than 15 deg off it (a jagged cut's flank, the cap
-            # of a thin member cut at an angle) on its own plane, so every cap keeps vanilla's density (2026-10-20:
-            # with the racks' solid plinth core gone, such flanks set the 42U racks' median at 0.24 UV/m)
+            # of a thin member cut at an angle) on its own plane, so every cap keeps vanilla's density (without this,
+            # such flanks pull the 42U racks' median down to 0.24 UV/m)
             n = Vector(s.n) if abs(f.normal.dot(Vector(s.n))) >= 0.966 else f.normal
             t1 = n.orthogonal().normalized()
             t2 = n.cross(t1).normalized()

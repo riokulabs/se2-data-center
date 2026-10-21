@@ -1,7 +1,7 @@
 """Construction roles per face (dc/fracture.py ROLE_IDS / role_of, written by fracture_mesh.cut_object,
 split per zone by export_models.keep_zone / _group). The mechanism came first with empty role tables (the one change
 then: the containment roof's glass builds as glass: its own object in the zone's group with the WindowGlass
-preset 83c075f5, guide B1); each block family then filled its entry in fracture.ROLES.
+preset 83c075f5); each block family then filled its entry in fracture.ROLES.
 
 Save compatibility is checked against Tests/golden/states_baseline.json."""
 import json
@@ -63,7 +63,7 @@ def test_role_tables_filled_by_family_tasks():
 
 
 def test_role_props_match_guide():
-    """Guide B1: (ConstructionMeshType, ConstructionMeshVisibility, ConstructionMeshPreset) per role, each preset a
+    """Per role: (ConstructionMeshType, ConstructionMeshVisibility, ConstructionMeshPreset) per role, each preset a
     preset of the generator."""
     assert FR.ROLE_IDS == ("skin", "hide", "support", "frame", "glass")
     assert FR.ROLE_SUFFIX == {"skin": "", "hide": "_Hide", "support": "_Support", "frame": "_Frame", "glass": ""}

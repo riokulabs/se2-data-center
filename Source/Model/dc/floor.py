@@ -25,7 +25,7 @@ Part -> purpose (every part is something a real raised floor has; SE-ified: chun
          earth strap  Brushed braid + MetalDull clamp and lug, one   bonds the floor grid to earth (static, faults)
                       per block
 
-Fracture (breakable, with real fracture zones; docs/guides/vanilla-fracture-models.md 10.3 (2)): split IN PLANE, every
+Fracture (breakable, with real fracture zones, as vanilla's deck panels do): split IN PLANE, every
 zone the full thickness (dc/fracture.py _floor): the 1.0 m block's four tiles part at their real joints, each with the
 pedestals and stringers under it (a shared pedestal's head and base plates part with the tiles, cut and capped in
 FracturedMaterial01); the 0.5 m tile cracks in two along its panel line. The two physics boxes (deck, pedestal envelope)

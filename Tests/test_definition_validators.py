@@ -457,7 +457,7 @@ def test_no_client_types_on_server_compositions(staged):
 
 
 # ------------------------------------------------------------------------------- 4.0 schema gate: non-null + component types
-# Fixed 2026-10-20: the open racks failed world load with NullableValidator errors (Density,
+# The open racks once failed world load with NullableValidator errors (Density,
 # RecipeEfficiency, ConsumedResource.Type) and EntityBuilder "Definition PowerableBlockDefinition type doesn't match
 # expected CubeBlockDefinition" on both compositions. The assets were right; the SDK build had not rewritten the racks'
 # Content .def files after they were rebased onto PowerableBlockDefinition, while it regenerated the definition index.

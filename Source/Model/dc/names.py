@@ -36,7 +36,7 @@ NAMES.update({
 # "Full", "Moderate", ... is the cable load; every piece lines its cables up across every joint
 # with any other piece of the same load (and a Reducer steps one load down). Titles read "Cable Tray, <shape>
 # (<load>)", so a list sorted by name keeps a shape's four loads together and the load is always last. Names carry no
-# size (2026-10-20): the two straights (one kind, two sizes) and the three rod lengths (one kind, three sizes) share
+# size: the two straights (one kind, two sizes) and the three rod lengths (one kind, three sizes) share
 # their kind's name and the game's size selector tells them apart; the descriptions keep the lengths.
 _LOAD = {"Empty": "no cables", "Low": "low cable load (two data bundles)",
          "Moderate": "moderate cable load (data, fibre and power)", "Full": "full cable load (two layers)"}

@@ -1,6 +1,6 @@
 // KvmRackLink: what sits in front of the KVM's face. The block in the grid cell
 // one step beyond the centre of the KVM's front face was, in a rack, the rack itself (its front and rear 0.25 m layers
-// were occupied cells; the leaves are its subparts). Since the placement fix (2026-10-18) only the rear layer is (the
+// were occupied cells; the leaves are its subparts). Now only the rear layer is (the
 // rear stop): the front one is the slot opening, so the lookup falls back to the rack BESIDE the KVM that contains it
 // (KvmRackLink.Lookup.cs). Its DoorComponent, if any, is the door the interlock waits for;
 // its block definition and cell bounds give the rack kind and the KVM's slot, and so the motion path. The door counts

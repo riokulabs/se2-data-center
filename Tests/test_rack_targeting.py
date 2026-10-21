@@ -1,4 +1,4 @@
-"""Placement fix (2026-10-18): the block placer can put a server into every rack slot, and only at its designed depth.
+"""The block placer can put a server into every rack slot, and only at its designed depth.
 
 dc/placer_emu.py emulates the decompiled placer (targeting, snapping, mount-point substitution, free-position search,
 validation; file:line references there) on the rack as built (build_report.json free cells and every mount cell,
