@@ -13,7 +13,6 @@ import pytest
 from dc import catalog, config, dims as DM
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-NOTES = os.path.join(HERE, "..", "NOTES.md")
 OPEN_RACKS = ("DC_Rack42_Open", "DC_Rack24_Open")
 ALL_RACKS = OPEN_RACKS + ("DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear", "DC_Rack24_SplitFront",
                           "DC_Rack24_SplitFrontRear")

@@ -12,35 +12,14 @@ Source/Model/integration/backup/
 
 # Generated: rebuilt from scratch by build_integration.py (install.sh reads it from disk; pytest stages into a temp dir)
 Source/Model/integration/Assets/
-# Per-task review renders (kept locally for the audits); preview/hero/ and preview/blocks/ stay tracked
-Source/Model/preview/task-*/
-# Visual pass 1 raw audit renders (regenerate: DC_PREVIEW=vp1); the before|after pair sheets stay tracked
-Source/Model/preview/visual-pass-1/before/
-Source/Model/preview/visual-pass-1/after/*.png
-Source/Model/preview/visual-pass-2/before/
-Source/Model/preview/visual-pass-2/after/*.png
-# Plan 2 per-task raw renders (regenerate: DC_PREVIEW=plan2-t1 ...); pair sheets and contact sheets stay tracked
-Source/Model/preview/p2-task-*/before/
-Source/Model/preview/p2-task-*/after/
-# Plan 4 Task 7 KVM motion frames (regenerate: DC_PREVIEW=plan4, see dc/preview_scripts.py)
-Source/Model/preview/plan4/frames/
-# ... and its videos, GIFs and contact sheets (regenerated with the frames); the SVG charts and the four stills stay tracked
-Source/Model/preview/plan4/*.mp4
-Source/Model/preview/plan4/*.gif
-Source/Model/preview/plan4/kvm_*_sheet.png
-# Plan 4 scripts: the offline compile check and the core test runner build outputs, and the folder se2mod.py build
-# moves Scripts/ to while the SDK builder runs (restored afterwards)
+
+# Build outputs of the offline compile check and the core test runner, and the folder `se2mod.py build` moves
+# Scripts/ to while the SDK builder runs (restored afterwards)
 Tests/CompileCheck/bin/
 Tests/CompileCheck/obj/
 Tests/CoreTests/bin/
 Tests/CoreTests/obj/
 .Scripts.hidden-for-build/
-# Plan 2 Task 9b: raw fracture preview panels (regenerate: p2t9b_preview.py); the sheets stay tracked
-Source/Model/preview/p2-task-9b/panels/
-# Plan 4 Task 9 use-box renders (regenerate: DC_PREVIEW=plan4 DC_SHOTS=kvm_use, dc/preview_use_boxes.py)
-Source/Model/preview/plan4/kvm_use_*.png
-# Plan 2 Task 9c: raw fracture refinement panels (regenerate: p2t9c_preview.py); the sheets stay tracked
-Source/Model/preview/p2-task-9c/panels/
 
-# Preview renders are generated on disk for viewing but stay out of git (policy); marketing images live in docs/media/
+# Preview renders are generated on disk for viewing but stay out of git; marketing images live in docs/media/
 Source/Model/preview/

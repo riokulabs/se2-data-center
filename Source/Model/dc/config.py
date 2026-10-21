@@ -17,13 +17,13 @@ CLONE_MAP = os.path.join(MOD_DIR, ".clonemap.json")
 SE2MOD = os.path.join(TOOLS_DIR, "scripts", "se2mod.py")
 STAGE_ASSETS = os.path.join(INTEGRATION_DIR, "Assets")                 # staged package (mirrors MOD_ASSETS)
 
-# Plan 4 Task 2 (Ruling P4-1): the Programmable keeps its InGameScriptingComponent permanently in its data (Route A').
-# No runtime injection exists or is wanted. See NOTES.md "Plan 4: save safety and the Programmable route".
+# The Programmable keeps its InGameScriptingComponent permanently in its data (route A'), so a save is the same with
+# scripts on or off and the player's script text survives either way. No runtime injection exists or is wanted.
 PROGRAMMABLE_ROUTE = "A'"
 
-# Plan 5 Ruling DB-10: how the racks' side panels and fan tray are built. "A" (default, shipped): ConditionalSubParts
+# How the racks' side panels and fan tray are built. "A" (default, shipped): ConditionalSubParts
 # entries (bound client prefabs) spawned while the rack is Functional, with baked FR / DM stand-ins. "B" (the fallback
 # if Path A fails the world load in game): static children of the rack's client prefab, always present, no stand-ins.
-# Both keep On/Off on every rack. To fall back: set "B" here, then re-run the pipeline for the racks
-# (INGAME-CHECKLIST.md "Next session", NOTES.md "Ruling DB-10").
+# Both keep On/Off on every rack. To fall back: set "B" here, then re-run the pipeline for the racks (clone, build,
+# stage, install; Tests/test_rack_path_b.py stages and checks the B package on every run).
 RACK_PATH = "A"

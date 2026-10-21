@@ -1,6 +1,6 @@
 # Data Center
 
-Space Engineers 2 mod: data-centre server racks and rack-mount servers, with the look of real 19-inch racks and
+Space Engineers 2 mod: data center server racks and rack-mount servers, with the look of real 19-inch racks and
 the function of vanilla automation blocks.
 
 ## Server Racks
@@ -31,15 +31,15 @@ Build menu: Automation > Data Center > Rack Servers. Servers are 6U (one slot) u
 Build menu: Automation > Data Center > Cable Trays: Empty / Low / Moderate / Full, and Cable Tray Supports.
 Overhead wire-basket cable trays for the rack rows: 38 blocks. The basket is fixed silver; the data cables follow the block paint.
 
-- **Densities** (one tile per density): Empty (basket only), Low (2 data bundles), Moderate (adds yellow fibre and grey power), Full (adds a second data layer and black power).
+- **Densities** (one tile per density): Empty (basket only), Low (2 data bundles), Moderate (adds yellow fiber and gray power), Full (adds a second data layer and black power).
 - **Shapes** (each density): Straight (Short 0.5 m, Long 1.5 m), Horizontal Turn, Turn Up, Turn Down, Tee, Cross, Rack Drop and Reducer (Low, Moderate and Full only).
 - **Reducer:** steps the density down one level (Full to Moderate, Moderate to Low, Low to Empty). They chain. Joining two densities without a reducer also works: the shared lanes match and the extra lanes end.
 - **Drop:** a 1 m piece that carries two waterfalls of cable down into a full rack's front cable managers. Over a half rack (24U), put a **Long Drop Chute** under the Drop.
-- **Hanger Rods** (0.25, 1.0, 2.0 m): hang a run from the ceiling. They snap only onto the tray's rod plates. Hang height is 0.5 m above the rack top (the tray's lowest plane), centred 0.125 m in front of the rack centre.
+- **Hanger Rods** (0.25, 1.0, 2.0 m): hang a run from the ceiling. They snap only onto the tray's rod plates. Hang height is 0.5 m above the rack top (the tray's lowest plane), centered 0.125 m in front of the rack center.
 - **Joints:** pieces join floor to floor only. Both trays must have their floors facing the same way; an upside-down tray does not join. Every piece also works backwards, and a Horizontal Turn gives both hands.
 - **Mounting:** ceiling-hung on rods, wall-mounted on the strut end plates, or floor-standing. Nothing mounts on the open top of the basket.
 - **Damage:** the trays break into zones and show a damaged model. The Hanger Rods and the Chute do not break.
-- **Costs** scale with the length of run (one unit per 0.5 m; see NOTES.md, Plan 2 Task 9). Each tray block is 5 PCU.
+- **Costs** scale with the length of run (per 0.5 m: 1 Steel Plate and 1 Construction Component, plus 1 optional Steel Plate). Each tray block is 5 PCU.
 
 ## Room Pieces
 
@@ -77,7 +77,7 @@ Labels** (19 blocks). Build a hall in this order:
 - **Damage:** every room piece breaks into zones and shows a damaged model. PCU: floor, roof and PDUs 5, signs 35,
   CRAC 30, doors 150.
 - **Costs** scale like the rest of the mod; signs cost one vanilla LCD per screen face, and the CRAC and the PDU
-  cabinet cost a 42U open rack's frame plus their own parts (NOTES.md, Plan 3 summary).
+  cabinet cost a 42U open rack's frame plus their own parts.
 
 ## Building and damage
 
@@ -88,7 +88,7 @@ finished. Damaged blocks use the game's scratched-metal look and spark, smoke an
 add-on parts (rack side panels and fan trays, the KVM drawer, the CRAC fans) are shown as still, built-in copies in
 their closed position whenever the block is not fully built and undamaged; the real parts come back when you repair
 it. This has been checked with tests
-and renders only; it has not been run in game yet (INGAME-CHECKLIST.md, section 14).
+and renders only; it has not been run in game yet (see `docs/testing-in-game.md`).
 
 ## Enabling scripts (optional)
 
@@ -101,7 +101,7 @@ enables mod scripting officially, the scripts will work without the switch.
 
 - **Steam (Windows, or Linux through Proton):** Library > Space Engineers 2 > Properties > Launch Options, add
   `-loadScripts`. Remove it to go back.
-- **Native Linux through Pulsar (this workspace):** `tools/scripts/se2mod.py play DataCenter --native`. `play` adds
+- **Native Linux through Pulsar:** `tools/scripts/se2mod.py play DataCenter --native`. `play` adds
   `-loadScripts` by itself when the mod has a `Scripts/` folder (the Steam/Proton form, `se2mod.py play DataCenter`,
   does the same).
 
@@ -134,8 +134,8 @@ visual (each client shows its own KVM motion for the same server state), but it 
 - **`Error when loading scripts for DataCenter` in the game log:** the scripts did not compile (usually after a game
   update changed an API). The mod then behaves exactly like scripts OFF. Report it with the log lines.
 - **A `[DataCenter]` line saying something "keeps the data-only motion" or "could not ...":** a reflection target or
-  a definition was not found; that feature fell back to its data-only behaviour, once, and the game is unaffected.
-- **Probe:** with a world loaded, `tools/scripts/se2game.py exec -f Source/Model/review/probe_scripts.csx` prints one
+  a definition was not found; that feature fell back to its data-only behavior, once, and the game is unaffected.
+- **Probe:** with a world loaded, `tools/scripts/se2game.py exec -f Tests/InGame/probe_scripts.csx` prints one
   line per check (`ok` or what is wrong): the switch, both assemblies, the reflection targets, the Programmable and the
   KVM state. It reads the plugin's connection settings itself; never paste or share those settings.
 
@@ -143,7 +143,7 @@ visual (each client shows its own KVM motion for the same server state), but it 
 
 - **CompileCheck:** `bash Tests/CompileCheck/run.sh all` compiles both script assemblies the way the game does (under
   wine, with the game's whitelist and generators). Expect `OK: 0 errors` twice. `run.sh probe
-  Source/Model/review/probe_scripts.csx` compiles the in-game probe.
+  Tests/InGame/probe_scripts.csx` compiles the in-game probe.
 - **CoreTests:** `cd Tests/CoreTests && dotnet run -c Release` runs the game-free cores (the KVM motion, the
   surgery and scripting rules); `-- --dump <dir>` also writes the trajectories the Python geometry tests and the
   previews use, stamped with a digest of the core sources.
@@ -156,25 +156,28 @@ visual (each client shows its own KVM motion for the same server state), but it 
   includes them. The tests refuse to start while an SDK build has `Scripts/` moved aside
   (`.Scripts.hidden-for-build`): they would otherwise skip every `scripts` test.
 - **Probe mode:** `probe_scripts.csx` has an opt-in fault pass (`kvmFaultPass = true`).
-- **Dependency risks:** the scripts reflect into engine internals; the list and where each one is used is in
-  `docs/reference/our-game-dependencies.md` (workspace root), and NOTES.md ("Plan 4").
+- **Dependency risks:** the scripts reflect into engine internals; each place is marked with a `REFLECTION:` comment
+  in `Scripts/`.
 - **After every game update:** re-run CompileCheck and CoreTests, run the probe in game, and re-check the reflection
-  targets. After the "Hostile Encounters" update (new damage system; see
-  `docs/research/se2-upcoming-update-hostile-encounters.md`) also re-run the in-game checklist section 12 and the
-  fracture checks, and expect Pulsar and the Linux compat layer to need an update first.
+  targets. After an update that changes damage or construction, also re-run the scripts and damage parts of
+  `docs/testing-in-game.md`, and expect Pulsar and the Linux compat layer to need an update first.
 
 ## Costs
 
-Costs scale with block size the way vanilla's do (see NOTES.md, Task 10).
+Costs scale with block size the way vanilla's do.
 
 ## More
 
 - Previews: generated locally under `Source/Model/preview/` (not tracked in git); marketing images go in `docs/media/`
-- Developer notes: NOTES.md
-- In-game test list: INGAME-CHECKLIST.md
+- Triangle budgets per block: `docs/triangle-budgets.md`
 
-## Licence
+## Contributing
+
+See `CONTRIBUTING.md`. How the models are generated, built and installed: `docs/model-pipeline.md`. What to check
+in game before a release: `docs/testing-in-game.md`.
+
+## License
 
 Copyright (C) 2026 Rioku Labs. Rioku Labs' own models, textures, definitions, scripts and tools in this repo are free software under the GNU General Public License v3.0 (see `LICENSE`).
 
-Space Engineers 2, its Mod SDK and the vanilla assets this mod reuses are (c) Keen Software House and are not covered by this licence. This is an unofficial mod, not affiliated with Keen Software House.
+Space Engineers 2, its Mod SDK and the vanilla assets this mod reuses are (c) Keen Software House and are not covered by this license. This is an unofficial mod, not affiliated with Keen Software House.

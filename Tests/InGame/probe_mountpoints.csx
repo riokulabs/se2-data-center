@@ -1,10 +1,10 @@
-// Data Center probe (adapted from an earlier prototype's mount-point probe).
+// Data Center mount-point probe.
 // Run in game via se2-game execute_code (usings: System.Linq, System.Reflection, System.Collections.Generic)
-// or: tools/scripts/se2game.py exec -f mods/DataCenter/Source/Model/review/probe_mountpoints.csx
+// or: tools/scripts/se2game.py exec -f mods/DataCenter/Tests/InGame/probe_mountpoints.csx
 // Place one of each Data Center block first. Per distinct placed block definition it prints the generated placement
 // data (bounding box, occupied cells, mount groups per face) to compare with check_placement.py / build_report.json,
-// and the Task 10 data: display size and assigned BlockSize (menu grouping), mass, and the in-game cost
-// (Items = recipe x the game's mass scale; dc/recipes.py predicts scale 1 and the amounts in NOTES.md).
+// and the build-menu data: display size and assigned BlockSize (menu grouping), mass, and the in-game cost
+// (Items = recipe x the game's mass scale; dc/recipes.py predicts scale 1 and the amounts).
 var needles = new[] { "DC_Rack", "DC_Srv_", "DC_Tray" };
 var s = Singleton<VRageCore>.Instance.Engine.Get<GameAppComponent>().ClientSession;
 var seen = new System.Collections.Generic.HashSet<string>();

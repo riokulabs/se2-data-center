@@ -1,11 +1,10 @@
-// Data Center ROOM probe (Plan 3 Task 12): a copy of the Data Center probe, itself adapted from
-// an earlier prototype's mount-point probe (the original is never edited), with the room blocks' names.
+// Data Center room probe: the mount-point probe (probe_mountpoints.csx) for the room blocks.
 // Run in game via se2-game execute_code (usings: System.Linq, System.Reflection, System.Collections.Generic)
-// or: tools/scripts/se2game.py exec -f mods/DataCenter/Source/Model/review/probe_mountpoints_room.csx
+// or: tools/scripts/se2game.py exec -f mods/DataCenter/Tests/InGame/probe_mountpoints_room.csx
 // Place one of each room block first (floor tiles, CRAC, PDU cabinet and strips, containment doors and roofs,
 // signs). Per distinct placed block definition it prints the generated placement data (bounding box, occupied cells, mount groups per face) to compare with check_placement.py / build_report.json,
-// and the Task 10 data: display size and assigned BlockSize (menu grouping), mass, and the in-game cost
-// (Items = recipe x the game's mass scale; dc/recipes.py predicts scale 1 and the amounts in NOTES.md, Plan 3 Task 12).
+// and the build-menu data: display size and assigned BlockSize (menu grouping), mass, and the in-game cost
+// (Items = recipe x the game's mass scale; dc/recipes.py predicts scale 1 and the amounts).
 var needles = new[] { "DC_Floor_", "DC_CRAC", "DC_PDU_", "DC_Contain_", "DC_Sign_" };
 var s = Singleton<VRageCore>.Instance.Engine.Get<GameAppComponent>().ClientSession;
 var seen = new System.Collections.Generic.HashSet<string>();

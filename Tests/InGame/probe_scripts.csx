@@ -1,14 +1,14 @@
-// Data Center scripts: in-game probe (Plan 4). Task 1 part: is the scripting switch on, did the mod's script
+// Data Center scripts: in-game probe. Sections 1-4: is the scripting switch on, did the mod's script
 // assemblies load, and do the reflection targets of Scripts/Simulation/Shared/CompositionSurgery.cs still exist?
-// Task 4 part (section 5): the Programmable, server and client side, and the "[DataCenter]" lines of this session's
-// log. Task 8 part (section 7): the scripted KVM (the injection, each KVM's sequencer, its rack link and its parts
+// Sections 5-6: the Programmable, server and client side, and the "[DataCenter]" lines of this session's
+// log. Section 7: the scripted KVM (the injection, each KVM's sequencer, its rack link and its parts
 // against their rest poses), the CompositionSurgery refusal paths (prepared only, never applied), and an opt-in
 // fault-injection pass (7d; off by default, it leaves one KVM faulted until the world is reloaded).
 //
 // Compile it offline first, the way se-mcp compiles it (its usings and wrapper, the game's assemblies):
-//   mods/DataCenter/Tests/CompileCheck/run.sh probe mods/DataCenter/Source/Model/review/probe_scripts.csx
+//   mods/DataCenter/Tests/CompileCheck/run.sh probe mods/DataCenter/Tests/InGame/probe_scripts.csx
 // Run with a world loaded (read-only unless 7d is switched on):
-//   tools/scripts/se2game.py exec -f mods/DataCenter/Source/Model/review/probe_scripts.csx
+//   tools/scripts/se2game.py exec -f mods/DataCenter/Tests/InGame/probe_scripts.csx
 // or through the se2-game MCP execute_code (usings: System.Linq, System.Reflection, System.Collections.Generic).
 // Then look for the "[DataCenter]" lines in the game log (CompositionSurgery and the injectors log there).
 string Mark(bool ok) => ok ? "ok  " : "FAIL";
@@ -45,7 +45,7 @@ if (sim != null)
     Console.WriteLine($"{Mark(found is true)} CompositionSurgery.ReflectionTargetsFound: {found ?? "(type missing)"}");
 }
 
-// 5. Plan 4 Task 4: the Programmable. Reflection only, every access wrapped: a missing member prints, never throws.
+// 5. The Programmable. Reflection only, every access wrapped: a missing member prints, never throws.
 //    Place one DC_Srv_Programmable first; toggle it Off and On between two runs to see the lamp follow Working.
 object Get(object o, string n) {
     try {
@@ -110,9 +110,9 @@ foreach (var side in new[] { "ServerSession", "ClientSession" })
     if (n == 0) Console.WriteLine($"     {side}: no DC_Srv_Programmable placed");
 }
 
-// 7. Plan 4 Task 8: the scripted KVM. Place KVMs in a SplitFront rack (doors closed, KVM On), in an Open rack, in
+// 7. The scripted KVM. Place KVMs in a SplitFront rack (doors closed, KVM On), in an Open rack, in
 //    a 42U top slot, and one standalone. Reflection only; every access is wrapped.
-bool kvmFaultPass = false;   // 7d: set true for INGAME-CHECKLIST 12e's fault pass (faults ONE KVM until reload)
+bool kvmFaultPass = false;   // 7d: set true for the fault pass (faults ONE KVM until reload)
 const BindingFlags Any = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 Type KT(string n) => client?.GetType(n, false);
 object St(Type t, string n) { try { return t?.GetProperty(n, Any)?.GetValue(null); } catch { return null; } }
@@ -157,12 +157,12 @@ foreach (var e in kvms.Take(8))
     var door = Get(link, "FrontDoorState");
     Console.WriteLine($"== KVM {Get(e, "DebugName") ?? e}: Working {working}, pose {Get(s, "Pose")}, target {Get(s, "Target")}, path {Get(s, "Path")}, settled {Get(core, "Settled")}, faulted {Get(s, "Faulted")} ({Get(core, "Faults")} faults)");
     Console.WriteLine($"     link: front block {Get(Get(link, "FrontBlock"), "DebugName") ?? "none"}, door {door ?? "none"}, rack {Get(link, "RackKind")}, slot {Get(link, "Slot")}, path {Get(link, "Path")}, resolves {Get(link, "Resolves")}; in scene {F(Get(core, "SecondsInScene"))} s, door open {F(Get(core, "DoorOpenFor"))} s");
-    Console.WriteLine($"     face side {Get(link, "FaceSide")} (+1 the rack's front, -1 its rear), rack leaves {Get(link, "DoorSides")}, door off the face (ignored, P4-13): {Get(link, "DoorOffFace")}");
+    Console.WriteLine($"     face side {Get(link, "FaceSide")} (+1 the rack's front, -1 its rear), rack leaves {Get(link, "DoorSides")}, door off the face (ignored): {Get(link, "DoorOffFace")}");
     string d = door?.ToString();
     string want = d == "Closing" || d == "Closed" ? "Stowed|FastStow" : working is true && (d == null || d == "Open") ? "Out" : "Stowed";
-    Console.WriteLine($"{Mark(want.Split('|').Contains(Get(s, "Target")?.ToString()))} target {Get(s, "Target")} (expected {want}: the door interlock, P4-4)");
+    Console.WriteLine($"{Mark(want.Split('|').Contains(Get(s, "Target")?.ToString()))} target {Get(s, "Target")} (expected {want}: the door interlock)");
     bool topOfFull = Get(link, "RackKind")?.ToString() == "Full" && Get(link, "Slot") is int slot && slot == 8;
-    Console.WriteLine($"{Mark((Get(link, "Path")?.ToString() == "DataOnly") == topOfFull)} link path {Get(link, "Path")} (data-only exactly in a 42U top slot, P4-12)");
+    Console.WriteLine($"{Mark((Get(link, "Path")?.ToString() == "DataOnly") == topOfFull)} link path {Get(link, "Path")} (data-only exactly in a 42U top slot)");
 
     foreach (var drawer in ChildrenOf(e))
     {
@@ -198,7 +198,7 @@ foreach (var e in kvms.Take(8))
     }
 }
 
-// 7c. The CompositionSurgery refusal paths (Task 1 carry): PREPARED ONLY, never applied, so nothing changes.
+// 7c. The CompositionSurgery refusal paths: PREPARED ONLY, never applied, so nothing changes.
 var surgeryT = sim?.GetType("DataCenter.Shared.CompositionSurgery", false);
 if (switchOn && surgeryT != null && seqT != null)
 {
@@ -221,7 +221,7 @@ if (switchOn && surgeryT != null && seqT != null)
     Expect("add the sequencer to the KVM prefab again", Add(kvmPrefab, seqT), "AlreadyDone");
     Expect("add the sequencer where its PowerableBlockComponent is missing (the drawer subpart)", drawerPrefab == null ? "no drawer prefab" : Add(drawerPrefab, seqT), "Refused");
     Expect("add to a prefab whose composition is shared", shared == null ? "Refused (none shared)" : Add(shared, seqT), "Refused");
-    // ... and refused for the right reason: the sharing check, not an earlier one (review M6)
+    // ... and refused for the right reason: the sharing check, not an earlier one
     bool sharedLogged = false;
     try
     {
@@ -234,12 +234,12 @@ if (switchOn && surgeryT != null && seqT != null)
     Console.WriteLine($"{Mark(shared == null || sharedLogged)} the shared case was refused by the sharing check (log line 'its composition is shared with ...'): {sharedLogged}");
     Expect("swap the drawer again", Swap(drawerComposite, transT, drawerT), "AlreadyDone");
     Expect("swap a type the composite lacks", Swap(drawerComposite, rotT, screenT), "Refused");
-    Expect("swap into a driver that takes another definition type (P4-10)", vanillaTranslation == null ? "Refused (no vanilla translation)" : Swap(vanillaTranslation, transT, drawerT), "Refused");
+    Expect("swap into a driver that takes another definition type", vanillaTranslation == null ? "Refused (no vanilla translation)" : Swap(vanillaTranslation, transT, drawerT), "Refused");
     Console.WriteLine("     (each Refused above logs one '[DataCenter] could not ...' line, listed in section 6)");
 }
 
 // 7d. Fault injection (opt-in, see kvmFaultPass): on the first KVM only, best SETTLED (switched On or Off a few seconds
-//     earlier). Notes (review M5): the drawer's job is run on a scratch copy of its transform, but it does record that
+//     earlier). Notes: the drawer's job is run on a scratch copy of its transform, but it does record that
 //     pose as applied, so on a moving KVM the next real frame may skip one write; the sequencer's Update is called off
 //     the job schedule (a benign race with the real job); and the "destroyed child" is a live child entity planted as
 //     the cached rack, which exercises the same per-frame re-resolve a destroyed rack would.

@@ -11,7 +11,7 @@ Space Engineers 2 mod: server racks, rack-mount servers, cable trays and room pi
 - `Source/Model/` the Blender pipeline: `build_dc.py`, the `dc/` Python package (catalogue, cloning, damage, KVM, trays, integration), `integration/` (staging and `install.sh`).
 - `Scripts/` optional C# layer (`Client/`, `Simulation/`), only loaded with the game flag `-loadScripts`.
 - `Tests/` pytest suite, plus `CoreTests/` and `CompileCheck/` (C#).
-- `docs/workshop/` Workshop text and thumbnail. `README.md`, `CHANGELOG.md`, `NOTES.md` (design notes and task log), `INGAME-CHECKLIST.md`.
+- `docs/workshop/` Workshop text and thumbnail. `README.md`, `CHANGELOG.md`; contributor docs in `docs/` (`model-pipeline.md`, `testing-in-game.md`, `triangle-budgets.md`).
 - `Content/`, `.hashescache*`, `.referencescache*` are build output and ignored.
 
 ## Build and test
@@ -38,7 +38,7 @@ Pytest markers: `build` needs a prior Blender build, `sdkbuild` runs the real SD
 
 - Edit generators in `Source/Model/dc/`, rerun the pipeline, commit the regenerated `Assets/` together with the generator change.
 - Never hand-edit GUIDs or `.meta` files. `.clonemap.json` and `asset_guids.json` are keyed state; do not rewrite them by hand.
-- Blocks behave like the vanilla block they are cloned from; deviations are documented in `NOTES.md`.
+- Blocks behave like the vanilla block they are cloned from; deviations are documented in `README.md`.
 - Preview renders (`Source/Model/preview/`) stay on disk and are never committed. README images go in `docs/media/`.
 - Run the SDK build and any publish step from the main checkout only, never from a git worktree.
 - Vanilla reuse: cloned vanilla definitions and kit parts are fine in SE2 mods; nothing else from Keen.

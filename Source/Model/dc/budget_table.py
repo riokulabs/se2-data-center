@@ -1,7 +1,7 @@
-"""Plan 5 Task 14: the per-block triangle budget table in NOTES.md, generated from the committed export.json files.
+"""The per-block triangle budget table in docs/triangle-budgets.md, generated from the committed export.json files.
 
-    python3 Source/Model/dc/budget_table.py          rewrites the table between the two markers in NOTES.md
-    Tests/test_states_docs.py                         fails when NOTES.md differs from budget_table.table()
+    python3 Source/Model/dc/budget_table.py          rewrites the table between the two markers in the doc
+    Tests/test_states_docs.py                         fails when the doc differs from budget_table.table()
 
 Columns (LOD0 triangles): NF = the plain model, FR = the Fractured model (scaffold and stand-ins included),
 limit = Keen's fractured limit for it (the manifest's budget[0]; for the four unfractured blocks se2model.limits),
@@ -64,12 +64,12 @@ def block():
     return f"{BEGIN}\n{table()}\n{END}"
 
 
-def notes_path():
-    return os.path.join(config.MOD_DIR, "NOTES.md")
+def doc_path():
+    return os.path.join(config.MOD_DIR, "docs", "triangle-budgets.md")
 
 
 def rewrite(path=None):
-    path = path or notes_path()
+    path = path or doc_path()
     with open(path, encoding="utf-8") as f:
         text = f.read()
     a, b = text.index(BEGIN), text.index(END) + len(END)

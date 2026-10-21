@@ -150,11 +150,7 @@ def test_roof_windows_effects(staged, sdk):
 
 
 def test_programmable_hp_changes(staged, sdk):
-    """The Programmable's resolved MaxHP mass multiplier is 0.8 (Functional; it was 1.0 as Structural), and NOTES
-    names the change."""
+    """The Programmable's resolved MaxHP mass multiplier is 0.8 (Functional; it was 1.0 as Structural)."""
     frag = _resolved_fragility(staged, sdk, catalog.BY_NAME["DC_Srv_Programmable"])
     assert sdk.resolve(frag)["MaxHPMassMultiplier"] == 0.8
     assert sdk.resolve(STRUCTURAL)["MaxHPMassMultiplier"] == 1
-    notes = open(os.path.join(config.MOD_DIR, "NOTES.md"), encoding="utf-8").read()
-    sec = notes[notes.index("## Plan 5 Task 3"):]
-    assert "DC_Srv_Programmable" in sec and "MaxHPMassMultiplier 0.8" in sec

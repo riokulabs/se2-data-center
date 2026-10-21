@@ -145,7 +145,6 @@ def test_route_recorded():
     finally:
         sys.path.pop(0)
     assert config.PROGRAMMABLE_ROUTE in ("B", "A'")
-    assert f"Programmable route: {config.PROGRAMMABLE_ROUTE}" in _read(os.path.join(MOD, "NOTES.md"))
 
 
 def test_core_tests_pass(core_tests_lock):

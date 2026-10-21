@@ -437,7 +437,7 @@ def test_programmable_patches_hold_with_or_without_breakable(prog_from_clone):
 # ---------------------------------------------------------------------------------------------- Task 4: scripts on
 SCRIPTS = os.path.join(config.MOD_DIR, "Scripts")
 LED_INJECTOR = os.path.join(SCRIPTS, "Client", "Programmable", "ProgrammableLedInjector.cs")
-PROBE = os.path.join(config.MOD_DIR, "Source", "Model", "review", "probe_scripts.csx")
+PROBE = os.path.join(config.MOD_DIR, "Tests", "InGame", "probe_scripts.csx")
 
 
 def _text(p):
