@@ -1,0 +1,113 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "AtlasDecal_Stickers02",
+        "MaterialReference": "c3e749ff-35ff-469c-b7ae-84a5a5d829b3"
+      },
+      {
+        "MaterialName": "AtlasFont_BarlowCondensed_CleanWhite",
+        "MaterialReference": "d9b7cea3-19fa-4aee-843a-a6838dda5990"
+      },
+      {
+        "MaterialName": "EmissiveGreen",
+        "MaterialReference": "78f2cbaa-112e-4068-99e7-c146d4da58f2"
+      },
+      {
+        "MaterialName": "MetalDull",
+        "MaterialReference": "0e9e7d42-9533-47ed-b814-cf4be55b6aa8"
+      },
+      {
+        "MaterialName": "PaintedMetalColorable",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "cb933a73-bce4-4224-a7d8-c5083935dac8"
+      },
+      {
+        "MaterialName": "Rubber",
+        "MaterialReference": "ea603341-6e46-42f7-afae-ce60b8848ec5"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}de7cea63-f601-4571-bef0-5bc07bc6c1f3",
+        "UsedMaterials": [
+          "AtlasDecal_Stickers02",
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "EmissiveGreen",
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "Rubber"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}ceb7ff69-594f-46b0-9550-039a75b9f64f",
+        "UsedMaterials": [
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}e9ad7c44-b066-4580-82d4-54666dfe124e",
+        "UsedMaterials": [
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": null,
+      "GroupsByFracture": []
+    }
+  }
+}

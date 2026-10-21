@@ -1,0 +1,159 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "AtlasFont_BarlowCondensed_CleanWhite",
+        "MaterialReference": "d9b7cea3-19fa-4aee-843a-a6838dda5990"
+      },
+      {
+        "MaterialName": "BrushedMetal",
+        "MaterialReference": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9"
+      },
+      {
+        "MaterialName": "DC_Contain_Door_150_LastLOD",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "MetalDull",
+        "MaterialReference": "0e9e7d42-9533-47ed-b814-cf4be55b6aa8"
+      },
+      {
+        "MaterialName": "PaintedMetalColorable",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "cb933a73-bce4-4224-a7d8-c5083935dac8"
+      },
+      {
+        "MaterialName": "PaintedMetalYellow",
+        "MaterialReference": "d74fe97a-dbf1-4b0f-8e1b-90f6fa3b1b27"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}02ea6016-c7e7-4f9d-8013-6a98266a955a",
+        "UsedMaterials": [
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "BrushedMetal",
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0.125,
+            "Y": 0.125,
+            "Z": 0.0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}24321aeb-9875-4de3-b825-6f29f452a7b3",
+        "UsedMaterials": [
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "BrushedMetal",
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}1c09db25-ad01-4abe-9bde-1bd229b14010",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}40a08d0c-1f18-43ab-8cce-e0dcc5b19217",
+        "UsedMaterials": [
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}bff266ca-4b68-4f16-81a8-19c48629c421",
+        "UsedMaterials": [
+          "DC_Contain_Door_150_LastLOD"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": "{G}24e42f01-dea6-4f6e-9e9f-43031dfb688d",
+      "GroupsByFracture": [],
+      "GeneratePreciseCollider": true
+    }
+  }
+}

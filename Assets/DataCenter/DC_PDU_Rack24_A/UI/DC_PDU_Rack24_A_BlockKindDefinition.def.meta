@@ -1,0 +1,36 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3155",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3155"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "d7cfa726-8142-4d5f-8ca4-aba184d54741",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "bflzTwQCl4mcB07SNwG+DA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 2,
+          "Identifier": "P_DEF"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "Se4gbirqBnNNvsQ6+D2C/Q==",
+            "FileName": "DC_PDU_Rack24_A_BlockKindDefinition.def"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [],
+        "AssetHash": "bflzTwQCl4mcB07SNwG+DA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

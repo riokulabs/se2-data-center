@@ -1,0 +1,86 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "98b7d3c4-e651-455d-b0d2-60659a11dedc",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "68581756-7ef0-4225-9e31-e09fcec4e8d3",
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [
+          "IToolbarStateHandler",
+          "TimerBlockIndicatorComponent"
+        ],
+        "ModifiedKeys": [
+          {
+            "$Key": "TimerBlockServerComponent",
+            "$Value": "1edd7671-a8ed-44f2-aea5-9acd05f2d0aa"
+          }
+        ]
+      },
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "a1687822-b4c2-4bcb-961e-3e44fae3221d",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "72e2ef60-d699-48a2-9959-4e246eecdacc",
+          "24f8dfe2-6b3f-4764-a9db-6e4383dcae5d",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "1edd7671-a8ed-44f2-aea5-9acd05f2d0aa",
+          "f4c12576-79d5-4f98-9f19-a341598d64c8"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 3,
+            "Value": {
+              "Definition": "89352414-cf73-4733-bd14-1fff44fc204d"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "154ebb58-a4d2-4961-b2f0-d9aad4201372"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 7,
+            "Value": {
+              "Definition": "0b4f9ff0-fa83-408e-a1ff-a55fa714c2ca"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 8,
+            "Value": {
+              "Definition": null,
+              "Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Toolbar.TimerBlockComponent"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 9,
+            "Value": {
+              "Definition": "2db8b84f-48f4-4197-adea-d3913a93d39d"
+            }
+          }
+        ],
+        "Removed": [
+          "e4a8653e-5c9d-4318-acd2-50feb81bbf29"
+        ]
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

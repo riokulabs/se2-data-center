@@ -1,0 +1,26 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "d971b259-e0c6-42a9-b414-1441b3fe05b6",
+      "UIData": {
+        "Name": "Cable Tray, Rack Drop (Moderate)",
+        "Icon": "{G}0ffc4476-7aba-4541-aa4d-d5ef4cc92e52"
+      },
+      "PlacerDefinition": "a20c56b5-8b9b-42d1-ba76-cc5d43d773e1",
+      "Recipe": "2e475416-dcf0-43f8-af57-19763d345dd1",
+      "BlockKind": "99b4fb78-2cb1-4828-a24d-08879ba53563",
+      "PCU": 5,
+      "Density": "3dca2cf9-e9b5-4df4-99ed-f7d12f2fce7b"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

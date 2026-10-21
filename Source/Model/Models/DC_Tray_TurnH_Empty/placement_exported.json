@@ -1,0 +1,96 @@
+{
+ "model": "DC_Tray_TurnH_Empty",
+ "fbx_sha256": "dd932af5c09fbfdef44fd8fcc11be67823952a1a8069089b4dd91fd95827312f",
+ "inputs": [
+  "NonFractured/DC_Tray_TurnH_Empty.fbx",
+  "NonFractured/DC_Tray_TurnH_Empty_collision.gltf",
+  "Fractured/DC_Tray_TurnH_Empty_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 2,
+  "occupancy_hints": 1,
+  "mount_hints": 3,
+  "fractures": 2
+ },
+ "render_tris": 1824,
+ "nonfractured": {
+  "occupied": 9,
+  "total": 9,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.111
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_TurnH_Empty: groups F/B/L/R/U/D = 1 / 0 / 1 / 0 / 0 / 1; plane coverage = 67% / 0% / 67% / 0% / 0% / 11%; occupied 9/9 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 9,
+  "total": 9,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.111
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_TurnH_Empty: groups F/B/L/R/U/D = 1 / 0 / 1 / 0 / 0 / 1; plane coverage = 67% / 0% / 67% / 0% / 0% / 11%; occupied 9/9 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_01": 3,
+   "Fracture_02": 2
+  }
+ }
+}

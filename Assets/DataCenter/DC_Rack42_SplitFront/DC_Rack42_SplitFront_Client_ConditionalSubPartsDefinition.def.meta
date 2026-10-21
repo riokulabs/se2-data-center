@@ -1,0 +1,36 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3155",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3155"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "ed3c1244-fb57-4bf6-81c7-1f902ff29192",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "siTsWPz7sEopyQNzxZETPw=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 2,
+          "Identifier": "P_DEF"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "JmvBculSBONurVYpC+ympA==",
+            "FileName": "DC_Rack42_SplitFront_Client_ConditionalSubPartsDefinition.def"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [],
+        "AssetHash": "siTsWPz7sEopyQNzxZETPw==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "BrushedMetal",
+        "MaterialReference": "d2d76bf2-2c7c-4798-8eec-c515c07b84cc"
+      },
+      {
+        "MaterialName": "DC_Tray_TurnH_Empty_LastLOD",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "FracturedMaterial01",
+        "MaterialReference": "0f2772fd-72d6-4ee9-9211-38d1781ba8b9"
+      },
+      {
+        "MaterialName": "GratingMetallic",
+        "MaterialReference": "2cc33fe2-00c5-4a64-a648-d1ea7aa8e3ee"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "ea15e749-58ce-4ca8-95e2-307af0bd273d"
+      },
+      {
+        "MaterialName": "PaintedMetalYellow",
+        "MaterialReference": "d74fe97a-dbf1-4b0f-8e1b-90f6fa3b1b27"
+      },
+      {
+        "MaterialName": "Rubber",
+        "MaterialReference": "ea603341-6e46-42f7-afae-ce60b8848ec5"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}41ac6a9a-4ce3-4b4d-99b3-f2d582f68029",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "FracturedMaterial01",
+          "PaintedMetalDarker",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}21ee42f7-28ea-4f5c-982d-8c553295c0c6",
+        "UsedMaterials": [
+          "GratingMetallic",
+          "Rubber"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}b4e8421e-2c4c-4f23-90a2-07449c185664",
+        "UsedMaterials": [
+          "DC_Tray_TurnH_Empty_LastLOD"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": "{G}f4ada31d-ddbf-4524-9a2b-b6babc90733c",
+      "GroupsByFracture": [],
+      "GeneratePreciseCollider": true
+    }
+  }
+}

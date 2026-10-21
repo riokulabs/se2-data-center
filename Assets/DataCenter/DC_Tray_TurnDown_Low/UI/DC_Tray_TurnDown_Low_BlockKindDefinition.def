@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "9f708257-ad1c-4424-85ff-6928eba4eb1b",
+    "Name": "Cable Tray, Turn Down (Low)",
+    "Description": "Overhead wire-basket cable tray, 90 degree turn down from a vertical riser, low cable load (two data bundles). Cables line up across every joint.",
+    "OrderingPriority": 4,
+    "BlockGroups": [
+      {
+        "Key": "d2bb10dd-d164-494f-9a13-7324f9c45192",
+        "Value": "9aa65c88-3e85-4568-a25d-867513aa4581"
+      }
+    ]
+  }
+}

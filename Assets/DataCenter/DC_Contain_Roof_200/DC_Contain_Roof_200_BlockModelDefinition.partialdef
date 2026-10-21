@@ -1,0 +1,2369 @@
+{
+  "$Bundles": {
+    "Game2": "2.2.0.239",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.2.0.239"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "f104e970-bdcc-4a09-892d-8cc96e039998",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "69e7eabc-96a7-4582-9fb8-713f5c45c5d7",
+      "Model": "{G}bc73d028-1a3b-48b5-a068-996a43528301",
+      "Dummies": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "1dfe05b3-9a23-44ed-91fc-8ba220bc1998",
+          "c6777ad5-8348-453b-9689-06ca46371c72"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 0,
+            "Value": {
+              "Name": "ParticleDirection",
+              "Transform": {
+                "Transform": {
+                  "Position": {
+                    "X": 0.125,
+                    "Y": 0,
+                    "Z": 0.125
+                  },
+                  "Orientation": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0,
+                    "W": 1
+                  }
+                },
+                "EulerHint": {
+                  "X": 0,
+                  "Y": 0,
+                  "Z": 0
+                }
+              },
+              "Scale": {
+                "X": 1,
+                "Y": 1,
+                "Z": 1
+              },
+              "Type": "82c73d56-c77f-4ba7-a0a5-7f1438dd576b",
+              "SupportingFracture": null,
+              "HighlightSection": null
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 1,
+            "Value": {
+              "Name": "ParticleEffects",
+              "Transform": {
+                "Transform": {
+                  "Position": {
+                    "X": 0.125,
+                    "Y": 0.0,
+                    "Z": 0.125
+                  },
+                  "Orientation": {
+                    "X": 0,
+                    "Y": 0,
+                    "Z": 0,
+                    "W": 1
+                  }
+                },
+                "EulerHint": {
+                  "X": 0,
+                  "Y": 0,
+                  "Z": 0
+                }
+              },
+              "Scale": {
+                "X": 1,
+                "Y": 1,
+                "Z": 1
+              },
+              "Type": "e9f28118-a0cf-4c6c-b6ad-2e0719e6cf5a",
+              "SupportingFracture": null,
+              "HighlightSection": null
+            }
+          }
+        ],
+        "Removed": []
+      },
+      "FractureModel": "{G}c35e2ccb-d05d-4739-81c1-5bb3b1ba0381",
+      "DamagedModel": "{G}98740007-0061-4d61-8a84-209ee4046f9e",
+      "BuildProgressModels": [
+        {
+          "Key": "9e9d325a-65dc-58b2-969d-a88a72d0b8cb",
+          "Value": {
+            "BuildRatioLowerBound": 0.0,
+            "Model": "{G}c35e2ccb-d05d-4739-81c1-5bb3b1ba0381",
+            "PartChanges": {
+              "_data": [
+                {
+                  "Key": "96072050-320f-5c03-b318-93591cc9ba52",
+                  "Value": {
+                    "MeshPart": "BrushedMetal",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "dfceef16-f394-5992-b7fa-919fd939841e",
+                  "Value": {
+                    "MeshPart": "Fracture_01-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d0f8a44e-0693-5cc4-a3e4-bc03024c6b84",
+                  "Value": {
+                    "MeshPart": "Fracture_01-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "e4347125-371d-50ba-a2d4-cfbc1d5fc4c6",
+                  "Value": {
+                    "MeshPart": "Fracture_01-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d3ca90e6-c529-567d-9657-7d88b7b63269",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "0224c0f3-1df4-57a6-adf9-20e0fd6684ac",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "aca2cd25-8aaf-5bd5-a240-d92009512314",
+                  "Value": {
+                    "MeshPart": "Fracture_01_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "2c59d2af-3dc8-5b70-89b8-cf4cfe807637",
+                  "Value": {
+                    "MeshPart": "Fracture_01_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "bfe9444a-e808-5d65-8a8b-7815a9680286",
+                  "Value": {
+                    "MeshPart": "Fracture_01_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "0205de59-d27b-5db4-b522-ef76dd00e750",
+                  "Value": {
+                    "MeshPart": "Fracture_01_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5b57dc5b-0695-51f2-a18d-c2fe0ae32282",
+                  "Value": {
+                    "MeshPart": "Fracture_02-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "fa324267-0fcc-5cb8-9210-3dec2b64da1c",
+                  "Value": {
+                    "MeshPart": "Fracture_02-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "1685471f-6635-5c8b-872a-86129b4da447",
+                  "Value": {
+                    "MeshPart": "Fracture_02-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a6de178d-bd83-5158-aacf-4d96b5ee9c5c",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "c0dc0534-5330-5c55-b1aa-01fef633896e",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "65aa4101-e712-5e81-8836-c625497718e4",
+                  "Value": {
+                    "MeshPart": "Fracture_02_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "55d292bb-e2a2-5161-bb72-b22855e819ee",
+                  "Value": {
+                    "MeshPart": "Fracture_02_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "75b8d6e4-6258-5596-8794-37c65618029e",
+                  "Value": {
+                    "MeshPart": "Fracture_02_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "8283f060-d937-563c-8630-aee99359a0f3",
+                  "Value": {
+                    "MeshPart": "Fracture_02_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "c7f2addc-662d-5013-9e76-2fb89068e1dc",
+                  "Value": {
+                    "MeshPart": "Fracture_03-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "17a467f3-026e-5732-9b53-1f65d7290e34",
+                  "Value": {
+                    "MeshPart": "Fracture_03-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6ad66935-5bfb-5fc9-85e0-6148f857ab2a",
+                  "Value": {
+                    "MeshPart": "Fracture_03-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "4676d741-f724-5e02-b5ac-86c7d1886a6f",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "7274b1c4-f979-5ac2-85a3-b82fb57af19e",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ab9d022f-cdb9-5861-aa80-465d0ac6efaa",
+                  "Value": {
+                    "MeshPart": "Fracture_03_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f6808c3f-d75f-5085-97f4-40c54a5822d1",
+                  "Value": {
+                    "MeshPart": "Fracture_03_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "99e6bef6-0108-50e3-88c4-9512e0be1cd0",
+                  "Value": {
+                    "MeshPart": "Fracture_03_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "015a3162-a356-5f8e-b83d-4ed4ca1ae6a0",
+                  "Value": {
+                    "MeshPart": "Fracture_04-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "59ae4042-7f4a-5c16-a6a4-1d36916e75ab",
+                  "Value": {
+                    "MeshPart": "Fracture_04-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "393b26f1-f811-581c-8b87-341774d76e04",
+                  "Value": {
+                    "MeshPart": "Fracture_04-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "aedbbf7e-9ce3-5ff6-a5bd-b80cb4f4fff3",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "dd2cf328-be7f-56c6-80f7-cf56ea2f46d4",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f11faeae-d87a-52a5-9b0a-5dde3413de0f",
+                  "Value": {
+                    "MeshPart": "Fracture_04_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "4d92c201-a50c-5184-9443-b91ccaaf7eed",
+                  "Value": {
+                    "MeshPart": "Fracture_04_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "62b46eff-1af1-5d69-a1f0-84e904541d05",
+                  "Value": {
+                    "MeshPart": "Fracture_04_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "e8538311-bdd2-5143-9a9b-48c0bea79227",
+                  "Value": {
+                    "MeshPart": "Fracture_05-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "9f2bb0ef-103c-5843-a51c-3016edc441cd",
+                  "Value": {
+                    "MeshPart": "Fracture_05-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "766161c0-bf48-5d5d-b112-379cba5b449d",
+                  "Value": {
+                    "MeshPart": "Fracture_05-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "50da5b04-a4de-517f-912a-ae1c6c42fddb",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "de137608-18b0-5d15-b68a-ac6051a8ddd9",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6732c1fd-7cd1-56fa-a65c-342a4c26231e",
+                  "Value": {
+                    "MeshPart": "Fracture_05_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "07bd915f-8bd7-5016-861f-4fd3aafa6fb5",
+                  "Value": {
+                    "MeshPart": "Fracture_05_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "c04e1496-5021-5177-9f30-705afb5f42f9",
+                  "Value": {
+                    "MeshPart": "Fracture_05_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "b418e4e2-efc2-5c99-b15d-874dbe4ad435",
+                  "Value": {
+                    "MeshPart": "Fracture_06-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a8fefb50-af95-58b8-aa18-4b4b31f38ac2",
+                  "Value": {
+                    "MeshPart": "Fracture_06-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "eb607a14-fe60-5e9a-9c56-97cf226fcefb",
+                  "Value": {
+                    "MeshPart": "Fracture_06-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6f7c54a6-fff1-5595-844f-9874c2a505a1",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "89561011-cb51-512a-86be-ec452fd09699",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ac2c77cd-ac06-5fd9-a5bc-64ee50dd3447",
+                  "Value": {
+                    "MeshPart": "Fracture_06_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6f61fe0b-2234-50cc-8292-db273f6a1b80",
+                  "Value": {
+                    "MeshPart": "Fracture_06_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "4c315b28-8de7-5718-8c18-410428dd4547",
+                  "Value": {
+                    "MeshPart": "Fracture_06_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f3975bee-bd90-5ab4-9ab3-d4f35df1bb77",
+                  "Value": {
+                    "MeshPart": "Fracture_07-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "b61fbcc0-5a43-5b6f-8fd3-f6ba65e3c151",
+                  "Value": {
+                    "MeshPart": "Fracture_07-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5e192a05-7dd1-563d-a26a-3093b1c01d34",
+                  "Value": {
+                    "MeshPart": "Fracture_07-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "3bfd07fd-e207-5abd-8022-e166bf92bd97",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "57cfb4fb-0c87-5699-b32d-888af12a335f",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "3f5a31ff-d7d0-5172-911c-a51e592f0230",
+                  "Value": {
+                    "MeshPart": "Fracture_07_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "3d97e524-03be-54c5-90a9-598153e43e9e",
+                  "Value": {
+                    "MeshPart": "Fracture_07_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "b0f40d2b-9506-5279-a736-0bb707402ee5",
+                  "Value": {
+                    "MeshPart": "Fracture_07_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "be02bc9e-39bc-531d-a2e0-eae0931218bb",
+                  "Value": {
+                    "MeshPart": "Fracture_07_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "c383ec4b-3236-56e2-892d-a201dce2d00e",
+                  "Value": {
+                    "MeshPart": "Fracture_08-FracturedMaterial01",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "482385cb-9417-5b84-a733-caec5e97bed9",
+                  "Value": {
+                    "MeshPart": "Fracture_08-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "62a05e74-ce37-54c1-91f6-50b73375d317",
+                  "Value": {
+                    "MeshPart": "Fracture_08-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "48af9e13-10de-5d69-873e-ad2243acc545",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "4702dedb-6e21-555f-ad58-c7a74222693c",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "2a8225c1-df6c-41a7-ad6f-b58a77bdd88d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "1239bbf6-1ba5-5756-916c-e0ef5ccaea8a",
+                  "Value": {
+                    "MeshPart": "Fracture_08_Hide-AtlasFont_BarlowCondensed_CleanWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a203048a-86bf-5c47-9570-6df984d2462a",
+                  "Value": {
+                    "MeshPart": "Fracture_08_Hide-EmissiveWhite",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "b016ec16-e641-5cdc-a8d8-aa300d3a5683",
+                  "Value": {
+                    "MeshPart": "Fracture_08_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f0a41ad0-eef1-54ad-b2de-fc570cc23e72",
+                  "Value": {
+                    "MeshPart": "Fracture_08_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "4050183d-1340-4643-b8b9-124981f2121d",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Key": "e6bfe857-d276-59fb-865a-064ce12cab9f",
+          "Value": {
+            "BuildRatioLowerBound": 0.1,
+            "Model": null,
+            "PartChanges": {
+              "_data": [
+                {
+                  "Key": "829a1ef9-dd08-5af1-8a99-ab69760d4614",
+                  "Value": {
+                    "MeshPart": "Fracture_01-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "0a063163-54d2-5dd1-807f-c932da8e8ec7",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "99ef5e1f-da34-57e5-b9c1-1b78f5713bd4",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "eac905a0-a9c1-5e4c-917e-e6028423b347",
+                  "Value": {
+                    "MeshPart": "Fracture_02-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a8b09bc7-4448-5486-9a15-fa3c284a8b19",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ddbf7a09-884f-5602-829f-9833c79c4486",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "727a4704-9a36-5591-a056-0ab0e9bd3d1b",
+                  "Value": {
+                    "MeshPart": "Fracture_03-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "9708d27a-d329-58ac-80f0-d4cde5ccf759",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "05747dc4-da5e-57aa-99a5-9b00a59724b7",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "44160b52-e21a-5116-a931-5d0a165c8a8a",
+                  "Value": {
+                    "MeshPart": "Fracture_04-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6ba8d5cd-0c50-54bb-9f33-0a28b00dd5cd",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5cf0a90f-b870-5ffb-bf52-35cdb8b90eb6",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "1568e868-15ed-50af-9666-642e0c7213a8",
+                  "Value": {
+                    "MeshPart": "Fracture_05-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6cefb699-345d-5d38-af38-58d9fbe9114d",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d7b387a9-29a3-5db7-a8c1-17c8e07f6805",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f6e4c810-61df-5cea-96ff-3ef540ccd90b",
+                  "Value": {
+                    "MeshPart": "Fracture_06-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "7be54ad8-234c-5ecc-92d3-ea907bcdf5e7",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "25229ca1-0f49-5a6b-80be-776604518905",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "1a531204-e515-5e67-9457-5cad48a45c99",
+                  "Value": {
+                    "MeshPart": "Fracture_07-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6055576a-550a-504b-ac64-520977e3194e",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "26296526-1768-50b3-b0db-2d9bb73c8f34",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "91e70cad-b4ea-5da6-bdaa-357279bba6cd",
+                  "Value": {
+                    "MeshPart": "Fracture_08-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5b6a5679-6694-5f11-97f7-4111b7991b02",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "e5be757e-4c5d-5af5-8a80-de6af81b2cca",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "d5d7f641-9756-4776-abb5-ffd52f2f80a8",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Key": "3665ea10-3812-5d74-b891-d6fddd3db58d",
+          "Value": {
+            "BuildRatioLowerBound": 0.2,
+            "Model": null,
+            "PartChanges": {
+              "_data": [
+                {
+                  "Key": "d9365487-c3eb-5892-b2ef-99bba41004ef",
+                  "Value": {
+                    "MeshPart": "Fracture_01-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "614a6581-7c8b-567d-8985-d30c1adeef37",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d87a0bb7-ea9d-5470-a7be-81187ca6e2ef",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "481b4d32-f831-5a7e-aae0-d74a79b889c2",
+                  "Value": {
+                    "MeshPart": "Fracture_02-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "36513741-d8a9-5529-8931-c9142052edf9",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5f297d35-f791-5ab3-aa43-04c581bab25b",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ada35deb-79ff-5754-b7c1-09dc0137ef0a",
+                  "Value": {
+                    "MeshPart": "Fracture_03-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "60594028-ae56-5b21-90b5-a9838adcafdb",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "09e5f6b4-3d30-5422-bbf7-8aea645c8b76",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "03cde3c2-6092-5b41-b27c-cb683849e583",
+                  "Value": {
+                    "MeshPart": "Fracture_04-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "4fe060ed-6eb1-56ac-9526-9e36a7938030",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "de8af1eb-2026-5734-9463-4c1785cc5d5d",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "47893574-c8ca-50e5-94d1-a0f3b16e43fb",
+                  "Value": {
+                    "MeshPart": "Fracture_05-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "82c10d84-67c0-5e8d-a36d-3cea470aecd4",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5f030cfb-1200-56d4-8c28-b8aa9fe1cbbc",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "564dcbdf-c4d6-5dfd-9c56-fb6785eaa694",
+                  "Value": {
+                    "MeshPart": "Fracture_06-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "c939824d-b410-52e6-b8f2-2ef3109be468",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "40fcc1c9-0cb8-5e4c-a452-9477d870b76d",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ddeb348e-3107-56e2-a46d-15b25722c4ed",
+                  "Value": {
+                    "MeshPart": "Fracture_07-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "883b8755-2f8d-585c-b2dd-ed3b626dbf1a",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5682075c-915e-5606-890c-909994e77524",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "32d4fa84-311e-54e3-b00f-3685d1786a89",
+                  "Value": {
+                    "MeshPart": "Fracture_08-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "c7ceff14-d5d7-5119-88fb-14d697f72861",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "0970e81e-a7ed-5330-b466-066cd13c739d",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "9f97552e-a56c-4f5a-8c6c-3be96ab453f5",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Key": "87add349-5fcf-5e09-8d35-46e1a1c4688c",
+          "Value": {
+            "BuildRatioLowerBound": 0.3,
+            "Model": null,
+            "PartChanges": {
+              "_data": [
+                {
+                  "Key": "afbbc78d-fcf1-5f5c-9479-b36ec3a6c14b",
+                  "Value": {
+                    "MeshPart": "BrushedMetal",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "adc90a1e-20c7-56c1-9b90-2700202fe121",
+                  "Value": {
+                    "MeshPart": "Fracture_01-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "daa63d0b-82f4-58a6-b3c5-aeaa039e5e27",
+                  "Value": {
+                    "MeshPart": "Fracture_01-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "0c593f1c-f0ef-5968-88dd-62bbea4a0046",
+                  "Value": {
+                    "MeshPart": "Fracture_01-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "97724fc7-aa36-555d-bc8f-a4d63a0d9245",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "cc48e00a-da30-53ff-abe9-e214ba88af96",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "7203a2cc-f4a6-59ae-9188-352a6a9fb134",
+                  "Value": {
+                    "MeshPart": "Fracture_01_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "22209344-ed06-59f8-a439-dd8c91d0f032",
+                  "Value": {
+                    "MeshPart": "Fracture_01_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "67140b63-dff4-57e5-9e03-faf7fdcf26c3",
+                  "Value": {
+                    "MeshPart": "Fracture_02-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "882b9d9e-bd0c-5b7e-8351-c638e5e8d571",
+                  "Value": {
+                    "MeshPart": "Fracture_02-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a0c39050-2ef6-5e4d-9509-ffb2abfc3c2e",
+                  "Value": {
+                    "MeshPart": "Fracture_02-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "fec53fdd-7523-5522-aebb-0ca1a396dd00",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "3b90831e-8087-5406-872e-c235ffa763fa",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "58494217-5779-50ab-b554-5acf1a069393",
+                  "Value": {
+                    "MeshPart": "Fracture_02_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "e8133b82-f28b-5919-b007-7129349986f8",
+                  "Value": {
+                    "MeshPart": "Fracture_02_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "72e894bc-338e-595c-a647-25b6bae56701",
+                  "Value": {
+                    "MeshPart": "Fracture_03-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f7e14156-7d48-57bd-9e52-f701c3ceddc4",
+                  "Value": {
+                    "MeshPart": "Fracture_03-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "49cc923c-f318-5ff9-ba2c-76968dfb4abb",
+                  "Value": {
+                    "MeshPart": "Fracture_03-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ae2d6980-fc7c-5d5e-bec8-201b09dc303c",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f98d94c5-083a-528b-a059-5dcc80292c76",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ca3d9d33-a659-5db3-8ca7-d2d2a5abc636",
+                  "Value": {
+                    "MeshPart": "Fracture_03_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "3bebd163-3da6-5274-94a8-daa8034f0332",
+                  "Value": {
+                    "MeshPart": "Fracture_04-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "4c73a916-49d5-5feb-bcf0-b41f505fa3d6",
+                  "Value": {
+                    "MeshPart": "Fracture_04-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "285479c2-9691-5b30-ba1a-772dddaa8919",
+                  "Value": {
+                    "MeshPart": "Fracture_04-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a4b321ca-57fa-552f-9871-cc4414d15e6f",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "120dd291-b65f-5fa0-8bb6-3cae6cfa8a03",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d40565c0-15a9-5381-a620-089498163ff2",
+                  "Value": {
+                    "MeshPart": "Fracture_04_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "2f86b3c0-1b0d-5e23-b3fd-fac041508945",
+                  "Value": {
+                    "MeshPart": "Fracture_05-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6ed65e2b-8051-58d9-8121-12a8f5324000",
+                  "Value": {
+                    "MeshPart": "Fracture_05-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "fe78a2d2-bcd5-5c60-92fb-0e5cf4d97859",
+                  "Value": {
+                    "MeshPart": "Fracture_05-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "29f585a9-cd32-5683-8eac-c393a2ac96a4",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "93334777-0ca3-5612-a33b-2667dff04751",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "b10a8ccf-63fe-5e14-9853-e90536fd25e8",
+                  "Value": {
+                    "MeshPart": "Fracture_05_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d847cfb2-6526-5a98-b261-3a5c04ae7079",
+                  "Value": {
+                    "MeshPart": "Fracture_06-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a40fefb3-8bd8-55d4-96d6-43e0ca5d26c7",
+                  "Value": {
+                    "MeshPart": "Fracture_06-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f5755921-f775-599f-a001-29c880926aa1",
+                  "Value": {
+                    "MeshPart": "Fracture_06-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "3f1c4d1b-948b-556b-a6a4-f68277b8124a",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "614e8053-5c5c-51be-a7eb-a512b14cf00e",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "a378be6e-21dc-5c21-bd93-f1a7128df336",
+                  "Value": {
+                    "MeshPart": "Fracture_06_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "49ab32cf-2dc6-518b-9c20-9ebeef9af181",
+                  "Value": {
+                    "MeshPart": "Fracture_07-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "11518f58-2fe3-533d-b3ba-bc81f9bc3609",
+                  "Value": {
+                    "MeshPart": "Fracture_07-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "1d2fe0f6-86ce-58fc-bfb9-667b2254e2fd",
+                  "Value": {
+                    "MeshPart": "Fracture_07-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "e60e4027-e605-50ce-979f-6ad631919a49",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "7f5a66f5-821b-5ab0-853a-0f41f5d1f065",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "da9304f7-e774-5c46-8250-df9f751af54f",
+                  "Value": {
+                    "MeshPart": "Fracture_07_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "1da6722c-5e60-532e-b180-9921d22758ce",
+                  "Value": {
+                    "MeshPart": "Fracture_07_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "61b47bd7-2d2b-5ef6-b88c-2da907a9e575",
+                  "Value": {
+                    "MeshPart": "Fracture_08-FracturedMaterial01",
+                    "ShowPart": true,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "773f9ba9-e97a-56a1-991d-d42674bf10ee",
+                  "Value": {
+                    "MeshPart": "Fracture_08-FrostedGlass",
+                    "ShowPart": null,
+                    "SetMaterial": "83c075f5-f177-460d-94a7-8aca19fd4d6f",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "0d47430c-f393-55ca-b75e-925d156abc9d",
+                  "Value": {
+                    "MeshPart": "Fracture_08-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "dc25b12b-5556-50aa-8303-efc7d132d61f",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d04b3052-35d8-51eb-856e-e8c405467300",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "857c023a-0cbb-43e0-9af4-5ce18d9ab587",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "01c48cef-7170-5e44-9b90-3f6127b83b9a",
+                  "Value": {
+                    "MeshPart": "Fracture_08_Support-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "759ed30f-9332-5b84-8dcd-ec1976ba4e2d",
+                  "Value": {
+                    "MeshPart": "Fracture_08_Support-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Key": "f5a35924-b7f1-510e-b946-44b72ef239da",
+          "Value": {
+            "BuildRatioLowerBound": 0.5333,
+            "Model": null,
+            "PartChanges": {
+              "_data": [
+                {
+                  "Key": "e52ca184-ed0d-51e8-beb7-3fed2ca01353",
+                  "Value": {
+                    "MeshPart": "Fracture_01-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "4d3f96af-290a-5d6e-9db9-d9a5cca1e29d",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "fd295267-10fc-567d-9582-1f96ca7c3d86",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "e777f703-33ab-5d12-8957-7c96dcc5395b",
+                  "Value": {
+                    "MeshPart": "Fracture_02-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f78c0df0-23d8-546d-bb4f-32eefa053992",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "1afcb8f4-5082-50a2-bccb-dc04666eefac",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "6223fa8d-b61c-5e49-9029-b3465cff81ce",
+                  "Value": {
+                    "MeshPart": "Fracture_03-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "96574a75-0a5c-5f9f-b108-55358c3a4f4a",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "407d746f-6c0e-59c2-b72b-fa143c40e816",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "8abe8ade-14d8-591c-a6f7-414813ae1b9f",
+                  "Value": {
+                    "MeshPart": "Fracture_04-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "f60afa24-2525-5e26-bbf5-c8630e6d036a",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "137c815d-0e94-5906-958a-04585549ea43",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "9171f3ba-9a32-5bd2-8fc4-7379f5041d6e",
+                  "Value": {
+                    "MeshPart": "Fracture_05-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "e846df02-7085-528a-a446-e81460814069",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "673cc3d7-f4db-551e-b918-274ee3840f7a",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "74ef0885-f3bd-5462-8058-e21cfb664df9",
+                  "Value": {
+                    "MeshPart": "Fracture_06-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "19a5b983-daee-5312-abed-883b376225c3",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "8713e938-bbc0-5bd6-89e2-171f8641e433",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ac70e87f-8eec-518f-a77d-17753593e8fe",
+                  "Value": {
+                    "MeshPart": "Fracture_07-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "862b243c-aff5-5596-9741-b59f47979e41",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "def2248a-69ac-5266-87d2-ccfe20f2fdda",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "14040d93-2c29-5ccd-bd0f-035c1120fc4d",
+                  "Value": {
+                    "MeshPart": "Fracture_08-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "b043c81e-3764-5133-8d92-1686ef5b32dc",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "077eddd5-ab0a-5ae4-9537-551f159adfa5",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "f49fee87-8abf-4faf-89d1-d49b9ef46a0b",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Key": "1c3f5ff5-295a-56c8-b38a-3bb6792dc34b",
+          "Value": {
+            "BuildRatioLowerBound": 0.7667,
+            "Model": null,
+            "PartChanges": {
+              "_data": [
+                {
+                  "Key": "9ee3d4b8-166b-510a-b051-403c52db68bf",
+                  "Value": {
+                    "MeshPart": "Fracture_01-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "03cde68d-3c6f-5fe7-a042-88086aae76c0",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "d85b0f8c-ad01-5ecc-89bf-f5d0aeac1b52",
+                  "Value": {
+                    "MeshPart": "Fracture_01-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "091a372a-2c09-599d-a69b-e1ab1f966810",
+                  "Value": {
+                    "MeshPart": "Fracture_02-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "dd0d40d1-b327-5962-be28-357058baf54d",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ecc20f6b-bec8-5f49-9c86-080d203c9eab",
+                  "Value": {
+                    "MeshPart": "Fracture_02-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "9a319b2f-f5f5-5106-bde1-0c59b297ab32",
+                  "Value": {
+                    "MeshPart": "Fracture_03-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "2c5fba22-5829-5b87-8121-b1e181ac6b01",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ece01ebd-e0c3-5d2d-824a-248fbfdc3d06",
+                  "Value": {
+                    "MeshPart": "Fracture_03-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "16e5d54b-a561-5308-803c-12525c2fb775",
+                  "Value": {
+                    "MeshPart": "Fracture_04-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "dfda861e-d41a-5820-b799-da538f6beefa",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "7c59d561-ba6c-5d2f-a0cb-b5449c30e3dc",
+                  "Value": {
+                    "MeshPart": "Fracture_04-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "7967b6b7-53e5-5b0f-bc0f-7904cf9b33e0",
+                  "Value": {
+                    "MeshPart": "Fracture_05-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "7a625787-6792-5dfc-9898-1c657cb183c8",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "8baf6767-fdd3-505e-a367-62e04babb825",
+                  "Value": {
+                    "MeshPart": "Fracture_05-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "58caff38-a1c8-5bc5-9f94-b20f7ccbd5ad",
+                  "Value": {
+                    "MeshPart": "Fracture_06-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "ce9fddfb-2cf6-5a85-9d83-f04009f79eb6",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "09eb5a87-7186-5184-8905-f8de96afa63c",
+                  "Value": {
+                    "MeshPart": "Fracture_06-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "5ae05bdb-14bb-50a6-a44e-948088f49a6b",
+                  "Value": {
+                    "MeshPart": "Fracture_07-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "9d24c729-6847-5282-bdc8-144e207e795a",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "51faa2d5-ab68-591d-8625-20b1c910349f",
+                  "Value": {
+                    "MeshPart": "Fracture_07-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "c53b6938-3cfe-5a40-821a-40305ee5e796",
+                  "Value": {
+                    "MeshPart": "Fracture_08-MetalDull",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "022697d0-0976-5bb6-9e78-18fc05b2ad94",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalColorable",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                },
+                {
+                  "Key": "3f9ddcef-e308-5bb2-aaa3-73a60474fb55",
+                  "Value": {
+                    "MeshPart": "Fracture_08-PaintedMetalDarker",
+                    "ShowPart": null,
+                    "SetMaterial": "851d4d6e-9ec8-467f-87a5-06ef06e97336",
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Key": "262dcf12-162d-5804-8c95-b63313e181e6",
+          "Value": {
+            "BuildRatioLowerBound": 1,
+            "Model": "{G}bc73d028-1a3b-48b5-a068-996a43528301",
+            "PartChanges": {
+              "_data": [
+                {
+                  "Key": "06644690-f680-58e8-b3dc-9eadc11e03ae",
+                  "Value": {
+                    "MeshPart": "BrushedMetal",
+                    "ShowPart": false,
+                    "SetMaterial": null,
+                    "ResetToSkinMaterial": false,
+                    "ApplyOnlyWhenDamaged": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Models.BlockModelComponentDefinition",
+    "PriorityOverride": false
+  }
+}

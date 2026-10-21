@@ -1,0 +1,87 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1472",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1472"
+  },
+  "$Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Toolbar.EventControllerIndicatorDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "2e55d195-d165-4447-9b05-ce862974adf0",
+    "ReplacementModels": [
+      "{G}ba20f99d-8199-4e4d-b383-1cc5a19e81ff",
+      "{G}86b242c0-cec1-4026-bfb4-6bf248320089",
+      "{G}195ba244-b34f-4088-8f3e-50d41526bf7b"
+    ],
+    "DefaultMaterials": {
+      "NotFunctional": "bcefad69-a79d-498b-97c8-5f2c024cfc52",
+      "NotPowered": "b6fdd8d4-e494-47d9-bdb4-5ddfdf10fcc8",
+      "NullState": "4501676a-6812-4869-af19-e33ddeae57e0",
+      "True": "b290e27f-5acc-4235-aa1e-b2f7f237e539",
+      "False": "b290e27f-5acc-4235-aa1e-b2f7f237e539"
+    },
+    "IndicatorMeshParts": [
+      "Emissive01",
+      "Emissive02",
+      "Fracture_01_Hide-Emissive01",
+      "Fracture_01_Hide-Emissive02",
+      "Fracture_02_Hide-Emissive01",
+      "Fracture_02_Hide-Emissive02",
+      "Fracture_03_Hide-Emissive01",
+      "Fracture_03_Hide-Emissive02",
+      "Fracture_04_Hide-Emissive01",
+      "Fracture_04_Hide-Emissive02"
+    ],
+    "MeshPartMaterialOverrides": [
+      {
+        "IndicatorMeshPart": "Emissive02",
+        "State": "True",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_01_Hide-Emissive02",
+        "State": "True",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_02_Hide-Emissive02",
+        "State": "True",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_03_Hide-Emissive02",
+        "State": "True",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_04_Hide-Emissive02",
+        "State": "True",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Emissive01",
+        "State": "False",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_01_Hide-Emissive01",
+        "State": "False",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_02_Hide-Emissive01",
+        "State": "False",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_03_Hide-Emissive01",
+        "State": "False",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      },
+      {
+        "IndicatorMeshPart": "Fracture_04_Hide-Emissive01",
+        "State": "False",
+        "Material": "bcefad69-a79d-498b-97c8-5f2c024cfc52"
+      }
+    ]
+  }
+}

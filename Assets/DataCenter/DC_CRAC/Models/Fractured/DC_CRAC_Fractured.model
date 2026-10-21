@@ -1,0 +1,190 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "AtlasFont_BarlowCondensed_CleanWhite",
+        "MaterialReference": "d9b7cea3-19fa-4aee-843a-a6838dda5990"
+      },
+      {
+        "MaterialName": "BrushedMetal",
+        "MaterialReference": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9"
+      },
+      {
+        "MaterialName": "DC_CRAC_LastLOD",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "EmissiveOff",
+        "MaterialReference": "d2648963-ef2b-442d-af7b-ee3d79dad677"
+      },
+      {
+        "MaterialName": "FracturedMaterial01",
+        "MaterialReference": "0f2772fd-72d6-4ee9-9211-38d1781ba8b9"
+      },
+      {
+        "MaterialName": "MetalDull",
+        "MaterialReference": "0e9e7d42-9533-47ed-b814-cf4be55b6aa8"
+      },
+      {
+        "MaterialName": "MetalDull_Subpart",
+        "MaterialReference": "0e9e7d42-9533-47ed-b814-cf4be55b6aa8"
+      },
+      {
+        "MaterialName": "MetalPerforationSteel",
+        "MaterialReference": "6b6c351e-f5cf-4bf0-bd9d-09b06e7bce7c"
+      },
+      {
+        "MaterialName": "PaintedMetalColorable",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "cb933a73-bce4-4224-a7d8-c5083935dac8"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker_Subpart",
+        "MaterialReference": "cb933a73-bce4-4224-a7d8-c5083935dac8"
+      },
+      {
+        "MaterialName": "PaintedMetalYellow",
+        "MaterialReference": "d74fe97a-dbf1-4b0f-8e1b-90f6fa3b1b27"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}1858d599-d4c4-4096-bce5-3d88fe9ddf40",
+        "UsedMaterials": [
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "BrushedMetal",
+          "EmissiveOff",
+          "FracturedMaterial01",
+          "MetalDull",
+          "MetalDull_Subpart",
+          "MetalPerforationSteel",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalDarker_Subpart",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0.125,
+            "Y": 0.125,
+            "Z": 0.0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}c45f7008-d591-4235-9a2d-ca568dc5b0b0",
+        "UsedMaterials": [
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "BrushedMetal",
+          "EmissiveOff",
+          "FracturedMaterial01",
+          "MetalDull",
+          "MetalPerforationSteel",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalDarker_Subpart",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}67a6c19d-2970-4984-a661-25f0e0282eae",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "FracturedMaterial01",
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}198f8e96-573e-43c1-8e03-b803264bbe0e",
+        "UsedMaterials": [
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}18355eea-0826-40d8-95da-3fbfdd4b4194",
+        "UsedMaterials": [
+          "DC_CRAC_LastLOD"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": "{G}ff11ee66-b66d-4df4-bdd3-d87f24b6effb",
+      "GroupsByFracture": [],
+      "GeneratePreciseCollider": true
+    }
+  }
+}

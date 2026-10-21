@@ -1,0 +1,49 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.469",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.469"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "b5d3aa6e-27bb-4a1d-bd30-9da4aa0aa1b2",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "2db8b84f-48f4-4197-adea-d3913a93d39d",
+      "ReplacementModels": {
+        "$DeltaEncoded": true,
+        "Removed": [],
+        "Added": [
+          "{G}3be8d167-3b6c-4b62-a96f-a552b613b20b",
+          "{G}833d07f1-5426-4df1-a12e-a504fdac060b",
+          "{G}496103b0-3743-4d5b-a931-7f021bb4e6ca"
+        ]
+      },
+      "DefaultMaterials": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": {
+          "NotFunctional": "bcefad69-a79d-498b-97c8-5f2c024cfc52",
+          "NotPowered": "b6fdd8d4-e494-47d9-bdb4-5ddfdf10fcc8",
+          "Idle": "b290e27f-5acc-4235-aa1e-b2f7f237e539",
+          "Paused": "1565ddbb-0ba9-4a75-a1eb-321f6c2485a6",
+          "Running": "7fe0a982-cedd-4041-8144-fa953840ff46"
+        }
+      },
+      "IndicatorMeshParts": {
+        "$DeltaEncoded": true,
+        "Removed": [],
+        "Added": [
+          "EmissiveOff",
+          "Fracture_01_Hide-EmissiveOff",
+          "Fracture_01_Support-EmissiveOff",
+          "Fracture_02_Hide-EmissiveOff",
+          "Fracture_02_Support-EmissiveOff",
+          "Fracture_03_Hide-EmissiveOff"
+        ]
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Toolbar.TimerBlockIndicatorDefinition",
+    "PriorityOverride": false
+  }
+}

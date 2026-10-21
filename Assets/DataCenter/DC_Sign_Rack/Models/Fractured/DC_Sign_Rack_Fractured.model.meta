@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "ec8756a4-2ef5-4f45-96fe-7be76c700d97",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "aICQXe75sncNs8pJQ4kSyA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "52djZWPYT2Qbz2LLF5SmwQ==",
+            "FileName": "DC_Sign_Rack_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "156b2adb-f964-45f2-b3b1-a5e4052bab24",
+            "Hash": "wmwbMSucAbeDLte04sO2qA=="
+          },
+          {
+            "Guid": "4ba6d8e4-b4ad-4f34-a88a-f5b2a315e02a",
+            "Hash": "DTf9EZDxjZc/EKftZxY0vA=="
+          },
+          {
+            "Guid": "797f4dd4-e8a9-4070-8176-ff27b9ae1603",
+            "Hash": "d01vNX8QVJDqvGqSfwzq/g=="
+          },
+          {
+            "Guid": "c08d1b1d-10ef-404e-a26c-6a672d3d3b01",
+            "Hash": "u8GkXGexqjY+coRzscUqTA=="
+          }
+        ],
+        "AssetHash": "aICQXe75sncNs8pJQ4kSyA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

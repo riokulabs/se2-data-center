@@ -1,0 +1,116 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "AtlasFont_BarlowCondensed_CleanWhite",
+        "MaterialReference": "d9b7cea3-19fa-4aee-843a-a6838dda5990"
+      },
+      {
+        "MaterialName": "DC_Sign_AisleHang_LastLOD",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "LCDScreen_Off_4",
+        "MaterialReference": "fa0a1f34-75c1-4899-bc3c-761ec9f70877"
+      },
+      {
+        "MaterialName": "LCDScreen_Off_4_Back",
+        "MaterialReference": "fa0a1f34-75c1-4899-bc3c-761ec9f70877"
+      },
+      {
+        "MaterialName": "MetalDull",
+        "MaterialReference": "0e9e7d42-9533-47ed-b814-cf4be55b6aa8"
+      },
+      {
+        "MaterialName": "PaintedMetalColorable",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "cb933a73-bce4-4224-a7d8-c5083935dac8"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}3d8951d6-895b-4b70-acfe-f6decb158830",
+        "UsedMaterials": [
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "LCDScreen_Off_4",
+          "LCDScreen_Off_4_Back",
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0.125,
+            "Y": 0.0,
+            "Z": 0.125
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}c08257ad-986f-4250-8e72-879c962f02f7",
+        "UsedMaterials": [
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "LCDScreen_Off_4",
+          "LCDScreen_Off_4_Back",
+          "MetalDull",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}6038d37b-3b51-453f-a95f-7c9c6896d575",
+        "UsedMaterials": [
+          "DC_Sign_AisleHang_LastLOD"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": "{G}87d7d418-bd54-4105-8081-4b9c6ff6a920",
+      "GroupsByFracture": [],
+      "GeneratePreciseCollider": true
+    }
+  }
+}

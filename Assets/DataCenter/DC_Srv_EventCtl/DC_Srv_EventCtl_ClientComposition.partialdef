@@ -1,0 +1,74 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1472",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1472"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "ea5d36e0-9b37-4b1f-b415-4526ffd7beaf",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "e971bc4e-cceb-4e43-876e-0e47676efb60",
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": [
+          {
+            "$Key": "EventControllerIndicatorComponent",
+            "$Value": "86044a2c-19ff-4177-8205-99b9dd5ec6c2"
+          }
+        ]
+      },
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "a1687822-b4c2-4bcb-961e-3e44fae3221d",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "72e2ef60-d699-48a2-9959-4e246eecdacc",
+          "24f8dfe2-6b3f-4764-a9db-6e4383dcae5d",
+          "30a7eb7b-1873-479a-b7d8-fe5db6a0567e",
+          "86044a2c-19ff-4177-8205-99b9dd5ec6c2"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 3,
+            "Value": {
+              "Definition": "e13d040c-23e4-4b63-b44e-5bfaa0f0a6d7"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "9392bd98-be3a-4b15-9fc6-fd0240591f46"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 5,
+            "Value": {
+              "Definition": "41eeba59-3105-4fd0-900e-50fef4369add"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 9,
+            "Value": {
+              "Definition": "2e55d195-d165-4447-9b05-ce862974adf0",
+              "Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Toolbar.EventControllerIndicatorComponent"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$Bundles": {
+    "Game2": "2.4.0.95",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.ConditionalSubPartsDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "f386a3df-f69b-41af-87e7-f43376786f03",
+    "SubParts": {
+      "90bca29d-9441-4394-a736-59603e309d18": "c1143e61-0c28-449a-b59f-72268b50ffa4"
+    },
+    "MeshPartsToHideWhenActive": [
+      {
+        "Key": "22deeaa0-0b1e-463c-9ffe-1293f14c3297",
+        "Value": "Fracture_01-BrushedMetal_Subpart"
+      },
+      {
+        "Key": "32435425-df42-4ae4-b204-8ec5f462506f",
+        "Value": "Fracture_01-FracturedMaterial01_Subpart"
+      },
+      {
+        "Key": "d4cfed2f-5c9f-4736-aa9c-29878a25dfb1",
+        "Value": "Fracture_01-MetalDull_Subpart"
+      },
+      {
+        "Key": "0a937055-9a42-41c1-96fa-6199264b97eb",
+        "Value": "Fracture_01-PaintedMetalColorable_Subpart"
+      },
+      {
+        "Key": "18543c68-86f3-4dfc-9857-ca64e905d5fc",
+        "Value": "Fracture_01-PaintedMetalDarker_Subpart"
+      },
+      {
+        "Key": "13e15a0b-751a-42a8-9d7a-184390015be7",
+        "Value": "Fracture_02-BrushedMetal_Subpart"
+      },
+      {
+        "Key": "ed59b1d2-9031-492b-904f-a0f10e4ca90f",
+        "Value": "Fracture_02-FracturedMaterial01_Subpart"
+      },
+      {
+        "Key": "722171c5-51e1-442c-9291-30719b14a468",
+        "Value": "Fracture_02-MetalDull_Subpart"
+      },
+      {
+        "Key": "e23e4297-22c8-4d92-a59d-9d70b89febda",
+        "Value": "Fracture_02-PaintedMetalColorable_Subpart"
+      },
+      {
+        "Key": "938b355d-3394-485c-b284-962bdd28d512",
+        "Value": "Fracture_02-PaintedMetalDarker_Subpart"
+      },
+      {
+        "Key": "48eab278-ca5e-4246-8877-bb8a9935a1af",
+        "Value": "Fracture_02-PaintedMetalYellow_Subpart"
+      },
+      {
+        "Key": "6111b8fe-19ec-4714-a9f0-f9a862eac965",
+        "Value": "Fracture_02_Hide-AtlasFont_BarlowCondensed_CleanWhite_Subpart"
+      },
+      {
+        "Key": "e9948d87-d52a-42b0-9c89-89f221cbab47",
+        "Value": "Fracture_02_Hide-EmissiveGreen_Subpart"
+      },
+      {
+        "Key": "1ce52511-1948-4123-abf2-3984170579ab",
+        "Value": "Fracture_03-BrushedMetal_Subpart"
+      },
+      {
+        "Key": "88f248ab-18e6-4db5-9fa3-59d9981f3222",
+        "Value": "Fracture_03-FracturedMaterial01_Subpart"
+      },
+      {
+        "Key": "4f104f04-ec4a-4d1f-81e8-e02930dbb798",
+        "Value": "Fracture_03-PaintedMetalDarker_Subpart"
+      }
+    ]
+  }
+}

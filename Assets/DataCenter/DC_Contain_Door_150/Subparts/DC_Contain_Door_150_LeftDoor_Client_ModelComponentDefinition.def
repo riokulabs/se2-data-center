@@ -1,0 +1,46 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.6321"
+  },
+  "$Type": "VRage:Keen.VRage.Game.Components.Models.ModelComponentDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "2afe9af7-d00a-42e1-8169-d9e20367a35f",
+    "Model": "{G}932eb7b6-624d-47ad-bcef-25efa5ad9bef",
+    "Dummies": [
+      {
+        "Key": "1e64c8f6-a7e8-42c4-ad31-88de364399c8",
+        "Value": {
+          "Name": "DoorUse",
+          "Transform": {
+            "Transform": {
+              "Position": {
+                "X": 0.0,
+                "Y": -1.125,
+                "Z": 0.0
+              },
+              "Orientation": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0,
+                "W": 1
+              }
+            },
+            "EulerHint": {
+              "X": 0,
+              "Y": 0,
+              "Z": 0
+            }
+          },
+          "Scale": {
+            "X": 0.78,
+            "Y": 2.23,
+            "Z": 0.074
+          },
+          "Type": "4511a2ef-912d-4980-adf2-47b1e8898190",
+          "SupportingFracture": null
+        }
+      }
+    ]
+  }
+}

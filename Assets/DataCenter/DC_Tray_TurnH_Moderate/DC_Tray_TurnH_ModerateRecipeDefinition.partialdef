@@ -1,0 +1,43 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "14a89b96-7525-4b13-ba24-8daf5a78d692",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "74911613-fc9e-4b5e-be93-0a422a8b9db1",
+      "CriticalItems": [
+        {
+          "Key": "cbeeef72-ef90-4c02-b89a-a373f4580746",
+          "Value": {
+            "Item": "292eba9e-e5f8-4951-8038-e476a677b584",
+            "Amount": 2
+          }
+        },
+        {
+          "Key": "3e8fc88a-76f4-49ca-816e-4630cf957f9c",
+          "Value": {
+            "Item": "824e331b-a798-479e-9276-5d35dc02df35",
+            "Amount": 2
+          }
+        }
+      ],
+      "OptionalItems": [
+        {
+          "Key": "134c3663-d633-46fb-a9eb-c58d3ae08211",
+          "Value": {
+            "Item": "292eba9e-e5f8-4951-8038-e476a677b584",
+            "Amount": 2
+          }
+        }
+      ],
+      "BuildTimePerItem": 3300000
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockRecipeDefinition",
+    "PriorityOverride": false
+  }
+}

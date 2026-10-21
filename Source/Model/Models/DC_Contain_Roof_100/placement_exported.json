@@ -1,0 +1,97 @@
+{
+ "model": "DC_Contain_Roof_100",
+ "fbx_sha256": "71491542ff86079cde7b94ddc277114a36d923812efa8fc8eb7a0fe57994e5ce",
+ "inputs": [
+  "NonFractured/DC_Contain_Roof_100.fbx",
+  "NonFractured/DC_Contain_Roof_100_collision.gltf",
+  "Fractured/DC_Contain_Roof_100_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 2,
+  "occupancy_hints": 0,
+  "mount_hints": 4,
+  "fractures": 3
+ },
+ "render_tris": 3352,
+ "nonfractured": {
+  "occupied": 16,
+  "total": 16,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 0,
+    "coverage": 0.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Contain_Roof_100: groups F/B/L/R/U/D = 1 / 1 / 1 / 1 / 0 / 0; plane coverage = 100% / 100% / 100% / 100% / 0% / 0%; occupied 16/16 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 16,
+  "total": 16,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 0,
+    "coverage": 0.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Contain_Roof_100: groups F/B/L/R/U/D = 2 / 1 / 2 / 2 / 0 / 0; plane coverage = 100% / 100% / 100% / 100% / 0% / 0%; occupied 16/16 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_02": 4,
+   "Fracture_03": 4,
+   "Fracture_01": 8
+  }
+ }
+}

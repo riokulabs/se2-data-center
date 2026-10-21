@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4904",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4904"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "fe7f98ef-e4e0-45d1-84bd-101c7e5bacbb",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "5562dc64-4996-483d-9bf2-aa992e016d1b",
+      "OnConstructionStateChangedParticleEffect": {
+        "ParticleEffect": "d1281225-66f3-4780-9e80-87db0293df75"
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.BlockEffectsComponentDefinition",
+    "PriorityOverride": false
+  }
+}

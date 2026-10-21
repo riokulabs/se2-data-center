@@ -1,0 +1,25 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.6214",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.6214"
+  },
+  "$Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Render.BlockMaterialSwapperDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "0beab556-ec70-4d66-a0c6-a53e26b1cf6e",
+    "WorkingReplacementModels": [
+      "{G}3afb861c-a209-4ef8-9b5f-c3daa754e648",
+      "{G}0b94d48f-249b-494c-b788-1cf8976e05db"
+    ],
+    "WorkingReplacementsMeshParts": [
+      {
+        "$Key": "EmissiveOff",
+        "$Value": "78f2cbaa-112e-4068-99e7-c146d4da58f2"
+      },
+      {
+        "$Key": "Fracture_01_Hide-EmissiveOff",
+        "$Value": "78f2cbaa-112e-4068-99e7-c146d4da58f2"
+      }
+    ]
+  }
+}

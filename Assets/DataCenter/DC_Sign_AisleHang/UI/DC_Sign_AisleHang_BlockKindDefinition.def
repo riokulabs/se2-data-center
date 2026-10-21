@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.685",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.685"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "c0b9db32-7863-438c-ba30-6d232fbc6c23",
+    "Name": "Hanging Aisle Sign",
+    "Description": "Double-faced editable LCD aisle sign, 1.0 x 0.25 m, hung across the aisle from cable-tray rods.",
+    "OrderingPriority": 2,
+    "BlockGroups": [
+      {
+        "Key": "338542b9-bb20-4fda-8cf8-3e7ddac73f02",
+        "Value": "c8761e59-d9b9-4814-bffa-5bb3d2d5843f"
+      }
+    ]
+  }
+}

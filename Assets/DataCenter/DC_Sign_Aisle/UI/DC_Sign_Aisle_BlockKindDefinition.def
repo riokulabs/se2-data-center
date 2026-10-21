@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.685",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.685"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "16bc420b-7a12-446a-a0e0-944b974cfde8",
+    "Name": "Aisle Sign",
+    "Description": "Editable 1.0 x 0.25 m LCD sign for an aisle (\"AISLE 1 COLD\"): on a wall or on a containment door's header.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "069164ed-57d3-458f-83ab-0773a864a6a0",
+        "Value": "c8761e59-d9b9-4814-bffa-5bb3d2d5843f"
+      }
+    ]
+  }
+}

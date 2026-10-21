@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "f8c0cd64-1504-4a8c-b956-f64c824a1c72",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "SDU7mcp+68tXE9F2pF1ZXA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "3u0LwO3rZtAugzYkJDWIqQ==",
+            "FileName": "DC_Tray_Chute_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "3f631228-bcfa-4a9f-aaf0-a77ad6053dc0",
+            "Hash": "p57jg1+YdUtJmux/kL3G5Q=="
+          },
+          {
+            "Guid": "6d009cb3-ccaa-4514-8e2a-46dbb7d27049",
+            "Hash": "ZJ8/N3yw4SEIh77hMEG07Q=="
+          },
+          {
+            "Guid": "79df3e77-89a4-496a-87dd-e762bcee77ab",
+            "Hash": "1+Cq51XC4MMhNFCj2CnicQ=="
+          },
+          {
+            "Guid": "c2bcd776-e465-4659-a2dd-c119e3017756",
+            "Hash": "AJubkEOsFQ6gj69PaOwd2Q=="
+          }
+        ],
+        "AssetHash": "SDU7mcp+68tXE9F2pF1ZXA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

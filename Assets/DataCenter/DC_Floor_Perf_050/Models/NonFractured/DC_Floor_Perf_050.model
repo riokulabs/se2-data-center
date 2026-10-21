@@ -1,0 +1,143 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "AtlasFont_BarlowCondensed_CleanWhite",
+        "MaterialReference": "d9b7cea3-19fa-4aee-843a-a6838dda5990"
+      },
+      {
+        "MaterialName": "BrushedMetal",
+        "MaterialReference": "0c3be477-8bff-4e2c-8a0e-d7d842905ae9"
+      },
+      {
+        "MaterialName": "DC_Floor_Perf_050_LastLOD",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "MetalDull",
+        "MaterialReference": "0e9e7d42-9533-47ed-b814-cf4be55b6aa8"
+      },
+      {
+        "MaterialName": "MetalPerforationSteel",
+        "MaterialReference": "6b6c351e-f5cf-4bf0-bd9d-09b06e7bce7c"
+      },
+      {
+        "MaterialName": "PaintedMetalColorable",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "cb933a73-bce4-4224-a7d8-c5083935dac8"
+      },
+      {
+        "MaterialName": "PaintedMetalYellow",
+        "MaterialReference": "d74fe97a-dbf1-4b0f-8e1b-90f6fa3b1b27"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}bb20d96b-d6af-4478-96e3-9e002d759e0b",
+        "UsedMaterials": [
+          "AtlasFont_BarlowCondensed_CleanWhite",
+          "BrushedMetal",
+          "MetalDull",
+          "MetalPerforationSteel",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0.125,
+            "Y": 0.0,
+            "Z": 0.125
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}d03b0623-f9fa-4c20-ae5f-12529d78fb77",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "MetalDull",
+          "MetalPerforationSteel",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}b45537ef-db47-4d49-b273-1b1065c3102b",
+        "UsedMaterials": [
+          "MetalDull",
+          "MetalPerforationSteel",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}7ea0b3c8-66ab-40e2-bc32-cc7a68fc932c",
+        "UsedMaterials": [
+          "DC_Floor_Perf_050_LastLOD"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": "{G}800018db-dd19-4290-8775-88edb08c70e7",
+      "GroupsByFracture": [],
+      "GeneratePreciseCollider": true
+    }
+  }
+}

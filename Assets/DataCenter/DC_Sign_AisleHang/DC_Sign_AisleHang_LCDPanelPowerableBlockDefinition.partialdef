@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.685",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.685"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "9aa66af0-fceb-42d1-93bd-9c4a95a068e1",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "e430af8c-e245-4188-8df9-f9c6c8521ee4",
+      "UIData": {
+        "Name": "Hanging Aisle Sign",
+        "Icon": "{G}ecdcab5a-3db5-42e7-8bd4-4bf94e00e5f3"
+      },
+      "BlockKind": "c0b9db32-7863-438c-ba30-6d232fbc6c23",
+      "PCU": 35,
+      "MountPointGeneratorSettings": {
+        "Directions": "Up"
+      },
+      "Recipe": "70353215-c7aa-42c0-b9d4-4b88f583f051"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

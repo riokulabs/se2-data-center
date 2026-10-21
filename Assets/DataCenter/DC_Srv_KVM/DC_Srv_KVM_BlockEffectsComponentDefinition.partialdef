@@ -1,0 +1,64 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.2100",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.2100"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "4c5e740b-35f4-4d29-8a23-ac484aa499b8",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "e2bbd537-0951-479f-bac9-909b1c3fea34",
+      "OnDamagedBlockParticleEffect": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "3ce2745e-0989-4256-86e6-76d5fa6100b7"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 0,
+            "Value": {
+              "HealthIntegrityUpperThreshold": 0.99,
+              "ParticleEffects": {
+                "$DeltaEncoded": true,
+                "Keys": [
+                  "34f51798-45e7-45fd-b686-2193aa107733"
+                ],
+                "Changed": [
+                  {
+                    "Kind": "Update",
+                    "Index": 0,
+                    "Value": {
+                      "ParticleEffect": "617b0925-68b8-4683-acfe-2a71111a5d49",
+                      "Dummy": "e9f28118-a0cf-4c6c-b6ad-2e0719e6cf5a",
+                      "Scale": 0.3
+                    }
+                  }
+                ],
+                "Removed": [
+                  "92d61473-88b0-416b-a1f0-272b0e1c4c8f"
+                ]
+              }
+            }
+          }
+        ],
+        "Removed": []
+      },
+      "OnFractureBlockParticleEffect": {
+        "Dummy": "e9f28118-a0cf-4c6c-b6ad-2e0719e6cf5a",
+        "Scale": 0.25
+      },
+      "OnConstructionStateChangedParticleEffect": {
+        "ParticleEffect": "01e8797b-c0a8-4659-9d92-4b9efbf4cf25",
+        "Dummy": "e9f28118-a0cf-4c6c-b6ad-2e0719e6cf5a",
+        "Scale": 0.25
+      },
+      "OnDestroyedAudio": "event:/SFX/Explosions/DestroyMetalBlockDetail",
+      "OnUseAudio": "event:/SFX/Block/LCD"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.BlockEffectsComponentDefinition",
+    "PriorityOverride": false
+  }
+}

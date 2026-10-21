@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "6ae620d6-ad60-4a15-9182-210746ecf4b8",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "Ebj1eLMC/PSEMY1jPOLUJg=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "Acef1lGFGc7azKu9iD7RDQ==",
+            "FileName": "DC_Sign_Aisle_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "9ee1e78a-ed50-4873-a7f4-41fd3b73ad87",
+            "Hash": "78gZWi8WaWf5v12KsXBGxg=="
+          },
+          {
+            "Guid": "cd328b52-c4b8-4cdd-9ab4-23879e4df32b",
+            "Hash": "Wlj0/egynVOiH+NB/+8oPA=="
+          },
+          {
+            "Guid": "d108cb2a-17f7-496a-a029-606db98fbf5a",
+            "Hash": "jPU/x8OGV9jUTiYlpW/8PQ=="
+          },
+          {
+            "Guid": "d2de738b-24b0-40c5-bad8-d7eaf725b2e5",
+            "Hash": "ACydx8+v6875OtqpWtUFww=="
+          }
+        ],
+        "AssetHash": "Ebj1eLMC/PSEMY1jPOLUJg==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

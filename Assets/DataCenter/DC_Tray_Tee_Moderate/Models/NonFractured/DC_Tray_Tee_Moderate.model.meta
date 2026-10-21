@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "32b6735c-4557-4d2f-8d8b-95ada544dacd",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "Pmd8LLitPzRcxHayvKIR7w=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "IYg6BfK7DJyqOUZKg/FXTA==",
+            "FileName": "DC_Tray_Tee_Moderate.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "2fd370d8-24ef-4836-a13c-288488bc928d",
+            "Hash": "1cnwhoUQJsWJCeCwg5l/OQ=="
+          },
+          {
+            "Guid": "37bd2161-20d2-4f74-8b89-9bc9117924a3",
+            "Hash": "Pk2Ywb7whWx//yXMBABL1g=="
+          },
+          {
+            "Guid": "980a86fb-fccf-4b2e-9c26-eebb29fa6fca",
+            "Hash": "GdGsbpA8sTtyruwZFOgoaA=="
+          },
+          {
+            "Guid": "aba4220e-95bd-4ece-aad4-e06f9dd20ac0",
+            "Hash": "7b0LonEmyX0JoJaGSHfbUg=="
+          },
+          {
+            "Guid": "e4f2d313-6bd2-470d-9e7f-e4c23680aaf0",
+            "Hash": "waHfdkPDaK3VsPiJ6QRDOQ=="
+          }
+        ],
+        "AssetHash": "Pmd8LLitPzRcxHayvKIR7w==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

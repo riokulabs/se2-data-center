@@ -1,0 +1,22 @@
+{
+  "$Bundles": {
+    "Game2": "2.2.0.132",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.2.0.132"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "a74c6fd1-fa39-4f24-89cb-17a46e65cfd7",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "8128937e-93b3-46b1-8346-5c2ceefa628f",
+      "CriticalFractures": {
+        "$DeltaEncoded": true,
+        "Removed": [],
+        "Added": []
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.BreakableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "9be983e4-b42d-4442-ba35-8cd38ef88d17",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "c4bb4e95-4255-49f2-bef7-b230332cb32c",
+      "OnDamagedBlockParticleEffect": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "078b9f9a-f8b7-4de8-aa87-db031c1827c0"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 0,
+            "Value": {
+              "HealthIntegrityLowerThreshold": 0,
+              "HealthIntegrityUpperThreshold": 0.99,
+              "ParticleEffects": [
+                {
+                  "Key": "46fbd7a5-4f45-41fd-85f6-89e05e1d4790",
+                  "Value": {
+                    "ParticleEffect": "2113ece5-6d63-4753-b12a-83664c3b22e9",
+                    "Dummy": "e9f28118-a0cf-4c6c-b6ad-2e0719e6cf5a",
+                    "Scale": 1
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.BlockEffectsComponentDefinition",
+    "PriorityOverride": false
+  }
+}

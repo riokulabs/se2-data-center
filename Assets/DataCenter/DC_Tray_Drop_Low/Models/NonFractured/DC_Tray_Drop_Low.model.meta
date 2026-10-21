@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "910a216a-056f-4148-9c5c-15fa2821fa82",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "Cdq4mCVyFLKInDTqSOHT9Q=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "wPjdFJjauylp0fD1vfBAFw==",
+            "FileName": "DC_Tray_Drop_Low.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "1e6814ae-1329-4d20-95ee-166ef5adf4bf",
+            "Hash": "E2Zi4SS7vMs60jptJNwTew=="
+          },
+          {
+            "Guid": "61ed77c3-0925-46fc-ba67-184671b5e85a",
+            "Hash": "hOyKuk5Hc9OxeXQ8uCqIRA=="
+          },
+          {
+            "Guid": "afa0a1ae-c48e-4a09-9804-2ce5b0954061",
+            "Hash": "TZvFloGr8zHySTLu24j89w=="
+          },
+          {
+            "Guid": "b6db6908-f2be-42b1-af62-688cbcbf4da0",
+            "Hash": "/00USbvqULtAGvxoX8H/jw=="
+          },
+          {
+            "Guid": "d6e98bb3-30f7-47b0-884d-ed67fb98b61a",
+            "Hash": "WXWRhhsNGY6d9DUEak5m+g=="
+          }
+        ],
+        "AssetHash": "Cdq4mCVyFLKInDTqSOHT9Q==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

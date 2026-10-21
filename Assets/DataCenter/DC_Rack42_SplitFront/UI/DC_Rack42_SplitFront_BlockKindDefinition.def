@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "3a3b8c22-c654-4fef-a9b8-54d4bb98be8c",
+    "Name": "Server Rack (Split Front Doors)",
+    "Description": "19-inch server rack with split perforated front doors (hinged, 85 degree swing). 42U: 8 slots and an overhead cable tray with fans; 24U: 4 slots.",
+    "OrderingPriority": 2,
+    "BlockGroups": [
+      {
+        "Key": "5c741714-fa6a-4432-90bb-4ddcc7bb4a44",
+        "Value": "116212f9-bedc-43bc-942f-32c17893a887"
+      }
+    ]
+  }
+}

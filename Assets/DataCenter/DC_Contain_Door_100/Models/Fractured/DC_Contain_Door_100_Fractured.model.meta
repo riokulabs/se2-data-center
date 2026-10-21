@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "4b73a7ea-f311-4a2b-b6a6-0d5676d4c7bb",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "wYmaoG+EYAe+357bH2LUmw=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "F5v9/QFpEEw4vvsyP6J+Kg==",
+            "FileName": "DC_Contain_Door_100_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "6c943acf-1e1d-4666-8389-dd7b105e55a9",
+            "Hash": "xO0uOPA1+Wt9dG+fq14HzQ=="
+          },
+          {
+            "Guid": "84cc871d-7a13-4491-a633-e600ad7a77b8",
+            "Hash": "zNXx4VtVjlLq7L/rFi0gaA=="
+          },
+          {
+            "Guid": "93fd2f78-6967-44b1-85dd-aecba564089c",
+            "Hash": "7JN0kNmG2MLFgws7fpJc/Q=="
+          },
+          {
+            "Guid": "c55db490-1216-4cc0-8d5c-bb2ac77def66",
+            "Hash": "3jTvwN3ayIOX8BuqZiP2hQ=="
+          },
+          {
+            "Guid": "fc1d12b5-61ec-4375-87dd-e4c447b0516c",
+            "Hash": "ZDAfhGDiuxaHBM/MpzD5sg=="
+          }
+        ],
+        "AssetHash": "wYmaoG+EYAe+357bH2LUmw==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.685",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.685"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "4edf9c0f-1008-48d7-9077-47fd40a83454",
+    "Name": "Status Display Server",
+    "Description": "Rack-mount status panel: an LCD screen in a 6U server chassis.",
+    "OrderingPriority": 4,
+    "BlockGroups": [
+      {
+        "Key": "0b3b9b80-9022-4fdc-ae76-89c76933f8be",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "BrushedMetal",
+        "MaterialReference": "d2d76bf2-2c7c-4798-8eec-c515c07b84cc"
+      },
+      {
+        "MaterialName": "DC_Tray_StraightL_Moderate_LastLOD",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "FracturedMaterial01",
+        "MaterialReference": "0f2772fd-72d6-4ee9-9211-38d1781ba8b9"
+      },
+      {
+        "MaterialName": "GratingMetallic",
+        "MaterialReference": "2cc33fe2-00c5-4a64-a648-d1ea7aa8e3ee"
+      },
+      {
+        "MaterialName": "PaintedMetalColorable",
+        "MaterialReference": "d8847d2a-cbb3-4982-9036-ee7785cce3c1"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "ea15e749-58ce-4ca8-95e2-307af0bd273d"
+      },
+      {
+        "MaterialName": "PaintedMetalGrey",
+        "MaterialReference": "9db1117a-b2a1-4fa1-a536-19a35139c3fc"
+      },
+      {
+        "MaterialName": "PaintedMetalYellow",
+        "MaterialReference": "d74fe97a-dbf1-4b0f-8e1b-90f6fa3b1b27"
+      },
+      {
+        "MaterialName": "Rubber",
+        "MaterialReference": "ea603341-6e46-42f7-afae-ce60b8848ec5"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}e4ee45f1-2148-494b-a080-a2fb4af37486",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "FracturedMaterial01",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalGrey",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0.125,
+            "Y": 0.0,
+            "Z": 0.125
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}387d81ce-6a4a-4336-bc61-86f96dd9cf72",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "FracturedMaterial01",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker",
+          "PaintedMetalGrey",
+          "PaintedMetalYellow"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}0ca61a0e-d1f3-4792-90d1-762606cea1c6",
+        "UsedMaterials": [
+          "FracturedMaterial01",
+          "GratingMetallic",
+          "PaintedMetalColorable",
+          "PaintedMetalYellow",
+          "Rubber"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}b706ea39-b565-4e87-a23c-3ce20214af33",
+        "UsedMaterials": [
+          "DC_Tray_StraightL_Moderate_LastLOD"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": "{G}1631e8b9-67b2-4efa-b03d-c9a3c3e4212f",
+      "GroupsByFracture": [],
+      "GeneratePreciseCollider": true
+    }
+  }
+}

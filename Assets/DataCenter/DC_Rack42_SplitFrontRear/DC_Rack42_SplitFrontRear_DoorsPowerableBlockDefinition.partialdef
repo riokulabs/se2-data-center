@@ -1,0 +1,31 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.50",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.50"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "5fbc52b3-4845-4e2e-adf7-858a1b97f400",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "fb6889a9-6065-4f57-8126-6125ffcf2b13",
+      "UIData": {
+        "Name": "Server Rack (Front + Rear Doors)",
+        "Icon": "{G}2db49599-1bb3-43da-97fa-d534e6c558df"
+      },
+      "PlacerDefinition": "40654c6c-1f3d-447b-b7bc-330ba7a4f133",
+      "ConsumedResource": {
+        "Amount": 0
+      },
+      "BlockKind": "6c242af2-8fdf-4e40-8567-2fde30a3143b",
+      "Recipe": "16e4fb91-3e7a-42a2-8fd1-abdd24edb9e3",
+      "Density": "d8adcfdc-f8e2-467e-9d27-78deae4057da",
+      "MountPointGeneratorSettings": {
+        "Directions": "All"
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

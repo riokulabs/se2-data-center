@@ -1,0 +1,654 @@
+{
+ "cells": [
+  2,
+  2,
+  3
+ ],
+ "damaged": {
+  "collision": {
+   "bin": "DC_Srv_UPS_Damaged_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Srv_UPS_Damaged_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02"
+   ]
+  },
+  "dent": {
+   "max_mm": 23.2,
+   "mean_mm": 7.43,
+   "p90_mm": 13.59
+  },
+  "lods": [
+   {
+    "file": "DC_Srv_UPS_Damaged.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasDecal_Parts02",
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 8,
+    "tris": 12204
+   },
+   {
+    "file": "DC_Srv_UPS_Damaged_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasDecal_Parts02",
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 8,
+    "tris": 2970
+   },
+   {
+    "file": "DC_Srv_UPS_Damaged_LOD2.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02"
+    ],
+    "materials": [
+     "EmissiveGreen",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 4,
+    "tris": 504
+   },
+   {
+    "file": "DC_Srv_UPS_Damaged_LOD3.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Srv_UPS_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.576,
+   0.7865,
+   0.494
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "budget": [
+   21345,
+   3666,
+   790,
+   55
+  ],
+  "caps": [
+   [
+    16,
+    18
+   ],
+   [
+    18,
+    0
+   ],
+   [
+    0,
+    0
+   ]
+  ],
+  "collision": {
+   "bin": "DC_Srv_UPS_Fractured_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Srv_UPS_Fractured_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02"
+   ]
+  },
+  "critical": [
+   "Fracture_01"
+  ],
+  "cut_mode": "bisect",
+  "keep_whole": [
+   "screw",
+   "hw",
+   "ear"
+  ],
+  "kind": "cut",
+  "lods": [
+   {
+    "file": "DC_Srv_UPS_Fractured.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasDecal_Parts02",
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 9,
+    "tris": 11068
+   },
+   {
+    "file": "DC_Srv_UPS_Fractured_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasDecal_Parts02",
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 9,
+    "tris": 2926
+   },
+   {
+    "file": "DC_Srv_UPS_Fractured_LOD2.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02"
+    ],
+    "materials": [
+     "EmissiveGreen",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 4,
+    "tris": 422
+   },
+   {
+    "file": "DC_Srv_UPS_Fractured_LOD3.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Srv_UPS_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "mid_lod": false,
+  "parts": {
+   "BrushedMetal": [
+    "Scaffold",
+    "AlwaysVisible",
+    "Scaffolding"
+   ],
+   "Fracture_01-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_01-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalYellow": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01_Hide-AtlasDecal_Parts02": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-EmissiveGreen": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Support-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_01_Support-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_01_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_02-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_02-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-PaintedMetalYellow": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02_Hide-AtlasDecal_Parts02": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-EmissiveGreen": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Support-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ]
+  },
+  "role_bounds": {
+   "Fracture_01": {
+    "hide": [
+     -0.231,
+     0.0259,
+     -0.1837,
+     0.2032,
+     0.3955,
+     0.242
+    ],
+    "skin": [
+     -0.285,
+     -0.0053,
+     -0.25,
+     0.285,
+     0.4145,
+     0.244
+    ],
+    "support": [
+     -0.288,
+     0.0099,
+     -0.248,
+     0.288,
+     0.3945,
+     0.244
+    ]
+   },
+   "Fracture_02": {
+    "hide": [
+     -0.2395,
+     -0.36,
+     -0.1837,
+     0.2395,
+     -0.1928,
+     0.215
+    ],
+    "skin": [
+     -0.2415,
+     -0.372,
+     -0.25,
+     0.2415,
+     0.037,
+     0.244
+    ],
+    "support": [
+     -0.247,
+     -0.335,
+     -0.17,
+     0.247,
+     0.0354,
+     0.115
+    ]
+   }
+  },
+  "role_tris": {
+   "frame": 0,
+   "glass": 0,
+   "hide": 598,
+   "skin": 8102,
+   "support": 960
+  },
+  "scaffold": {
+   "boxes": [
+    [
+     [
+      -0.254,
+      -0.372,
+      -0.254
+     ],
+     [
+      0.254,
+      0.379,
+      0.244
+     ]
+    ]
+   ],
+   "members": 56,
+   "pitch": 0.125,
+   "pitches": {
+    "0": 0.125,
+    "1": 0.125
+   },
+   "proud": [
+    0,
+    1,
+    2
+   ],
+   "radius": 0.006,
+   "sides": {
+    "0": 8,
+    "1": 4
+   },
+   "tris": {
+    "0": 896,
+    "1": 448
+   }
+  },
+  "seams": [
+   {
+    "jag": 0.022,
+    "n": [
+     0.0,
+     1.0,
+     0.0
+    ],
+    "o": [
+     0.0,
+     0.016,
+     0.0
+    ],
+    "reach": 0.0572,
+    "sides": [
+     [
+      "Fracture_01"
+     ],
+     [
+      "Fracture_02"
+     ]
+    ],
+    "zones": [
+     "Fracture_01",
+     "Fracture_02"
+    ]
+   }
+  ],
+  "size": [
+   0.576,
+   0.7865,
+   0.498
+  ],
+  "supporting": {
+   "CellAction 0": "Fracture_01",
+   "CellAction 1": "Fracture_02",
+   "CellSlot 0": "Fracture_01",
+   "CellSlot 1": "Fracture_02"
+  },
+  "zones": [
+   {
+    "box_volume": 0.088673,
+    "critical": true,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.016,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.6519,
+    "hi": [
+     0.25,
+     0.375,
+     0.244
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_01",
+    "label": "front bay module (front cell bay, terminal, rack ears)",
+    "lo": [
+     -0.25,
+     0.016,
+     -0.25
+    ],
+    "volume": 0.088673
+   },
+   {
+    "box_volume": 0.094686,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.016,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.3481,
+    "hi": [
+     0.247,
+     0.016,
+     0.244
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_02",
+    "label": "rear bay module (rear cell bay, rear cover)",
+    "lo": [
+     -0.247,
+     -0.372,
+     -0.25
+    ],
+    "volume": 0.094686
+   }
+  ]
+ },
+ "name": "DC_Srv_UPS",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_Srv_UPS_collision.bin",
+   "colliders": 5,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Srv_UPS_collision.gltf",
+   "nodes": [
+    "DC_Srv_UPS_body",
+    "mountpointsDC_Srv_UPS_bottom",
+    "mountpointsDC_Srv_UPS_left",
+    "mountpointsDC_Srv_UPS_right",
+    "mountpointsDC_Srv_UPS_top"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_Srv_UPS.fbx",
+    "materials": [
+     "AtlasDecal_Parts02",
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 8866
+   },
+   {
+    "file": "DC_Srv_UPS_LOD1.fbx",
+    "materials": [
+     "AtlasDecal_Parts02",
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 1922
+   },
+   {
+    "file": "DC_Srv_UPS_LOD2.fbx",
+    "materials": [
+     "EmissiveGreen",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 422
+   },
+   {
+    "file": "DC_Srv_UPS_LOD3.fbx",
+    "materials": [
+     "DC_Srv_UPS_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.576,
+   0.7865,
+   0.494
+  ]
+ },
+ "shift": [
+  0.125,
+  0.125,
+  0.0
+ ]
+}

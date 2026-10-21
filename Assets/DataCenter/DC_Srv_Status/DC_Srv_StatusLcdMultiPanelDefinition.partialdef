@@ -1,0 +1,41 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1631",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1631"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "57977bda-206b-4eb7-942b-6f4006ce8d81",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "04f11183-b9e5-413f-94d4-5ffea72dec37",
+      "Surfaces": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "c1943f95-7b4f-436b-b95b-7ea8e56f603d"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 0,
+            "Value": {
+              "MeshPartName": "LCDScreen_Off",
+              "Resolution": {
+                "X": 1024,
+                "Y": 512
+              },
+              "DefaultScreenMaterial": "8a35c12c-0fb9-45fa-be7b-6d97cb624c75",
+              "AspectRatio": 2,
+              "UseOnlineTexture": true,
+              "DefaultDisplayName": "LCD Panel"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Lcd.LcdMultiPanelDefinition",
+    "PriorityOverride": false
+  }
+}

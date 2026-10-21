@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.2333",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.2333"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "38e76d80-b12b-44c8-b7de-6d6dda456ae7",
+      "UIData": {
+        "Name": "Raised Floor (Solid)",
+        "Icon": "{G}a66f0267-6412-4471-80bb-db885fcb6f66"
+      },
+      "Recipe": "77137b78-448f-4cc8-981f-1b3b755bf7e9",
+      "BlockKind": "9fe55155-b9c2-4801-8c5f-2b51d134644a",
+      "PCU": 5,
+      "MountPointGeneratorSettings": {
+        "Directions": "All"
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

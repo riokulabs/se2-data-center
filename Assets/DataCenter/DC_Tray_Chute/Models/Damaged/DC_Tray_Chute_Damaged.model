@@ -1,0 +1,98 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Models.ModelAssetData",
+  "$Value": {
+    "MaterialAssignments": [
+      {
+        "MaterialName": "BrushedMetal",
+        "MaterialReference": "d2d76bf2-2c7c-4798-8eec-c515c07b84cc"
+      },
+      {
+        "MaterialName": "DC_Tray_Chute_LastLOD",
+        "MaterialReference": "be89c5c3-25ce-42e9-93f9-72ba32c3d8a7"
+      },
+      {
+        "MaterialName": "PaintedMetalColorable",
+        "MaterialReference": "d8847d2a-cbb3-4982-9036-ee7785cce3c1"
+      },
+      {
+        "MaterialName": "PaintedMetalDarker",
+        "MaterialReference": "ea15e749-58ce-4ca8-95e2-307af0bd273d"
+      }
+    ],
+    "MaterialStateOverrides": [],
+    "GeometryAssets": [
+      {
+        "AssetReference": "{G}c2bcd776-e465-4659-a2dd-c119e3017756",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0.125,
+            "Y": 0.0,
+            "Z": 0.0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}6d009cb3-ccaa-4514-8e2a-46dbb7d27049",
+        "UsedMaterials": [
+          "BrushedMetal",
+          "PaintedMetalColorable",
+          "PaintedMetalDarker"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      },
+      {
+        "AssetReference": "{G}79df3e77-89a4-496a-87dd-e762bcee77ab",
+        "UsedMaterials": [
+          "DC_Tray_Chute_LastLOD"
+        ],
+        "Transformations": {
+          "Translation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Rotation": {
+            "X": 0,
+            "Y": 0,
+            "Z": 0
+          },
+          "Scale": 1
+        }
+      }
+    ],
+    "SnapToGrid": false,
+    "SuggestedModelSize": null,
+    "CollisionShapesAsset": {
+      "AssetReference": "{G}3f631228-bcfa-4a9f-aaf0-a77ad6053dc0",
+      "GroupsByFracture": [],
+      "GeneratePreciseCollider": true
+    }
+  }
+}

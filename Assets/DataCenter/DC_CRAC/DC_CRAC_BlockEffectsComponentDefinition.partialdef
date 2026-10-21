@@ -1,0 +1,76 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.5724",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.5724"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "3fb0707e-aa12-4ec9-b832-1d173ff3534f",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "711458fa-f57b-4f16-a95d-a88eb7336bb2",
+      "OnDamagedBlockParticleEffect": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "3ce2745e-0989-4256-86e6-76d5fa6100b7",
+          "3d39ba93-7995-45ae-b15b-aabc8b7dd504"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 0,
+            "Value": {
+              "ParticleEffects": {
+                "$DeltaEncoded": true,
+                "Keys": [
+                  "92d61473-88b0-416b-a1f0-272b0e1c4c8f"
+                ],
+                "Changed": [
+                  {
+                    "Kind": "Update",
+                    "Index": 0,
+                    "Value": {
+                      "Scale": 2
+                    }
+                  }
+                ],
+                "Removed": []
+              }
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 1,
+            "Value": {
+              "ParticleEffects": {
+                "$DeltaEncoded": true,
+                "Keys": [
+                  "bcc9898d-7fa6-4625-ab82-9be661c7a94a"
+                ],
+                "Changed": [
+                  {
+                    "Kind": "Update",
+                    "Index": 0,
+                    "Value": {
+                      "Scale": 1
+                    }
+                  }
+                ],
+                "Removed": []
+              }
+            }
+          }
+        ],
+        "Removed": []
+      },
+      "OnBlockDeathParticleEffect": {
+        "Scale": 0.7
+      },
+      "OnUseAudio": "event:/SFX/Block/GyroscopeMID",
+      "OnDestroyedAudio": "event:/SFX/Explosions/ExplosionBlockSmall"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.BlockEffectsComponentDefinition",
+    "PriorityOverride": false
+  }
+}

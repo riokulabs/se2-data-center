@@ -1,0 +1,55 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "1297bc6b-92aa-430a-b702-195393d7f84e",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "e3a9e30c-4c71-4316-a15b-1a0a82b90464",
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": [
+          {
+            "$Key": "RigidAnimationComponent",
+            "$Value": "f3f6c81a-cde2-4161-9700-2ddf5ee2eada"
+          }
+        ]
+      },
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "27f10314-65ac-44ab-89ca-e8f300bf1130",
+          "abdad87f-d02b-4a66-9c71-7fa16e764efb",
+          "970c6c3c-a8e1-4e0a-be76-5acc73782323",
+          "270d533d-96ee-476e-af5e-510ecf1568c9",
+          "5f721af6-ecb8-4aaf-a1fc-6b89e2a99bb1",
+          "f3f6c81a-cde2-4161-9700-2ddf5ee2eada"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 2,
+            "Value": {
+              "Definition": "a64f92d6-1878-43ac-94fc-af9c8665a1bc"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 5,
+            "Value": {
+              "Definition": "48311d48-f930-487e-87fb-b41b8e09dc1e",
+              "Type": "VRage:Keen.VRage.Core.Game.GameSystems.RigidAnimations.TranslationAnimationComponent"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1604",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1604"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "1b11e9a8-023d-42f8-99ca-fc32de38d16a",
+      "UIData": {
+        "Name": "Network Switch",
+        "Icon": "{G}5793ddc6-3dc6-4f66-bc62-7f5a89c75ef5"
+      },
+      "PlacerDefinition": "691cb1c6-a51f-4d35-94b9-0e9e5529fe33",
+      "MountPointGeneratorSettings": {
+        "Directions": "Backward, Left, Right, Down"
+      },
+      "Recipe": "fba212af-8543-4571-ae10-a946eea5f13c",
+      "BlockKind": "7d672dad-4d7c-471e-bd0a-a5752da49a10"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "a0f52a9f-9336-44fa-9eee-a532b74722eb",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "IloPHzkoWai9nZX/AOWt+g=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "7cez6kADlZH0lJjvnNgZ4A==",
+            "FileName": "DC_Sign_Aisle_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "42e9b271-66ba-4b9c-ad2e-eee1af646e4e",
+            "Hash": "XvCGvYJmVLJ2AJ4IGqgC3w=="
+          },
+          {
+            "Guid": "635050b3-86f3-4f7b-8bab-2cf55edf5840",
+            "Hash": "NYUspglnf7hOv0l6ugzG7A=="
+          },
+          {
+            "Guid": "7342af02-2c29-4281-a894-524800d20f62",
+            "Hash": "z1g+oOoQDbRkl3n9OC6IKQ=="
+          },
+          {
+            "Guid": "c69bbe8a-00e6-41ec-93d3-12c31388fc9a",
+            "Hash": "/R9yAzJsIyYKsGXnWD1cjg=="
+          }
+        ],
+        "AssetHash": "IloPHzkoWai9nZX/AOWt+g==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

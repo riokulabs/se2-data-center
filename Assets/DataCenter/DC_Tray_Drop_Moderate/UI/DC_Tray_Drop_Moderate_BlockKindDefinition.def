@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "99b4fb78-2cb1-4828-a24d-08879ba53563",
+    "Name": "Cable Tray, Rack Drop (Moderate)",
+    "Description": "Overhead wire-basket cable tray, 1.0 m straight over a rack with two cable waterfalls down into the rack's top-entry brushes, moderate cable load (data, fibre and power). Cables line up across every joint.",
+    "OrderingPriority": 7,
+    "BlockGroups": [
+      {
+        "Key": "7e71eb1c-f650-456f-a8cb-b6f48334bade",
+        "Value": "806983e6-e1b4-4f81-85bf-1a85659466e0"
+      }
+    ]
+  }
+}

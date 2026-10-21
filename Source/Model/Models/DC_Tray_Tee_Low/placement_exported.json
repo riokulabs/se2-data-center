@@ -1,0 +1,117 @@
+{
+ "model": "DC_Tray_Tee_Low",
+ "fbx_sha256": "a3632f122a1e3d5a2fec37e2e3816a9343d72e1b13751025b913458731aa6b15",
+ "inputs": [
+  "NonFractured/DC_Tray_Tee_Low.fbx",
+  "NonFractured/DC_Tray_Tee_Low_collision.gltf",
+  "Fractured/DC_Tray_Tee_Low_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 3,
+  "occupancy_hints": 2,
+  "mount_hints": 4,
+  "fractures": 4
+ },
+ "render_tris": 2912,
+ "nonfractured": {
+  "occupied": 10,
+  "total": 12,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.333
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    0,
+    -1
+   ],
+   [
+    2,
+    0,
+    -1
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_Tee_Low: groups F/B/L/R/U/D = 1 / 0 / 1 / 1 / 0 / 1; plane coverage = 50% / 0% / 67% / 67% / 0% / 33%; occupied 10/12 box cells, 2 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 10,
+  "total": 12,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.333
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    0,
+    -1
+   ],
+   [
+    2,
+    0,
+    -1
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_Tee_Low: groups F/B/L/R/U/D = 1 / 0 / 1 / 1 / 0 / 1; plane coverage = 50% / 0% / 67% / 67% / 0% / 33%; occupied 10/12 box cells, 2 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_01": 10
+  }
+ }
+}

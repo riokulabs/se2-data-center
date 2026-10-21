@@ -1,0 +1,25 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "774ab8a5-fdff-4b30-b599-1038a51e80e7",
+      "UIData": {
+        "Name": "Cable Tray, Hanger Rods",
+        "Icon": "{G}be142b98-5fa4-42dc-9171-569ad0c29e7f"
+      },
+      "Recipe": "12e90ffe-8b67-4007-ac49-c0c95f942c56",
+      "BlockKind": "a9f09ded-6293-4578-9715-d24fa1f59f11",
+      "PCU": 5,
+      "PlacerDefinition": "d363763f-67d3-4afe-bc4f-8524b3bc0064"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "a0e1ccca-0853-4265-91f6-c543d121b7ed",
+    "Name": "Cable Tray, Cross (Low)",
+    "Description": "Overhead wire-basket cable tray, X crossing with a crossover saddle, low cable load (two data bundles). Cables line up across every joint.",
+    "OrderingPriority": 6,
+    "BlockGroups": [
+      {
+        "Key": "83a590d0-56ff-4609-8c41-6a13049e1662",
+        "Value": "9aa65c88-3e85-4568-a25d-867513aa4581"
+      }
+    ]
+  }
+}

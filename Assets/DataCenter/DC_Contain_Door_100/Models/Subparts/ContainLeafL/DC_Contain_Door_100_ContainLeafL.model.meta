@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "20e95422-7443-42ce-9a87-bcf3b5214ef9",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "6mZMF9xWqmfLmYKbzCzqWg=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "smAJTTH3CHaqINBmZER3CQ==",
+            "FileName": "DC_Contain_Door_100_ContainLeafL.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "13d9b60a-3b46-41c0-9929-b0ca3b42dc8c",
+            "Hash": "UDNoajYS7usS9DnIrNnVNw=="
+          },
+          {
+            "Guid": "15ed6caf-16ff-406e-928c-e79bbb0871d5",
+            "Hash": "X8w+X6YCqZTwDqHJFl5VPA=="
+          },
+          {
+            "Guid": "e6c96dac-3179-419e-9b55-7a93f6de6491",
+            "Hash": "eMTkKYjIwYV8oCNBsQO+SQ=="
+          },
+          {
+            "Guid": "f4d184d9-b165-42c0-a45d-c57083fce989",
+            "Hash": "7FlMz9byOuZs+8FBCpspSg=="
+          }
+        ],
+        "AssetHash": "6mZMF9xWqmfLmYKbzCzqWg==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

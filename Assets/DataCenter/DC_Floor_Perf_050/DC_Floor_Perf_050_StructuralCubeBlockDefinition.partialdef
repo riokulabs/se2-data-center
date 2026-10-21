@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.2333",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.2333"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "82c08227-d168-4354-8beb-2c6ae46474ff",
+      "UIData": {
+        "Name": "Raised Floor (Perforated)",
+        "Icon": "{G}fab77320-992d-4c8f-a1be-647a8e8e83d2"
+      },
+      "Recipe": "12772a84-c353-418a-a26d-a100160eb504",
+      "BlockKind": "eb7bfe77-9ac1-4591-91e2-b206e90b70a9",
+      "PCU": 5,
+      "MountPointGeneratorSettings": {
+        "Directions": "All"
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

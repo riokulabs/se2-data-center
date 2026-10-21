@@ -1,0 +1,23 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4481",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4481"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "e7c75a4b-e25c-4101-b3c2-a3d383c68986",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "e17ebcad-c14e-4c4c-8e84-422a130568e8",
+      "OnDoorStateChangeAudio": "event:/SFX/Block/DoorSliding",
+      "DoorStateParameterName": "OnOff",
+      "DoorOpenedValue": "",
+      "DoorOpeningValue": "On",
+      "DoorClosedValue": "",
+      "DoorClosingValue": "Off"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Doors.DoorAudioDefinition",
+    "PriorityOverride": false
+  }
+}

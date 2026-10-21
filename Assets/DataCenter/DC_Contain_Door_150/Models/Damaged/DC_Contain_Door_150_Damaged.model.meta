@@ -1,0 +1,61 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "525d1acf-0a16-4193-bf15-c353d7cf1ff9",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "HBmxiysdgzU6GB+nrd5QYg=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "DFLro+Y+3PCyK9FC/CEKdQ==",
+            "FileName": "DC_Contain_Door_150_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "29a802ca-a6c0-48d2-9103-210aa7433d0b",
+            "Hash": "o0mJutAx1mw/RQ99qtMuRg=="
+          },
+          {
+            "Guid": "4d248300-db95-4762-8b27-f1c52d19eaa5",
+            "Hash": "ozwLDeUCPwwD142aWnoODw=="
+          },
+          {
+            "Guid": "5a571d01-b2cd-4251-bfe5-18faec30bfd0",
+            "Hash": "yTVVnyYUBvmfrQ7FiDfcYA=="
+          },
+          {
+            "Guid": "647efc28-d854-46e6-bec4-d985ba48758b",
+            "Hash": "LwfT7Y+FItgJwMis63FS1Q=="
+          },
+          {
+            "Guid": "b155a985-7451-422e-be66-da3a590d9cce",
+            "Hash": "/zszeOWBqyMxgdU2j7RIZw=="
+          },
+          {
+            "Guid": "fdd0a489-d899-48dc-8300-6e248304f96a",
+            "Hash": "tqVpylIbJ4qjj/myJ4GpuA=="
+          }
+        ],
+        "AssetHash": "HBmxiysdgzU6GB+nrd5QYg==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

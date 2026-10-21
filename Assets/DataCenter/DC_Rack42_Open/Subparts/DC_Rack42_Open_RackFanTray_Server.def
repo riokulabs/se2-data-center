@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.Core.Game.Definitions.PrefabDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "383d3681-edbf-43a1-adac-be385eb0d067",
+    "_entity": {
+      "Definition": "fa3e7b5b-605b-4be4-a3a1-d7633d1b8d93",
+      "ObjectBuilders": [
+        {
+          "Key": "accec249-8272-4d51-bcb2-0d1a7f567f69",
+          "Value": null
+        },
+        {
+          "Key": "bca825a1-57ca-4052-b486-72e779d6f670",
+          "Value": {
+            "$Type": "VRage:Keen.VRage.Core.Game.Components.ChildTransformComponentObjectBuilder",
+            "TransformWithEulerHint": {
+              "Transform": {
+                "Position": {
+                  "X": 0.0,
+                  "Y": 0.0,
+                  "Z": 0.0
+                },
+                "Orientation": {
+                  "X": 0,
+                  "Y": 0,
+                  "Z": 0,
+                  "W": 1
+                }
+              },
+              "EulerHint": {
+                "X": 0,
+                "Y": 0.0,
+                "Z": 0
+              }
+            }
+          }
+        },
+        {
+          "Key": "60b7e92d-7ad2-41a0-99fc-45f4136f12e7",
+          "Value": {
+            "$Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder",
+            "Children": []
+          }
+        }
+      ],
+      "DebugName": "_Server"
+    }
+  }
+}

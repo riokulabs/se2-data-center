@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "ee213cd7-34c7-4cfc-8c0d-586c28a6e2d9",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "c0eaba4c-5b81-4005-86f5-f72721dfdd1b",
+      "MaxCapacity": 360000,
+      "MaxChargingRate": 399.8,
+      "MaxDischargeRate": 400
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.ResourceDistribution.Resources.ResourceContainerInventoryDefinition",
+    "PriorityOverride": false
+  }
+}

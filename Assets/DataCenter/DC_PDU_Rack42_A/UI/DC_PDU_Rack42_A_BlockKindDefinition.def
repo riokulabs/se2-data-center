@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "5f07debc-f2bd-436a-9efe-8f4732423fd9",
+    "Name": "Rack PDU (Feed A)",
+    "Description": "Zero-U power strip for a rack's right rear column (feed A), 24U or 42U: one outlet pair per slot, its inlet plugged into the plinth socket. Decorative.",
+    "OrderingPriority": 3,
+    "BlockGroups": [
+      {
+        "Key": "225162dd-3722-4cab-970b-6e52c21bcec2",
+        "Value": "b6d01007-1101-466b-bb23-09940400e1b0"
+      }
+    ]
+  }
+}

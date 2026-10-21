@@ -1,0 +1,28 @@
+{
+  "$Bundles": {
+    "Game2": "2.2.0.132",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.2.0.132"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "19c35f64-6856-4917-9642-7669a3dc9cc8",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "79231d08-f4a1-4fb9-b23b-cbf57ff7be68",
+      "BuildTimePerItem": 5417000,
+      "CriticalItems": [
+        {
+          "Key": "21a10c0a-1bb2-478f-a80d-dae693d64416",
+          "Value": {
+            "Item": "292eba9e-e5f8-4951-8038-e476a677b584",
+            "Amount": 3
+          }
+        }
+      ],
+      "OptionalItems": []
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockRecipeDefinition",
+    "PriorityOverride": false
+  }
+}

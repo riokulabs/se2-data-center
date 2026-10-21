@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1331",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1331"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "cbdb4ce2-c0de-4ef6-a07a-e9de5690475d",
+    "Name": "KVM Console",
+    "Description": "Rack-mount KVM drawer, 6U: a control panel with a pull-out screen and keyboard.",
+    "OrderingPriority": 3,
+    "BlockGroups": [
+      {
+        "Key": "9f9b9dd5-ff8b-4a2b-970d-a4ce8ac7726c",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

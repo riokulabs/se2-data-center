@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "b9c27c8d-520b-4671-b890-79a4500433c6",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "EjExjpmphEOD8zNHvGy0qg=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "qdPVro50YEvijcnCHicU0Q==",
+            "FileName": "DC_Tray_Chute.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "2dfb17d3-76be-4bcb-8cca-a1661440309c",
+            "Hash": "o7FdS39TYVAySxy28FtIYA=="
+          },
+          {
+            "Guid": "5273ecb9-be8d-4d4e-9402-e55a9af3ab6a",
+            "Hash": "rv+UCA9NEA5tHJyOuC3qlg=="
+          },
+          {
+            "Guid": "8dce1ff4-82bf-489b-b60f-fd898db2ed74",
+            "Hash": "TLeL9pX/1T62JW0mgX/uBQ=="
+          },
+          {
+            "Guid": "c3b543dd-39ba-4107-b0d9-51d6fcde9a10",
+            "Hash": "QFK60T0dmATxYhYxgr0mkg=="
+          }
+        ],
+        "AssetHash": "EjExjpmphEOD8zNHvGy0qg==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

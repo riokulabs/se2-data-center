@@ -1,0 +1,106 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "af52829e-24cb-41c7-9551-650fe4296cc5",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "a8e1d328-3e87-4221-b654-b4c33535b044",
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": [
+          {
+            "$Key": "SpatialAudioComponent",
+            "$Value": "24f8dfe2-6b3f-4764-a9db-6e4383dcae5d"
+          },
+          {
+            "$Key": "ConditionalSubPartsComponent",
+            "$Value": "d2d6eded-8753-4fdb-809f-6daeefaa4dbf"
+          },
+          {
+            "$Key": "FunctionalBlockAnimationControllerComponent",
+            "$Value": "53b4b38e-fc40-4e82-930e-f0b5b1319812"
+          }
+        ]
+      },
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "a1687822-b4c2-4bcb-961e-3e44fae3221d",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "72e2ef60-d699-48a2-9959-4e246eecdacc",
+          "24f8dfe2-6b3f-4764-a9db-6e4383dcae5d",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "15b03c91-198a-459a-9713-a04182db2663",
+          "d2d6eded-8753-4fdb-809f-6daeefaa4dbf",
+          "53b4b38e-fc40-4e82-930e-f0b5b1319812"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 3,
+            "Value": {
+              "Definition": "3712b761-bf98-424d-a00a-173e770a6cb7"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "8d94c6dc-e2f9-463b-a24d-c7dda8c76e05"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 5,
+            "Value": {
+              "Definition": "711458fa-f57b-4f16-a95d-a88eb7336bb2"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 7,
+            "Value": {
+              "Definition": "37162dfa-d82d-4089-81d8-fffe0253a067"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 8,
+            "Value": {
+              "Definition": "4e8e365a-3f75-46f4-aaa0-9df7ef91e5a1",
+              "Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Render.BlockMaterialSwapperComponent"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 9,
+            "Value": {
+              "Definition": "536f3d6a-20f5-4989-aeb4-67ad6da5e1e8",
+              "Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.ConditionalSubPartsComponent"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 10,
+            "Value": {
+              "Definition": null,
+              "Type": "Game2:Keen.Game2.Simulation.GameSystems.RigidAnimations.FunctionalBlockAnimationControllerComponent"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

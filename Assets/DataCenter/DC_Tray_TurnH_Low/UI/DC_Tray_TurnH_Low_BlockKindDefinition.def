@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "954a4baa-00ed-440e-8261-266ff8d0504c",
+    "Name": "Cable Tray, Horizontal Turn (Low)",
+    "Description": "Overhead wire-basket cable tray, 90 degree horizontal turn (0.5 m radius), low cable load (two data bundles). Cables line up across every joint.",
+    "OrderingPriority": 2,
+    "BlockGroups": [
+      {
+        "Key": "b5755754-5efe-45d2-97cd-9d54b0b91006",
+        "Value": "9aa65c88-3e85-4568-a25d-867513aa4581"
+      }
+    ]
+  }
+}

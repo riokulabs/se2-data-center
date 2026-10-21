@@ -1,0 +1,36 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "1297bc6b-92aa-430a-b702-195393d7f84e",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "8b88b31f-bfa7-44be-aba7-3e2caee38c29",
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "27f10314-65ac-44ab-89ca-e8f300bf1130",
+          "abdad87f-d02b-4a66-9c71-7fa16e764efb",
+          "970c6c3c-a8e1-4e0a-be76-5acc73782323",
+          "270d533d-96ee-476e-af5e-510ecf1568c9",
+          "5f721af6-ecb8-4aaf-a1fc-6b89e2a99bb1"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 2,
+            "Value": {
+              "Definition": "3fd8a57f-dc63-46c6-b67e-f8a3eef35474"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,191 @@
+{
+ "cells": [
+  2,
+  1,
+  2
+ ],
+ "damaged": {
+  "budget": [
+   679,
+   55
+  ],
+  "collision": {
+   "bin": "DC_TrayRods_025_Damaged_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_TrayRods_025_Damaged_collision.gltf",
+   "nodes": [
+    "DC_TrayRods_025_Damaged_rod_0",
+    "DC_TrayRods_025_Damaged_rod_1"
+   ]
+  },
+  "dent": {
+   "max_mm": 5.74,
+   "mean_mm": 2.37,
+   "p90_mm": 4.76
+  },
+  "lods": [
+   {
+    "file": "DC_TrayRods_025_Damaged.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 454
+   },
+   {
+    "file": "DC_TrayRods_025_Damaged_LOD1.fbx",
+    "groups": [],
+    "materials": [
+     "DC_TrayRods_025_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "size": [
+   0.06,
+   0.498,
+   0.248
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "collision": {
+   "bin": "DC_TrayRods_025_Fractured_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_TrayRods_025_Fractured_collision.gltf",
+   "nodes": [
+    "DC_TrayRods_025_Fractured_rod_0",
+    "DC_TrayRods_025_Fractured_rod_1"
+   ]
+  },
+  "kind": "simple",
+  "lods": [
+   {
+    "file": "DC_TrayRods_025_Fractured.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 380
+   },
+   {
+    "file": "DC_TrayRods_025_Fractured_LOD1.fbx",
+    "groups": [],
+    "materials": [
+     "DC_TrayRods_025_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "parts": {
+   "BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "PaintedMetalYellow": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ]
+  },
+  "role_bounds": {},
+  "role_tris": {
+   "frame": 0,
+   "glass": 0,
+   "hide": 0,
+   "skin": 380,
+   "support": 0
+  },
+  "zones": []
+ },
+ "name": "DC_TrayRods_025",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_TrayRods_025_collision.bin",
+   "colliders": 7,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_TrayRods_025_collision.gltf",
+   "nodes": [
+    "DC_TrayRods_025_rod_0",
+    "DC_TrayRods_025_rod_1",
+    "mountpointsDC_TrayRods_025_anchor_0",
+    "mountpointsDC_TrayRods_025_anchor_1",
+    "mountpointsDC_TrayRods_025_coupler_0",
+    "mountpointsDC_TrayRods_025_coupler_1",
+    "occupancyDC_TrayRods_025_cells_0"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_TrayRods_025.fbx",
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 380
+   },
+   {
+    "file": "DC_TrayRods_025_LOD1.fbx",
+    "materials": [
+     "DC_TrayRods_025_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "size": [
+   0.06,
+   0.498,
+   0.248
+  ]
+ },
+ "shift": [
+  0.125,
+  0.0,
+  0.125
+ ]
+}

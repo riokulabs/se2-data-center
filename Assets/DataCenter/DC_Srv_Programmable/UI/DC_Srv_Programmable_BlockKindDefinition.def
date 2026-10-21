@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "0bbfa382-c445-4979-9e46-1de743d7a60f",
+    "Name": "Programmable Server",
+    "Description": "Rack-mount script host: a programmable block in a 6U blade chassis (its program runs when the game has scripts enabled).",
+    "OrderingPriority": 6,
+    "BlockGroups": [
+      {
+        "Key": "951ff8f8-e35f-4212-a4d7-41b62fcbcaa3",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

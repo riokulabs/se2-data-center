@@ -1,0 +1,19 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "107bcdfc-f977-4486-b14a-6acb61fe0f03",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "cf61a6dc-07b2-46c7-acda-681a1169a2bd",
+      "_entity": {
+        "Definition": "1d269975-1b6f-4923-af90-f91cc9294c53"
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.Core.Game.Definitions.PrefabDefinition",
+    "PriorityOverride": false
+  }
+}

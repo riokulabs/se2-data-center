@@ -1,0 +1,21 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4904",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4904"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "fe7f98ef-e4e0-45d1-84bd-101c7e5bacbb",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "36f00099-3fbc-4278-8209-3758d29454cf",
+      "OnConstructionStateChangedParticleEffect": {
+        "ParticleEffect": "d1281225-66f3-4780-9e80-87db0293df75"
+      },
+      "OnUseAudio": "event:/SFX/Block/GyroscopeSM"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.BlockEffectsComponentDefinition",
+    "PriorityOverride": false
+  }
+}

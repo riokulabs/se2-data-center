@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.3238",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.3238"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "f095ac17-cbba-4e10-bf7f-bb9cff5db4c4",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "b5918c48-e7da-4a07-9755-a6bfda878bbc",
+      "MaxMass": 25,
+      "WhitelistedItems": {
+        "$DeltaEncoded": true,
+        "Removed": [
+          "c8f857ea-30eb-44bd-82bc-9957d764a38e"
+        ],
+        "Added": [
+          "089240e7-2ad9-4ec9-adef-cceeda83666e"
+        ]
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.Items.InventoryDefinition",
+    "PriorityOverride": false
+  }
+}

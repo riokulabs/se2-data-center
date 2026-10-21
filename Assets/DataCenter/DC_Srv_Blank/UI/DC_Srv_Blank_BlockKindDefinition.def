@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "bdd99f0f-5072-4190-8e53-a373d9e1b567",
+    "Name": "Blanking Panel",
+    "Description": "Perforated 6U blanking panel that closes an empty rack slot.",
+    "OrderingPriority": 10,
+    "BlockGroups": [
+      {
+        "Key": "aad9061a-4999-4899-953b-1916a1a46565",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

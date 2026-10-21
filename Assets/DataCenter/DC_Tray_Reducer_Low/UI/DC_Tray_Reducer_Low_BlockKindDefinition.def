@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "e898e625-b65c-46b5-98e6-fbca7c630c89",
+    "Name": "Cable Tray, Reducer (Low to Empty)",
+    "Description": "Overhead wire-basket cable tray, 0.5 m, stepping the cable load down from Low to Empty: the extra bundles end in strapped rubber boots. Cables line up across every joint.",
+    "OrderingPriority": 8,
+    "BlockGroups": [
+      {
+        "Key": "f69c4b66-1a25-40ce-a299-cc1c70147d39",
+        "Value": "9aa65c88-3e85-4568-a25d-867513aa4581"
+      }
+    ]
+  }
+}

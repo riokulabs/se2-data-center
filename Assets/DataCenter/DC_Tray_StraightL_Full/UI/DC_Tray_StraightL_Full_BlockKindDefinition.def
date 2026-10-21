@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "e3ba957d-c935-46ab-9475-8340415df3ea",
+    "Name": "Cable Tray, Straight (Full)",
+    "Description": "Overhead wire-basket cable tray, straight: 0.5 m (Short) or 1.5 m (Long), full cable load (two layers). Cables line up across every joint.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "7c23e13a-d1ff-439b-ad37-8e0c6cf83ca9",
+        "Value": "573b15d8-8dbe-44da-9dc9-1248d47734b6"
+      }
+    ]
+  }
+}

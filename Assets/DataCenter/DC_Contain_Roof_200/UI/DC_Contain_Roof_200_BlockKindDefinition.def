@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.2.0.132",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.2.0.132"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "299c237d-dd08-4cf1-b1e7-b182512afe62",
+    "Name": "Containment Roof",
+    "Description": "Frosted roof panel over one rack pitch (1.0 m) of a contained aisle, 1.0 m, 1.5 m or 2.0 m wide. Rests on the racks' containment rails, flush with the rack tops; its fire-release links let it drop away so sprinklers reach the racks.",
+    "OrderingPriority": 2,
+    "BlockGroups": [
+      {
+        "Key": "93d752eb-3ac2-4980-8ca0-d433455ea36e",
+        "Value": "81518110-9802-4104-a0f4-d793920e8a1f"
+      }
+    ]
+  }
+}

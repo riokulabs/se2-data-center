@@ -1,0 +1,197 @@
+{
+ "model": "DC_Tray_Chute",
+ "fbx_sha256": "ec6e7686261b814010397e0eb50e0a766b647b423e820e2b298bc6997e270c14",
+ "inputs": [
+  "NonFractured/DC_Tray_Chute.fbx",
+  "NonFractured/DC_Tray_Chute_collision.gltf",
+  "Fractured/DC_Tray_Chute_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 2,
+  "occupancy_hints": 2,
+  "mount_hints": 4,
+  "fractures": 0
+ },
+ "render_tris": 1672,
+ "nonfractured": {
+  "occupied": 10,
+  "total": 20,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 2,
+    "coverage": 0.5
+   },
+   "Down": {
+    "groups": 2,
+    "coverage": 0.5
+   }
+  },
+  "free_cells": [
+   [
+    0,
+    -2,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    1,
+    -2,
+    0
+   ],
+   [
+    1,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    2,
+    0
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_Chute: groups F/B/L/R/U/D = 0 / 0 / 0 / 0 / 2 / 2; plane coverage = 0% / 0% / 0% / 0% / 50% / 50%; occupied 10/20 box cells, 10 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 10,
+  "total": 20,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 2,
+    "coverage": 0.5
+   },
+   "Down": {
+    "groups": 2,
+    "coverage": 0.5
+   }
+  },
+  "free_cells": [
+   [
+    0,
+    -2,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    1,
+    -2,
+    0
+   ],
+   [
+    1,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    2,
+    0
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_Chute: groups F/B/L/R/U/D = 0 / 0 / 0 / 0 / 2 / 2; plane coverage = 0% / 0% / 0% / 0% / 50% / 50%; occupied 10/20 box cells, 10 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "none": 4
+  }
+ }
+}

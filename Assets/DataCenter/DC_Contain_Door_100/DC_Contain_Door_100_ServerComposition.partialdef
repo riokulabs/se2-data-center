@@ -1,0 +1,80 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4481",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4481"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "aeef0a46-0818-471b-8e19-68b58e0f5c15",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "8b0e6da8-e9a3-4453-853e-cd62d87f125a",
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": []
+      },
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "1842e67c-b8bd-4754-adc7-64b92564d000",
+          "dbe945c6-db2c-42c5-b9dc-2565adaad768",
+          "28399edb-e499-44cd-ba3e-64b60fcd1515"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 2,
+            "Value": {
+              "Definition": "b2afe14f-0a19-474f-8921-205d6778a547"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 3,
+            "Value": {
+              "Definition": "078f9eb1-c26a-4cee-be55-7673974404d4"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "6e4ba8a1-0e2f-4ace-89dd-cc57680d1c4f"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 5,
+            "Value": {
+              "Definition": "6d23cc4a-05ff-43f2-acfa-acb13dfa407a"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 6,
+            "Value": {
+              "Definition": "1e902d5c-a616-4d8d-9302-01df379f76dc"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 7,
+            "Value": {
+              "Definition": "92679387-8555-4f71-8b3e-7cfe4c910d57"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

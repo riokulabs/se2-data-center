@@ -1,0 +1,114 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "107bcdfc-f977-4486-b14a-6acb61fe0f03",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "c1143e61-0c28-449a-b59f-72268b50ffa4",
+      "_entity": {
+        "Definition": "e3a9e30c-4c71-4316-a15b-1a0a82b90464",
+        "ObjectBuilders": {
+          "$DeltaEncoded": true,
+          "Keys": [
+            "27f10314-65ac-44ab-89ca-e8f300bf1130",
+            "abdad87f-d02b-4a66-9c71-7fa16e764efb",
+            "970c6c3c-a8e1-4e0a-be76-5acc73782323",
+            "270d533d-96ee-476e-af5e-510ecf1568c9",
+            "5f721af6-ecb8-4aaf-a1fc-6b89e2a99bb1",
+            "f3f6c81a-cde2-4161-9700-2ddf5ee2eada"
+          ],
+          "Changed": [
+            {
+              "Kind": "Update",
+              "Index": 0,
+              "Value": {
+                "$Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder",
+                "Children": {
+                  "$DeltaEncoded": true,
+                  "Keys": [
+                    "94c8a111-6eaa-4bf6-a197-2792b694401a"
+                  ],
+                  "Changed": [
+                    {
+                      "Kind": "Insert",
+                      "Index": 0,
+                      "Value": {
+                        "$ObjectId": 0,
+                        "Definition": "8874b2aa-17f2-4960-8a13-6a37ee3cf648",
+                        "ObjectBuilders": [
+                          {
+                            "Key": "27f10314-65ac-44ab-89ca-e8f300bf1130",
+                            "Value": {
+                              "$Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder",
+                              "Children": []
+                            }
+                          },
+                          {
+                            "Key": "abdad87f-d02b-4a66-9c71-7fa16e764efb",
+                            "Value": {
+                              "$Type": "VRage:Keen.VRage.Core.Game.Components.ChildTransformComponentObjectBuilder",
+                              "TransformWithEulerHint": {
+                                "Transform": {
+                                  "Position": {
+                                    "X": 0.0,
+                                    "Y": 0.0,
+                                    "Z": 0.0
+                                  },
+                                  "Orientation": {
+                                    "X": 0,
+                                    "Y": 0,
+                                    "Z": 0,
+                                    "W": 1
+                                  }
+                                },
+                                "EulerHint": {
+                                  "X": 0,
+                                  "Y": 0.0,
+                                  "Z": 0
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Key": "970c6c3c-a8e1-4e0a-be76-5acc73782323",
+                            "Value": null
+                          },
+                          {
+                            "Key": "270d533d-96ee-476e-af5e-510ecf1568c9",
+                            "Value": null
+                          },
+                          {
+                            "Key": "5f721af6-ecb8-4aaf-a1fc-6b89e2a99bb1",
+                            "Value": null
+                          },
+                          {
+                            "Key": "ef2b1821-7904-4105-b740-9c020e8931ef",
+                            "Value": null
+                          }
+                        ],
+                        "DebugName": "KvmScreen"
+                      }
+                    }
+                  ],
+                  "Removed": []
+                }
+              }
+            },
+            {
+              "Kind": "Insert",
+              "Index": 5,
+              "Value": null
+            }
+          ],
+          "Removed": []
+        }
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.Core.Game.Definitions.PrefabDefinition",
+    "PriorityOverride": false
+  }
+}

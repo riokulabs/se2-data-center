@@ -1,0 +1,633 @@
+{
+ "cells": [
+  4,
+  1,
+  1
+ ],
+ "damaged": {
+  "collision": {
+   "bin": "DC_Sign_Aisle_Damaged_collision.bin",
+   "colliders": 3,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Sign_Aisle_Damaged_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02",
+    "Fracture_03"
+   ]
+  },
+  "dent": {
+   "max_mm": 8.29,
+   "mean_mm": 2.37,
+   "p90_mm": 4.44
+  },
+  "lods": [
+   {
+    "file": "DC_Sign_Aisle_Damaged.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "FracturedMaterial01",
+     "LCDScreen_Off_4",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 11,
+    "tris": 2628
+   },
+   {
+    "file": "DC_Sign_Aisle_Damaged_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_03",
+     "Fracture_03_Hide"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "FracturedMaterial01",
+     "LCDScreen_Off_4",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 9,
+    "tris": 708
+   },
+   {
+    "file": "DC_Sign_Aisle_Damaged_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Sign_Aisle_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.9875,
+   0.0952,
+   0.248
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "budget": [
+   11306,
+   1923,
+   55
+  ],
+  "caps": [
+   [
+    48,
+    4
+   ],
+   [
+    24,
+    4
+   ]
+  ],
+  "collision": {
+   "bin": "DC_Sign_Aisle_Fractured_collision.bin",
+   "colliders": 3,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Sign_Aisle_Fractured_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02",
+    "Fracture_03"
+   ]
+  },
+  "critical": [],
+  "cut_mode": "bisect",
+  "keep_whole": [
+   "hw",
+   "decal"
+  ],
+  "kind": "cut",
+  "lods": [
+   {
+    "file": "DC_Sign_Aisle_Fractured.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "FracturedMaterial01",
+     "LCDScreen_Off_4",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 12,
+    "tris": 2576
+   },
+   {
+    "file": "DC_Sign_Aisle_Fractured_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_03",
+     "Fracture_03_Hide"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "FracturedMaterial01",
+     "LCDScreen_Off_4",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 10,
+    "tris": 784
+   },
+   {
+    "file": "DC_Sign_Aisle_Fractured_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Sign_Aisle_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "mid_lod": false,
+  "parts": {
+   "BrushedMetal": [
+    "Scaffold",
+    "AlwaysVisible",
+    "Scaffolding"
+   ],
+   "Fracture_01-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_01-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01_Hide-LCDScreen_Off_4": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_02-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02_Hide-LCDScreen_Off_4": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Support-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_03-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_03-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_03-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_03_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_03_Hide-LCDScreen_Off_4": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_03_Support-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ]
+  },
+  "role_bounds": {
+   "Fracture_01": {
+    "hide": [
+     -0.161,
+     -0.0495,
+     -0.1,
+     0.162,
+     -0.0495,
+     0.1
+    ],
+    "skin": [
+     -0.1641,
+     -0.1245,
+     -0.1235,
+     0.1645,
+     -0.036,
+     0.1235
+    ]
+   },
+   "Fracture_02": {
+    "hide": [
+     -0.4,
+     -0.0495,
+     -0.1,
+     -0.157,
+     -0.0495,
+     0.1
+    ],
+    "skin": [
+     -0.4935,
+     -0.1245,
+     -0.124,
+     -0.1563,
+     -0.0335,
+     0.124
+    ],
+    "support": [
+     -0.4985,
+     -0.1247,
+     -0.0975,
+     -0.412,
+     -0.0295,
+     0.0975
+    ]
+   },
+   "Fracture_03": {
+    "hide": [
+     0.1577,
+     -0.0495,
+     -0.1,
+     0.4426,
+     -0.0336,
+     0.1
+    ],
+    "skin": [
+     0.154,
+     -0.1245,
+     -0.124,
+     0.489,
+     -0.0335,
+     0.124
+    ],
+    "support": [
+     0.412,
+     -0.1247,
+     -0.0975,
+     0.4795,
+     -0.0295,
+     0.0975
+    ]
+   }
+  },
+  "role_tris": {
+   "frame": 0,
+   "glass": 0,
+   "hide": 68,
+   "skin": 1360,
+   "support": 356
+  },
+  "scaffold": {
+   "boxes": [
+    [
+     [
+      -0.504,
+      -0.129,
+      -0.124
+     ],
+     [
+      0.489,
+      -0.0295,
+      0.124
+     ]
+    ]
+   ],
+   "members": 24,
+   "pitch": 0.25,
+   "pitches": {
+    "0": 0.25,
+    "1": 0.25
+   },
+   "proud": [
+    0,
+    1
+   ],
+   "radius": 0.006,
+   "sides": {
+    "0": 8,
+    "1": 4
+   },
+   "tris": {
+    "0": 384,
+    "1": 192
+   }
+  },
+  "seams": [
+   {
+    "jag": 0.006,
+    "n": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "o": [
+     -0.16,
+     0.0,
+     0.0
+    ],
+    "reach": 0.0156,
+    "sides": [
+     [
+      "Fracture_01"
+     ],
+     [
+      "Fracture_02"
+     ]
+    ],
+    "zones": [
+     "Fracture_01",
+     "Fracture_02"
+    ]
+   },
+   {
+    "jag": 0.006,
+    "n": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "o": [
+     0.16,
+     0.0,
+     0.0
+    ],
+    "reach": 0.0156,
+    "sides": [
+     [
+      "Fracture_01"
+     ],
+     [
+      "Fracture_03"
+     ]
+    ],
+    "zones": [
+     "Fracture_01",
+     "Fracture_03"
+    ]
+   }
+  ],
+  "size": [
+   0.993,
+   0.0995,
+   0.248
+  ],
+  "supporting": {
+   "LcdPanel": "Fracture_01"
+  },
+  "zones": [
+   {
+    "box_volume": 0.006995,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       -0.16,
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.16,
+       0.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.3074,
+    "hi": [
+     0.16,
+     -0.036,
+     0.1235
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_01",
+    "label": "middle tile (back plate, housing, bezel, the screen's centre)",
+    "lo": [
+     -0.16,
+     -0.1245,
+     -0.1235
+    ],
+    "volume": 0.006995
+   },
+   {
+    "box_volume": 0.007992,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       -0.16,
+       0.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.3512,
+    "hi": [
+     -0.16,
+     -0.0295,
+     0.124
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_02",
+    "label": "-x end tile (back plate, housing, bezel, gland)",
+    "lo": [
+     -0.4985,
+     -0.1247,
+     -0.124
+    ],
+    "volume": 0.007992
+   },
+   {
+    "box_volume": 0.007768,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.16,
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.3414,
+    "hi": [
+     0.489,
+     -0.0295,
+     0.124
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_03",
+    "label": "+x end tile (back plate, housing, bezel, the AISLE tab)",
+    "lo": [
+     0.16,
+     -0.1247,
+     -0.124
+    ],
+    "volume": 0.007768
+   }
+  ]
+ },
+ "name": "DC_Sign_Aisle",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_Sign_Aisle_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Sign_Aisle_collision.gltf",
+   "nodes": [
+    "DC_Sign_Aisle_sign",
+    "mountpointsDC_Sign_Aisle_back"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_Sign_Aisle.fbx",
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "LCDScreen_Off_4",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 1224
+   },
+   {
+    "file": "DC_Sign_Aisle_LOD1.fbx",
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "LCDScreen_Off_4",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 284
+   },
+   {
+    "file": "DC_Sign_Aisle_LOD2.fbx",
+    "materials": [
+     "DC_Sign_Aisle_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.9875,
+   0.0952,
+   0.248
+  ]
+ },
+ "shift": [
+  0.125,
+  0.0,
+  0.0
+ ]
+}

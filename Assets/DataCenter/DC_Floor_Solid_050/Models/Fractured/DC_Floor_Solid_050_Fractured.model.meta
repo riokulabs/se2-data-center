@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "0c05620b-b315-4412-b3c0-d1b8fb6ca9ec",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "lObP8KkHgheI/yU7TBTnSQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "G8yWXu71Ixxwp7pToHjDvA==",
+            "FileName": "DC_Floor_Solid_050_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "13bab5ca-fc4b-470b-a9f7-b88874a73e7a",
+            "Hash": "/QdZZlmArgoDc1GcBnh1/A=="
+          },
+          {
+            "Guid": "335917a4-bf6b-43c0-a137-f4adf7eaab78",
+            "Hash": "qqZ6EaxVCxlN8Iww64nciw=="
+          },
+          {
+            "Guid": "36a1afdf-b80a-446a-ae98-db51c7cb2058",
+            "Hash": "XlqxTvF7md/2M8uhVVP8ZA=="
+          },
+          {
+            "Guid": "6d840a60-9a43-4237-82cd-90772eb2733c",
+            "Hash": "9JgRLeN7BX8zGhmNZQLfIw=="
+          },
+          {
+            "Guid": "de266892-7835-4ac7-9c58-8d6f764a7e8b",
+            "Hash": "eWsEIynD7ILDKOI7V1FkLw=="
+          }
+        ],
+        "AssetHash": "lObP8KkHgheI/yU7TBTnSQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

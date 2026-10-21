@@ -1,0 +1,95 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "35365f7b-19e2-460b-87cd-a3a9c2a97fb0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "599eee43-1508-47e1-afe9-f068a0502afb",
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "a1687822-b4c2-4bcb-961e-3e44fae3221d",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "7a7762eb-c3ed-466b-b09c-336b5073251c",
+          "1b938f02-30d8-4cc7-8fa7-df3ad5686048",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "c2799423-a17e-47fd-b485-7c1778892811"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 2,
+            "Value": {
+              "Definition": "824c6c77-9b86-4c54-b691-571bc3b6c246",
+              "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockComponent"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "fcba4322-2e0b-4e16-91a3-e682fd111e5d"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 5,
+            "Value": {
+              "Definition": "c0dead24-71a6-4be0-850a-4e6a2d500d00"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 7,
+            "Value": {
+              "Definition": "51dc2dce-892b-4b0e-8fac-d6c4944eebbd"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 8,
+            "Value": {
+              "Definition": "cb78688e-6671-4780-92eb-2d94d4482ee6",
+              "Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Render.BlockMaterialSwapperComponent"
+            }
+          }
+        ],
+        "Removed": [
+          "786ef564-3cbf-4509-a58c-ad19243fffc1"
+        ]
+      },
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": [
+          {
+            "$Key": "GridBlockComponent",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "MaxHealthComponent",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "IBoundsProvider",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "BlockMaterialSwapperComponent",
+            "$Value": "c2799423-a17e-47fd-b485-7c1778892811"
+          }
+        ]
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

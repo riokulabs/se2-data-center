@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "b9a753ae-5509-4d1a-844b-f5129e1a16b2",
+    "Name": "Server Rack (Open Frame)",
+    "Description": "Open-frame 19-inch server rack: server slots on slide rails, cable managers in both side columns. 42U: 8 slots and an overhead cable tray with fans; 24U: 4 slots.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "18aa1ffa-48fd-4c8e-a9a8-9cab02785430",
+        "Value": "116212f9-bedc-43bc-942f-32c17893a887"
+      }
+    ]
+  }
+}

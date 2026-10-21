@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.685",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.685"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "9aa66af0-fceb-42d1-93bd-9c4a95a068e1",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "0e6ef948-fe7f-4b3e-af70-9eee63fbca03",
+      "UIData": {
+        "Name": "Rack Label",
+        "Icon": "{G}5a09395c-20bb-47e7-a60e-930b5fccf05d"
+      },
+      "BlockKind": "9fbcbe89-6c6d-430f-b7ea-735f2f1cbe25",
+      "PCU": 35,
+      "MountPointGeneratorSettings": {
+        "Directions": "Down"
+      },
+      "Recipe": "d877620f-3f54-484b-8326-85290e76c773"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

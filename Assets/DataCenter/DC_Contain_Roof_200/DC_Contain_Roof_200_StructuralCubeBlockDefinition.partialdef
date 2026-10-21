@@ -1,0 +1,29 @@
+{
+  "$Bundles": {
+    "Game2": "2.2.0.132",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.2.0.132"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "68623676-e174-4a59-9cf0-1dae0317035d",
+      "UIData": {
+        "Name": "Containment Roof",
+        "Icon": "{G}708bb227-db8e-4627-856d-c653909c8696"
+      },
+      "PlacerDefinition": "c8a68892-8e5e-4667-8b4e-eea02ee1b5e9",
+      "Recipe": "79231d08-f4a1-4fb9-b23b-cbf57ff7be68",
+      "BlockKind": "299c237d-dd08-4cf1-b1e7-b182512afe62",
+      "PCU": 5,
+      "MountPointGeneratorSettings": {
+        "Directions": "All"
+      },
+      "Fragility": "060b61a3-51ed-4a47-8d4e-e3c2f8712216"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

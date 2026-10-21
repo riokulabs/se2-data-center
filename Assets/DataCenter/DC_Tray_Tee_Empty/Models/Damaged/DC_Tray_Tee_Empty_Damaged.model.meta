@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "6a553570-56e4-4364-8438-338edbb6765d",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "TLXwSoxjaFXKIaD96coi9g=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "J0Rxs2hWoh5KVCGj8jf6bw==",
+            "FileName": "DC_Tray_Tee_Empty_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "3282ada7-a42a-438d-a750-81a2c6e258f3",
+            "Hash": "q9CSih7YXyebClBda/QNVw=="
+          },
+          {
+            "Guid": "79410c50-f09f-40a4-88ec-167459c20f12",
+            "Hash": "5ou49bOnhMtaiVzJaMpjdA=="
+          },
+          {
+            "Guid": "ae30cc19-ee1a-4d8b-bbb1-0ba0b9e850ad",
+            "Hash": "1j58LQ4MG3CFFSnCzVMfLQ=="
+          },
+          {
+            "Guid": "b1f29997-f659-432e-9489-5a871993907c",
+            "Hash": "/u5nBiOEP8tIfP3jP6dMJA=="
+          },
+          {
+            "Guid": "ea1a9359-a5be-40c0-b02f-91066681410a",
+            "Hash": "BqYbnFjCtrtXI4CPzr920w=="
+          }
+        ],
+        "AssetHash": "TLXwSoxjaFXKIaD96coi9g==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

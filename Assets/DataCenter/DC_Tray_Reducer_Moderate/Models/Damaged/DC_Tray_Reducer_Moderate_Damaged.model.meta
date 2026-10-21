@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "e7525ef6-6b32-4330-8070-cef3d1b4a1b4",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "vhrDvwJV+1fCDwTpEoX7Zw=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "n9gFYURh+HA4ZcCio/g2BQ==",
+            "FileName": "DC_Tray_Reducer_Moderate_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "0b0d5bb2-5953-46cc-8498-ef561ab7df6f",
+            "Hash": "es4oNiEl3UBHvup4D1TULA=="
+          },
+          {
+            "Guid": "0b1ebe1d-a82a-4383-b4c8-6f38bdfb329d",
+            "Hash": "Wzt5ViIQcWI/QJs7x+IRCQ=="
+          },
+          {
+            "Guid": "3135c974-558d-49f6-b704-7d34c75373f3",
+            "Hash": "FiwFx5SNDJN7UwuB8xywlA=="
+          },
+          {
+            "Guid": "64500127-2660-468e-8cd0-fde329d10d73",
+            "Hash": "VEj1Bm74++VSwqxQS2ddIA=="
+          },
+          {
+            "Guid": "af5ff497-80e3-48d9-9973-2dbcb499adb0",
+            "Hash": "6xql2Gch5Uf2ccoVxFkN1w=="
+          }
+        ],
+        "AssetHash": "vhrDvwJV+1fCDwTpEoX7Zw==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

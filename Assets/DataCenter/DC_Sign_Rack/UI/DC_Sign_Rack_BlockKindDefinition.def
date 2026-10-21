@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.685",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.685"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "9fbcbe89-6c6d-430f-b7ea-735f2f1cbe25",
+    "Name": "Rack Label",
+    "Description": "Editable 0.5 x 0.25 m LCD label (\"RACK 3.01\") for a rack's top front edge, between the cable tray's two drops.",
+    "OrderingPriority": 3,
+    "BlockGroups": [
+      {
+        "Key": "6ce9e498-fda0-4cc0-8968-862fd75c7bcc",
+        "Value": "c8761e59-d9b9-4814-bffa-5bb3d2d5843f"
+      }
+    ]
+  }
+}

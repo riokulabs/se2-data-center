@@ -1,0 +1,45 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "d16c1d9d-4b2f-476a-91c4-ec3f297830ec",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "t2x+z0yTtGKxuXb1zc0aCA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "6E/bpI8CzNpmdeXemPP6og==",
+            "FileName": "DC_Rack42_Open_RackFan.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "8e357ded-003e-47c6-a48a-091df2c26ba0",
+            "Hash": "o9NjuKKoUXzndf8YoBbXew=="
+          },
+          {
+            "Guid": "dc38b412-6f76-44cd-8dec-6fdc75078d4f",
+            "Hash": "wrCri8PDcdI5rcv5Yzy8ww=="
+          }
+        ],
+        "AssetHash": "t2x+z0yTtGKxuXb1zc0aCA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

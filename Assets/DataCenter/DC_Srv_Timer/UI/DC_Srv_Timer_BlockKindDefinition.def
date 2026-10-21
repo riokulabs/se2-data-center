@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.253",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.253"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "2a5d2c02-0de8-4652-b305-f3dcc9798b85",
+    "Name": "Timer Server",
+    "Description": "Rack-mount timer: a vanilla Timer block in a 6U server chassis.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "4295a61e-399a-42bb-b601-689e2a4f74dd",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

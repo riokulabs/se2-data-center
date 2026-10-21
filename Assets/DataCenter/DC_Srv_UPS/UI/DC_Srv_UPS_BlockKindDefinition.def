@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "dabb9e0f-f597-4cbe-b9d5-0ed1d8772419",
+    "Name": "UPS",
+    "Description": "Rack-mount uninterruptible power supply: a battery with two Power Cell slots, 12U.",
+    "OrderingPriority": 5,
+    "BlockGroups": [
+      {
+        "Key": "08a58837-51f6-4f3e-9cf4-b154e4777f5a",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

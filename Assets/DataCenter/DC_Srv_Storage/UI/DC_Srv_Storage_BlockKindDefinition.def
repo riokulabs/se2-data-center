@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "271dad90-42af-4759-9a25-3b0786c41505",
+    "Name": "Storage Server",
+    "Description": "Decorative 6U storage server: twelve hot-swap drive caddies.",
+    "OrderingPriority": 8,
+    "BlockGroups": [
+      {
+        "Key": "bf9f8c4c-5596-4758-bba0-fbba903ca065",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

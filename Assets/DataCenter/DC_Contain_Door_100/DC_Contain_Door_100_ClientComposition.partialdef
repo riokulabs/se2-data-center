@@ -1,0 +1,104 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4904",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4904"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "91b06805-85ef-4412-8439-7fd157b2915f",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "70b47b30-427a-4a5f-a75f-228771ec2324",
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "a1687822-b4c2-4bcb-961e-3e44fae3221d",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "72e2ef60-d699-48a2-9959-4e246eecdacc",
+          "24f8dfe2-6b3f-4764-a9db-6e4383dcae5d",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "60e51d04-0f4a-4834-97f0-6308380709f2",
+          "4682479c-55a1-4eee-8b20-238077daf9c5",
+          "28399edb-e499-44cd-ba3e-64b60fcd1515",
+          "e3e8629b-66c1-4b2c-8db1-a8b0f83d2636",
+          "0e5a339e-9b50-49a3-9a22-e1f25a7d1212"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 3,
+            "Value": {
+              "Definition": "b2afe14f-0a19-474f-8921-205d6778a547"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "078f9eb1-c26a-4cee-be55-7673974404d4"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 5,
+            "Value": {
+              "Definition": "70131d38-02e5-4ea9-8160-c5217aff1786"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 7,
+            "Value": {
+              "Definition": "6e4ba8a1-0e2f-4ace-89dd-cc57680d1c4f"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 8,
+            "Value": {
+              "Definition": "25cbf414-8690-43c6-a0ae-0bc1fd0114fb",
+              "Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Render.BlockMaterialSwapperComponent"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 9,
+            "Value": {
+              "Definition": "66e67bc1-7c3d-486e-8d0a-ee61e264ba14"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 10,
+            "Value": {
+              "Definition": "92679387-8555-4f71-8b3e-7cfe4c910d57"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 11,
+            "Value": {
+              "Definition": "bb5695b7-a868-4702-8da0-2fff0d3ee5bb"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 12,
+            "Value": {
+              "Definition": "64a2b7c7-6b0f-4d04-be93-0b305c0c95a5"
+            }
+          }
+        ],
+        "Removed": [
+          "dbe945c6-db2c-42c5-b9dc-2565adaad768"
+        ]
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

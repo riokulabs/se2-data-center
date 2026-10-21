@@ -1,0 +1,49 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "cf60cb9e-f0da-45bd-b702-3e07f8f679cc",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "JWzrdZVVRJNd6Bz83rvQmQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "7Da6cYtCwddjTO3Ftkc1Yg==",
+            "FileName": "DC_Rack24_SplitFront_DoorLeafR.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "3ef96b3c-ad03-43af-aaf2-0b760e7b36f1",
+            "Hash": "fzK0VTk5byNQaQA+VxF+pQ=="
+          },
+          {
+            "Guid": "bf1e6087-df88-4255-a5ad-303d2a6ac9f1",
+            "Hash": "62Ru4cxqXrzc8ZocYZeLrg=="
+          },
+          {
+            "Guid": "f779e379-ef92-4fb1-97e8-bc8c6afd0084",
+            "Hash": "DPDkT4Sdyx06BhFth0AAgA=="
+          }
+        ],
+        "AssetHash": "JWzrdZVVRJNd6Bz83rvQmQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

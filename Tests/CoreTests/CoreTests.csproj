@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Offline tests of the game-free cores: the KVM motion (Scripts/Client/Core) and the shared rules (Scripts/Simulation/Shared/Core). Compiles those exact sources; no game DLLs.
+       The pattern of an earlier prototype's CoreTests.
+       Run (from this folder): dotnet run -c Release   (add the dump option to write trajectories, see Program.cs). Exit code 0 = all pass.
+       The game compiles the same files in DataCenter.Client; Tests/test_scripts_layout.py keeps them free of Keen.* -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <RollForward>Major</RollForward>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Scripts/Client/Core/**/*.cs" LinkBase="Core" />
+    <Compile Include="../../Scripts/Simulation/Shared/Core/**/*.cs" LinkBase="SharedCore" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,26 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "84c22189-bae1-4779-9035-909d7520338b",
+      "UIData": {
+        "Name": "Cable Tray, Cross (Low)",
+        "Icon": "{G}35c7a4a3-5a89-4197-b78c-30a1e635f326"
+      },
+      "PlacerDefinition": "877dac57-35ef-43a8-86c3-3278e398c442",
+      "Recipe": "b36d8a41-248c-4e63-9979-7b1a68e34296",
+      "BlockKind": "a0e1ccca-0853-4265-91f6-c543d121b7ed",
+      "PCU": 5,
+      "Density": "3dca2cf9-e9b5-4df4-99ed-f7d12f2fce7b"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

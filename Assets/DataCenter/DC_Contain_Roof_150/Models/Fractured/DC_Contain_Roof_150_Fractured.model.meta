@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "3a97bb77-9145-48f1-93f2-4c461bc423c2",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "GoaABhYqhqdYxZreGJsJgQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "krLPNv9dQJk56NmjOh3Z8A==",
+            "FileName": "DC_Contain_Roof_150_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "48fe6383-532d-4830-b4e5-2987c6c8ac1f",
+            "Hash": "OzM0BjH85vJZCfbZNdeBDA=="
+          },
+          {
+            "Guid": "77f8371a-3a9e-4c9f-8e98-d4b743f047a7",
+            "Hash": "JDzJocYyQXjOEnJ304d0BA=="
+          },
+          {
+            "Guid": "7a403203-a10e-48d8-b06c-c3dd26e59c8d",
+            "Hash": "R3fHOCSCIE1KPCArL5Cirw=="
+          },
+          {
+            "Guid": "809bec23-9b58-47e3-bd0a-1165ac900d67",
+            "Hash": "qv17SfKkbFhO/sH0CNi44g=="
+          },
+          {
+            "Guid": "a1cd07df-aa9a-45c7-8fd2-984e17a0f8ac",
+            "Hash": "CFprvjEgUYVl4xQXexbmng=="
+          }
+        ],
+        "AssetHash": "GoaABhYqhqdYxZreGJsJgQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

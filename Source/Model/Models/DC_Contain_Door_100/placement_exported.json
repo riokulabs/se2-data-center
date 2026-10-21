@@ -1,0 +1,264 @@
+{
+ "model": "DC_Contain_Door_100",
+ "fbx_sha256": "7718aa654554ec1116159479d51974a4bf68cc1b29542529a88577505ae5aea1",
+ "inputs": [
+  "NonFractured/DC_Contain_Door_100.fbx",
+  "NonFractured/DC_Contain_Door_100_collision.gltf",
+  "Fractured/DC_Contain_Door_100_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 4,
+  "occupancy_hints": 0,
+  "mount_hints": 8,
+  "fractures": 8
+ },
+ "render_tris": 5200,
+ "nonfractured": {
+  "occupied": 64,
+  "total": 80,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.1
+   },
+   "Backward": {
+    "groups": 3,
+    "coverage": 0.55
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Down": {
+    "groups": 2,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [
+   [
+    0,
+    -3,
+    0
+   ],
+   [
+    0,
+    -2,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    0,
+    3,
+    0
+   ],
+   [
+    0,
+    4,
+    0
+   ],
+   [
+    1,
+    -3,
+    0
+   ],
+   [
+    1,
+    -2,
+    0
+   ],
+   [
+    1,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    2,
+    0
+   ],
+   [
+    1,
+    3,
+    0
+   ],
+   [
+    1,
+    4,
+    0
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.125,
+   0.0
+  ],
+  "summary": "DC_Contain_Door_100: groups F/B/L/R/U/D = 1 / 3 / 1 / 1 / 1 / 2; plane coverage = 10% / 55% / 100% / 100% / 100% / 100%; occupied 64/80 box cells, 16 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 64,
+  "total": 80,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 3,
+    "coverage": 0.1
+   },
+   "Backward": {
+    "groups": 9,
+    "coverage": 0.55
+   },
+   "Left": {
+    "groups": 3,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 3,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 3,
+    "coverage": 1.0
+   },
+   "Down": {
+    "groups": 4,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [
+   [
+    0,
+    -3,
+    0
+   ],
+   [
+    0,
+    -2,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    0,
+    3,
+    0
+   ],
+   [
+    0,
+    4,
+    0
+   ],
+   [
+    1,
+    -3,
+    0
+   ],
+   [
+    1,
+    -2,
+    0
+   ],
+   [
+    1,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    2,
+    0
+   ],
+   [
+    1,
+    3,
+    0
+   ],
+   [
+    1,
+    4,
+    0
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.125,
+   0.0
+  ],
+  "summary": "DC_Contain_Door_100: groups F/B/L/R/U/D = 3 / 9 / 3 / 3 / 3 / 4; plane coverage = 10% / 55% / 100% / 100% / 100% / 100%; occupied 64/80 box cells, 16 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_04": 10,
+   "Fracture_01": 20,
+   "Fracture_07": 10,
+   "Fracture_02": 15,
+   "Fracture_03": 9,
+   "Fracture_05": 15,
+   "Fracture_06": 9,
+   "Fracture_08": 2
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+  "$Bundles": {
+    "Game2": "2.2.0.132",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.2.0.132"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "369c859c-dc0c-4d5e-ad7d-3c435dba77a0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "8b60ad03-f3b1-4826-a355-027c68b45fe4",
+      "AutoRotateFace": null
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PlacementDefinition",
+    "PriorityOverride": false
+  }
+}

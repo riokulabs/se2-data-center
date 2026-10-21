@@ -1,0 +1,82 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1609",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1609"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "9833b45f-713a-4141-9a17-8d4239322809",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "e718c3c2-b7c3-45f7-961e-e8d9e267d068",
+      "OnDamagedBlockParticleEffect": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "3ce2745e-0989-4256-86e6-76d5fa6100b7",
+          "9647c4c1-b0a5-4a3a-b70e-92df5b17d844",
+          "362606c3-ea69-4e0e-aba4-8fccf16b0261"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 0,
+            "Value": {
+              "ParticleEffects": {
+                "$DeltaEncoded": true,
+                "Keys": [
+                  "34f51798-45e7-45fd-b686-2193aa107733"
+                ],
+                "Changed": [
+                  {
+                    "Kind": "Update",
+                    "Index": 0,
+                    "Value": {
+                      "ParticleEffect": "d8cb4c53-5d1b-4aaa-9b56-71bb67ad1dd7",
+                      "Scale": 0.5
+                    }
+                  }
+                ],
+                "Removed": []
+              }
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 2,
+            "Value": {
+              "ParticleEffects": {
+                "$DeltaEncoded": true,
+                "Keys": [
+                  "75c9c647-02df-4ab6-9ce1-8db8f746fa71"
+                ],
+                "Changed": [
+                  {
+                    "Kind": "Update",
+                    "Index": 0,
+                    "Value": {
+                      "ParticleEffect": "9056509a-00d5-4abd-a2ea-3a9707e2ef45",
+                      "Scale": 0.5
+                    }
+                  }
+                ],
+                "Removed": []
+              }
+            }
+          }
+        ],
+        "Removed": []
+      },
+      "OnConstructionStateChangedParticleEffect": {
+        "ParticleEffect": "01e8797b-c0a8-4659-9d92-4b9efbf4cf25",
+        "Dummy": "82c73d56-c77f-4ba7-a0a5-7f1438dd576b"
+      },
+      "OnBlockDeathParticleEffect": {
+        "ParticleEffect": "b41e3b65-0919-4ff9-95b0-72c0ddad7409",
+        "Scale": 0.15
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.BlockEffectsComponentDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "eb7bfe77-9ac1-4591-91e2-b206e90b70a9",
+    "Name": "Raised Floor (Perforated)",
+    "Description": "Perforated raised-floor panel, 25 % open over a volume damper: the cold-aisle tile that lets chilled air up in front of the racks. 0.5 m (one tile) or 1.0 m (four tiles), 0.25 m high.",
+    "OrderingPriority": 2,
+    "BlockGroups": [
+      {
+        "Key": "1c0f1a75-6494-43b3-ac1f-b87242379a19",
+        "Value": "221db781-2af3-4fe1-aa90-279b66b57cb5"
+      }
+    ]
+  }
+}

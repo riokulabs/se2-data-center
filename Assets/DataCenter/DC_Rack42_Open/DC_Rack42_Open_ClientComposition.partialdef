@@ -1,0 +1,108 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "35365f7b-19e2-460b-87cd-a3a9c2a97fb0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "160ed5aa-2ecb-433c-b700-59bba14d9a3d",
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "a1687822-b4c2-4bcb-961e-3e44fae3221d",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "7a7762eb-c3ed-466b-b09c-336b5073251c",
+          "1b938f02-30d8-4cc7-8fa7-df3ad5686048",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "e5f89768-e5c1-4d85-9de8-ae70a2e543d9",
+          "5b11d41f-58a1-4c1d-9ce6-b8443df542f2"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 2,
+            "Value": {
+              "Definition": "c754c5fd-194d-498e-b839-85f03664dedb",
+              "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockComponent"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "6234c6c3-f02e-4b64-a35b-7debb2246401"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 5,
+            "Value": {
+              "Definition": "687081c7-445a-45d2-8a52-ea752406ff17"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 7,
+            "Value": {
+              "Definition": "cd2eaa92-92ef-4349-a6e0-e0dd7a6d9830"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 8,
+            "Value": {
+              "Definition": "0ba4fa03-7236-4a2f-a3c4-fb72bae2e02b",
+              "Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.ConditionalSubPartsComponent"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 9,
+            "Value": {
+              "Definition": null,
+              "Type": "Game2:Keen.Game2.Simulation.GameSystems.RigidAnimations.FunctionalBlockAnimationControllerComponent"
+            }
+          }
+        ],
+        "Removed": [
+          "786ef564-3cbf-4509-a58c-ad19243fffc1"
+        ]
+      },
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": [
+          {
+            "$Key": "GridBlockComponent",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "MaxHealthComponent",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "IBoundsProvider",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "ConditionalSubPartsComponent",
+            "$Value": "e5f89768-e5c1-4d85-9de8-ae70a2e543d9"
+          },
+          {
+            "$Key": "FunctionalBlockAnimationControllerComponent",
+            "$Value": "5b11d41f-58a1-4c1d-9ce6-b8443df542f2"
+          }
+        ]
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

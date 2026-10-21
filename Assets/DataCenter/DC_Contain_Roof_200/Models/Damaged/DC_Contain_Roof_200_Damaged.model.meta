@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "98740007-0061-4d61-8a84-209ee4046f9e",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "tpKHrAI6+dhoSq6SVVVgJQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "JgzHt8YtK25T2OrAWpoQPw==",
+            "FileName": "DC_Contain_Roof_200_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "4c613ede-f01b-4750-8d16-d9414e3a7a91",
+            "Hash": "W5VtSu0dYJN/hxUCttTFjA=="
+          },
+          {
+            "Guid": "5b48feea-bf77-442c-9619-39bc2a9b5d57",
+            "Hash": "OfclvRrQh7H/ZVO6kouzGw=="
+          },
+          {
+            "Guid": "6fce8cd5-d54e-47f8-bd46-3bf242b901f8",
+            "Hash": "bTyHDlsJIje/YYJuHqc+4Q=="
+          },
+          {
+            "Guid": "88b4e1e1-4b89-44a7-8281-35274f967140",
+            "Hash": "MqHvHAw6R0LDT2RuKP6ozw=="
+          },
+          {
+            "Guid": "a5ccd397-6a96-4beb-93ce-e46e84994555",
+            "Hash": "iCFpWtkwyuI3phtZkfRucQ=="
+          }
+        ],
+        "AssetHash": "tpKHrAI6+dhoSq6SVVVgJQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

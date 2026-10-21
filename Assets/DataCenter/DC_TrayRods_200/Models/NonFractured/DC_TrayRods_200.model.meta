@@ -1,0 +1,49 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "7379b233-33f3-479d-a55d-f296a0805816",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "uqXvvje6eInYqzIAVDZJEQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "q2Dmurc/w4l0sgh78lRryg==",
+            "FileName": "DC_TrayRods_200.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "4757c1e7-abc5-499e-bf5b-a161291cb38f",
+            "Hash": "WcjlspZCMkPpCXT3tlvOaA=="
+          },
+          {
+            "Guid": "e3975b29-a407-433e-b53b-600a8504777f",
+            "Hash": "5aWH3j2Sf2PtqbPEDqlPtw=="
+          },
+          {
+            "Guid": "edfd8e61-a330-49a0-bf00-60f0c0a61c2c",
+            "Hash": "6iNAll0Q7GMYQjLIbIXgHw=="
+          }
+        ],
+        "AssetHash": "uqXvvje6eInYqzIAVDZJEQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

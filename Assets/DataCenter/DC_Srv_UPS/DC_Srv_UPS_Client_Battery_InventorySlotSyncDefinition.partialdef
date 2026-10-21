@@ -1,0 +1,18 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "dbf8bb24-b864-46cd-bfa6-b219a13283ab",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "23703312-65f4-4487-a40f-7edf75112be6",
+      "SlotDefinition": "b5918c48-e7da-4a07-9755-a6bfda878bbc"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.Items.InventorySlotSyncDefinition",
+    "PriorityOverride": false
+  }
+}

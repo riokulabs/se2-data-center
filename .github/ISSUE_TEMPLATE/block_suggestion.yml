@@ -1,0 +1,62 @@
+# managed by riokulabs/.github - edit there (templates/), not here
+name: Block suggestion
+description: Suggest a new block or a change to an existing one
+labels: ["block-suggestion", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Blocks here follow a rule: every part that is modelled should have a believable purpose in the real thing, and the block should work like a vanilla block of the same kind. Suggestions that fit that are the easiest to accept. Show real-world references where you can.
+  - type: input
+    id: name
+    attributes:
+      label: Block name
+      placeholder: "Rack PDU strip, 1U"
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: What it is for in a base
+      description: What would you build with it?
+    validations:
+      required: true
+  - type: dropdown
+    id: behaves_like
+    attributes:
+      label: Should behave like
+      description: Which vanilla block is the closest in function?
+      options:
+        - Decorative only
+        - Battery or power source
+        - Power consumer
+        - Timer or event controller
+        - Control panel or screen
+        - Door or moving part
+        - Something else (explain below)
+    validations:
+      required: true
+  - type: input
+    id: size
+    attributes:
+      label: Size
+      description: Grid cells or real-world dimensions.
+      placeholder: "19-inch, 2U, 1 cell wide"
+    validations:
+      required: false
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Photos or links of the real thing. Link only; do not upload other people's copyrighted images.
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Check
+      options:
+        - label: I searched the existing issues and the README block list.
+          required: true
+        - label: I understand the mod is non-commercial and under GPL-3.0.
+          required: true

@@ -1,0 +1,18 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4474",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4474"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "51b06007-072f-43da-82ae-ac7c1f0a4e03",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "55f63771-2f5b-4bb9-9342-04dcaa030319",
+      "ServerDefinition": "41035469-c45d-45f9-ae1d-5da1e261f11c"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Doors.DoorClientDefinition",
+    "PriorityOverride": false
+  }
+}

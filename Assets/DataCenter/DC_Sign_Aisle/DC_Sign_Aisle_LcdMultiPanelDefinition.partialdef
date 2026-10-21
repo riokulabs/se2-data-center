@@ -1,0 +1,41 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1631",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1631"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "57977bda-206b-4eb7-942b-6f4006ce8d81",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "0a67c9de-ae77-4f77-b071-339561dc8748",
+      "Surfaces": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "09362a5c-ecf4-45e9-ba8e-1e9ccf09f662"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 0,
+            "Value": {
+              "MeshPartName": "LCDScreen_Off_4",
+              "Resolution": {
+                "X": 1024,
+                "Y": 256
+              },
+              "DefaultScreenMaterial": "8a35c12c-0fb9-45fa-be7b-6d97cb624c75",
+              "AspectRatio": 4,
+              "UseOnlineTexture": true,
+              "DefaultDisplayName": "Aisle Sign"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Lcd.LcdMultiPanelDefinition",
+    "PriorityOverride": false
+  }
+}

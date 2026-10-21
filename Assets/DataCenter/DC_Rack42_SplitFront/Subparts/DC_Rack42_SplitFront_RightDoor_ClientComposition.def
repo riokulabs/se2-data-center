@@ -1,0 +1,92 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.3135",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.3135"
+  },
+  "$Type": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "67ab1825-6d2f-4988-82af-f1a4efc38a6d",
+    "TagSlots": [
+      {
+        "$Key": "ModelRenderBaseComponent",
+        "$Value": "d44eb4d4-887f-4034-8d0f-f800f137612d"
+      },
+      {
+        "$Key": "IRenderParent",
+        "$Value": "bdd7913e-9cf1-40d7-b108-c2d3f134570c"
+      },
+      {
+        "$Key": "HierarchyComponent",
+        "$Value": "443b2e82-32c8-4180-b975-7d2f0fc39bf5"
+      },
+      {
+        "$Key": "ChildTransformComponent",
+        "$Value": "9f39246c-fae5-4fde-9281-cbfa56d9e5e0"
+      },
+      {
+        "$Key": "ModelComponent",
+        "$Value": "a0fa3992-72d5-4767-b33a-6441fec58448"
+      },
+      {
+        "$Key": "DoorSegmentTransformSLERPComponent",
+        "$Value": "b1a21177-b433-452a-821d-bb553aec4a29"
+      },
+      {
+        "$Key": "DoorSegmentComponent",
+        "$Value": "08998e36-aa41-44ba-80bf-560127400dc6"
+      }
+    ],
+    "Components": [
+      {
+        "Key": "d44eb4d4-887f-4034-8d0f-f800f137612d",
+        "Value": {
+          "Definition": null,
+          "Type": "Game2:Keen.Game2.Client.GameSystems.Render.ModelRenderComponent"
+        }
+      },
+      {
+        "Key": "bdd7913e-9cf1-40d7-b108-c2d3f134570c",
+        "Value": {
+          "Definition": null,
+          "Type": "Game2:Keen.Game2.Client.GameSystems.Render.ParentRenderAdapterComponent"
+        }
+      },
+      {
+        "Key": "443b2e82-32c8-4180-b975-7d2f0fc39bf5",
+        "Value": {
+          "Definition": null,
+          "Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponent"
+        }
+      },
+      {
+        "Key": "9f39246c-fae5-4fde-9281-cbfa56d9e5e0",
+        "Value": {
+          "Definition": null,
+          "Type": "VRage:Keen.VRage.Core.Game.Components.ChildTransformComponent"
+        }
+      },
+      {
+        "Key": "a0fa3992-72d5-4767-b33a-6441fec58448",
+        "Value": {
+          "Definition": "195f00b7-7158-4c9f-9ed0-3604257ea11e",
+          "Type": "VRage:Keen.VRage.Game.Components.Models.ModelComponent"
+        }
+      },
+      {
+        "Key": "b1a21177-b433-452a-821d-bb553aec4a29",
+        "Value": {
+          "Definition": "f4f6c058-4c89-471c-b3c9-f27432419b12",
+          "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Doors.DoorSegmentTransformSLERPComponent"
+        }
+      },
+      {
+        "Key": "08998e36-aa41-44ba-80bf-560127400dc6",
+        "Value": {
+          "Definition": null,
+          "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Doors.DoorSegmentComponent"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.789",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.789"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "25db3f11-b877-45a2-a098-e2b694c6baaf",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "49b59208-9dda-4584-9e43-967ef2f1d150",
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+          "e4622cd6-89cd-4258-bfcf-e760638697b1",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+        ],
+        "Changed": [
+          {
+            "Kind": "Update",
+            "Index": 2,
+            "Value": {
+              "Definition": "63e9f961-7810-4a70-b5a5-cab2f4e1d618"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 3,
+            "Value": {
+              "Definition": "cdd7a0af-fd62-4047-9fbc-9031a11c6341"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "0a67c9de-ae77-4f77-b071-339561dc8748"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 5,
+            "Value": {
+              "Definition": "a5ae10d8-6409-44c5-b3c2-c336f0c05097",
+              "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockComponent"
+            }
+          }
+        ],
+        "Removed": [
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+        ]
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

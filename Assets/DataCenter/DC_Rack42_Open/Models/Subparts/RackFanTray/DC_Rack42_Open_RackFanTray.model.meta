@@ -1,0 +1,49 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "d9f72af1-4c5c-4d7d-8446-372ec42ff3f8",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "aC/cLXKwXlKrdjg/zc6mfQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "ngCaIEP2pnVVLvx3Z4pKmg==",
+            "FileName": "DC_Rack42_Open_RackFanTray.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "195e66e1-62c5-4ac3-a932-f3c95c13c0c9",
+            "Hash": "ma/Lzxjhhjh8PGA2qNUxGQ=="
+          },
+          {
+            "Guid": "4d6398da-3688-4f66-8676-76a9ce9ad00a",
+            "Hash": "faa93LU4G1IT3o2Eq1gAwA=="
+          },
+          {
+            "Guid": "e8592734-bfc6-444d-95ff-08ed51473f58",
+            "Hash": "yi11IIXzitmaUTMntCZ7RQ=="
+          }
+        ],
+        "AssetHash": "aC/cLXKwXlKrdjg/zc6mfQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

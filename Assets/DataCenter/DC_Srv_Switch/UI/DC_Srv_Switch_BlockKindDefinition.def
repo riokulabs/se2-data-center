@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "7d672dad-4d7c-471e-bd0a-a5752da49a10",
+    "Name": "Network Switch",
+    "Description": "Decorative 6U network switch: 24 ports, SFP uplinks and a fan tray.",
+    "OrderingPriority": 9,
+    "BlockGroups": [
+      {
+        "Key": "53a3000c-9a54-436f-89c7-c395ca3b7c63",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

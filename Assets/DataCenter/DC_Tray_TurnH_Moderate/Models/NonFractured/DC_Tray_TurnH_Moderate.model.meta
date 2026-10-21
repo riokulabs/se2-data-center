@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "d2626742-80cb-4903-84b5-484f68c568f1",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "FhrH6vWE9UyyP897ZelHEw=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "Yl19xKDYweo1tPbZHR/Ygg==",
+            "FileName": "DC_Tray_TurnH_Moderate.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "08723b7c-41f1-4a07-9e0d-12daeec4e3d8",
+            "Hash": "Tlt+Gy6c5IZtyH/pghPrTQ=="
+          },
+          {
+            "Guid": "712483aa-59a9-4381-8232-e1e8875f2c3b",
+            "Hash": "sWx3ezaWtpwBtUKHh0yNsA=="
+          },
+          {
+            "Guid": "ad547fca-284c-4ebe-9fdf-2b2c14cdd6ca",
+            "Hash": "/fBOHSLkUhCXnqN4bHhwaA=="
+          },
+          {
+            "Guid": "c0877b98-c84c-482a-8616-70c9def456f0",
+            "Hash": "7Bp/x8TqBP5I+Z9QkBEWVQ=="
+          },
+          {
+            "Guid": "f40b9a91-2230-4a90-be99-fb95b61a39be",
+            "Hash": "jywj/+hxiH8cWi9i8tIvSA=="
+          }
+        ],
+        "AssetHash": "FhrH6vWE9UyyP897ZelHEw==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

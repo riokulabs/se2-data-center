@@ -1,0 +1,583 @@
+{
+ "cells": [
+  1,
+  4,
+  1
+ ],
+ "damaged": {
+  "collision": {
+   "bin": "DC_PDU_Rack24_B_Damaged_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_PDU_Rack24_B_Damaged_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02"
+   ]
+  },
+  "dent": {
+   "max_mm": 7.48,
+   "mean_mm": 2.48,
+   "p90_mm": 4.51
+  },
+  "lods": [
+   {
+    "file": "DC_PDU_Rack24_B_Damaged.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 8,
+    "tris": 5246
+   },
+   {
+    "file": "DC_PDU_Rack24_B_Damaged_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 7,
+    "tris": 1130
+   },
+   {
+    "file": "DC_PDU_Rack24_B_Damaged_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_PDU_Rack24_B_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.127,
+   0.1829,
+   0.876
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "budget": [
+   9625,
+   1650,
+   55
+  ],
+  "caps": [
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    2
+   ]
+  ],
+  "collision": {
+   "bin": "DC_PDU_Rack24_B_Fractured_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_PDU_Rack24_B_Fractured_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02"
+   ]
+  },
+  "critical": [],
+  "cut_mode": "bisect",
+  "interior": {
+   "Fracture_01": {
+    "cap_plane_m2": 0.0016,
+    "exposes": false,
+    "interior_tris": 310
+   },
+   "Fracture_02": {
+    "cap_plane_m2": 0.0014,
+    "exposes": false,
+    "interior_tris": 246
+   }
+  },
+  "keep_whole": [
+   "hw",
+   "decal",
+   "lamp",
+   "cord",
+   "plug",
+   "steel"
+  ],
+  "kind": "cut",
+  "lods": [
+   {
+    "file": "DC_PDU_Rack24_B_Fractured.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 9,
+    "tris": 4950
+   },
+   {
+    "file": "DC_PDU_Rack24_B_Fractured_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "FracturedMaterial01",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 8,
+    "tris": 1232
+   },
+   {
+    "file": "DC_PDU_Rack24_B_Fractured_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_PDU_Rack24_B_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "mid_lod": false,
+  "parts": {
+   "BrushedMetal": [
+    "Scaffold",
+    "AlwaysVisible",
+    "Scaffolding"
+   ],
+   "Fracture_01-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_01-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalYellow": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-EmissiveGreen": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-PaintedMetalDarker": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-Rubber": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Support-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_01_Support-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_02-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_02-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-EmissiveGreen": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-Rubber": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Support-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_02_Support-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ]
+  },
+  "role_bounds": {
+   "Fracture_01": {
+    "hide": [
+     -0.032,
+     -0.06,
+     -0.5,
+     0.0742,
+     0.031,
+     -0.14
+    ],
+    "skin": [
+     -0.0445,
+     -0.0135,
+     -0.496,
+     0.0825,
+     0.0675,
+     -0.1257
+    ],
+    "support": [
+     -0.0338,
+     -0.022,
+     -0.495,
+     0.0722,
+     0.1229,
+     -0.1375
+    ]
+   },
+   "Fracture_02": {
+    "hide": [
+     -0.032,
+     -0.06,
+     -0.13,
+     0.0742,
+     0.028,
+     0.374
+    ],
+    "skin": [
+     -0.0445,
+     -0.006,
+     -0.1307,
+     0.0825,
+     0.0675,
+     0.376
+    ],
+    "support": [
+     -0.0338,
+     -0.022,
+     -0.018,
+     0.0722,
+     0.1229,
+     0.3744
+    ]
+   }
+  },
+  "role_tris": {
+   "frame": 0,
+   "glass": 0,
+   "hide": 1962,
+   "skin": 1562,
+   "support": 700
+  },
+  "scaffold": {
+   "boxes": [
+    [
+     [
+      -0.0445,
+      -0.06,
+      -0.504
+     ],
+     [
+      0.0825,
+      0.1229,
+      0.376
+     ]
+    ]
+   ],
+   "members": 36,
+   "pitch": 0.125,
+   "pitches": {
+    "0": 0.125,
+    "1": 0.125
+   },
+   "proud": [
+    0,
+    1,
+    2
+   ],
+   "radius": 0.006,
+   "sides": {
+    "0": 8,
+    "1": 4
+   },
+   "tris": {
+    "0": 576,
+    "1": 288
+   }
+  },
+  "seams": [
+   {
+    "jag": 0.004,
+    "n": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "o": [
+     0.0,
+     0.0,
+     -0.128
+    ],
+    "reach": 0.0104,
+    "sides": [
+     [
+      "Fracture_01"
+     ],
+     [
+      "Fracture_02"
+     ]
+    ],
+    "zones": [
+     "Fracture_01",
+     "Fracture_02"
+    ]
+   }
+  ],
+  "size": [
+   0.127,
+   0.1829,
+   0.88
+  ],
+  "supporting": {},
+  "zones": [
+   {
+    "box_volume": 0.00864,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       -0.128
+      ],
+      [
+       0.0,
+       0.0,
+       -1.0
+      ]
+     ]
+    ],
+    "health_share": 0.4126,
+    "hi": [
+     0.0825,
+     0.1229,
+     -0.128
+    ],
+    "hull_planes": 10,
+    "hull_verts": 16,
+    "id": "Fracture_01",
+    "label": "bottom section (inlet cord and twist-lock plug, bank 1 head)",
+    "lo": [
+     -0.0445,
+     -0.05998,
+     -0.5
+    ],
+    "volume": 0.007072
+   },
+   {
+    "box_volume": 0.011706,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       -0.128
+      ],
+      [
+       0.0,
+       0.0,
+       1.0
+      ]
+     ]
+    ],
+    "health_share": 0.5874,
+    "hi": [
+     0.0825,
+     0.1229,
+     0.376
+    ],
+    "hull_planes": 9,
+    "hull_verts": 14,
+    "id": "Fracture_02",
+    "label": "top section (feed tag)",
+    "lo": [
+     -0.0445,
+     -0.05998,
+     -0.128
+    ],
+    "volume": 0.010069
+   }
+  ]
+ },
+ "name": "DC_PDU_Rack24_B",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_PDU_Rack24_B_collision.bin",
+   "colliders": 3,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_PDU_Rack24_B_collision.gltf",
+   "nodes": [
+    "DC_PDU_Rack24_B_strip",
+    "mountpointsDC_PDU_Rack24_B_plug_seat",
+    "occupancyDC_PDU_Rack24_B_column"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_PDU_Rack24_B.fbx",
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveGreen",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 1,
+    "tris": 3926
+   },
+   {
+    "file": "DC_PDU_Rack24_B_LOD1.fbx",
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "EmissiveGreen",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 1,
+    "tris": 800
+   },
+   {
+    "file": "DC_PDU_Rack24_B_LOD2.fbx",
+    "materials": [
+     "DC_PDU_Rack24_B_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.127,
+   0.1829,
+   0.876
+  ]
+ },
+ "shift": [
+  0.0,
+  0.125,
+  0.0
+ ]
+}

@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "b7a2e23b-c037-41d8-99cf-414a7029fab2",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "Fa6oCmN0vCop+QUS0SRAJA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "UL47Mf2nhF5Hv13n++K67Q==",
+            "FileName": "DC_Tray_Tee_Empty_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "40506dcb-120d-4b58-9870-735b8dd13a2e",
+            "Hash": "PubtBSkBphoDAZGeW5rrZw=="
+          },
+          {
+            "Guid": "8644c359-29cd-4cc8-8697-ec9053cb3b90",
+            "Hash": "kGFtSxCPBz2//A+YF9teZw=="
+          },
+          {
+            "Guid": "b641bdc4-d541-47f5-9048-411d38c575b2",
+            "Hash": "ZQWhwZ6Ny2XwXCYEiaRibQ=="
+          },
+          {
+            "Guid": "c7dbbafa-4d48-4ecb-b1a0-0ce6bfaaf321",
+            "Hash": "oeqRuKQigAcYCcX1L4dSTw=="
+          },
+          {
+            "Guid": "d9f0b035-09be-43be-9c5c-959eb5089b34",
+            "Hash": "1Ky0pJFLtlb374zsuYmRSA=="
+          }
+        ],
+        "AssetHash": "Fa6oCmN0vCop+QUS0SRAJA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.253",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.253"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "69922aae-da6c-4e03-bc02-d8370f529ebc",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "0b4f9ff0-fa83-408e-a1ff-a55fa714c2ca",
+      "UIData": {
+        "Name": "Timer Server",
+        "Icon": "{G}c24dcb60-f976-4022-822c-0cfc128ec609"
+      },
+      "BlockKind": "2a5d2c02-0de8-4652-b305-f3dcc9798b85",
+      "MountPointGeneratorSettings": {
+        "Directions": "Backward, Left, Right, Down"
+      },
+      "Recipe": "47b5d01b-c4d3-4aaa-8015-0384545fcc77"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

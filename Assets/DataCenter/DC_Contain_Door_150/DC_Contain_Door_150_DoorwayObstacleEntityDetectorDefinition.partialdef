@@ -1,0 +1,22 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4474",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4474"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "35ee0c79-7cf4-4f12-9c9e-50c9937fe629",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "14965e60-9dd7-4b11-b9e0-02b9b4d0f372",
+      "QueryHalfExtents": {
+        "X": 0.75,
+        "Y": 1.125,
+        "Z": 0.125
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.GameSystems.EntityDetection.BoxShapeEntityDetectorDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1331",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1331"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "794c5233-6a1c-4932-b37c-03a0e539d069",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "df276dbd-d236-4a1e-9b94-e692c87561c5",
+      "UIData": {
+        "Name": "KVM Console",
+        "Icon": "{G}32e86b3c-237d-4f4a-9d89-0860d059bd68"
+      },
+      "MountPointGeneratorSettings": {
+        "Directions": "Backward, Left, Right, Down"
+      },
+      "Density": "3dca2cf9-e9b5-4df4-99ed-f7d12f2fce7b",
+      "Recipe": "fe683757-ac26-4e3c-ab39-2982abbe9dde",
+      "RecipeEfficiency": "30e09afc-4437-49fe-aff5-54553d05d3c4",
+      "BlockKind": "cbdb4ce2-c0de-4ef6-a07a-e9de5690475d",
+      "PCU": 5,
+      "ConsumedResource": null
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,118 @@
+{
+ "model": "DC_Tray_Tee_Full",
+ "fbx_sha256": "479d1ffa10e697258822f48bb95a5d549419ba1302d00f062647aee613d68890",
+ "inputs": [
+  "NonFractured/DC_Tray_Tee_Full.fbx",
+  "NonFractured/DC_Tray_Tee_Full_collision.gltf",
+  "Fractured/DC_Tray_Tee_Full_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 3,
+  "occupancy_hints": 2,
+  "mount_hints": 4,
+  "fractures": 4
+ },
+ "render_tris": 6932,
+ "nonfractured": {
+  "occupied": 10,
+  "total": 12,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.333
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    0,
+    -1
+   ],
+   [
+    2,
+    0,
+    -1
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_Tee_Full: groups F/B/L/R/U/D = 1 / 0 / 1 / 1 / 0 / 1; plane coverage = 50% / 0% / 67% / 67% / 0% / 33%; occupied 10/12 box cells, 2 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 10,
+  "total": 12,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 0.667
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.333
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    0,
+    -1
+   ],
+   [
+    2,
+    0,
+    -1
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Tray_Tee_Full: groups F/B/L/R/U/D = 1 / 0 / 1 / 1 / 0 / 1; plane coverage = 50% / 0% / 67% / 67% / 0% / 33%; occupied 10/12 box cells, 2 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_01": 8,
+   "Fracture_02": 2
+  }
+ }
+}

@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "612362da-dc39-417f-8dc0-d383771cb348",
+    "Name": "Containment Door",
+    "Description": "Sliding end-of-aisle door for a 1.0 m, 1.5 m or 2.0 m hot or cold aisle; mounts on the end racks' sides.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "a67e74aa-1ab8-4e30-932a-3ab39727d7d0",
+        "Value": "81518110-9802-4104-a0f4-d793920e8a1f"
+      }
+    ]
+  }
+}

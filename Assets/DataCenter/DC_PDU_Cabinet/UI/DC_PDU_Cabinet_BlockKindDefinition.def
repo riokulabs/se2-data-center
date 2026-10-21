@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "db915c24-51c7-4b9d-9b85-bb194d878c09",
+    "Name": "PDU Cabinet",
+    "Description": "Floor-standing power distribution cabinet the size of a 42U rack: 400 V incomer, rotary isolator, meter and 2 x 12 branch breakers feeding the rack PDUs overhead. Decorative.",
+    "OrderingPriority": 2,
+    "BlockGroups": [
+      {
+        "Key": "687aaa7f-85db-41fd-9128-c9d79f3aa90c",
+        "Value": "b6d01007-1101-466b-bb23-09940400e1b0"
+      }
+    ]
+  }
+}

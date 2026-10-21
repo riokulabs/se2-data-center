@@ -1,0 +1,102 @@
+{
+ "model": "DC_Contain_Roof_200",
+ "fbx_sha256": "4bcb17f00b340e53b71582b7733c3ac8dd96f2c3f8e023a5159698d18877b0a4",
+ "inputs": [
+  "NonFractured/DC_Contain_Roof_200.fbx",
+  "NonFractured/DC_Contain_Roof_200_collision.gltf",
+  "Fractured/DC_Contain_Roof_200_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 2,
+  "occupancy_hints": 0,
+  "mount_hints": 4,
+  "fractures": 8
+ },
+ "render_tris": 4960,
+ "nonfractured": {
+  "occupied": 32,
+  "total": 32,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 0,
+    "coverage": 0.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Contain_Roof_200: groups F/B/L/R/U/D = 1 / 1 / 1 / 1 / 0 / 0; plane coverage = 100% / 100% / 100% / 100% / 0% / 0%; occupied 32/32 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 32,
+  "total": 32,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 4,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 4,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 0,
+    "coverage": 0.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Contain_Roof_200: groups F/B/L/R/U/D = 2 / 2 / 4 / 4 / 0 / 0; plane coverage = 100% / 100% / 100% / 100% / 0% / 0%; occupied 32/32 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_07": 4,
+   "Fracture_08": 4,
+   "Fracture_01": 4,
+   "Fracture_02": 4,
+   "Fracture_05": 2,
+   "Fracture_03": 2,
+   "Fracture_06": 2,
+   "Fracture_04": 2
+  }
+ }
+}

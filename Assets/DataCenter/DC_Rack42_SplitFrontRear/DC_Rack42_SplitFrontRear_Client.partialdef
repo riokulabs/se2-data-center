@@ -1,0 +1,62 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.4904",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.4904"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "756a0770-2dee-4a99-aa3d-b2436d42a67d",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "3869135f-eebe-48a0-be74-a96389650744",
+      "_entity": {
+        "Definition": "dbf580ed-5b50-4119-a619-71625051c8cd",
+        "ObjectBuilders": {
+          "$DeltaEncoded": true,
+          "Keys": [
+            "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+            "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+            "a1687822-b4c2-4bcb-961e-3e44fae3221d",
+            "d358358e-30b3-484a-b8b8-2e5568c7298b",
+            "bc5652a0-1296-4040-adc3-a2b9c35d5afc",
+            "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+            "72e2ef60-d699-48a2-9959-4e246eecdacc",
+            "24f8dfe2-6b3f-4764-a9db-6e4383dcae5d",
+            "60e51d04-0f4a-4834-97f0-6308380709f2",
+            "4682479c-55a1-4eee-8b20-238077daf9c5",
+            "28399edb-e499-44cd-ba3e-64b60fcd1515",
+            "e3e8629b-66c1-4b2c-8db1-a8b0f83d2636",
+            "0e5a339e-9b50-49a3-9a22-e1f25a7d1212",
+            "6e455c78-8d8b-4ad4-b1f6-935d0ada35e3"
+          ],
+          "Changed": [
+            {
+              "Kind": "Update",
+              "Index": 5,
+              "Value": {
+                "$Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockObjectBuilder",
+                "Enabled": false
+              }
+            },
+            {
+              "Kind": "Insert",
+              "Index": 8,
+              "Value": null
+            },
+            {
+              "Kind": "Insert",
+              "Index": 13,
+              "Value": null
+            }
+          ],
+          "Removed": [
+            "dbe945c6-db2c-42c5-b9dc-2565adaad768"
+          ]
+        }
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.Core.Game.Definitions.PrefabDefinition",
+    "PriorityOverride": false
+  }
+}

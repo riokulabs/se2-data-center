@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "fc545a0c-98d6-4d8c-9bf9-c7c9512b5cee",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "LTZu2kolmnMRJ89Mx282wA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "/w+PnEStPQK64jgUYBlVRw==",
+            "FileName": "DC_Tray_Cross_Full_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "11340def-23b8-4f09-a4ff-3949ae765a17",
+            "Hash": "nFtm+aGDC9AxC1PHtyY+mA=="
+          },
+          {
+            "Guid": "2c598ae9-aff8-4beb-8c8a-5a484648dce4",
+            "Hash": "WoZ2lHLtWJaYSHHvsSxl8Q=="
+          },
+          {
+            "Guid": "83e59948-175e-42cc-8a09-71c909ca9730",
+            "Hash": "CrnXxsKUbu7SB7/d0apeSQ=="
+          },
+          {
+            "Guid": "bb6cd409-3eb9-442b-b4cd-5dfb2a808632",
+            "Hash": "0HAzHvX1odTC//ic0z0S4Q=="
+          },
+          {
+            "Guid": "f4e604bb-acc5-4a5f-ad9f-9afc13fc6365",
+            "Hash": "tSgMrVFlBW10peZo4/l5NA=="
+          }
+        ],
+        "AssetHash": "LTZu2kolmnMRJ89Mx282wA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

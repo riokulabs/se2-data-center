@@ -1,0 +1,96 @@
+{
+ "model": "DC_Srv_Storage",
+ "fbx_sha256": "23cbde3ff1983107443ec33a637ef93d2476a7dc73a75cef66197ccc0256fec4",
+ "inputs": [
+  "NonFractured/DC_Srv_Storage.fbx",
+  "NonFractured/DC_Srv_Storage_collision.gltf",
+  "Fractured/DC_Srv_Storage_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 1,
+  "occupancy_hints": 0,
+  "mount_hints": 5,
+  "fractures": 3
+ },
+ "render_tris": 10622,
+ "nonfractured": {
+  "occupied": 6,
+  "total": 6,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Srv_Storage: groups F/B/L/R/U/D = 1 / 1 / 1 / 1 / 1 / 1; plane coverage = 100% / 100% / 100% / 100% / 100% / 100%; occupied 6/6 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 6,
+  "total": 6,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Down": {
+    "groups": 2,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Srv_Storage: groups F/B/L/R/U/D = 1 / 1 / 2 / 2 / 2 / 2; plane coverage = 100% / 100% / 100% / 100% / 100% / 100%; occupied 6/6 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_01": 14,
+   "Fracture_03": 8
+  }
+ }
+}

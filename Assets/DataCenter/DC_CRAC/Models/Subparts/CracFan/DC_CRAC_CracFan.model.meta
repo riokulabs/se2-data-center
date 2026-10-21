@@ -1,0 +1,49 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "a26dc6f4-3a82-4f3a-8b4d-7f545355db42",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "+lshuYA3SW2cQkSndSeFTQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "lI00HtFyHOeDBvmz0zFMFA==",
+            "FileName": "DC_CRAC_CracFan.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "0179d073-4e76-4894-8306-608adf6c0f27",
+            "Hash": "csOreXriwI7WxkqaD9xZ0g=="
+          },
+          {
+            "Guid": "19e1df24-4afe-45de-82f0-63fa6e85e71e",
+            "Hash": "c1rRhSJB+r/S9JGOQ6q9jQ=="
+          },
+          {
+            "Guid": "ec4edf79-78b0-4a04-af78-b18a4c25018c",
+            "Hash": "oKN7FWQj2FXP8gm/JVgwUA=="
+          }
+        ],
+        "AssetHash": "+lshuYA3SW2cQkSndSeFTQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

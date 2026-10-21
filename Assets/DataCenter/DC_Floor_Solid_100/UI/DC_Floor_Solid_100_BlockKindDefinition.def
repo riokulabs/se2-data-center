@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "9fe55155-b9c2-4801-8c5f-2b51d134644a",
+    "Name": "Raised Floor (Solid)",
+    "Description": "Raised-floor access panel on adjustable pedestals, 0.25 m high: 0.5 m (one tile) or 1.0 m (four 0.5 m tiles). Racks, coolers and containment doors stand on its top plane.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "ea9fbe77-4bbc-4db0-87ce-c103fe5ead58",
+        "Value": "221db781-2af3-4fe1-aa90-279b66b57cb5"
+      }
+    ]
+  }
+}

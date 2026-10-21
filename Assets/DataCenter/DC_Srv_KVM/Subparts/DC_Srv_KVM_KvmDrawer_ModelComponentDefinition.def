@@ -1,0 +1,60 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.Game.Components.Models.ModelComponentDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "a64f92d6-1878-43ac-94fc-af9c8665a1bc",
+    "Model": "{G}6e3268fa-fa4e-4a6b-8e5a-1b21ec2232a8",
+    "Dummies": {
+      "$DeltaEncoded": true,
+      "Keys": [
+        "57b9ac1d-3585-4583-941e-3c70318c52fe"
+      ],
+      "Changed": [
+        {
+          "Kind": "Insert",
+          "Index": 0,
+          "Value": {
+            "Name": "KvmScreen",
+            "Transform": {
+              "Transform": {
+                "Position": {
+                  "X": 0.0,
+                  "Y": 0.0,
+                  "Z": 0.0
+                },
+                "Orientation": {
+                  "X": 0,
+                  "Y": 0,
+                  "Z": 0,
+                  "W": 1
+                }
+              },
+              "EulerHint": {
+                "X": 0,
+                "Y": 0,
+                "Z": 0
+              }
+            },
+            "Scale": {
+              "X": 1,
+              "Y": 1,
+              "Z": 1
+            },
+            "Type": "83636737-4b13-4b68-b7fa-d61cf6225a1e",
+            "SupportingFracture": null,
+            "HighlightSection": null
+          }
+        }
+      ],
+      "Removed": []
+    },
+    "SubpartColliderOffset": {
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+    }
+  }
+}

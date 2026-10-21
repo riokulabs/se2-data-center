@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "8f795808-4ca7-4b55-9c84-4dde9ffabafe",
+    "Name": "Cable Tray, Tee (Empty)",
+    "Description": "Overhead wire-basket cable tray, T junction with a side branch, no cables. Cables line up across every joint.",
+    "OrderingPriority": 5,
+    "BlockGroups": [
+      {
+        "Key": "b7232b54-c278-4fae-9f51-507c79b0e674",
+        "Value": "5ec06491-40f3-486e-9b7f-4d64c70cb2b6"
+      }
+    ]
+  }
+}

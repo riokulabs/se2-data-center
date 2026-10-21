@@ -1,0 +1,40 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.ConditionalSubPartsDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "536f3d6a-20f5-4989-aeb4-67ad6da5e1e8",
+    "SubParts": {
+      "5bcc703a-089a-49f6-9909-dad798bcc6c4": "797d63d3-e19a-44a8-b4fc-50a51691d3fe"
+    },
+    "MeshPartsToHideWhenActive": [
+      {
+        "Key": "1a4cc46a-9a43-4744-a556-4d3e19f7e133",
+        "Value": "Fracture_02-MetalDull_Subpart"
+      },
+      {
+        "Key": "4c7058ff-6a6b-40ee-8fe9-045f372057c9",
+        "Value": "Fracture_02-PaintedMetalDarker_Subpart"
+      },
+      {
+        "Key": "2d7c71fa-264a-4606-820b-5f3d3b370a2b",
+        "Value": "Fracture_03-MetalDull_Subpart"
+      },
+      {
+        "Key": "7bf90841-33bf-4e8d-9943-b4ed8396a840",
+        "Value": "Fracture_03-PaintedMetalDarker_Subpart"
+      },
+      {
+        "Key": "1c6466a9-a2b3-4cdf-89c0-bc00b5b5b35d",
+        "Value": "Fracture_04-MetalDull_Subpart"
+      },
+      {
+        "Key": "1ff4215f-7503-451d-b876-63a698276396",
+        "Value": "Fracture_04-PaintedMetalDarker_Subpart"
+      }
+    ]
+  }
+}

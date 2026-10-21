@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "591d011c-a072-4b20-aad4-017473404645",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "7VpoGBVl9D+j7rnZMXneAw=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "0ffDBPc7UU4KlFX30COvDg==",
+            "FileName": "DC_Sign_Rack.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "0b116c90-c95a-48ee-ae1f-ac37bcded108",
+            "Hash": "HHMzoYQWctrd3AkiuzPuBw=="
+          },
+          {
+            "Guid": "4026d63d-5359-44d7-b518-e159fbffb494",
+            "Hash": "LSKMigZmVYDX7ML1UJsLPQ=="
+          },
+          {
+            "Guid": "4726d60b-1c41-4a38-9a15-3a52483afa3d",
+            "Hash": "S+vfT8GwSPZtHP/vuGu5oA=="
+          },
+          {
+            "Guid": "9c397e85-665c-4d36-94f4-47993d5b1188",
+            "Hash": "38xelu5HXAdt22BktGSNyA=="
+          }
+        ],
+        "AssetHash": "7VpoGBVl9D+j7rnZMXneAw==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

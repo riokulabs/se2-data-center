@@ -1,0 +1,49 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "ee7540e9-6667-4371-9869-555fe83f5319",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "z50S0UbkkwhfvmbJ1sQHbA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "ngCaIEP2pnVVLvx3Z4pKmg==",
+            "FileName": "DC_Rack42_SplitFrontRear_RackFanTray.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "033f4a2f-e32a-4d72-ac29-dcee336c26f5",
+            "Hash": "LRymgZGajScdOrt6WvPm0A=="
+          },
+          {
+            "Guid": "14917aca-3f11-4835-b35c-461967f8bf66",
+            "Hash": "zbFqAz8tCqfuFmZcJgnb3g=="
+          },
+          {
+            "Guid": "6d9057c9-3119-4ff4-9e7e-67cca397861a",
+            "Hash": "2QEllbdqF2CU+l4jGLrHvA=="
+          }
+        ],
+        "AssetHash": "z50S0UbkkwhfvmbJ1sQHbA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

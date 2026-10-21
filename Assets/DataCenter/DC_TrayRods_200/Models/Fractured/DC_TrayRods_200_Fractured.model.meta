@@ -1,0 +1,49 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "7a98e3f7-43ba-4494-a4f1-ebf05c5f5bd3",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "aaPANxMSPksAtsJ87MtBwQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "XM3m+oKedfZMCvY36fw6ng==",
+            "FileName": "DC_TrayRods_200_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "754b9f2b-bf5e-4760-95de-5391784d488b",
+            "Hash": "0vKOSwThi/WdDwyHMKPlzg=="
+          },
+          {
+            "Guid": "a8714a73-2563-4b6f-bfe6-d967332de133",
+            "Hash": "iraTEGZr2/MxqQSPPk6wvQ=="
+          },
+          {
+            "Guid": "d4949f13-45c4-404f-8ca9-97de8f1ca740",
+            "Hash": "wX5wSLBW3ZJsAU5H54D70Q=="
+          }
+        ],
+        "AssetHash": "aaPANxMSPksAtsJ87MtBwQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

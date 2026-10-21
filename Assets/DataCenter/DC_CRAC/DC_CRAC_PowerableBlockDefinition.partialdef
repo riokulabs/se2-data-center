@@ -1,0 +1,30 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.2722",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.2722"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "f480988f-3239-4736-a8fd-81c13f009c8c",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "37162dfa-d82d-4089-81d8-fffe0253a067",
+      "UIData": {
+        "Name": "In-Row Cooler (CRAC)",
+        "Icon": "{G}de0de2c7-6064-4aea-a80a-9e13029e9892"
+      },
+      "Recipe": "ab7f7659-c6a4-46af-a087-a52782b3d42d",
+      "ConsumedResource": {
+        "Amount": 25
+      },
+      "BlockKind": "cc1f58b6-5e8e-4735-9610-fd4d927bcabe",
+      "PCU": 30,
+      "MountPointGeneratorSettings": {
+        "Directions": "All"
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

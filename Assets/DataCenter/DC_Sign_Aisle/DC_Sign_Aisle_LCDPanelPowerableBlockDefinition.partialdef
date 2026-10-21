@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.685",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.685"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "9aa66af0-fceb-42d1-93bd-9c4a95a068e1",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "a5ae10d8-6409-44c5-b3c2-c336f0c05097",
+      "UIData": {
+        "Name": "Aisle Sign",
+        "Icon": "{G}6ed66795-c8dd-47ca-a977-d40251be4be6"
+      },
+      "BlockKind": "16bc420b-7a12-446a-a0e0-944b974cfde8",
+      "PCU": 35,
+      "MountPointGeneratorSettings": {
+        "Directions": "Backward"
+      },
+      "Recipe": "e297c593-1fa3-4caf-aad2-672103b9c1f1"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

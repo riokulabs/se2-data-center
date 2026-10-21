@@ -1,0 +1,70 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.3135",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.3135"
+  },
+  "$Type": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "687bc22e-0874-440b-ac79-0f26ea757826",
+    "TagSlots": [
+      {
+        "$Key": "HierarchyComponent",
+        "$Value": "443b2e82-32c8-4180-b975-7d2f0fc39bf5"
+      },
+      {
+        "$Key": "ChildTransformComponent",
+        "$Value": "9f39246c-fae5-4fde-9281-cbfa56d9e5e0"
+      },
+      {
+        "$Key": "ModelComponent",
+        "$Value": "a0fa3992-72d5-4767-b33a-6441fec58448"
+      },
+      {
+        "$Key": "DoorSegmentTransformSLERPComponent",
+        "$Value": "b1a21177-b433-452a-821d-bb553aec4a29"
+      },
+      {
+        "$Key": "DoorSegmentComponent",
+        "$Value": "08998e36-aa41-44ba-80bf-560127400dc6"
+      }
+    ],
+    "Components": [
+      {
+        "Key": "443b2e82-32c8-4180-b975-7d2f0fc39bf5",
+        "Value": {
+          "Definition": null,
+          "Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponent"
+        }
+      },
+      {
+        "Key": "9f39246c-fae5-4fde-9281-cbfa56d9e5e0",
+        "Value": {
+          "Definition": null,
+          "Type": "VRage:Keen.VRage.Core.Game.Components.ChildTransformComponent"
+        }
+      },
+      {
+        "Key": "a0fa3992-72d5-4767-b33a-6441fec58448",
+        "Value": {
+          "Definition": "6157f2c8-8c36-4716-9253-9b230668a12e",
+          "Type": "VRage:Keen.VRage.Game.Components.Models.ModelComponent"
+        }
+      },
+      {
+        "Key": "b1a21177-b433-452a-821d-bb553aec4a29",
+        "Value": {
+          "Definition": "2cfa515c-86d3-4f58-b01b-c0b2614ef789",
+          "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Doors.DoorSegmentTransformSLERPComponent"
+        }
+      },
+      {
+        "Key": "08998e36-aa41-44ba-80bf-560127400dc6",
+        "Value": {
+          "Definition": null,
+          "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Doors.DoorSegmentComponent"
+        }
+      }
+    ]
+  }
+}

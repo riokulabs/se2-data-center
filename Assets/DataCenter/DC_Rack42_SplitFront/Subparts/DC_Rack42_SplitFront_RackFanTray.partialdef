@@ -1,0 +1,169 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "107bcdfc-f977-4486-b14a-6acb61fe0f03",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "fa0b07ee-9e97-4548-bb40-b0a3b8c89f93",
+      "_entity": {
+        "Definition": "be611ee3-e05e-4205-9a38-ac7cc004fdc6",
+        "ObjectBuilders": {
+          "$DeltaEncoded": true,
+          "Keys": [
+            "27f10314-65ac-44ab-89ca-e8f300bf1130",
+            "abdad87f-d02b-4a66-9c71-7fa16e764efb",
+            "970c6c3c-a8e1-4e0a-be76-5acc73782323",
+            "270d533d-96ee-476e-af5e-510ecf1568c9",
+            "5f721af6-ecb8-4aaf-a1fc-6b89e2a99bb1"
+          ],
+          "Changed": [
+            {
+              "Kind": "Update",
+              "Index": 0,
+              "Value": {
+                "$Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder",
+                "Children": {
+                  "$DeltaEncoded": true,
+                  "Keys": [
+                    "338ab56d-0451-4037-acc6-bd0438ea1b14",
+                    "963c3bb8-93f4-4326-a8db-4da9b8c363c0"
+                  ],
+                  "Changed": [
+                    {
+                      "Kind": "Insert",
+                      "Index": 0,
+                      "Value": {
+                        "$ObjectId": 0,
+                        "Definition": "3690d96f-923e-4fa2-b613-a880e248494c",
+                        "ObjectBuilders": [
+                          {
+                            "Key": "27f10314-65ac-44ab-89ca-e8f300bf1130",
+                            "Value": {
+                              "$Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder",
+                              "Children": []
+                            }
+                          },
+                          {
+                            "Key": "abdad87f-d02b-4a66-9c71-7fa16e764efb",
+                            "Value": {
+                              "$Type": "VRage:Keen.VRage.Core.Game.Components.ChildTransformComponentObjectBuilder",
+                              "TransformWithEulerHint": {
+                                "Transform": {
+                                  "Position": {
+                                    "X": -0.2,
+                                    "Y": 0.036,
+                                    "Z": 0.0
+                                  },
+                                  "Orientation": {
+                                    "X": 0,
+                                    "Y": 0,
+                                    "Z": 0,
+                                    "W": 1
+                                  }
+                                },
+                                "EulerHint": {
+                                  "X": 0,
+                                  "Y": 0.0,
+                                  "Z": 0
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Key": "970c6c3c-a8e1-4e0a-be76-5acc73782323",
+                            "Value": null
+                          },
+                          {
+                            "Key": "270d533d-96ee-476e-af5e-510ecf1568c9",
+                            "Value": null
+                          },
+                          {
+                            "Key": "5f721af6-ecb8-4aaf-a1fc-6b89e2a99bb1",
+                            "Value": null
+                          },
+                          {
+                            "Key": "4ad22a5d-d65f-4a33-a03a-79943345fe82",
+                            "Value": null
+                          }
+                        ],
+                        "DebugName": "RackFan1"
+                      }
+                    },
+                    {
+                      "Kind": "Insert",
+                      "Index": 1,
+                      "Value": {
+                        "$ObjectId": 1,
+                        "Definition": "3690d96f-923e-4fa2-b613-a880e248494c",
+                        "ObjectBuilders": [
+                          {
+                            "Key": "27f10314-65ac-44ab-89ca-e8f300bf1130",
+                            "Value": {
+                              "$Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder",
+                              "Children": []
+                            }
+                          },
+                          {
+                            "Key": "abdad87f-d02b-4a66-9c71-7fa16e764efb",
+                            "Value": {
+                              "$Type": "VRage:Keen.VRage.Core.Game.Components.ChildTransformComponentObjectBuilder",
+                              "TransformWithEulerHint": {
+                                "Transform": {
+                                  "Position": {
+                                    "X": 0.2,
+                                    "Y": 0.036,
+                                    "Z": 0.0
+                                  },
+                                  "Orientation": {
+                                    "X": 0,
+                                    "Y": 0,
+                                    "Z": 0,
+                                    "W": 1
+                                  }
+                                },
+                                "EulerHint": {
+                                  "X": 0,
+                                  "Y": 0.0,
+                                  "Z": 0
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Key": "970c6c3c-a8e1-4e0a-be76-5acc73782323",
+                            "Value": null
+                          },
+                          {
+                            "Key": "270d533d-96ee-476e-af5e-510ecf1568c9",
+                            "Value": null
+                          },
+                          {
+                            "Key": "5f721af6-ecb8-4aaf-a1fc-6b89e2a99bb1",
+                            "Value": null
+                          },
+                          {
+                            "Key": "4ad22a5d-d65f-4a33-a03a-79943345fe82",
+                            "Value": null
+                          }
+                        ],
+                        "DebugName": "RackFan2"
+                      }
+                    }
+                  ],
+                  "Removed": []
+                }
+              }
+            }
+          ],
+          "Removed": []
+        }
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.Core.Game.Definitions.PrefabDefinition",
+    "PriorityOverride": false
+  }
+}

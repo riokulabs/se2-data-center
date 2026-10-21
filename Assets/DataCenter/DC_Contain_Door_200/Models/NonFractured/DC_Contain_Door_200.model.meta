@@ -1,0 +1,61 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "2c812872-83a6-446a-b2d1-e81ff3b048e7",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "ooDa9vAhSc/d3KpUUzmVyQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "GcRsiE4pnTdtNpk2TY+Tdg==",
+            "FileName": "DC_Contain_Door_200.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "4598bb95-ab30-4c16-a960-6c244154f0c8",
+            "Hash": "bo9bVs+QGYeyhfoD35ZpKQ=="
+          },
+          {
+            "Guid": "469c7d1d-b7bd-4f98-a18a-d77813ade566",
+            "Hash": "rn3u/zO7J0q3KghTt6mhqw=="
+          },
+          {
+            "Guid": "912ef090-da41-42c3-9f22-02a61eb9c4d1",
+            "Hash": "K83ABPovOHJTEEyvDqqdWA=="
+          },
+          {
+            "Guid": "a2c4cbef-a010-4f36-8879-2900d390e58e",
+            "Hash": "ArIetoGU2agzlO9oTJQCLw=="
+          },
+          {
+            "Guid": "d599dc40-6e8a-4b23-97d3-975ff9107a22",
+            "Hash": "CZpP1OLkeE3Rb/oV1KkD9w=="
+          },
+          {
+            "Guid": "ec68001b-20fd-405a-8b4c-1ff7151a4859",
+            "Hash": "p8yK079hj3oPScS2RGapnw=="
+          }
+        ],
+        "AssetHash": "ooDa9vAhSc/d3KpUUzmVyQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

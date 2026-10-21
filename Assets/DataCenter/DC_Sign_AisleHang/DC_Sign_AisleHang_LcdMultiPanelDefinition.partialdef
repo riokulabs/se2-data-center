@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1631",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1631"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "57977bda-206b-4eb7-942b-6f4006ce8d81",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "85d9d946-5ee8-4923-b3d0-8359704460ca",
+      "Surfaces": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "09362a5c-ecf4-45e9-ba8e-1e9ccf09f662",
+          "0f9f5706-02d1-4329-9151-7511669606b0"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 0,
+            "Value": {
+              "MeshPartName": "LCDScreen_Off_4",
+              "Resolution": {
+                "X": 1024,
+                "Y": 256
+              },
+              "DefaultScreenMaterial": "8a35c12c-0fb9-45fa-be7b-6d97cb624c75",
+              "AspectRatio": 4,
+              "UseOnlineTexture": true,
+              "DefaultDisplayName": "Front Face"
+            }
+          },
+          {
+            "Kind": "Insert",
+            "Index": 1,
+            "Value": {
+              "MeshPartName": "LCDScreen_Off_4_Back",
+              "Resolution": {
+                "X": 1024,
+                "Y": 256
+              },
+              "DefaultScreenMaterial": "8a35c12c-0fb9-45fa-be7b-6d97cb624c75",
+              "AspectRatio": 4,
+              "UseOnlineTexture": true,
+              "DefaultDisplayName": "Back Face"
+            }
+          }
+        ],
+        "Removed": []
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.Lcd.LcdMultiPanelDefinition",
+    "PriorityOverride": false
+  }
+}

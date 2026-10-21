@@ -1,0 +1,95 @@
+{
+ "model": "DC_PDU_Rack24_B",
+ "fbx_sha256": "393188632c5617317bf54b7e2ccadaf97737521a2e8774c8db70b2423f81ea76",
+ "inputs": [
+  "NonFractured/DC_PDU_Rack24_B.fbx",
+  "NonFractured/DC_PDU_Rack24_B_collision.gltf",
+  "Fractured/DC_PDU_Rack24_B_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 1,
+  "occupancy_hints": 1,
+  "mount_hints": 1,
+  "fractures": 2
+ },
+ "render_tris": 3926,
+ "nonfractured": {
+  "occupied": 4,
+  "total": 4,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.0,
+   0.125,
+   0.0
+  ],
+  "summary": "DC_PDU_Rack24_B: groups F/B/L/R/U/D = 0 / 0 / 0 / 0 / 0 / 1; plane coverage = 0% / 0% / 0% / 0% / 0% / 100%; occupied 4/4 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 4,
+  "total": 4,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.0,
+   0.125,
+   0.0
+  ],
+  "summary": "DC_PDU_Rack24_B: groups F/B/L/R/U/D = 0 / 0 / 0 / 0 / 0 / 1; plane coverage = 0% / 0% / 0% / 0% / 0% / 100%; occupied 4/4 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_01": 1
+  }
+ }
+}

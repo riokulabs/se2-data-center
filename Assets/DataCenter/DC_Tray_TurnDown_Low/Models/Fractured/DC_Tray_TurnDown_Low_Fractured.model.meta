@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "78f25881-6313-427b-b95b-7958cb77fd25",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "ugkqtNgsotAr6EgYWQG+bQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "JwS65A+hF2GWn/V/tPdliQ==",
+            "FileName": "DC_Tray_TurnDown_Low_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "788da526-0941-4efe-bbfc-52cab6883d09",
+            "Hash": "Q/nySutp+Ft+3QTXmCSNXA=="
+          },
+          {
+            "Guid": "bd00c74c-7eb0-46cc-919c-bf739cd312b5",
+            "Hash": "iZqekw/jmjR8wjtnuRv/EA=="
+          },
+          {
+            "Guid": "cc4e57ea-4b62-4b22-a817-dc7103e5cb9d",
+            "Hash": "3UPrz3ysVGFOyUPQUQvG5Q=="
+          },
+          {
+            "Guid": "df01de7b-5610-4729-bb72-33ad4b037df9",
+            "Hash": "m1aNXWB19GVu+1txnsvQ4Q=="
+          },
+          {
+            "Guid": "edb21255-0d30-4301-806c-e2c31252fb23",
+            "Hash": "o6kzyWBFvLQernM/qoiYew=="
+          }
+        ],
+        "AssetHash": "ugkqtNgsotAr6EgYWQG+bQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

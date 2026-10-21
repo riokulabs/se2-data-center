@@ -1,0 +1,28 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.2215",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.2215"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "6e1d8240-019e-4a88-84a3-d24d3d9b7e08",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "50a75632-59c6-4e2f-9816-09b1338d302c",
+      "UIData": {
+        "Name": "UPS",
+        "Icon": "{G}d73af6b4-ccf6-493d-8c53-db099d6b4273"
+      },
+      "PlacerDefinition": "61819fd4-1c46-4a5c-838c-5dee0c2d905f",
+      "Recipe": "1ddc1c59-ed53-4494-b8b6-9cf3703b8da6",
+      "BlockKind": "dabb9e0f-f597-4cbe-b9d5-0ed1d8772419",
+      "ConsumedResource": null,
+      "MountPointGeneratorSettings": {
+        "Directions": "Left, Right, Down"
+      }
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "b843fe58-6ca8-4abe-a2ed-95c15997c1a6",
+    "Name": "Compute Server",
+    "Description": "Decorative 6U compute server: drive bays and a honeycomb intake door.",
+    "OrderingPriority": 7,
+    "BlockGroups": [
+      {
+        "Key": "8056e95e-66de-421c-a3b3-d20c66cf6e7f",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

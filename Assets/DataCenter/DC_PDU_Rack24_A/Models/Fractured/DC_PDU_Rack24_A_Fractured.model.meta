@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3155",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3155"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "af37dded-30d8-45dd-90c4-d220d559d7eb",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "BhLhdUCWYLUIpEMuWX94zg=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "JK/gn8hyg8pN43uNfyn50g==",
+            "FileName": "DC_PDU_Rack24_A_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "0032d662-34a2-416f-9b26-1276093738e8",
+            "Hash": "bz568YfKvhINCB9C2y6KuQ=="
+          },
+          {
+            "Guid": "a83e68dd-1727-461c-9077-5d6b2e9443f6",
+            "Hash": "1IL8JSxUI7nyJSY+B8gixA=="
+          },
+          {
+            "Guid": "c64b649b-3d01-4cdd-9c55-41d6a5b107d5",
+            "Hash": "zuIcVeA9PxYI/mDK2VL+nw=="
+          },
+          {
+            "Guid": "fa86b14c-1018-48e6-8a40-ae1ea89e364e",
+            "Hash": "uAJY/8U6IupzNVjCE+bIIA=="
+          }
+        ],
+        "AssetHash": "BhLhdUCWYLUIpEMuWX94zg==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

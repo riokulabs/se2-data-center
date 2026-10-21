@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "8e4af1e7-3cf9-4609-894b-4424c7672ca7",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "V7AJT9WsxLwMOPdvIYX88w=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "RU7TIthjaCMWgnrd//SbxA==",
+            "FileName": "DC_Srv_Blank.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "1e322d61-8add-4db1-a62d-0bf5872f88f3",
+            "Hash": "RwwUh4EsXWKEo8AfDSSQsA=="
+          },
+          {
+            "Guid": "87473caf-73e6-494a-af3e-9bd6b114490c",
+            "Hash": "TEsiR218GGP8bkQdYf/QAg=="
+          },
+          {
+            "Guid": "958c62cb-b600-4e70-b9c6-af07d3ee7224",
+            "Hash": "sVjjIMbQjIS0Br7vxlkWRw=="
+          },
+          {
+            "Guid": "9770d05b-b23d-48f6-aa11-fa9ca9c3ffa9",
+            "Hash": "bKHVYWrcP+Petkp+2aaomQ=="
+          },
+          {
+            "Guid": "c98ec071-b6c0-4d3c-903a-5d26957a69f4",
+            "Hash": "csQQ11YA6qJdtHny9yW+uQ=="
+          }
+        ],
+        "AssetHash": "V7AJT9WsxLwMOPdvIYX88w==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1604",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1604"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "794c5233-6a1c-4932-b37c-03a0e539d069",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "824c6c77-9b86-4c54-b691-571bc3b6c246",
+      "UIData": {
+        "Name": "Programmable Server",
+        "Icon": "{G}2b375b1b-5681-4bdb-a785-a1e3ca530c7b"
+      },
+      "PlacerDefinition": "5b088160-e67b-47ad-9c3f-9b7daf7067ff",
+      "MountPointGeneratorSettings": {
+        "Directions": "Backward, Left, Right, Down"
+      },
+      "Recipe": "4a2ea12f-9dbe-4cd6-befe-0b4d63be8047",
+      "BlockKind": "0bbfa382-c445-4979-9e46-1de743d7a60f",
+      "Density": "d8adcfdc-f8e2-467e-9d27-78deae4057da",
+      "Fragility": "eaaa3a8d-d04c-461f-a7f5-00e8cabd27bd",
+      "RecipeEfficiency": "30e09afc-4437-49fe-aff5-54553d05d3c4",
+      "PCU": 5,
+      "ConsumedResource": null
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

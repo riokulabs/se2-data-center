@@ -1,0 +1,26 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "9800b575-dfc4-40eb-9f78-86dec2e8107f",
+      "UIData": {
+        "Name": "Cable Tray, Turn Down (Empty)",
+        "Icon": "{G}dec04ea2-526d-477b-a57c-80286f740ac4"
+      },
+      "PlacerDefinition": "d4759044-6d04-4ab7-8849-395820bfb66c",
+      "Recipe": "b0c70ae5-fe54-4d44-8c07-a080ff326847",
+      "BlockKind": "45131375-8f03-4f32-b3f0-d4720080a150",
+      "PCU": 5,
+      "Density": "3dca2cf9-e9b5-4df4-99ed-f7d12f2fce7b"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

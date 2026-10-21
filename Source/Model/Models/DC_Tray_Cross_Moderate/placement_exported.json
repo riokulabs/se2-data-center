@@ -1,0 +1,137 @@
+{
+ "model": "DC_Tray_Cross_Moderate",
+ "fbx_sha256": "0729ca5dfd4c19790d0da35f3d52f5a30682ce0d67e1b7372e1c7a98621ee7a9",
+ "inputs": [
+  "NonFractured/DC_Tray_Cross_Moderate.fbx",
+  "NonFractured/DC_Tray_Cross_Moderate_collision.gltf",
+  "Fractured/DC_Tray_Cross_Moderate_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 3,
+  "occupancy_hints": 3,
+  "mount_hints": 5,
+  "fractures": 4
+ },
+ "render_tris": 6536,
+ "nonfractured": {
+  "occupied": 12,
+  "total": 16,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.25
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    2
+   ],
+   [
+    2,
+    0,
+    -1
+   ],
+   [
+    2,
+    0,
+    2
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Tray_Cross_Moderate: groups F/B/L/R/U/D = 1 / 1 / 1 / 1 / 0 / 1; plane coverage = 50% / 50% / 50% / 50% / 0% / 25%; occupied 12/16 box cells, 4 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 12,
+  "total": 16,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 0.5
+   },
+   "Up": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 0.25
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    2
+   ],
+   [
+    2,
+    0,
+    -1
+   ],
+   [
+    2,
+    0,
+    2
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Tray_Cross_Moderate: groups F/B/L/R/U/D = 1 / 1 / 1 / 1 / 0 / 1; plane coverage = 50% / 50% / 50% / 50% / 0% / 25%; occupied 12/16 box cells, 4 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_01": 12
+  }
+ }
+}

@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1604",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1604"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "07211b1f-856a-428d-be5b-51c829278d6d",
+      "UIData": {
+        "Name": "Blanking Panel",
+        "Icon": "{G}05845228-0979-452f-be09-4a5ab7887b37"
+      },
+      "PlacerDefinition": "55d64527-05d1-4e1a-b244-eb6285632ca3",
+      "MountPointGeneratorSettings": {
+        "Directions": "Backward, Left, Right, Down"
+      },
+      "Recipe": "97f77d82-ceb6-48a0-b638-c90eae17045d",
+      "BlockKind": "bdd99f0f-5072-4190-8e53-a373d9e1b567"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,103 @@
+{
+ "model": "DC_CRAC",
+ "fbx_sha256": "d3f1dd73ca93843d97e5e461697b08f8fe43e9294ff828e0450d7fb704ab41d0",
+ "inputs": [
+  "NonFractured/DC_CRAC.fbx",
+  "NonFractured/DC_CRAC_collision.gltf",
+  "Fractured/DC_CRAC_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 3,
+  "occupancy_hints": 0,
+  "mount_hints": 9,
+  "fractures": 9
+ },
+ "render_tris": 14146,
+ "nonfractured": {
+  "occupied": 200,
+  "total": 200,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.1
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 0.1
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 4,
+    "coverage": 0.9
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.125,
+   0.0
+  ],
+  "summary": "DC_CRAC: groups F/B/L/R/U/D = 1 / 1 / 1 / 1 / 4 / 1; plane coverage = 10% / 10% / 100% / 100% / 90% / 100%; occupied 200/200 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 200,
+  "total": 200,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 0.1
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 0.1
+   },
+   "Left": {
+    "groups": 9,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 9,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 4,
+    "coverage": 0.9
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.125,
+   0.0
+  ],
+  "summary": "DC_CRAC: groups F/B/L/R/U/D = 1 / 1 / 9 / 9 / 4 / 1; plane coverage = 10% / 10% / 100% / 100% / 90% / 100%; occupied 200/200 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_09": 36,
+   "Fracture_08": 30,
+   "Fracture_02": 12,
+   "Fracture_01": 32,
+   "Fracture_06": 8,
+   "Fracture_03": 8,
+   "Fracture_07": 8,
+   "Fracture_04": 8,
+   "Fracture_05": 4
+  }
+ }
+}

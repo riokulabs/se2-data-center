@@ -1,0 +1,76 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.3135",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.3135"
+  },
+  "$Type": "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.ConditionalSubPartsDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "d1b4ec9d-1163-4f2f-bcfb-dabc390b3deb",
+    "SubParts": {
+      "13d8c878-29f0-4088-8ab8-755b532dadee": "9609d8e8-866a-480d-b530-992b6d65bc13",
+      "ec8d41ba-d48c-4bd8-86e4-d8f3810adf01": "2e822efc-812e-4559-877b-3ae473ebc401",
+      "68be9715-1231-4bb3-828d-7539105729a8": "5efd4d06-143a-492d-8282-2fc7a4716d19",
+      "ab4f280d-01d6-4f1e-b90f-71513c56a1c9": "aeece119-3b57-4c45-83b8-e8eb842e1198",
+      "bdb88d55-d5d2-48ee-9177-09bc23ac639e": "cebf131e-f73a-49c6-9170-3c5eded543aa"
+    },
+    "MeshPartsToHideWhenActive": [
+      {
+        "Key": "e4f6b704-76fb-4fa0-a606-4218b65bc2f2",
+        "Value": "Fracture_01-PaintedMetalColorable_Subpart"
+      },
+      {
+        "Key": "012e53b4-dbe0-4613-b3f3-ae46dfb738c4",
+        "Value": "Fracture_01-PaintedMetalDarker_Subpart"
+      },
+      {
+        "Key": "80ced674-1523-41f9-9581-4c2ef0e98c19",
+        "Value": "Fracture_03-BrushedMetal_Subpart"
+      },
+      {
+        "Key": "f5ea9f0c-1648-486a-9090-e824c97f6390",
+        "Value": "Fracture_03-PaintedMetalColorable_Subpart"
+      },
+      {
+        "Key": "b65e9684-1aff-4b69-b24b-8618ea39df10",
+        "Value": "Fracture_03-PaintedMetalDarker_Subpart"
+      },
+      {
+        "Key": "d275c9e9-8290-47f5-8b3d-4de5c18cc843",
+        "Value": "Fracture_03-PaintedMetalYellow_Subpart"
+      },
+      {
+        "Key": "f889d86d-a801-4587-8bc0-236bd276d6c0",
+        "Value": "Fracture_03_Hide-AtlasFont_BarlowCondensed_CleanWhite_Subpart"
+      },
+      {
+        "Key": "84ad2c24-41ec-44aa-b4bc-61c2603e0b8f",
+        "Value": "Fracture_03_Hide-EmissiveGreen_Subpart"
+      },
+      {
+        "Key": "98f7ec59-39de-4633-9433-d4dd1b765f0d",
+        "Value": "Fracture_04-BrushedMetal_Subpart"
+      },
+      {
+        "Key": "65f29cf3-be1a-4dd4-91ff-8a24310e12eb",
+        "Value": "Fracture_04-PaintedMetalColorable_Subpart"
+      },
+      {
+        "Key": "fc0727f0-feea-4aff-b2f7-087fda3d1b36",
+        "Value": "Fracture_04-PaintedMetalDarker_Subpart"
+      },
+      {
+        "Key": "f55d1596-8589-4820-9eff-27797cbd74ab",
+        "Value": "Fracture_04-PaintedMetalYellow_Subpart"
+      },
+      {
+        "Key": "3171fa63-b31b-4948-884f-85d3bbb52e30",
+        "Value": "Fracture_04_Hide-AtlasFont_BarlowCondensed_CleanWhite_Subpart"
+      },
+      {
+        "Key": "425958ee-2bca-4a33-9569-c53433559145",
+        "Value": "Fracture_04_Hide-EmissiveGreen_Subpart"
+      }
+    ]
+  }
+}

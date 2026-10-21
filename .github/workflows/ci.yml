@@ -1,0 +1,60 @@
+# managed by riokulabs/.github - edit there (templates/), not here
+# Hosted runners have no Blender, no SE2 SDK and no game, so nothing here builds the mod.
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    name: Forbidden files, size, secrets
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false, lfs: false }
+      - run: python3 scripts/check_repo_guard.py
+  data:
+    name: JSON and YAML validity
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false, lfs: false }
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: { python-version: '3.12' }
+      - run: pip install pyyaml==6.0.2
+      - run: python3 scripts/validate_data.py
+  lint:
+    name: ruff
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false, lfs: false }
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: { python-version: '3.12' }
+      - run: pip install ruff==0.17.1
+      - run: ruff check .
+  tests:
+    name: pytest (offline subset, informational)
+    # Informational until tools/se2model is vendored into this repo: some test modules import it from the
+    # maintainer's workspace and fail to collect on a bare clone. See AGENTS.md.
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false, lfs: false }
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: { python-version: '3.12' }
+      - run: pip install pytest
+      - run: python3 -m pytest -q Tests -m "not build and not sdkbuild" --continue-on-collection-errors

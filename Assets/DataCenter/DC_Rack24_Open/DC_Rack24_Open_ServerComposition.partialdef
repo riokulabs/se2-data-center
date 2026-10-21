@@ -1,0 +1,72 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "0c791273-388f-418a-8c01-a9a4786f404b",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "e0b2ae63-ede6-4205-b745-3f66b457950f",
+      "Components": {
+        "$DeltaEncoded": true,
+        "Keys": [
+          "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+          "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+          "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+          "d358358e-30b3-484a-b8b8-2e5568c7298b",
+          "bc5652a0-1296-4040-adc3-a2b9c35d5afc"
+        ],
+        "Changed": [
+          {
+            "Kind": "Insert",
+            "Index": 2,
+            "Value": {
+              "Definition": "8c316f66-1cb3-4f28-957b-e432536a1908",
+              "Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockComponent"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 3,
+            "Value": {
+              "Definition": "c87c2400-a08a-484e-8cec-205627e21e0e"
+            }
+          },
+          {
+            "Kind": "Update",
+            "Index": 4,
+            "Value": {
+              "Definition": "00ac42ad-ee4e-4d0e-a7dc-abf297e0bc94"
+            }
+          }
+        ],
+        "Removed": [
+          "786ef564-3cbf-4509-a58c-ad19243fffc1"
+        ]
+      },
+      "TagSlots": {
+        "$DeltaEncoded": true,
+        "RemovedKeys": [],
+        "ModifiedKeys": [
+          {
+            "$Key": "GridBlockComponent",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "MaxHealthComponent",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          },
+          {
+            "$Key": "IBoundsProvider",
+            "$Value": "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727"
+          }
+        ]
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.367",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.367"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "72449266-10f9-46a6-bcb5-41caf8409ad7",
+    "Name": "Event Controller Server",
+    "Description": "Rack-mount event controller: a vanilla Event Controller in a 6U server chassis.",
+    "OrderingPriority": 2,
+    "BlockGroups": [
+      {
+        "Key": "65c74c10-0b7d-4ff0-b205-9dc874e2d324",
+        "Value": "ac661fa1-c46d-402d-98ae-000bdf58785a"
+      }
+    ]
+  }
+}

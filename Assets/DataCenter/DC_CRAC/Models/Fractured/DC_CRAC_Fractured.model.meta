@@ -1,0 +1,61 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3155",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3155"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "6eebc74f-04ed-445a-9cdd-0edc293e8b72",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "pbOgffYrjb7eoDh6hDOu8A=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "gCAGVYNeFvXtO8jdJk4/Rg==",
+            "FileName": "DC_CRAC_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "18355eea-0826-40d8-95da-3fbfdd4b4194",
+            "Hash": "ImirVEoB2CrHeXv5xkIoJg=="
+          },
+          {
+            "Guid": "1858d599-d4c4-4096-bce5-3d88fe9ddf40",
+            "Hash": "vb1P1lU74ZnUnpgMjVlx+Q=="
+          },
+          {
+            "Guid": "198f8e96-573e-43c1-8e03-b803264bbe0e",
+            "Hash": "v3jbVaCQ/9uFTw3sec0HAw=="
+          },
+          {
+            "Guid": "67a6c19d-2970-4984-a661-25f0e0282eae",
+            "Hash": "kQKUjDrd8go3oRSS18dwTA=="
+          },
+          {
+            "Guid": "c45f7008-d591-4235-9a2d-ca568dc5b0b0",
+            "Hash": "eFzxXzGnmJ6a1RaE0FljLA=="
+          },
+          {
+            "Guid": "ff11ee66-b66d-4df4-bdd3-d87f24b6effb",
+            "Hash": "/oyZMQ2BWqXfrLHUfkULVw=="
+          }
+        ],
+        "AssetHash": "pbOgffYrjb7eoDh6hDOu8A==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

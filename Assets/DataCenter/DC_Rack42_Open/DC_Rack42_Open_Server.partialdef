@@ -1,0 +1,52 @@
+{
+  "$Bundles": {
+    "Game2": "2.4.0.95",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "b706bfc1-a8b6-4dc9-945c-8394d94478f0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "0febe731-4146-4801-9104-a1cd9d851cc8",
+      "_entity": {
+        "Definition": "b92b9ee8-2a27-4ab1-b884-91e614303880",
+        "ObjectBuilders": {
+          "$DeltaEncoded": true,
+          "Keys": [
+            "b7bf405c-71aa-46a1-a5ec-4c690f2ab7e3",
+            "e58b8f69-45da-40d4-82b0-f1a82564a53a",
+            "4f2bc5f9-6a6d-4347-a1eb-5937cbce6727",
+            "d358358e-30b3-484a-b8b8-2e5568c7298b",
+            "bc5652a0-1296-4040-adc3-a2b9c35d5afc"
+          ],
+          "Changed": [
+            {
+              "Kind": "Insert",
+              "Index": 2,
+              "Value": {
+                "$Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockObjectBuilder",
+                "Color": null,
+                "BuildProgress": 1,
+                "HealthIntegrity": 1,
+                "Generated": false,
+                "EphemeralFirstItem": false,
+                "DisplayName": {
+                  "RawText": ""
+                },
+                "Enabled": true,
+                "WasSupplied": false
+              }
+            }
+          ],
+          "Removed": [
+            "786ef564-3cbf-4509-a58c-ad19243fffc1"
+          ]
+        }
+      }
+    },
+    "DefinitionType": "VRage:Keen.VRage.Core.Game.Definitions.PrefabDefinition",
+    "PriorityOverride": false
+  }
+}

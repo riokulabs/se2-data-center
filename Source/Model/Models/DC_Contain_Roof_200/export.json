@@ -1,0 +1,1653 @@
+{
+ "cells": [
+  4,
+  1,
+  8
+ ],
+ "damaged": {
+  "collision": {
+   "bin": "DC_Contain_Roof_200_Damaged_collision.bin",
+   "colliders": 8,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Contain_Roof_200_Damaged_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02",
+    "Fracture_03",
+    "Fracture_04",
+    "Fracture_05",
+    "Fracture_06",
+    "Fracture_07",
+    "Fracture_08"
+   ]
+  },
+  "dent": {
+   "max_mm": 13.54,
+   "mean_mm": 5.2,
+   "p90_mm": 9.46
+  },
+  "lods": [
+   {
+    "file": "DC_Contain_Roof_200_Damaged.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support",
+     "Fracture_04",
+     "Fracture_04_Hide",
+     "Fracture_04_Support",
+     "Fracture_05",
+     "Fracture_05_Hide",
+     "Fracture_05_Support",
+     "Fracture_06",
+     "Fracture_06_Hide",
+     "Fracture_06_Support",
+     "Fracture_07",
+     "Fracture_07_Hide",
+     "Fracture_07_Support",
+     "Fracture_08",
+     "Fracture_08_Hide",
+     "Fracture_08_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "EmissiveWhite",
+     "FracturedMaterial01",
+     "FrostedGlass",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 40,
+    "tris": 9742
+   },
+   {
+    "file": "DC_Contain_Roof_200_Damaged_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support",
+     "Fracture_04",
+     "Fracture_04_Hide",
+     "Fracture_04_Support",
+     "Fracture_05",
+     "Fracture_05_Hide",
+     "Fracture_05_Support",
+     "Fracture_06",
+     "Fracture_06_Hide",
+     "Fracture_06_Support",
+     "Fracture_07",
+     "Fracture_07_Hide",
+     "Fracture_07_Support",
+     "Fracture_08",
+     "Fracture_08_Hide",
+     "Fracture_08_Support"
+    ],
+    "materials": [
+     "EmissiveWhite",
+     "FracturedMaterial01",
+     "FrostedGlass",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 40,
+    "tris": 3106
+   },
+   {
+    "file": "DC_Contain_Roof_200_Damaged_LOD2.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support",
+     "Fracture_04",
+     "Fracture_04_Hide",
+     "Fracture_04_Support",
+     "Fracture_05",
+     "Fracture_05_Hide",
+     "Fracture_05_Support",
+     "Fracture_06",
+     "Fracture_06_Hide",
+     "Fracture_06_Support",
+     "Fracture_07",
+     "Fracture_07_Hide",
+     "Fracture_07_Support",
+     "Fracture_08",
+     "Fracture_08_Hide",
+     "Fracture_08_Support"
+    ],
+    "materials": [
+     "EmissiveWhite",
+     "FracturedMaterial01",
+     "FrostedGlass",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 40,
+    "tris": 916
+   },
+   {
+    "file": "DC_Contain_Roof_200_Damaged_LOD3.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Contain_Roof_200_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.998,
+   1.998,
+   0.1065
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "budget": [
+   22725,
+   4240,
+   1088,
+   55
+  ],
+  "caps": [
+   [
+    60,
+    60
+   ],
+   [
+    44,
+    48
+   ],
+   [
+    28,
+    36
+   ]
+  ],
+  "collision": {
+   "bin": "DC_Contain_Roof_200_Fractured_collision.bin",
+   "colliders": 8,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Contain_Roof_200_Fractured_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02",
+    "Fracture_03",
+    "Fracture_04",
+    "Fracture_05",
+    "Fracture_06",
+    "Fracture_07",
+    "Fracture_08"
+   ]
+  },
+  "critical": [],
+  "cut_mode": "bisect",
+  "keep_whole": [
+   "frame",
+   "cap",
+   "glass",
+   "clamp",
+   "gasket",
+   "dark",
+   "hw",
+   "tape",
+   "decal",
+   "led"
+  ],
+  "kind": "cut",
+  "lods": [
+   {
+    "file": "DC_Contain_Roof_200_Fractured.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support",
+     "Fracture_04",
+     "Fracture_04_Hide",
+     "Fracture_04_Support",
+     "Fracture_05",
+     "Fracture_05_Hide",
+     "Fracture_05_Support",
+     "Fracture_06",
+     "Fracture_06_Hide",
+     "Fracture_06_Support",
+     "Fracture_07",
+     "Fracture_07_Hide",
+     "Fracture_07_Support",
+     "Fracture_08",
+     "Fracture_08_Hide",
+     "Fracture_08_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "EmissiveWhite",
+     "FracturedMaterial01",
+     "FrostedGlass",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 41,
+    "tris": 7328
+   },
+   {
+    "file": "DC_Contain_Roof_200_Fractured_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support",
+     "Fracture_04",
+     "Fracture_04_Hide",
+     "Fracture_04_Support",
+     "Fracture_05",
+     "Fracture_05_Hide",
+     "Fracture_05_Support",
+     "Fracture_06",
+     "Fracture_06_Hide",
+     "Fracture_06_Support",
+     "Fracture_07",
+     "Fracture_07_Hide",
+     "Fracture_07_Support",
+     "Fracture_08",
+     "Fracture_08_Hide",
+     "Fracture_08_Support"
+    ],
+    "materials": [
+     "BrushedMetal",
+     "EmissiveWhite",
+     "FracturedMaterial01",
+     "FrostedGlass",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 41,
+    "tris": 2488
+   },
+   {
+    "file": "DC_Contain_Roof_200_Fractured_LOD2.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support",
+     "Fracture_03",
+     "Fracture_03_Hide",
+     "Fracture_03_Support",
+     "Fracture_04",
+     "Fracture_04_Hide",
+     "Fracture_04_Support",
+     "Fracture_05",
+     "Fracture_05_Hide",
+     "Fracture_05_Support",
+     "Fracture_06",
+     "Fracture_06_Hide",
+     "Fracture_06_Support",
+     "Fracture_07",
+     "Fracture_07_Hide",
+     "Fracture_07_Support",
+     "Fracture_08",
+     "Fracture_08_Hide",
+     "Fracture_08_Support"
+    ],
+    "materials": [
+     "EmissiveWhite",
+     "FracturedMaterial01",
+     "FrostedGlass",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 40,
+    "tris": 612
+   },
+   {
+    "file": "DC_Contain_Roof_200_Fractured_LOD3.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Contain_Roof_200_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "mid_lod": false,
+  "parts": {
+   "BrushedMetal": [
+    "Scaffold",
+    "AlwaysVisible",
+    "Scaffolding"
+   ],
+   "Fracture_01-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_01-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_01-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_01_Support-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_02-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_02-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_02-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_02_Support-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_03-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_03-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_03-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_03-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_03-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_03_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_03_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_03_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_04-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_04-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_04-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_04-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_04-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_04_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_04_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_04_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_05-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_05-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_05-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_05-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_05-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_05_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_05_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_05_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_06-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_06-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_06-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_06-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_06-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_06_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_06_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_06_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_07-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_07-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_07-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_07-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_07-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_07_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_07_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_07_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_07_Support-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_08-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_08-FrostedGlass": [
+    "Default",
+    "AlwaysVisible",
+    "WindowGlass"
+   ],
+   "Fracture_08-MetalDull": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_08-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_08-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_08_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_08_Hide-EmissiveWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_08_Support-PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_08_Support-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ]
+  },
+  "role_bounds": {
+   "Fracture_01": {
+    "glass": [
+     -0.457,
+     -0.961,
+     0.096,
+     -0.017,
+     -0.517,
+     0.1015
+    ],
+    "hide": [
+     -0.4823,
+     -0.913,
+     0.0266,
+     0.013,
+     -0.5017,
+     0.032
+    ],
+    "skin": [
+     -0.499,
+     -0.99,
+     0.018,
+     0.028,
+     -0.474,
+     0.1245
+    ],
+    "support": [
+     -0.492,
+     -0.999,
+     0.022,
+     0.0259,
+     -0.474,
+     0.0955
+    ]
+   },
+   "Fracture_02": {
+    "glass": [
+     0.017,
+     -0.961,
+     0.096,
+     0.457,
+     -0.517,
+     0.1015
+    ],
+    "hide": [
+     0.0101,
+     -0.913,
+     0.0266,
+     0.4823,
+     -0.5018,
+     0.032
+    ],
+    "skin": [
+     -0.028,
+     -0.99,
+     0.018,
+     0.499,
+     -0.474,
+     0.1245
+    ],
+    "support": [
+     -0.0071,
+     -0.999,
+     0.022,
+     0.492,
+     -0.474,
+     0.0955
+    ]
+   },
+   "Fracture_03": {
+    "glass": [
+     -0.457,
+     -0.483,
+     0.096,
+     -0.017,
+     -0.017,
+     0.1015
+    ],
+    "hide": [
+     -0.4823,
+     -0.5018,
+     0.0266,
+     0.013,
+     -0.0027,
+     0.032
+    ],
+    "skin": [
+     -0.499,
+     -0.5033,
+     0.027,
+     0.028,
+     0.026,
+     0.1245
+    ],
+    "support": [
+     -0.492,
+     -0.5033,
+     0.03,
+     0.0259,
+     0.026,
+     0.095
+    ]
+   },
+   "Fracture_04": {
+    "glass": [
+     0.017,
+     -0.483,
+     0.096,
+     0.457,
+     -0.017,
+     0.1015
+    ],
+    "hide": [
+     0.0128,
+     -0.5018,
+     0.0266,
+     0.4823,
+     -0.0027,
+     0.032
+    ],
+    "skin": [
+     -0.028,
+     -0.505,
+     0.027,
+     0.499,
+     0.026,
+     0.1245
+    ],
+    "support": [
+     0.0156,
+     -0.5057,
+     0.03,
+     0.492,
+     0.026,
+     0.095
+    ]
+   },
+   "Fracture_05": {
+    "glass": [
+     -0.457,
+     0.017,
+     0.096,
+     -0.017,
+     0.483,
+     0.1015
+    ],
+    "hide": [
+     -0.4823,
+     -0.0039,
+     0.0266,
+     0.0155,
+     0.5037,
+     0.032
+    ],
+    "skin": [
+     -0.499,
+     -0.0043,
+     0.027,
+     0.028,
+     0.526,
+     0.1245
+    ],
+    "support": [
+     -0.492,
+     -0.0043,
+     0.03,
+     0.0259,
+     0.5034,
+     0.095
+    ]
+   },
+   "Fracture_06": {
+    "glass": [
+     0.017,
+     0.017,
+     0.096,
+     0.457,
+     0.483,
+     0.1015
+    ],
+    "hide": [
+     0.0128,
+     -0.0027,
+     0.0266,
+     0.4823,
+     0.5032,
+     0.032
+    ],
+    "skin": [
+     -0.028,
+     -0.0032,
+     0.027,
+     0.499,
+     0.526,
+     0.1245
+    ],
+    "support": [
+     0.0156,
+     -0.0024,
+     0.03,
+     0.492,
+     0.502,
+     0.095
+    ]
+   },
+   "Fracture_07": {
+    "glass": [
+     -0.457,
+     0.517,
+     0.096,
+     -0.017,
+     0.961,
+     0.1015
+    ],
+    "hide": [
+     -0.4823,
+     0.5031,
+     0.0266,
+     0.0155,
+     0.913,
+     0.032
+    ],
+    "skin": [
+     -0.499,
+     0.4969,
+     0.018,
+     0.028,
+     0.99,
+     0.1245
+    ],
+    "support": [
+     -0.492,
+     0.474,
+     0.022,
+     0.0259,
+     0.999,
+     0.0955
+    ]
+   },
+   "Fracture_08": {
+    "glass": [
+     0.017,
+     0.517,
+     0.096,
+     0.457,
+     0.961,
+     0.1015
+    ],
+    "hide": [
+     0.013,
+     0.5031,
+     0.0266,
+     0.4823,
+     0.913,
+     0.032
+    ],
+    "skin": [
+     -0.028,
+     0.496,
+     0.018,
+     0.499,
+     0.99,
+     0.1245
+    ],
+    "support": [
+     -0.0002,
+     0.474,
+     0.022,
+     0.492,
+     0.999,
+     0.0955
+    ]
+   }
+  },
+  "role_tris": {
+   "frame": 0,
+   "glass": 96,
+   "hide": 212,
+   "skin": 3990,
+   "support": 1658
+  },
+  "scaffold": {
+   "boxes": [
+    [
+     [
+      -0.504,
+      -1.004,
+      0.018
+     ],
+     [
+      0.504,
+      1.004,
+      0.129
+     ]
+    ]
+   ],
+   "members": 52,
+   "pitch": 0.25,
+   "pitches": {
+    "0": 0.25,
+    "1": 0.25
+   },
+   "proud": [
+    0,
+    1,
+    2
+   ],
+   "radius": 0.01,
+   "sides": {
+    "0": 8,
+    "1": 4
+   },
+   "tris": {
+    "0": 832,
+    "1": 416
+   }
+  },
+  "seams": [
+   {
+    "jag": 0.008,
+    "n": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "o": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "reach": 0.0208,
+    "sides": [
+     [
+      "Fracture_01",
+      "Fracture_03",
+      "Fracture_05",
+      "Fracture_07"
+     ],
+     [
+      "Fracture_02",
+      "Fracture_04",
+      "Fracture_06",
+      "Fracture_08"
+     ]
+    ],
+    "zones": [
+     "Fracture_01",
+     "Fracture_02"
+    ]
+   },
+   {
+    "jag": 0.008,
+    "n": [
+     0.0,
+     -1.0,
+     0.0
+    ],
+    "o": [
+     0.0,
+     -0.5,
+     0.0
+    ],
+    "reach": 0.0208,
+    "sides": [
+     [
+      "Fracture_01",
+      "Fracture_02"
+     ],
+     [
+      "Fracture_03",
+      "Fracture_04"
+     ]
+    ],
+    "zones": [
+     "Fracture_01",
+     "Fracture_03"
+    ]
+   },
+   {
+    "jag": 0.008,
+    "n": [
+     0.0,
+     -1.0,
+     0.0
+    ],
+    "o": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "reach": 0.0208,
+    "sides": [
+     [
+      "Fracture_03",
+      "Fracture_04"
+     ],
+     [
+      "Fracture_05",
+      "Fracture_06"
+     ]
+    ],
+    "zones": [
+     "Fracture_03",
+     "Fracture_05"
+    ]
+   },
+   {
+    "jag": 0.008,
+    "n": [
+     0.0,
+     -1.0,
+     0.0
+    ],
+    "o": [
+     0.0,
+     0.5,
+     0.0
+    ],
+    "reach": 0.0208,
+    "sides": [
+     [
+      "Fracture_05",
+      "Fracture_06"
+     ],
+     [
+      "Fracture_07",
+      "Fracture_08"
+     ]
+    ],
+    "zones": [
+     "Fracture_05",
+     "Fracture_07"
+    ]
+   }
+  ],
+  "size": [
+   1.008,
+   2.008,
+   0.111
+  ],
+  "supporting": {},
+  "zones": [
+   {
+    "box_volume": 0.026519,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       -0.5,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1301,
+    "hi": [
+     0.0,
+     -0.5,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_01",
+    "label": "bay row 1 across the aisle, -x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.499,
+     -0.999,
+     0.018
+    ],
+    "volume": 0.026519
+   },
+   {
+    "box_volume": 0.026519,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       -0.5,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1301,
+    "hi": [
+     0.499,
+     -0.5,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_02",
+    "label": "bay row 1 across the aisle, +x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.0,
+     -0.999,
+     0.018
+    ],
+    "volume": 0.026519
+   },
+   {
+    "box_volume": 0.024426,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       -0.5,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1199,
+    "hi": [
+     0.0,
+     0.0,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_03",
+    "label": "bay row 2 across the aisle, -x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.499,
+     -0.5,
+     0.0266
+    ],
+    "volume": 0.024426
+   },
+   {
+    "box_volume": 0.024426,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       -0.5,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1199,
+    "hi": [
+     0.499,
+     0.0,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_04",
+    "label": "bay row 2 across the aisle, +x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.0,
+     -0.5,
+     0.0266
+    ],
+    "volume": 0.024426
+   },
+   {
+    "box_volume": 0.024426,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1199,
+    "hi": [
+     0.0,
+     0.5,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_05",
+    "label": "bay row 3 across the aisle, -x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.499,
+     -0.0,
+     0.0266
+    ],
+    "volume": 0.024426
+   },
+   {
+    "box_volume": 0.024426,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1199,
+    "hi": [
+     0.499,
+     0.5,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_06",
+    "label": "bay row 3 across the aisle, +x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.0,
+     -0.0,
+     0.0266
+    ],
+    "volume": 0.024426
+   },
+   {
+    "box_volume": 0.026519,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1301,
+    "hi": [
+     0.0,
+     0.999,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_07",
+    "label": "bay row 4 across the aisle, -x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.499,
+     0.5,
+     0.018
+    ],
+    "volume": 0.026519
+   },
+   {
+    "box_volume": 0.026519,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ]
+     ],
+     [
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.1301,
+    "hi": [
+     0.499,
+     0.999,
+     0.1245
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_08",
+    "label": "bay row 4 across the aisle, +x half (pane, caps, frame segment, clamps, fire release)",
+    "lo": [
+     -0.0,
+     0.5,
+     0.018
+    ],
+    "volume": 0.026519
+   }
+  ]
+ },
+ "name": "DC_Contain_Roof_200",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_Contain_Roof_200_collision.bin",
+   "colliders": 6,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Contain_Roof_200_collision.gltf",
+   "nodes": [
+    "DC_Contain_Roof_200_frame",
+    "DC_Contain_Roof_200_glazing",
+    "mountpointsDC_Contain_Roof_200_edge_back",
+    "mountpointsDC_Contain_Roof_200_edge_front",
+    "mountpointsDC_Contain_Roof_200_end_left",
+    "mountpointsDC_Contain_Roof_200_end_right"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_Contain_Roof_200.fbx",
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "EmissiveWhite",
+     "FrostedGlass",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 4960
+   },
+   {
+    "file": "DC_Contain_Roof_200_LOD1.fbx",
+    "materials": [
+     "EmissiveWhite",
+     "FrostedGlass",
+     "MetalDull",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 1552
+   },
+   {
+    "file": "DC_Contain_Roof_200_LOD2.fbx",
+    "materials": [
+     "EmissiveWhite",
+     "FrostedGlass",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 372
+   },
+   {
+    "file": "DC_Contain_Roof_200_LOD3.fbx",
+    "materials": [
+     "DC_Contain_Roof_200_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 12
+   }
+  ],
+  "size": [
+   0.998,
+   1.998,
+   0.1065
+  ]
+ },
+ "shift": [
+  0.125,
+  0.0,
+  0.125
+ ]
+}

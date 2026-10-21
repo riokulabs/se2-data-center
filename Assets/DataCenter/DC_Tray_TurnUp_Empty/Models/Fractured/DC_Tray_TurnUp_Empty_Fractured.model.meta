@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "2324aafd-283c-4f7e-abb1-ebfda85fffde",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "OuPsLn5K+XNWHbaBh3ZDNg=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "8Ty7CMgBUtElD6WFJiAEiw==",
+            "FileName": "DC_Tray_TurnUp_Empty_Fractured.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "6fbf233f-908d-488d-b87c-ff5b06d4298e",
+            "Hash": "EOWmjvDlPBnnBYOi0Sw+vg=="
+          },
+          {
+            "Guid": "8d9f733e-29af-4838-af1b-99d8a7e637f9",
+            "Hash": "FT/va80kc9rIXxsaeAbxXg=="
+          },
+          {
+            "Guid": "c77a27ae-4b81-499b-9ae8-c84640be0346",
+            "Hash": "ohk/kF9yDh9ZPLV3wGbHOQ=="
+          },
+          {
+            "Guid": "c860769a-49f4-4493-94e9-15ec004bd493",
+            "Hash": "7QcpmbtFWmgLBccRpV2NWg=="
+          }
+        ],
+        "AssetHash": "OuPsLn5K+XNWHbaBh3ZDNg==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

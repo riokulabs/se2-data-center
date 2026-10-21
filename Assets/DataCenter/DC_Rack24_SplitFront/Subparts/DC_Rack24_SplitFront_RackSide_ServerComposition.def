@@ -1,0 +1,47 @@
+{
+  "$Bundles": {
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "VRage:Keen.VRage.DCS.Definitions.EntityCompositeDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "96ae9f6c-d71d-479e-8d69-5fc98dfc0ceb",
+    "TagSlots": [
+      {
+        "$Key": "ModelComponent",
+        "$Value": "eb058992-9a78-41b0-9eee-cd77ca7dbc51"
+      },
+      {
+        "$Key": "ChildTransformComponent",
+        "$Value": "174c047e-1430-4fc0-a164-7ae88e53a26c"
+      },
+      {
+        "$Key": "HierarchyComponent",
+        "$Value": "436d35e6-cd89-4464-8d62-ba612c40e04e"
+      }
+    ],
+    "Components": [
+      {
+        "Key": "eb058992-9a78-41b0-9eee-cd77ca7dbc51",
+        "Value": {
+          "Definition": "a510b421-20b4-41ad-b730-651b5b1def27",
+          "Type": "VRage:Keen.VRage.Game.Components.Models.ModelComponent"
+        }
+      },
+      {
+        "Key": "174c047e-1430-4fc0-a164-7ae88e53a26c",
+        "Value": {
+          "Definition": null,
+          "Type": "VRage:Keen.VRage.Core.Game.Components.ChildTransformComponent"
+        }
+      },
+      {
+        "Key": "436d35e6-cd89-4464-8d62-ba612c40e04e",
+        "Value": {
+          "Definition": null,
+          "Type": "VRage:Keen.VRage.Core.Game.Components.HierarchyComponent"
+        }
+      }
+    ]
+  }
+}

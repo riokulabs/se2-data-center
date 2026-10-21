@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "a9f09ded-6293-4578-9715-d24fa1f59f11",
+    "Name": "Cable Tray, Hanger Rods",
+    "Description": "Threaded hanger rods, 0.25 m, 1.0 m or 2.0 m, with coupler nuts and ceiling anchor plates. Extends the hang of a cable tray below a higher ceiling; snaps onto the tray's rod plates.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "620997b0-b3b1-4143-a466-ad81eb53ded3",
+        "Value": "c1d2b28f-7b7f-4b87-9803-6733c80a50cc"
+      }
+    ]
+  }
+}

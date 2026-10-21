@@ -1,0 +1,225 @@
+{
+ "cells": [
+  4,
+  5,
+  1
+ ],
+ "damaged": {
+  "budget": [
+   2073,
+   819,
+   55
+  ],
+  "collision": {
+   "bin": "DC_Tray_Chute_Damaged_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Tray_Chute_Damaged_collision.gltf",
+   "nodes": [
+    "DC_Tray_Chute_Damaged_ladder_0",
+    "DC_Tray_Chute_Damaged_ladder_1"
+   ]
+  },
+  "dent": {
+   "max_mm": 9.71,
+   "mean_mm": 3.66,
+   "p90_mm": 6.38
+  },
+  "lods": [
+   {
+    "file": "DC_Tray_Chute_Damaged.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 2004
+   },
+   {
+    "file": "DC_Tray_Chute_Damaged_LOD1.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 280
+   },
+   {
+    "file": "DC_Tray_Chute_Damaged_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Tray_Chute_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "size": [
+   0.854,
+   0.084,
+   1.25
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "collision": {
+   "bin": "DC_Tray_Chute_Fractured_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Tray_Chute_Fractured_collision.gltf",
+   "nodes": [
+    "DC_Tray_Chute_Fractured_ladder_0",
+    "DC_Tray_Chute_Fractured_ladder_1"
+   ]
+  },
+  "kind": "simple",
+  "lods": [
+   {
+    "file": "DC_Tray_Chute_Fractured.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 1672
+   },
+   {
+    "file": "DC_Tray_Chute_Fractured_LOD1.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 236
+   },
+   {
+    "file": "DC_Tray_Chute_Fractured_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Tray_Chute_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "parts": {
+   "BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "PaintedMetalColorable": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ]
+  },
+  "role_bounds": {},
+  "role_tris": {
+   "frame": 0,
+   "glass": 0,
+   "hide": 0,
+   "skin": 1672,
+   "support": 0
+  },
+  "zones": []
+ },
+ "name": "DC_Tray_Chute",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_Tray_Chute_collision.bin",
+   "colliders": 8,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Tray_Chute_collision.gltf",
+   "nodes": [
+    "DC_Tray_Chute_ladder_0",
+    "DC_Tray_Chute_ladder_1",
+    "mountpointsDC_Tray_Chute_foot_0",
+    "mountpointsDC_Tray_Chute_foot_1",
+    "mountpointsDC_Tray_Chute_top_0",
+    "mountpointsDC_Tray_Chute_top_1",
+    "occupancyDC_Tray_Chute_cells_0",
+    "occupancyDC_Tray_Chute_cells_1"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_Tray_Chute.fbx",
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 1672
+   },
+   {
+    "file": "DC_Tray_Chute_LOD1.fbx",
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker"
+    ],
+    "objects": 1,
+    "tris": 236
+   },
+   {
+    "file": "DC_Tray_Chute_LOD2.fbx",
+    "materials": [
+     "DC_Tray_Chute_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "size": [
+   0.854,
+   0.084,
+   1.25
+  ]
+ },
+ "shift": [
+  0.125,
+  0.0,
+  0.0
+ ]
+}

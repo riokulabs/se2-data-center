@@ -1,0 +1,95 @@
+{
+ "model": "DC_TrayRods_025",
+ "fbx_sha256": "db428a27983439006ff9004451445239de0c6a0995622f10ef455ce7edb45f3d",
+ "inputs": [
+  "NonFractured/DC_TrayRods_025.fbx",
+  "NonFractured/DC_TrayRods_025_collision.gltf",
+  "Fractured/DC_TrayRods_025_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 2,
+  "occupancy_hints": 1,
+  "mount_hints": 4,
+  "fractures": 0
+ },
+ "render_tris": 380,
+ "nonfractured": {
+  "occupied": 4,
+  "total": 4,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 2,
+    "coverage": 0.5
+   },
+   "Down": {
+    "groups": 2,
+    "coverage": 0.5
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_TrayRods_025: groups F/B/L/R/U/D = 0 / 0 / 0 / 0 / 2 / 2; plane coverage = 0% / 0% / 0% / 0% / 50% / 50%; occupied 4/4 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 4,
+  "total": 4,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Right": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Up": {
+    "groups": 2,
+    "coverage": 0.5
+   },
+   "Down": {
+    "groups": 2,
+    "coverage": 0.5
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_TrayRods_025: groups F/B/L/R/U/D = 0 / 0 / 0 / 0 / 2 / 2; plane coverage = 0% / 0% / 0% / 0% / 50% / 50%; occupied 4/4 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "none": 4
+  }
+ }
+}

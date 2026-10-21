@@ -1,0 +1,32 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.50",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.50"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "5fbc52b3-4845-4e2e-adf7-858a1b97f400",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "c8100e92-a32c-4217-b537-3519221e684b",
+      "UIData": {
+        "Name": "Containment Door",
+        "Icon": "{G}8ae6840a-0ee5-46a3-92bd-4569707c9f60"
+      },
+      "PlacerDefinition": "a9f14516-13e0-496b-8ddc-071aa1847f13",
+      "ConsumedResource": {
+        "Amount": 0
+      },
+      "BlockKind": "612362da-dc39-417f-8dc0-d383771cb348",
+      "PCU": 150,
+      "MountPointGeneratorSettings": {
+        "Directions": "All"
+      },
+      "Recipe": "f2bd58c8-56ff-45e7-9ef5-39017a86c0b0",
+      "Density": "d8adcfdc-f8e2-467e-9d27-78deae4057da"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.PowerableBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "b1a06638-bd3d-4b7e-a55a-ab9103895bb5",
+      "UIData": {
+        "Name": "Cable Tray, Reducer (Moderate to Low)",
+        "Icon": "{G}dd9e33ca-4ba1-4e99-a01b-04597b732821"
+      },
+      "PlacerDefinition": "ab1e51c1-a8f6-48c9-8cf2-c55a0299cd28",
+      "Recipe": "804355c3-2591-4bcb-927c-ee8e0c5b1eec",
+      "BlockKind": "2b9958ac-a248-4147-9008-20fca0c7591b",
+      "PCU": 5,
+      "Density": "3dca2cf9-e9b5-4df4-99ed-f7d12f2fce7b"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$Bundles": {
+    "Game2": "2.4.0.95",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockRecipeDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "d877620f-3f54-484b-8326-85290e76c773",
+    "CriticalItems": [
+      {
+        "Key": "3b99d63c-a3ec-4937-bb04-93b25cd7dbde",
+        "Value": {
+          "Item": "3df97616-e714-4ddc-baa6-d8fa2df800ce",
+          "Amount": 3
+        }
+      },
+      {
+        "Key": "63fd131e-c06c-4993-9777-5d15a9e105f3",
+        "Value": {
+          "Item": "e1f56096-b043-4f8e-aca0-40423c54b603",
+          "Amount": 2
+        }
+      },
+      {
+        "Key": "5fdf252a-e449-4556-8c12-77ed053a5952",
+        "Value": {
+          "Item": "f882a509-434f-4d05-ad2d-41491f6591b5",
+          "Amount": 2
+        }
+      }
+    ],
+    "OptionalItems": [
+      {
+        "Key": "32e7a828-9c2f-44ef-ba3c-c004c6537364",
+        "Value": {
+          "Item": "292eba9e-e5f8-4951-8038-e476a677b584",
+          "Amount": 3
+        }
+      }
+    ],
+    "BuildTimePerItem": 3300000
+  }
+}

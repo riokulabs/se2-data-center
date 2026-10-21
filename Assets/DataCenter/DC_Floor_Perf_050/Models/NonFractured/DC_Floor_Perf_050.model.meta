@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "0f73b6a1-f0fc-4398-baeb-5e1472967008",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "wm8d+geF6MUIBr0qVaVOyA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "re2Wj7XcbFf6Yb7wXKdZcA==",
+            "FileName": "DC_Floor_Perf_050.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "7ea0b3c8-66ab-40e2-bc32-cc7a68fc932c",
+            "Hash": "woLdK1OtIBl9yAOeb0HH5g=="
+          },
+          {
+            "Guid": "800018db-dd19-4290-8775-88edb08c70e7",
+            "Hash": "wlHnSK65zHGnPq6igjvHog=="
+          },
+          {
+            "Guid": "b45537ef-db47-4d49-b273-1b1065c3102b",
+            "Hash": "8nP510dh0R7alGUcOq5ueQ=="
+          },
+          {
+            "Guid": "bb20d96b-d6af-4478-96e3-9e002d759e0b",
+            "Hash": "rWROXVAfUD2QYgzP2qOdAQ=="
+          },
+          {
+            "Guid": "d03b0623-f9fa-4c20-ae5f-12529d78fb77",
+            "Hash": "cczsLILQ9a9H57oyJVdILQ=="
+          }
+        ],
+        "AssetHash": "wm8d+geF6MUIBr0qVaVOyA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

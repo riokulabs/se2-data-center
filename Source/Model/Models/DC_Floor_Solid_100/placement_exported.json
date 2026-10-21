@@ -1,0 +1,98 @@
+{
+ "model": "DC_Floor_Solid_100",
+ "fbx_sha256": "af28674bc32b8db1c900345f839c24712d26c4d483b02603f742913e484d7936",
+ "inputs": [
+  "NonFractured/DC_Floor_Solid_100.fbx",
+  "NonFractured/DC_Floor_Solid_100_collision.gltf",
+  "Fractured/DC_Floor_Solid_100_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 2,
+  "occupancy_hints": 0,
+  "mount_hints": 14,
+  "fractures": 4
+ },
+ "render_tris": 6436,
+ "nonfractured": {
+  "occupied": 16,
+  "total": 16,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 1,
+    "coverage": 1.0
+   },
+   "Down": {
+    "groups": 4,
+    "coverage": 0.25
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Floor_Solid_100: groups F/B/L/R/U/D = 1 / 1 / 1 / 1 / 1 / 4; plane coverage = 100% / 100% / 100% / 100% / 100% / 25%; occupied 16/16 box cells, 0 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 16,
+  "total": 16,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Backward": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Left": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Right": {
+    "groups": 2,
+    "coverage": 1.0
+   },
+   "Up": {
+    "groups": 4,
+    "coverage": 1.0
+   },
+   "Down": {
+    "groups": 4,
+    "coverage": 0.25
+   }
+  },
+  "free_cells": [],
+  "shift": [
+   0.125,
+   0.0,
+   0.125
+  ],
+  "summary": "DC_Floor_Solid_100: groups F/B/L/R/U/D = 2 / 2 / 2 / 2 / 4 / 4; plane coverage = 100% / 100% / 100% / 100% / 100% / 25%; occupied 16/16 box cells, 0 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_03": 9,
+   "Fracture_04": 9,
+   "Fracture_01": 9,
+   "Fracture_02": 9
+  }
+ }
+}

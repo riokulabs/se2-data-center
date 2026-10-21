@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "e41eede9-2a04-4528-8342-63c295ba4f4f",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "mDOUV9mBBD/7hFM4Wi+K5A=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "fahMh4JlZH1dmvgT6WM75w==",
+            "FileName": "DC_Srv_UPS.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "337a5a01-cc2c-40bb-9e60-b6ac92b0b17d",
+            "Hash": "2LDj2s0XmmDYsFb3c8S39A=="
+          },
+          {
+            "Guid": "965dcb34-9537-4168-82a9-61ca4716a2a8",
+            "Hash": "5pzxgetrQs8w5Sglx5PlUg=="
+          },
+          {
+            "Guid": "b706e983-d23f-4cf0-a14c-263ef7a6fa97",
+            "Hash": "gEnfiocbGH5WPY8PTrbl3Q=="
+          },
+          {
+            "Guid": "bf15fe88-0da1-40d2-a6ee-9ab556a1e2c5",
+            "Hash": "8sMIWulNwGbCGlewhThWiw=="
+          },
+          {
+            "Guid": "e89ea3b0-e088-4355-a5fa-a050ce5ae287",
+            "Hash": "kjh+74FgKDwU2HKY6rmBpA=="
+          }
+        ],
+        "AssetHash": "mDOUV9mBBD/7hFM4Wi+K5A==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

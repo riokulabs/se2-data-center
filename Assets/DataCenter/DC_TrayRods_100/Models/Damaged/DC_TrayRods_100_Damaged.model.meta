@@ -1,0 +1,53 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "a8e8da39-c9d8-4ee1-baac-365f6b403945",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "BcNdGQsQQBLS4RnX5jRwyg=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "ulb4LsA0Gcn03S4WoBB1XA==",
+            "FileName": "DC_TrayRods_100_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "4773c6fa-e441-489b-9186-f9de8e46735c",
+            "Hash": "A3GHng4SglRkS83lSyn0OQ=="
+          },
+          {
+            "Guid": "5d84e76e-81f7-451d-abc3-5fb2ede6921b",
+            "Hash": "m3wFv0NOeuOvQ+V7MRywsA=="
+          },
+          {
+            "Guid": "e3bc343c-edad-49c5-b3cd-dc3d399ac87c",
+            "Hash": "qtWZF1UmX1fMsg9thTXjTQ=="
+          },
+          {
+            "Guid": "e9d48648-8dc6-4945-9b74-d7d029f935b8",
+            "Hash": "gqhe88npb+f8XmSRlNBw9g=="
+          }
+        ],
+        "AssetHash": "BcNdGQsQQBLS4RnX5jRwyg==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

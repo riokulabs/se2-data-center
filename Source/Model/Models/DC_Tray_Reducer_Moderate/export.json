@@ -1,0 +1,653 @@
+{
+ "cells": [
+  2,
+  1,
+  2
+ ],
+ "damaged": {
+  "collision": {
+   "bin": "DC_Tray_Reducer_Moderate_Damaged_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Tray_Reducer_Moderate_Damaged_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02"
+   ]
+  },
+  "dent": {
+   "max_mm": 11.26,
+   "mean_mm": 4.35,
+   "p90_mm": 7.98
+  },
+  "lods": [
+   {
+    "file": "DC_Tray_Reducer_Moderate_Damaged.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "FracturedMaterial01",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalGrey",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 10,
+    "tris": 3108
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_Damaged_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide"
+    ],
+    "materials": [
+     "BrushedMetal",
+     "FracturedMaterial01",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalGrey",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 9,
+    "tris": 702
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_Damaged_LOD2.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide"
+    ],
+    "materials": [
+     "FracturedMaterial01",
+     "GratingMetallic",
+     "PaintedMetalColorable",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 7,
+    "tris": 129
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_Damaged_LOD3.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Tray_Reducer_Moderate_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 14
+   }
+  ],
+  "size": [
+   0.5,
+   0.498,
+   0.248
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "budget": [
+   14626,
+   2463,
+   407,
+   55
+  ],
+  "caps": [
+   [
+    36,
+    0
+   ],
+   [
+    28,
+    0
+   ],
+   [
+    10,
+    6
+   ]
+  ],
+  "collision": {
+   "bin": "DC_Tray_Reducer_Moderate_Fractured_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Tray_Reducer_Moderate_Fractured_collision.gltf",
+   "nodes": [
+    "Fracture_01",
+    "Fracture_02"
+   ]
+  },
+  "critical": [],
+  "cut_mode": "bisect",
+  "keep_whole": [
+   "hw",
+   "solid",
+   "tiehw"
+  ],
+  "kind": "cut",
+  "lods": [
+   {
+    "file": "DC_Tray_Reducer_Moderate_Fractured.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide",
+     "Fracture_02_Support"
+    ],
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "FracturedMaterial01",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalGrey",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 11,
+    "tris": 3104
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_Fractured_LOD1.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide"
+    ],
+    "materials": [
+     "BrushedMetal",
+     "FracturedMaterial01",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalGrey",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 10,
+    "tris": 844
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_Fractured_LOD2.fbx",
+    "groups": [
+     "Fracture_01",
+     "Fracture_01_Hide",
+     "Fracture_01_Support",
+     "Fracture_02",
+     "Fracture_02_Hide"
+    ],
+    "materials": [
+     "FracturedMaterial01",
+     "GratingMetallic",
+     "PaintedMetalColorable",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 7,
+    "tris": 109
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_Fractured_LOD3.fbx",
+    "groups": [],
+    "materials": [
+     "DC_Tray_Reducer_Moderate_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 14
+   }
+  ],
+  "mid_lod": false,
+  "parts": {
+   "BrushedMetal": [
+    "Scaffold",
+    "AlwaysVisible",
+    "Scaffolding"
+   ],
+   "Fracture_01-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_01-PaintedMetalYellow": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_01_Hide-AtlasFont_BarlowCondensed_CleanWhite": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-BrushedMetal": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-FracturedMaterial01": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-PaintedMetalColorable": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-PaintedMetalDarker": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-PaintedMetalGrey": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Hide-PaintedMetalYellow": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_01_Support-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_01_Support-PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ],
+   "Fracture_02-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "Fracture_02-FracturedMaterial01": [
+    "Split",
+    "HiddenUntilSecondSequenceStart",
+    "Fracture"
+   ],
+   "Fracture_02_Hide-BrushedMetal": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-FracturedMaterial01": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-PaintedMetalColorable": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-PaintedMetalDarker": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-PaintedMetalGrey": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-PaintedMetalYellow": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Hide-Rubber": [
+    "Default",
+    "AlwaysHidden",
+    "Default"
+   ],
+   "Fracture_02_Support-BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Support"
+   ]
+  },
+  "role_bounds": {
+   "Fracture_01": {
+    "hide": [
+     -0.25,
+     -0.2275,
+     -0.0785,
+     0.0361,
+     0.2275,
+     -0.0168
+    ],
+    "skin": [
+     -0.25,
+     -0.247,
+     -0.124,
+     0.0382,
+     0.247,
+     0.0337
+    ],
+    "support": [
+     -0.25,
+     -0.249,
+     -0.124,
+     0.02,
+     0.249,
+     0.124
+    ]
+   },
+   "Fracture_02": {
+    "hide": [
+     0.0277,
+     -0.2025,
+     -0.0842,
+     0.25,
+     0.2025,
+     -0.0158
+    ],
+    "skin": [
+     0.0273,
+     -0.2227,
+     -0.0967,
+     0.25,
+     0.2227,
+     0.0337
+    ],
+    "support": [
+     0.218,
+     -0.22,
+     -0.052,
+     0.25,
+     0.22,
+     -0.008
+    ]
+   }
+  },
+  "role_tris": {
+   "frame": 0,
+   "glass": 0,
+   "hide": 1356,
+   "skin": 692,
+   "support": 280
+  },
+  "scaffold": {
+   "boxes": [
+    [
+     [
+      -0.254,
+      -0.254,
+      -0.129
+     ],
+     [
+      0.0325,
+      0.254,
+      0.129
+     ]
+    ],
+    [
+     [
+      0.0325,
+      -0.2227,
+      -0.0967
+     ],
+     [
+      0.254,
+      0.2227,
+      0.0337
+     ]
+    ]
+   ],
+   "members": 32,
+   "pitch": 0.25,
+   "pitches": {
+    "0": 0.25,
+    "1": 0.25
+   },
+   "proud": [
+    0,
+    1,
+    2
+   ],
+   "radius": 0.006,
+   "sides": {
+    "0": 8,
+    "1": 4
+   },
+   "tris": {
+    "0": 512,
+    "1": 256
+   }
+  },
+  "seams": [
+   {
+    "jag": 0.006,
+    "n": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "o": [
+     0.0325,
+     0.0,
+     0.0
+    ],
+    "reach": 0.0156,
+    "sides": [
+     [
+      "Fracture_01"
+     ],
+     [
+      "Fracture_02"
+     ]
+    ],
+    "zones": [
+     "Fracture_01",
+     "Fracture_02"
+    ]
+   }
+  ],
+  "size": [
+   0.508,
+   0.508,
+   0.258
+  ],
+  "supporting": {},
+  "zones": [
+   {
+    "box_volume": 0.03489,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0325,
+       0.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.7198,
+    "hi": [
+     0.0325,
+     0.249,
+     0.124
+    ],
+    "hull_planes": 7,
+    "hull_verts": 10,
+    "id": "Fracture_01",
+    "label": "hanger half (trapeze, rod plates)",
+    "lo": [
+     -0.25,
+     -0.249,
+     -0.124
+    ],
+    "volume": 0.032449
+   },
+   {
+    "box_volume": 0.012633,
+    "critical": false,
+    "halfspaces": [
+     [
+      [
+       0.0325,
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ]
+     ]
+    ],
+    "health_share": 0.2802,
+    "hi": [
+     0.25,
+     0.2227,
+     0.0337
+    ],
+    "hull_planes": 6,
+    "hull_verts": 8,
+    "id": "Fracture_02",
+    "label": "free half",
+    "lo": [
+     0.0325,
+     -0.2227,
+     -0.0967
+    ],
+    "volume": 0.012633
+   }
+  ]
+ },
+ "name": "DC_Tray_Reducer_Moderate",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_Tray_Reducer_Moderate_collision.bin",
+   "colliders": 9,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_Tray_Reducer_Moderate_collision.gltf",
+   "nodes": [
+    "DC_Tray_Reducer_Moderate_trough",
+    "mountpointsDC_Tray_Reducer_Moderate_port_a",
+    "mountpointsDC_Tray_Reducer_Moderate_port_b",
+    "mountpointsDC_Tray_Reducer_Moderate_rod_plate_0_0",
+    "mountpointsDC_Tray_Reducer_Moderate_rod_plate_0_1",
+    "mountpointsDC_Tray_Reducer_Moderate_strut_bottom_0",
+    "mountpointsDC_Tray_Reducer_Moderate_strut_end_m_0",
+    "mountpointsDC_Tray_Reducer_Moderate_strut_end_p_0",
+    "occupancyDC_Tray_Reducer_Moderate_cells_0"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_Tray_Reducer_Moderate.fbx",
+    "materials": [
+     "AtlasFont_BarlowCondensed_CleanWhite",
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalGrey",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 1,
+    "tris": 1992
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_LOD1.fbx",
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalColorable",
+     "PaintedMetalDarker",
+     "PaintedMetalGrey",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 1,
+    "tris": 420
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_LOD2.fbx",
+    "materials": [
+     "GratingMetallic",
+     "PaintedMetalColorable",
+     "PaintedMetalYellow",
+     "Rubber"
+    ],
+    "objects": 1,
+    "tris": 63
+   },
+   {
+    "file": "DC_Tray_Reducer_Moderate_LOD3.fbx",
+    "materials": [
+     "DC_Tray_Reducer_Moderate_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 14
+   }
+  ],
+  "size": [
+   0.5,
+   0.498,
+   0.248
+  ]
+ },
+ "shift": [
+  0.125,
+  0.0,
+  0.125
+ ]
+}

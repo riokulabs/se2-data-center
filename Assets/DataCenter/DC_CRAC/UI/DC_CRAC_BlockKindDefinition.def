@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.0.1.1811",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.0.1.1811"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "cc1f58b6-5e8e-4735-9610-fd4d927bcabe",
+    "Name": "In-Row Cooler (CRAC)",
+    "Description": "In-row computer-room air conditioner the size of a 42U rack: takes the hot aisle's air through its rear filters and blows it out chilled at the front. Draws power and runs its fans while switched on.",
+    "OrderingPriority": 1,
+    "BlockGroups": [
+      {
+        "Key": "0ea64fe1-2b71-4216-b862-529e882a5d98",
+        "Value": "b6d01007-1101-466b-bb23-09940400e1b0"
+      }
+    ]
+  }
+}

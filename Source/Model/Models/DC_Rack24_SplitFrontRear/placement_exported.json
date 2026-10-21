@@ -1,0 +1,500 @@
+{
+ "model": "DC_Rack24_SplitFrontRear",
+ "fbx_sha256": "2a0cbcec0b9e633c15df59ddef130d1081a78ca1d937eb02f3c89bd5e30aa40b",
+ "inputs": [
+  "NonFractured/DC_Rack24_SplitFrontRear.fbx",
+  "NonFractured/DC_Rack24_SplitFrontRear_collision.gltf",
+  "Fractured/DC_Rack24_SplitFrontRear_Fractured_collision.gltf"
+ ],
+ "colliders": {
+  "regular": 4,
+  "occupancy_hints": 0,
+  "mount_hints": 14,
+  "fractures": 4
+ },
+ "render_tris": 12686,
+ "nonfractured": {
+  "occupied": 60,
+  "total": 100,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 2,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 3,
+    "coverage": 0.84
+   },
+   "Right": {
+    "groups": 3,
+    "coverage": 0.84
+   },
+   "Up": {
+    "groups": 6,
+    "coverage": 0.5
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    -1,
+    2
+   ],
+   [
+    -1,
+    0,
+    2
+   ],
+   [
+    -1,
+    1,
+    2
+   ],
+   [
+    -1,
+    2,
+    2
+   ],
+   [
+    0,
+    -1,
+    -2
+   ],
+   [
+    0,
+    -1,
+    -1
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    -1,
+    1
+   ],
+   [
+    0,
+    0,
+    -2
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    -2
+   ],
+   [
+    0,
+    1,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    -2
+   ],
+   [
+    0,
+    2,
+    -1
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    0,
+    2,
+    1
+   ],
+   [
+    1,
+    -1,
+    -2
+   ],
+   [
+    1,
+    -1,
+    -1
+   ],
+   [
+    1,
+    -1,
+    0
+   ],
+   [
+    1,
+    -1,
+    1
+   ],
+   [
+    1,
+    0,
+    -2
+   ],
+   [
+    1,
+    0,
+    -1
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1
+   ],
+   [
+    1,
+    1,
+    -2
+   ],
+   [
+    1,
+    1,
+    -1
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    2,
+    -2
+   ],
+   [
+    1,
+    2,
+    -1
+   ],
+   [
+    1,
+    2,
+    0
+   ],
+   [
+    1,
+    2,
+    1
+   ],
+   [
+    2,
+    -1,
+    2
+   ],
+   [
+    2,
+    0,
+    2
+   ],
+   [
+    2,
+    1,
+    2
+   ],
+   [
+    2,
+    2,
+    2
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Rack24_SplitFrontRear: groups F/B/L/R/U/D = 0 / 2 / 3 / 3 / 6 / 1; plane coverage = 0% / 0% / 84% / 84% / 50% / 100%; occupied 60/100 box cells, 40 empty, 0 outside"
+ },
+ "fractured": {
+  "occupied": 60,
+  "total": 100,
+  "outside": 0,
+  "faces": {
+   "Forward": {
+    "groups": 0,
+    "coverage": 0.0
+   },
+   "Backward": {
+    "groups": 2,
+    "coverage": 0.0
+   },
+   "Left": {
+    "groups": 3,
+    "coverage": 0.84
+   },
+   "Right": {
+    "groups": 3,
+    "coverage": 0.84
+   },
+   "Up": {
+    "groups": 6,
+    "coverage": 0.5
+   },
+   "Down": {
+    "groups": 1,
+    "coverage": 1.0
+   }
+  },
+  "free_cells": [
+   [
+    -1,
+    -1,
+    2
+   ],
+   [
+    -1,
+    0,
+    2
+   ],
+   [
+    -1,
+    1,
+    2
+   ],
+   [
+    -1,
+    2,
+    2
+   ],
+   [
+    0,
+    -1,
+    -2
+   ],
+   [
+    0,
+    -1,
+    -1
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    -1,
+    1
+   ],
+   [
+    0,
+    0,
+    -2
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    -2
+   ],
+   [
+    0,
+    1,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    -2
+   ],
+   [
+    0,
+    2,
+    -1
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    0,
+    2,
+    1
+   ],
+   [
+    1,
+    -1,
+    -2
+   ],
+   [
+    1,
+    -1,
+    -1
+   ],
+   [
+    1,
+    -1,
+    0
+   ],
+   [
+    1,
+    -1,
+    1
+   ],
+   [
+    1,
+    0,
+    -2
+   ],
+   [
+    1,
+    0,
+    -1
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1
+   ],
+   [
+    1,
+    1,
+    -2
+   ],
+   [
+    1,
+    1,
+    -1
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    2,
+    -2
+   ],
+   [
+    1,
+    2,
+    -1
+   ],
+   [
+    1,
+    2,
+    0
+   ],
+   [
+    1,
+    2,
+    1
+   ],
+   [
+    2,
+    -1,
+    2
+   ],
+   [
+    2,
+    0,
+    2
+   ],
+   [
+    2,
+    1,
+    2
+   ],
+   [
+    2,
+    2,
+    2
+   ]
+  ],
+  "shift": [
+   0.125,
+   0.0,
+   0.0
+  ],
+  "summary": "DC_Rack24_SplitFrontRear: groups F/B/L/R/U/D = 0 / 2 / 3 / 3 / 6 / 1; plane coverage = 0% / 0% / 84% / 84% / 50% / 100%; occupied 60/100 box cells, 40 empty, 0 outside",
+  "mount_cells_by_fracture": {
+   "Fracture_03": 28,
+   "Fracture_04": 28,
+   "Fracture_01": 34,
+   "Fracture_02": 2
+  }
+ }
+}

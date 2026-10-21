@@ -1,0 +1,224 @@
+{
+ "cells": [
+  2,
+  4,
+  2
+ ],
+ "damaged": {
+  "budget": [
+   1574,
+   510,
+   55
+  ],
+  "collision": {
+   "bin": "DC_TrayRods_100_Damaged_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_TrayRods_100_Damaged_collision.gltf",
+   "nodes": [
+    "DC_TrayRods_100_Damaged_rod_0",
+    "DC_TrayRods_100_Damaged_rod_1"
+   ]
+  },
+  "dent": {
+   "max_mm": 6.77,
+   "mean_mm": 3.18,
+   "p90_mm": 5.49
+  },
+  "lods": [
+   {
+    "file": "DC_TrayRods_100_Damaged.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 454
+   },
+   {
+    "file": "DC_TrayRods_100_Damaged_LOD1.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 122
+   },
+   {
+    "file": "DC_TrayRods_100_Damaged_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_TrayRods_100_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "size": [
+   0.06,
+   0.498,
+   0.998
+  ],
+  "slots": {
+   "BrushedMetal": "BrushedMetalDeformed",
+   "Chrome": "ChromeDeformed",
+   "Emissive01": "EmissiveOffBroken",
+   "Emissive02": "EmissiveOffBroken",
+   "EmissiveAmber": "EmissiveOffBroken",
+   "EmissiveGreen": "EmissiveOffBroken",
+   "EmissiveOff": "EmissiveOffBroken",
+   "EmissiveRed": "EmissiveOffBroken",
+   "EmissiveScriptStatus": "EmissiveOffBroken",
+   "FrostedGlass": "WindowGlassBroken",
+   "LCDScreen_Off": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4": "LCDScreen_Off_Damaged",
+   "LCDScreen_Off_4_Back": "LCDScreen_Off_Damaged",
+   "PaintedMetalColorable": "PaintedMetalColorableDeformed",
+   "PaintedMetalDarker": "PaintedMetalDarkerDeformed",
+   "Terminal": "Display01Broken"
+  }
+ },
+ "fractured": {
+  "collision": {
+   "bin": "DC_TrayRods_100_Fractured_collision.bin",
+   "colliders": 2,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_TrayRods_100_Fractured_collision.gltf",
+   "nodes": [
+    "DC_TrayRods_100_Fractured_rod_0",
+    "DC_TrayRods_100_Fractured_rod_1"
+   ]
+  },
+  "kind": "simple",
+  "lods": [
+   {
+    "file": "DC_TrayRods_100_Fractured.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 380
+   },
+   {
+    "file": "DC_TrayRods_100_Fractured_LOD1.fbx",
+    "groups": [],
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 104
+   },
+   {
+    "file": "DC_TrayRods_100_Fractured_LOD2.fbx",
+    "groups": [],
+    "materials": [
+     "DC_TrayRods_100_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "parts": {
+   "BrushedMetal": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "PaintedMetalDarker": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ],
+   "PaintedMetalYellow": [
+    "Default",
+    "AlwaysVisible",
+    "Default"
+   ]
+  },
+  "role_bounds": {},
+  "role_tris": {
+   "frame": 0,
+   "glass": 0,
+   "hide": 0,
+   "skin": 380,
+   "support": 0
+  },
+  "zones": []
+ },
+ "name": "DC_TrayRods_100",
+ "nonfractured": {
+  "collision": {
+   "bin": "DC_TrayRods_100_collision.bin",
+   "colliders": 7,
+   "extensionsUsed": [
+    "MSFT_collision_primitives",
+    "MSFT_rigid_bodies"
+   ],
+   "file": "DC_TrayRods_100_collision.gltf",
+   "nodes": [
+    "DC_TrayRods_100_rod_0",
+    "DC_TrayRods_100_rod_1",
+    "mountpointsDC_TrayRods_100_anchor_0",
+    "mountpointsDC_TrayRods_100_anchor_1",
+    "mountpointsDC_TrayRods_100_coupler_0",
+    "mountpointsDC_TrayRods_100_coupler_1",
+    "occupancyDC_TrayRods_100_cells_0"
+   ]
+  },
+  "lods": [
+   {
+    "file": "DC_TrayRods_100.fbx",
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 380
+   },
+   {
+    "file": "DC_TrayRods_100_LOD1.fbx",
+    "materials": [
+     "BrushedMetal",
+     "PaintedMetalDarker",
+     "PaintedMetalYellow"
+    ],
+    "objects": 1,
+    "tris": 104
+   },
+   {
+    "file": "DC_TrayRods_100_LOD2.fbx",
+    "materials": [
+     "DC_TrayRods_100_LastLOD"
+    ],
+    "objects": 1,
+    "tris": 16
+   }
+  ],
+  "size": [
+   0.06,
+   0.498,
+   0.998
+  ]
+ },
+ "shift": [
+  0.125,
+  0.125,
+  0.125
+ ]
+}

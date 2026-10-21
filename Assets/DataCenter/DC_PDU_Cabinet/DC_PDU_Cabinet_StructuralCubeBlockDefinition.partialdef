@@ -1,0 +1,28 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1604",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1604"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "ebf7fd6c-3767-4006-970a-d250376b7026",
+      "UIData": {
+        "Name": "PDU Cabinet",
+        "Icon": "{G}3cb3c298-9da4-41bc-ad1e-bd5ca2a57bb2"
+      },
+      "PlacerDefinition": "b4f3d8d1-6577-40ba-8698-d45bc9b8f922",
+      "MountPointGeneratorSettings": {
+        "Directions": "All"
+      },
+      "Recipe": "eed1bfac-a3e1-4ec1-ad01-5de5dbdabeec",
+      "BlockKind": "db915c24-51c7-4b9d-9b85-bb194d878c09",
+      "PCU": 5
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

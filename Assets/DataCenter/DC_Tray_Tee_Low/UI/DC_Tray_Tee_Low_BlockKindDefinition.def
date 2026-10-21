@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.467",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.467"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockKindDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "7b787e58-673b-472d-8753-affdaf27c3c2",
+    "Name": "Cable Tray, Tee (Low)",
+    "Description": "Overhead wire-basket cable tray, T junction with a side branch, low cable load (two data bundles). Cables line up across every joint.",
+    "OrderingPriority": 5,
+    "BlockGroups": [
+      {
+        "Key": "6da13973-5185-4cf1-8ce0-84eec52cb4a2",
+        "Value": "9aa65c88-3e85-4568-a25d-867513aa4581"
+      }
+    ]
+  }
+}

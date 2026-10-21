@@ -1,0 +1,28 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1604",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1604"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "4c532437-dbf8-4332-a069-85e8215c71cf",
+      "UIData": {
+        "Name": "Rack PDU (Feed B)",
+        "Icon": "{G}2a527edb-9b31-42e8-8197-83bf23532365"
+      },
+      "PlacerDefinition": "0466cd15-9074-440e-8c3c-f0457faeb619",
+      "MountPointGeneratorSettings": {
+        "Directions": "Down"
+      },
+      "Recipe": "836deb33-6835-4552-a79d-507feb13fb5a",
+      "BlockKind": "49b865d1-727a-4dc9-ab0d-86f1ce5e4a78",
+      "PCU": 5
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

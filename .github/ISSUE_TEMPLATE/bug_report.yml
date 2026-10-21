@@ -1,0 +1,106 @@
+# managed by riokulabs/.github - edit there (templates/), not here
+name: Bug report
+description: A block, model, script or crash problem in the mod
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues first. The fields below are what is needed to reproduce a problem in Space Engineers 2.
+  - type: input
+    id: game_version
+    attributes:
+      label: Space Engineers 2 version
+      description: Shown in the main menu or in the log header.
+      placeholder: "4.0.0.3155"
+    validations:
+      required: true
+  - type: input
+    id: mod_version
+    attributes:
+      label: Mod version
+      description: Workshop change note, tag, or commit if you built it yourself.
+      placeholder: "0.9.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows
+        - Linux native (Pulsar + LinuxCompat)
+        - Linux via Proton
+        - Other (say which below)
+    validations:
+      required: true
+  - type: dropdown
+    id: scripts
+    attributes:
+      label: Scripts (-loadScripts)
+      description: Did you start the game with scripts enabled?
+      options:
+        - "On (started with -loadScripts)"
+        - "Off"
+        - "I do not know"
+    validations:
+      required: true
+  - type: textarea
+    id: other_mods
+    attributes:
+      label: Other mods and plugins loaded
+      description: Workshop mods in the world, and Pulsar plugins if you use Pulsar. "None" is a useful answer.
+    validations:
+      required: true
+  - type: dropdown
+    id: world
+    attributes:
+      label: World type
+      options:
+        - Singleplayer, new world
+        - Singleplayer, existing world
+        - Multiplayer, you are the host
+        - Multiplayer, you are a client
+        - Dedicated server
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log excerpt
+      description: |
+        The newest log from the folder below. Paste the lines around the problem, not the whole file. Do not include tokens or private server details.
+        Windows: `%AppData%\SpaceEngineers2\Temp\Logs`
+        Linux native: `~/.config/SpaceEngineers2/Temp/Logs`
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or video
+      description: Drag files into this box. For a block that looks wrong, show it from the angle where the problem is visible.
+    validations:
+      required: false

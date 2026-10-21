@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3151",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3151"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "06f4adbe-7acd-4283-b000-bdac9619e9ff",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "5cSUSCr8QfR6EitdehJqvA=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "TXtlH968rzM7INQCMeMmUQ==",
+            "FileName": "DC_Srv_Switch_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "090b6971-f0c6-4145-8c17-ecc2138a13f3",
+            "Hash": "7hacI23poEh4wLmdr+MFMA=="
+          },
+          {
+            "Guid": "1fafaa47-d1fc-4c02-b925-f974020c7c0f",
+            "Hash": "12J4og+mk5YaArtlFFRDjA=="
+          },
+          {
+            "Guid": "5586249f-8743-4a41-ab50-98bd032e256a",
+            "Hash": "JcJfI5yAf/4HwuDFKYE9bA=="
+          },
+          {
+            "Guid": "582891dd-ee6d-48f3-9efa-6fecdd6e79fd",
+            "Hash": "qPY/AJiuGyXJHOFR50/BRw=="
+          },
+          {
+            "Guid": "5a7b1081-722b-4166-bf1b-a3b79d34222a",
+            "Hash": "kwalCMGL6Mjf9he+keq90g=="
+          }
+        ],
+        "AssetHash": "5cSUSCr8QfR6EitdehJqvA==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

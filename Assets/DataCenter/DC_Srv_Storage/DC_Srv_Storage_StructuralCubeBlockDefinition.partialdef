@@ -1,0 +1,27 @@
+{
+  "$Bundles": {
+    "Game2": "2.3.0.1604",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.3.0.1604"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Definitions.PartialDefinitionDiff",
+  "$Value": {
+    "BaseDefinition": "8a27c509-f7ca-4c08-9a00-66fa6893e3d0",
+    "PartialDefinitionKind": "Copy",
+    "Manipulator": {
+      "Guid": "77b7cd6f-3c5c-4368-a91f-a87a60da655f",
+      "UIData": {
+        "Name": "Storage Server",
+        "Icon": "{G}d26edfa1-35ff-4de5-9155-9a5c7df3c3d7"
+      },
+      "PlacerDefinition": "f9010b4f-1093-4d0a-abc6-302293e3ac3d",
+      "MountPointGeneratorSettings": {
+        "Directions": "Backward, Left, Right, Down"
+      },
+      "Recipe": "3170ff07-1ada-4d8a-a8aa-81e2ea15fa4d",
+      "BlockKind": "271dad90-42af-4759-9a25-3b0786c41505"
+    },
+    "DefinitionType": "Game2:Keen.Game2.Simulation.WorldObjects.CubeBlocks.CubeBlockDefinition",
+    "PriorityOverride": false
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$Bundles": {
+    "Game2": "4.0.0.3155",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "4.0.0.3155"
+  },
+  "$Type": "VRage:Keen.VRage.ContentPipeline.Metafiles.MetaData",
+  "$Value": {
+    "AssetID": "c27aea9a-bc29-4601-88be-9d960d682b46",
+    "InternalItems": [
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Structure.FileInfoMetaDataItem",
+        "FileHash": "lYF+BNEK1YToJbJQek1wkQ=="
+      },
+      {
+        "$Type": "VRage:Keen.VRage.ContentPipeline.Project.Features.AssetProcessing.AssetProcessingMetaDataItem",
+        "ProcessorInfo": {
+          "Version": 40,
+          "Identifier": "P_MODEL"
+        },
+        "ContentFiles": {
+          "MainOutput": {
+            "FileHash": "wQbHB/6wMsqwr/4HjE7tWw==",
+            "FileName": "DC_PDU_Rack42_B_Damaged.vrm"
+          },
+          "AdditionalOutputs": []
+        },
+        "Problems": [],
+        "DependenciesHashes": [
+          {
+            "Guid": "049afb56-071f-4cd5-bbcb-aea67fd7bd4c",
+            "Hash": "USM4pPm53qKSTxQitx0S7g=="
+          },
+          {
+            "Guid": "7d475183-ccc2-43e7-9f29-fe03c72b96bc",
+            "Hash": "JsDDh1HFPfjcv3lo/T860Q=="
+          },
+          {
+            "Guid": "d3b562ea-6716-45ee-9235-46ad8c7c6873",
+            "Hash": "FjiBf4+doRxNhAXcXLF+hA=="
+          },
+          {
+            "Guid": "d473e1a7-901a-47ad-85e2-22149b762eab",
+            "Hash": "aLj2yZm5XK1WayHfj7UIGA=="
+          },
+          {
+            "Guid": "f1b84161-08bb-49ed-8595-ef8e8da80e96",
+            "Hash": "bDFSsyOEHEQy7jFbfz5U9A=="
+          }
+        ],
+        "AssetHash": "lYF+BNEK1YToJbJQek1wkQ==",
+        "OverrideDetachedState": false,
+        "IgnoredErrors": "None"
+      }
+    ]
+  }
+}

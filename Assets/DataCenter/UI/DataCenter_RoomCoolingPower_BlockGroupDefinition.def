@@ -1,0 +1,20 @@
+{
+  "$Bundles": {
+    "Game2": "2.4.0.95",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.StreamedUI.Categories.BlockGroupDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "b6d01007-1101-466b-bb23-09940400e1b0",
+    "Name": "Room Cooling & Power",
+    "Order": 900,
+    "Subcategories": [
+      {
+        "Key": "f4c0d549-0991-4a93-bf4d-df3f501c0093",
+        "Value": "383c5117-1852-440d-b94f-b05a70df7737"
+      }
+    ],
+    "BlockKinds": []
+  }
+}

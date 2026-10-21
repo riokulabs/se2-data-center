@@ -1,0 +1,22 @@
+{
+  "$Bundles": {
+    "Game2": "2.4.0.95",
+    "System.Runtime": "1.0.0.0",
+    "VRage": "2.4.0.95"
+  },
+  "$Type": "Game2:Keen.Game2.Simulation.Scripting.InGameScriptingDefinitionObjectBuilder",
+  "$Value": {
+    "Guid": "06c7104d-4050-48de-a51f-ab151e34c670",
+    "EntryTypeName": "Program",
+    "UpdateMethodName": "Update",
+    "NoProgram": "ProgramableBlockNoProgram",
+    "NoConstructor": "ProgramableBlockNoConstructor",
+    "ProgramCompileSuccess": "ProgramableBlockSuccess",
+    "MaxInstructions": 50000,
+    "MaxMethodStackSize": 1024,
+    "MaxStackSize": 1048576,
+    "MaxAccumulatedMemory": 5242880,
+    "MaxInitMemory": 1048576,
+    "MaxUpdateMemory": 102400
+  }
+}
