@@ -75,6 +75,8 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "sdkbuild: runs the real SDK content build (se2mod.py build); opt-in with DC_SDK_BUILD=1")
     config.addinivalue_line("markers", "path_a: pins Ruling DB-10 Path A (rack subparts as ConditionalSubParts); skipped "
                                        "when dc.config.RACK_PATH is 'B' (Tests/test_rack_path_b.py covers B)")
+    config.addinivalue_line("markers", "slow: a long check (seconds each); runs by default and in the gate, deselect "
+                                       "with -m 'not slow' only for a quick inner loop")
     config.addinivalue_line("markers", "scripts: needs the optional C# layer (Scripts/); skipped without it, the data-only package")
 
 

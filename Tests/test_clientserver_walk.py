@@ -262,6 +262,7 @@ def committed_assets(tmp_path, rev):
     return os.path.join(tmp_path, "Assets")
 
 
+@pytest.mark.slow   # ~15 s: extracts the 10-18 package from git and walks it twice
 def test_the_real_10_18_package_fails_and_its_fix_passes(tmp_path, types):
     """The package exactly as committed when the world load failed (028c1172^) fails with the in-game message
     ("Client component ... should not be on server compositions") on the rotor composites, reached through
