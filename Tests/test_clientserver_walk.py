@@ -6,7 +6,7 @@ DoorBlockCollider -> DoorPartsProvider -> ConditionalSubParts chain, and Conveyo
 rejecting its render components. clientserver_walk ports that walk over fully resolved definitions (vanilla SDK
 Assets + the mod's Assets + this run's staging) and the validator; here it must:
   (a) pass the DataCenter package as staged today,
-  (b) FAIL the 10-18 structure and the other server-side mistakes Path A could make,
+  (b) FAIL the structure that broke the world load and the other server-side mistakes Path A could make,
   (c) pass the Path A rack structure,
   (d) pass vanilla (the whole SDK, and SlidingDoorNarrow250 / Gyroscope50 / Reactor250 walked explicitly), so the
       port is not over-strict.
