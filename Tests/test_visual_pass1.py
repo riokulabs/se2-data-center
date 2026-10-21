@@ -89,7 +89,7 @@ def test_side_model_within_limits_and_bounds(name):
 
 
 @pytest.mark.parametrize("name", RACKS)
-def test_side_panels_spawn_on_both_sides(staged, name):
+def test_side_panels_spawn_on_both_sides(staged, name):  # noqa: F811 (pytest fixture)
     """Every rack's side model spawns twice from one ConditionalSubParts entry (Plan 5 Task 12, G2: it was a static
     child pair): RackSideR at the block origin, RackSideL turned 180 deg about game +Y (quaternion and Euler hint
     agree), both of the side's own dummy type, which maps to the side's client prefab."""

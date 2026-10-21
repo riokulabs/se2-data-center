@@ -175,7 +175,6 @@ def test_tray_fractured():
     """Plan 2 Task 9b (Ruling P2-27): every tray fractures by its plan (dc/fracture.py): 2 .. Keen's maximum zones for
     its size, one box collider per zone named after it (the zone's hull, in the glTF frame), and the hulls cover
     every NonFractured physics box (the breakable collider is the block's physics once a fracture is damaged)."""
-    from dc import fracture as FR
     rep = read_json(config.REPORT_PATH)["blocks"]
     assert built_trays()
     from dc import catalog as C
