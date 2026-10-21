@@ -11,6 +11,10 @@ sys.path.insert(0, os.path.join(HERE, "..", "Source", "Model"))
 sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "tools")))
 CORE_TESTS = os.path.join(HERE, "CoreTests")
 SCRIPTS = os.path.join(HERE, "..", "Scripts")
+# The SDK build (se2mod build / se2modkit sdkbuild) moves Scripts/ here while the builder runs and back afterwards. A run
+# collected in that window took the mod for the data-only package and silently skipped every `scripts` test (112 of
+# them: the serial 115-skip run in docs/research/dev-speed-and-token-efficiency.md section 1.4), so it must not start.
+SCRIPTS_HIDDEN = os.path.join(HERE, "..", ".Scripts.hidden-for-build")
 
 # Every test module's `staged` fixture regenerates the package (integration.write_all: rmtree, then write). Into the
 # shared Source/Model/integration/Assets, two concurrent pytest runs raced ("Directory not empty"), and a run could
@@ -25,6 +29,10 @@ _dc_config.STAGE_ASSETS = os.path.join(RUN_STAGE_ROOT, "Assets")
 
 
 def pytest_configure(config):
+    if not os.path.isdir(SCRIPTS) and os.path.isdir(SCRIPTS_HIDDEN):
+        raise pytest.UsageError("Scripts/ is hidden by a running SDK build (.Scripts.hidden-for-build exists): run the "
+                                "tests after the build, or every `scripts` test would silently skip. If no build is "
+                                "running, a crashed one left it behind: move .Scripts.hidden-for-build back to Scripts/.")
     config.addinivalue_line("markers", "build: needs a prior Blender build (build_report.json); skipped if absent")
     config.addinivalue_line("markers", "sdkbuild: runs the real SDK content build (se2mod.py build); opt-in with DC_SDK_BUILD=1")
     config.addinivalue_line("markers", "path_a: pins Ruling DB-10 Path A (rack subparts as ConditionalSubParts); skipped "
@@ -47,10 +55,20 @@ def pytest_collection_modifyitems(config, items):
                 item.add_marker(skip_a)
     if os.path.isdir(SCRIPTS):
         return
+    config._dc_data_only = True
     skip = pytest.mark.skip(reason="Scripts/ absent: the data-only package (the C# layer is optional)")
     for item in items:
         if item.get_closest_marker("scripts"):
             item.add_marker(skip)
+
+
+def pytest_runtest_setup(item):
+    """Scripts/ present at collection but gone now: an SDK build started mid-run and hid it. Fail the `scripts` tests
+    rather than let them read a half-moved tree (or, in a later run, skip)."""
+    if (item.get_closest_marker("scripts") and not getattr(item.config, "_dc_data_only", False)
+            and not os.path.isdir(SCRIPTS)):
+        pytest.fail("Scripts/ disappeared during the run (an SDK build hides it in .Scripts.hidden-for-build): rerun "
+                    "the tests after the build", pytrace=False)
 
 
 @pytest.fixture(scope="session")
