@@ -38,8 +38,8 @@ BLOCK_CHAIN = os.path.join(config.TOOLS_DIR, "scripts")
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 @pytest.fixture(scope="module")

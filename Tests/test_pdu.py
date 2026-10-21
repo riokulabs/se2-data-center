@@ -399,8 +399,8 @@ def test_pdu_breakable_export(name):
 
 
 @pytest.fixture(scope="module")
-def staged():
-    integration.write_all()
+def staged(stage_package):
+    stage_package()
     return integration.STAGE
 
 

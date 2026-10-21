@@ -141,9 +141,8 @@ def test_own_damaged_model(name):
 
 
 @pytest.fixture(scope="module")
-def staged():
-    from dc import integration
-    integration.write_all()
+def staged(stage_package):
+    stage_package()
     return config.STAGE_ASSETS
 
 

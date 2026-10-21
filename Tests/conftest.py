@@ -1,4 +1,5 @@
 import contextlib
+import copy
 import hashlib
 import os
 import shutil
@@ -28,6 +29,41 @@ from dc import config as _dc_config  # noqa: E402
 
 RUN_STAGE_ROOT = tempfile.mkdtemp(prefix="dc-pytest-stage-")
 _dc_config.STAGE_ASSETS = os.path.join(RUN_STAGE_ROOT, "Assets")
+
+# One staging per process, shared by the modules that only read it (stage_package below). write_all is about 3 s and
+# ~29 modules each re-staged; now a process stages once and again only after something else called write_all (a test
+# that checks write_all itself, or stages a variant into a temp dir with dc.config patched: test_fresh_clone,
+# test_rack_path_b, test_programmable_data), which this counter sees. Each pytest-xdist worker is its own process, so
+# it has its own RUN_STAGE_ROOT above and its own shared staging.
+from dc import integration as _dc_integration  # noqa: E402  (after the STAGE_ASSETS redirect: STAGE binds at import)
+
+_WRITE_ALL_CALLS = [0]
+_write_all = _dc_integration.write_all
+
+
+def _counted_write_all(*args, **kwargs):
+    _WRITE_ALL_CALLS[0] += 1
+    return _write_all(*args, **kwargs)
+
+
+_dc_integration.write_all = _counted_write_all
+_SHARED_STAGE = {}
+
+
+def _stage_fingerprint():
+    """(path, mtime_ns, size) of every staged file: a test that rewrote or removed one (an idempotence check re-patching
+    a staged definition, say) makes the next module re-stage, as the per-module staging did. ~2,000 stats, ~20 ms."""
+    out = []
+    for dp, _, fs in os.walk(_dc_config.STAGE_ASSETS):
+        for f in fs:
+            st = os.stat(os.path.join(dp, f))
+            out.append((dp, f, st.st_mtime_ns, st.st_size))
+    return hash(tuple(sorted(out)))
+
+
+def _stage_state():
+    return (_WRITE_ALL_CALLS[0], _dc_config.STAGE_ASSETS, _dc_config.MOD_ASSETS, _dc_config.RACK_PATH,
+            _stage_fingerprint())
 
 
 def pytest_configure(config):
@@ -71,6 +107,21 @@ def pytest_runtest_setup(item):
             and not os.path.isdir(SCRIPTS)):
         pytest.fail("Scripts/ disappeared during the run (an SDK build hides it in .Scripts.hidden-for-build): rerun "
                     "the tests after the build", pytrace=False)
+
+
+@pytest.fixture(scope="session")
+def stage_package():
+    """Stage the package (integration.write_all with its defaults) into this run's staging unless it is already
+    staged and nothing has called write_all since; returns a private copy of write_all's summary. Module `staged`
+    fixtures call it, so a module that runs after a write_all-calling test still gets a fresh default staging."""
+    def stage():
+        if _SHARED_STAGE.get("state") != _stage_state():
+            assert _dc_config.STAGE_ASSETS == os.path.join(RUN_STAGE_ROOT, "Assets"), \
+                "dc.config.STAGE_ASSETS is still patched by an earlier test"
+            summary = _dc_integration.write_all()
+            _SHARED_STAGE.update(state=_stage_state(), summary=summary)
+        return copy.deepcopy(_SHARED_STAGE["summary"])
+    return stage
 
 
 @contextlib.contextmanager

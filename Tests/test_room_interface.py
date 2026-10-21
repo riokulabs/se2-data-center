@@ -198,9 +198,8 @@ def test_pdu_brackets_are_the_only_inner_back_mounts(name):
 
 # ---------------------------------------------------------------------------------------------------- staged
 @pytest.fixture(scope="module")
-def staged():
-    from dc import integration
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 @pytest.mark.parametrize("name", ALL_RACKS)

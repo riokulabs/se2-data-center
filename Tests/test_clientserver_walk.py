@@ -71,9 +71,9 @@ def vanilla():
 
 
 @pytest.fixture(scope="module")
-def package():
+def package(stage_package):
     """The load as installed: vanilla, then the mod's Assets, then this run's staging over it (same relative path)."""
-    integration.write_all()
+    stage_package()
     return csw.Universe([csw.SDK_ASSETS, config.MOD_ASSETS, config.STAGE_ASSETS])
 
 

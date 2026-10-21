@@ -28,8 +28,8 @@ SDK_MATERIALS = os.path.expanduser("~/.steam/debian-installation/steamapps/commo
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 def _stage(rel):

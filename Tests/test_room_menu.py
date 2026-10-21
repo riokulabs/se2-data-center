@@ -33,8 +33,8 @@ WANT = {   # group -> [(kind key, [the kind's blocks in size order])]
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 def stage(rel):

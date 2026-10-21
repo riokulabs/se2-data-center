@@ -47,8 +47,8 @@ OPPOSITE = {"Forward": "Backward", "Backward": "Forward", "Left": "Right", "Righ
 
 
 @pytest.fixture(scope="module")
-def staged():
-    integration.write_all()
+def staged(stage_package):
+    stage_package()
     return integration.STAGE
 
 

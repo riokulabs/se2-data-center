@@ -35,8 +35,8 @@ BREAKERS = ["DC_PDU_Cabinet", "DC_PDU_Rack42_A", "DC_PDU_Rack42_B", "DC_PDU_Rack
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 @pytest.fixture(scope="module")

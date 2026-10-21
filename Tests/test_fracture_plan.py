@@ -283,8 +283,8 @@ def test_fractures_keep_placement(name):
 
 
 @pytest.fixture(scope="module")
-def staged():
-    integration.write_all()
+def staged(stage_package):
+    stage_package()
     return config.STAGE_ASSETS
 
 
