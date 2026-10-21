@@ -1,3 +1,5 @@
+import contextlib
+import hashlib
 import os
 import shutil
 import subprocess
@@ -71,6 +73,32 @@ def pytest_runtest_setup(item):
                     "the tests after the build", pytrace=False)
 
 
+@contextlib.contextmanager
+def _core_tests_lock():
+    """Hold an exclusive lock on Tests/CoreTests while `dotnet run` builds it. Under pytest-xdist the trajectories
+    fixture (in up to three workers) and test_scripts_layout::test_core_tests_pass can build the one project at the
+    same time, and concurrent MSBuild runs on one obj/ fail at random. The lock file lives in the temp dir, keyed by
+    the project path, so separate pytest runs on this checkout queue too. No fcntl (Windows): no lock."""
+    try:
+        import fcntl
+    except ImportError:
+        yield
+        return
+    key = hashlib.sha1(os.path.realpath(CORE_TESTS).encode()).hexdigest()[:12]
+    with open(os.path.join(tempfile.gettempdir(), f"dc-coretests-{key}.lock"), "a") as fh:
+        fcntl.flock(fh, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(fh, fcntl.LOCK_UN)
+
+
+@pytest.fixture(scope="session")
+def core_tests_lock():
+    """The CoreTests build lock (_core_tests_lock), for tests that `dotnet run` Tests/CoreTests themselves."""
+    return _core_tests_lock
+
+
 @pytest.fixture(scope="session")
 def trajectories():
     """The motion core's dump (Source/Model/preview/plan4/traj: the trajectories, routing.json, data_only_open.csv),
@@ -82,8 +110,11 @@ def trajectories():
     if K.dump_stamp() == K.core_sources_digest():
         return K.TRAJ_DIR
     if shutil.which("dotnet"):
-        r = subprocess.run(["dotnet", "run", "-c", "Release", "--project", CORE_TESTS, "--", "--dump", K.TRAJ_DIR],
-                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=600)
+        with _core_tests_lock():
+            if K.dump_stamp() == K.core_sources_digest():   # another worker regenerated it while this one waited
+                return K.TRAJ_DIR
+            r = subprocess.run(["dotnet", "run", "-c", "Release", "--project", CORE_TESTS, "--", "--dump", K.TRAJ_DIR],
+                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=600)
         if r.returncode != 0:
             pytest.fail("CoreTests --dump failed, so the trajectories cannot be regenerated:\n" + r.stdout[-4000:])
     elif not os.path.exists(os.path.join(K.TRAJ_DIR, "open.csv")):
