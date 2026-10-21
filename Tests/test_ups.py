@@ -46,11 +46,11 @@ def _sdk(rel):
 
 
 @pytest.fixture(scope="module")
-def staged():
+def staged(stage_package):
     rep = read_json(config.REPORT_PATH)["blocks"]
     if not rep.get(UPS, {}).get("placement", {}).get("total"):
         pytest.fail("DC_Srv_UPS not built (build_dc.py)")
-    return integration.write_all()
+    return stage_package()
 
 
 def _staged(pattern):

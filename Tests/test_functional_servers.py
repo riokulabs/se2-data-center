@@ -65,8 +65,8 @@ def _lod0_parts(name):
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 # ---------------------------------------------------------------------------------------------- indicators

@@ -146,7 +146,14 @@ visual (each client shows its own KVM motion for the same server state), but it 
 - **CoreTests:** `cd Tests/CoreTests && dotnet run -c Release` runs the game-free cores (the KVM motion, the
   surgery and scripting rules); `-- --dump <dir>` also writes the trajectories the Python geometry tests and the
   previews use, stamped with a digest of the core sources.
-- **Tests:** `python3 -m pytest -q Tests` (`-m "not build"` for quick loops).
+- **Tests:** `python3 -m pytest -q Tests` runs everything; `-m "not build and not sdkbuild"` is the offline subset
+  (what CI and `scripts/test.sh` run). In parallel, with [pytest-xdist](https://pypi.org/project/pytest-xdist/)
+  installed: `python3 -m pytest -q -n auto --dist loadfile Tests` (on 32 threads: the full suite in about 2 min
+  instead of about 9.5, the offline subset in about 1.5 min instead of about 5; serial and parallel runs report the
+  same counts). Keep `--dist loadfile`: a module's tests then share one worker and its module fixtures. For a quick
+  inner loop add `-m "not slow"` (deselects the longest checks, about 100 s serial); the full run before a commit
+  includes them. The tests refuse to start while an SDK build has `Scripts/` moved aside
+  (`.Scripts.hidden-for-build`): they would otherwise skip every `scripts` test.
 - **Probe mode:** `probe_scripts.csx` has an opt-in fault pass (`kvmFaultPass = true`).
 - **Dependency risks:** the scripts reflect into engine internals; the list and where each one is used is in
   `docs/reference/our-game-dependencies.md` (workspace root), and NOTES.md ("Plan 4").

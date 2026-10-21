@@ -100,7 +100,7 @@ def test_dents_still_read(name):
 
 @pytest.mark.build
 @pytest.mark.parametrize("name", UNFRACTURED)
-def test_unfractured_have_dented_debris(name):
+def test_unfractured_have_dented_debris(name, stage_package):
     """G12: the rod hangers and the Chute (non-breakable, no zones) leave dented debris: a Damaged model with the
     Fractured model's mesh parts and LOD count, dented >= 1 mm mean, its colliders the Fractured's plain boxes, and
     the staged DamagedModel points at it."""
@@ -122,7 +122,7 @@ def test_unfractured_have_dented_debris(name):
     assert sorted(map(sorted, dm_col.values())) == sorted(map(sorted, fr_col.values())), name
     for a, b in zip(m["fractured"]["lods"][:-1], dm["lods"][:-1]):
         assert b["tris"] <= FR.damaged_tris_x(spec.family) * a["tris"] + 2, (name, a["tris"], b["tris"])
-    integration.write_all()
+    stage_package()
     rel = clone.entry(spec)["info"]["model_def_file"]
     bmd = read_json(os.path.join(config.STAGE_ASSETS, rel))["$Value"]["Manipulator"]
     want = "{G}" + integration.asset_id(f"{config.NAME}/{name}/Models/Damaged/{name}_Damaged.model")
@@ -130,11 +130,11 @@ def test_unfractured_have_dented_debris(name):
 
 
 @pytest.mark.build
-def test_lastlod_slot_keeps_its_material():
+def test_lastlod_slot_keeps_its_material(stage_package):
     """Task 3 review M1: the LastLOD box's <Block>_LastLOD slot is NOT Deformed-remapped: vanilla's Deformed models
     keep the Fractured / NonFractured LastLOD material (194 of 196 measured, NOTES), and so do ours."""
     from dc import integration
-    integration.write_all()
+    stage_package()
     n = 0
     for spec in catalog.STAGED:
         p = os.path.join(config.STAGE_ASSETS, config.NAME, spec.name, "Models", "Damaged", f"{spec.name}_Damaged.model")

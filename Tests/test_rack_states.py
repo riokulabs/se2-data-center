@@ -41,8 +41,8 @@ OB_HIERARCHY = "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBu
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 def _files(name, pattern):

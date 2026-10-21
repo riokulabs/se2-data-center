@@ -90,8 +90,8 @@ def _hide_list_matches(staged, name, rel):
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 def _staged_model(name, variant):

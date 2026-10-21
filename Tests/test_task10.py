@@ -111,8 +111,8 @@ def test_hero_shots():
 
 # ---------------------------------------------------------------------------------------------- staged package
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 def stage(rel):

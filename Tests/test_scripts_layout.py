@@ -148,12 +148,14 @@ def test_route_recorded():
     assert f"Programmable route: {config.PROGRAMMABLE_ROUTE}" in _read(os.path.join(MOD, "NOTES.md"))
 
 
-def test_core_tests_pass():
-    """Tests/CoreTests: the game-free cores' unit tests (native dotnet, no game DLLs)."""
+def test_core_tests_pass(core_tests_lock):
+    """Tests/CoreTests: the game-free cores' unit tests (native dotnet, no game DLLs). Under the CoreTests build lock
+    (Tests/conftest.py): a parallel worker may be dumping the trajectories from the same project."""
     if not shutil.which("dotnet"):
         pytest.skip("the dotnet SDK is not installed")
-    r = subprocess.run(["dotnet", "run", "-c", "Release", "--project", CORE_TESTS], stdout=subprocess.PIPE,
-                       stderr=subprocess.STDOUT, text=True, timeout=600)
+    with core_tests_lock():
+        r = subprocess.run(["dotnet", "run", "-c", "Release", "--project", CORE_TESTS], stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT, text=True, timeout=600)
     assert r.returncode == 0 and "OK: " in r.stdout, r.stdout[-4000:]
 
 

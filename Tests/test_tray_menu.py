@@ -22,8 +22,8 @@ DENSITY_GROUPS = [f"tray_{d}" for d in catalog.TRAY_DENSITIES]
 
 
 @pytest.fixture(scope="module")
-def staged():
-    return integration.write_all()
+def staged(stage_package):
+    return stage_package()
 
 
 def stage(rel):

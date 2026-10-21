@@ -118,6 +118,7 @@ def _holds(g, prefab, R, cells, rb):
     return out
 
 
+@pytest.mark.slow   # ~82 s over the 12 cases (the aim fan through the placer emulation)
 @pytest.mark.parametrize("srv_name,n_u,dirs", SERVERS, ids=[s[0] for s in SERVERS])
 @pytest.mark.parametrize("rack_name", RACKS)
 def test_no_aim_mis_seats(rack_name, srv_name, n_u, dirs):

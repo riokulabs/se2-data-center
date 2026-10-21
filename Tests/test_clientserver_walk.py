@@ -71,9 +71,9 @@ def vanilla():
 
 
 @pytest.fixture(scope="module")
-def package():
+def package(stage_package):
     """The load as installed: vanilla, then the mod's Assets, then this run's staging over it (same relative path)."""
-    integration.write_all()
+    stage_package()
     return csw.Universe([csw.SDK_ASSETS, config.MOD_ASSETS, config.STAGE_ASSETS])
 
 
@@ -262,6 +262,7 @@ def committed_assets(tmp_path, rev):
     return os.path.join(tmp_path, "Assets")
 
 
+@pytest.mark.slow   # ~15 s: extracts the 10-18 package from git and walks it twice
 def test_the_real_10_18_package_fails_and_its_fix_passes(tmp_path, types):
     """The package exactly as committed when the world load failed (028c1172^) fails with the in-game message
     ("Client component ... should not be on server compositions") on the rotor composites, reached through
@@ -293,37 +294,8 @@ def test_10_18_unbound_rotor_in_door_conditional_subparts_fails(package, types, 
     assert any(csp["Guid"] in step for e in bad for step in e[3]), bad      # reached through the ConditionalSubParts
 
 
-@pytest.mark.path_a
-@pytest.mark.parametrize("rack,server", [(r, f) for r in FAN_DOOR_RACKS for f in
-                                          ("LeftDoor_Server.def", "RackFanTray_Server.def", "RackSide_Server.def")]
-                         + [("DC_Rack42_Open", f) for f in ("RackFanTray_Server.def", "RackSide_Server.def")])
-def test_bound_entry_whose_server_prefab_has_a_child_fails(package, types, rack, server):
-    """A BOUND ConditionalSubParts entry is blocked on the server side only at its client prefab: its server prefab is
-    walked as server through the binding, so a child there (the rotor) is a server composite. On the door leaves and
-    on Task 12's real RackFanTray / RackSide server prefabs (door and open racks)."""
-    sp = res(package, own(package, rack, server))
-    fan = res(package, own(package, rack, "RackFan.partialdef"))
-    for ob in sp["_entity"]["ObjectBuilders"]:
-        if (ob.get("Value") or {}).get("$Type") == OB_HIERARCHY:
-            ob["Value"]["Children"] = [dict(fan["_entity"], DebugName="Rotor")]
-    w, errs = run(package.derive(as_def(T_PREFAB, sp)), types)
-    assert errors_of(errs, "client-type-on-server", csw.composition_of(fan)), csw.format_errors(errs)
-
-
-@pytest.mark.path_a
-@pytest.mark.parametrize("rack,comp", [(r, f) for r in DOOR_RACKS for f in
-                                        ("LeftDoor_ServerComposition.def", "RackSide_ServerComposition.def")]
-                         + [(r, "RackFanTray_ServerComposition.def") for r in FAN_DOOR_RACKS + ("DC_Rack42_Open",)]
-                         + [(r, "RackSide_ServerComposition.def") for r in OPEN_RACKS])
-def test_server_composition_inheriting_a_client_type_fails(package, types, rack, comp):
-    """A bound entry's server composition that INHERITS render components from its Copy base (the subpart template)
-    instead of inserting them: the resolver applies the base chain, so the inherited client types are seen. On the
-    door leaves and on Task 12's real RackSide / RackFanTray server compositions."""
-    sc = own(package, rack, comp)
-    delta = as_def(T_PARTIAL, {"BaseDefinition": SUBPART_COMPOSITE_TEMPLATE, "PartialDefinitionKind": "Copy",
-                              "Manipulator": {"Guid": sc}, "DefinitionType": T_COMPOSITE, "PriorityOverride": False})
-    w, errs = run(package.derive(delta), types)
-    assert errors_of(errs, "client-type-on-server", sc), csw.format_errors(errs)
+# test_bound_entry_whose_server_prefab_has_a_child_fails and test_server_composition_inheriting_a_client_type_fails
+# (21 walks) are in test_clientserver_walk_server_side.py, so a parallel run (--dist loadfile) splits this module.
 
 
 def test_binding_without_server_prefab_fails(package, types):
