@@ -60,15 +60,16 @@ Labels** (19 blocks). Build a hall in this order:
 - **Roof:** roof panels (1.0 m along the row x the aisle width) snap onto the containment rail along the top of
   full-rack rows (42U racks, CRAC, PDU cabinet) and onto the door header. Half racks (24U) are not contained.
 - **The CRAC draws power** (25, priority as a vanilla gyroscope): its fans spin and its RUN lamp lights only while it is
-  On and powered. It does not cool anything (the game has no cooling); its rear **O2 / COOLANT SERVICE** ports are
-  decorative (blanked, nothing connects to them).
+  On and powered; the fans take 2 s to spin up and coast down over 4 s when it stops. It does not cool anything (the
+  game has no cooling); its rear **O2 / COOLANT SERVICE** ports are decorative (blanked, nothing connects to them).
 - **Power distribution:** the PDU Cabinet is decorative (vanilla has no power-junction block); a cable tray Drop over
   it lands in its top brush plates. Zero-U **Rack PDU** strips go in a rack's rear corner columns, **Feed A** in the
   right-hand column and **Feed B** in the left (seen from the rear), 42U or 24U length; aim at the plinth top in the
   rear corner.
 - **Signs are editable LCDs** (Signs & Labels): type the text in the terminal. The **Aisle Sign** (1.0 m) mounts on a
   wall or on a door header; the double-faced **Hanging Aisle Sign** hangs from a 1.0 m Hanger Rod under the ceiling;
-  the **Rack Label** sits on a rack's top edge. Show hot or cold with the frame's paint (blue / red).
+  the **Rack Label** sits on a rack's top edge. Show hot or cold with the frame's paint: red for a hot aisle, blue for
+  a cold one.
 - **Rack IDs:** racks and the CRAC carry neutral placards ("RACK", "RACK ID", "CRAC" beside a blank tag); give each
   rack its ID with a Rack Label. On a 42U it mounts on the front pad (between a Drop's waterfalls) or the back pad; on a
   24U only on the **back pad**. In a **contained** aisle the roof hides the rack tops' aisle edge: put the labels on

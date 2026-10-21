@@ -1,5 +1,3 @@
-[img]https://rioku.dev/media/data-center/cold-aisle-v1.jpg[/img]
-
 Server racks, rack-mount servers, overhead cable trays and server-room pieces for Space Engineers 2: 73 blocks. Six of the servers are working automation blocks.
 
 [i]An unofficial fan-made mod by Rioku Labs. Not made by, affiliated with or endorsed by Keen Software House.[/i]
@@ -7,15 +5,15 @@ Server racks, rack-mount servers, overhead cable trays and server-room pieces fo
 [h2]What's in it[/h2]
 Everything is in the build menu under Automation > Data Center. Sizes are width x height x depth; one grid cell is 0.25 m.
 
-[b]Server racks (6).[/b] 42U: 1.0 x 2.5 x 1.25 m, 8 slots, with an overhead cable tray and fans. 24U: 1.0 x 1.25 x 1.25 m, 4 slots. Each height comes as Open Frame, Split Front Doors (perforated leaves that swing 85° toward the aisle) or Front + Rear Doors.
+[b]Server racks (6).[/b] Server Rack (Open Frame), (Split Front Doors) and (Front + Rear Doors); the build menu's size selector picks 42U or 24U. 42U: 1.0 x 2.5 x 1.25 m, 8 slots, with an overhead cable tray and fans. 24U: 1.0 x 1.25 x 1.25 m, 4 slots. Split Front Doors have perforated leaves that swing 85° toward the aisle.
 
 [b]Rack servers (10).[/b] 6U servers are 0.5 x 0.25 x 0.75 m and take one slot.
 [list]
-[*]Timer, Event Controller: the vanilla blocks.
+[*]Timer Server, Event Controller Server: the vanilla blocks.
 [*]KVM Console: a control panel. Switch it On, or Use the drawer, and the keyboard drawer and screen come out.
-[*]Status Display: an LCD.
+[*]Status Display Server: an LCD.
 [*]UPS (12U, two slots): a battery with two Power Cell bays, one on the front and one on the back.
-[*]Programmable: an On/Off blade with a programmable block (running a program needs scripts, see below).
+[*]Programmable Server: an On/Off blade with a programmable block (running a program needs scripts, see below).
 [*]Compute, Storage, Network Switch, Blanking Panel: decorative.
 [/list]
 
@@ -24,13 +22,11 @@ Everything is in the build menu under Automation > Data Center. Sizes are width 
 [b]Room pieces (19).[/b]
 [list]
 [*]Raised floor, Solid or Perforated, 0.5 or 1.0 m tiles, 0.25 m high (4).
-[*]In-row cooler (CRAC) and PDU cabinet, on the same footprint as a rack (2).
-[*]Rack PDU strips, Feed A and Feed B, for 42U and 24U racks (4).
+[*]In-Row Cooler (CRAC) and PDU Cabinet, on the same footprint as a rack (2).
+[*]Rack PDU (Feed A) and (Feed B) strips, for 42U and 24U racks (4).
 [*]Aisle containment: sliding doors and roof panels for 1.0, 1.5 and 2.0 m aisles (6).
 [*]Aisle Sign, Hanging Aisle Sign and Rack Label, all editable LCDs (3).
 [/list]
-
-[img]https://rioku.dev/media/data-center/hall-overhead-v1.jpg[/img]
 
 [h2]How it works in game[/h2]
 [list]
@@ -42,12 +38,10 @@ Everything is in the build menu under Automation > Data Center. Sizes are width 
 [*]The CRAC draws power; its fans spin and its RUN lamp lights only while it is On and powered. It does not cool anything (the game has no heat). The PDU cabinet and strips are decorative.
 [*]Trays join floor to floor and work in either direction. A Reducer steps the density down one level; a Drop hangs over a rack and runs cables into it.
 [*]Signs and rack labels are LCDs: type your own text, and paint the frame blue (cold) or red (hot).
-[*]Blocks build like vanilla ones: a construction cage until 30 %, the frame first, lamps, screens and cables last. All have damaged models and sparks, smoke and fire; all but the Hanger Rods and the Chute break into zones.
+[*]Blocks build like vanilla ones: a construction cage until 30 %, the frame first, lamps, screens and cables last. All have damaged models and sparks, smoke and fire; all but the Hanger Rods and the Chute break into zones. A broken section shows a solid inside with torn wiring and the big parts you would expect there, never an empty box.
 [*]Until a block is complete and undamaged, its moving parts (rack sides and fan trays, KVM drawer, CRAC fans) show as still copies.
 [*]Costs use vanilla components and scale with size like vanilla blocks.
 [/list]
-
-[img]https://rioku.dev/media/data-center/rack-42u-front-v1.jpg[/img]
 
 [h2]Scripts (optional)[/h2]
 The mod works fully without scripts. The blocks, their build and damage states, the doors, the fans, the KVM drawer and every vanilla behaviour are in the block data.
@@ -63,11 +57,9 @@ Saves are the same in both modes, so a world can go back and forth.
 
 To turn scripts on: Steam > Library > right-click Space Engineers 2 > Properties > Launch Options, add -loadScripts. Remove it to turn them off. In multiplayer, give the server and every player the same setting.
 
-[img]https://rioku.dev/media/data-center/kvm-console-v1.jpg[/img]
-
 [h2]Requirements[/h2]
 [list]
-[*]Built for Space Engineers 2 4.0.0.3151. No other mods needed.
+[*]Built for Space Engineers 2 4.0.0.3155. No other mods needed.
 [*]After a game update the scripts may fail to compile until the mod is updated. The blocks then work as they do without scripts.
 [*]Multiplayer has had little testing so far.
 [/list]
