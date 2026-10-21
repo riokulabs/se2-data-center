@@ -1,4 +1,4 @@
-"""Plan 4 Task 9 (Ruling P4-8a): the KVM's two use boxes, rendered over the real model (Source/Model/preview/plan4/).
+"""The KVM's two use boxes, rendered over the real model (Source/Model/preview/scripts/).
 
 The boxes are the staged dummies' boxes (dc/functional.py KVM_TOGGLE_BOX / KVM_TERMINAL_BOX, the numbers
 integration.patch_kvm_dummies writes), drawn as ghosts with a wire edge:
@@ -9,7 +9,7 @@ kvm_use_rays_side: an orthographic side view of the out KVM with use rays from a
 1.2 m in front) through points up the lid, each drawn to where it meets the face and coloured by the box it gets
 (dc/functional.kvm_use_target; grey: neither, e.g. the neighbour above).
 
-    DC_PREVIEW=plan4 DC_SHOTS=kvm_use blender -b --python Source/Model/build_dc.py -- DC_Srv_KVM
+    DC_PREVIEW=scripts DC_SHOTS=kvm_use blender -b --python Source/Model/build_dc.py -- DC_Srv_KVM
 """
 import math
 
@@ -20,7 +20,7 @@ from mathutils import Matrix, Vector
 from . import functional as FN
 from . import preview as PV
 from . import preview_mats as PM
-from . import preview_task8 as P8
+from . import preview_kvm as P8
 from . import subparts as S
 from .preview import Shot, T, want
 

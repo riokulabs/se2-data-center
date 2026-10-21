@@ -298,7 +298,7 @@ def _interp(path, fr, l):
 
 
 def basket(P, plan, lod):
-    """The wire basket of every basket path of the plan (fillet "wall" paths are junction pieces, Tasks 6-7)."""
+    """The wire basket of every basket path of the plan (fillet "wall" paths are junction pieces)."""
     for path in plan.structure:
         if path.kind == "basket":
             _basket_path(P, plan, path, lod)

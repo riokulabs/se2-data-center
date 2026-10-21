@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "
 from dc import catalog, config, dims as DM, report  # noqa: E402
 
 BUILT = {}   # name -> {"lods": [(coll, objs)], "collision": [(kind, ob)], "root": coll} for previews
-BEVEL_HAZARDS = {}   # object name -> zero-length edges in a bevelled Part (visual pass 2 guard)
+BEVEL_HAZARDS = {}   # object name -> zero-length edges in a bevelled Part (a bevel artifact guard)
 
 
 def _install_bevel_guard():
@@ -235,7 +235,7 @@ def rack_geometry(spec, objs):
     bolt = _verts(objs, "slidebolt")
     ceil = _verts(objs, "ceiling")
     r5 = lambda v: round(v, 5)   # noqa: E731
-    # visual pass 1: anything of the rack inside the slot footprint near the top slot's top (roof, headers, tray)
+    # anything of the rack inside the slot footprint near the top slot's top (roof, headers, tray)
     near = [tuple(o.matrix_world @ v.co) for o in objs if o.type == "MESH" for v in o.data.vertices]
     near = [v for v in near if abs(v[0]) < SX_IN and abs(v[1]) < DM.SLOT_HALF_D - 1e-4 and v[2] > top - 0.05]
     return {"top_slot_intrusion": r5(max(0.0, top - min(v[2] for v in near))) if near else 0.0,
@@ -1155,6 +1155,37 @@ def port_caps(objs, ports):
 
 
 BUILDERS = {"rack": build_rack, "server": build_server, "tray": build_tray, "trayrods": build_tray}
+
+# DC_PREVIEW=<set> -> the dc/ module whose render_all(BUILT) renders it (each module's docstring has its block list)
+PREVIEW_SETS = {
+    "racks": "preview",                                   # the racks (the default without servers)
+    "servers": "preview_servers",                         # the servers in both open racks (the default with servers)
+    "rack-gap": "preview_rack_gap",                       # the shared side plane of two flush racks
+    "indicator-servers": "preview_indicator_servers",     # timer, event controller and status display servers
+    "ups": "preview_ups",                                 # the UPS server with its Power Cells
+    "kvm": "preview_kvm",                                 # the KVM console and the programmable shell
+    "rack-doors": "preview_rack_doors",                   # the rack door variants and the tray fans
+    "icons": "preview_icons",                             # build-menu icons, store previews and hero shots
+    "rack-tops": "preview_rack_tops",                     # the rack tops' brush plates and the tray interface
+    "rack-room-interface": "preview_rack_room_interface", # containment rails, PDU columns, label pads
+    "floor": "preview_floor",                             # the raised-floor tiles
+    "contain-roof": "preview_contain_roof",               # the containment roof panels
+    "contain-doors": "preview_contain_doors",             # the containment sliding doors
+    "crac": "preview_crac",                               # the in-row cooler (its own set, fans, room shots)
+    "pdu": "preview_pdu",                                 # the PDU cabinet and the rack PDU strips
+    "signs": "preview_signs",                             # the signs and labels
+    "room-compare": "preview_room_compare",               # the room cameras, before / after (DC_COMPARE_PHASE)
+    "hall": "preview_hall",                               # the two-aisle hall hero set
+    "showcase": "preview_showcase",                       # the clean presentation stills and clips
+    "scripts": "preview_script_blocks",                   # the scripted blocks: programmable, KVM motion, use boxes
+    "zfight": "preview_zfight",                           # rack side labels and door leaf edges up close
+    "rack-placement": "preview_rack_placement",           # the rack slot fronts, stops and slot floor
+    "block-views": "preview_block_views",                 # every block at in-game distances beside vanilla
+    "rack-crac": "preview_rack_crac",                     # the racks' rails, strips and placard beside the CRAC
+}
+# DC_PREVIEW=<set> -> the cable-tray shot family (dc/preview_trays.py render_all(which=...))
+TRAY_SETS = {"trays": "catalogue", "tray-turns": "turns", "tray-junctions": "junctions", "tray-drops": "drops",
+             "tray-compare": "compare", "tray-hall": "hall"}
 BUILDERS.update({f: _not_yet for f in catalog.ROOM_FAMILIES})
 BUILDERS["floor"] = build_floor
 BUILDERS["contain_roof"] = build_contain_roof
@@ -1204,9 +1235,9 @@ def main(argv):
             data = json.load(f)
     for spec in specs:
         data["blocks"][spec.name] = BUILDERS[spec.family](spec, render)
-        if spec.family in catalog.ROOM_FAMILIES:   # stencil contrast (before audit_built strips the tags)
+        if spec.family in catalog.ROOM_FAMILIES:   # stencil contrast (before check_built strips the tags)
             backing = zfight_room.stencil_backing(spec, BUILT.get(spec.name))
-        zf = zfight.audit_built(spec, BUILT.get(spec.name))
+        zf = zfight.check_built(spec, BUILT.get(spec.name))
         zf.update(zfight_room.contain_door_check(spec, BUILT.get(spec.name)))   # the sliding leaves
         if spec.family in catalog.ROOM_FAMILIES:
             zf["stencil_backing"] = backing
@@ -1242,88 +1273,23 @@ def main(argv):
                   + (f"; Damaged {[l['tris'] for l in m['damaged']['lods']]} tris, dents {m['damaged']['dent']}"
                      if m.get("damaged") else ""))
     if render and BUILT:
-        # the server previews ("task4") when servers were built (they need both open racks too), else the rack
-        # set ("task3"); DC_PREVIEW=task3|task4 forces one. The other mode strings below pick one preview set each.
-        which = os.environ.get("DC_PREVIEW") or ("task4" if any(catalog.BY_NAME[n].family == "server" for n in BUILT)
-                                                 else "task3")
-        if which.startswith("plan2-t") and which != "plan2-t1":
+        # DC_PREVIEW picks the preview set (PREVIEW_SETS above). Unset, it renders the server set when servers were
+        # built (they need both open racks too), else the rack set.
+        which = os.environ.get("DC_PREVIEW") or ("servers" if any(catalog.BY_NAME[n].family == "server"
+                                                                   for n in BUILT) else "racks")
+        if which in TRAY_SETS:   # the cable trays: one shot family per set (dc/preview_trays.py)
             from dc import preview_trays
-            preview_trays.render_all(BUILT, task=int(which[len("plan2-t"):]))
-        elif which in ("plan3-t1", "p3t1"):
-            from dc import preview_p3t1
-            preview_p3t1.render_all(BUILT)
-        elif which in ("plan3-t3", "p3t3"):   # the raised floor (its own set + room shots)
-            from dc import preview_p3t3
-            preview_p3t3.render_all(BUILT)
-        elif which in ("plan3-t4", "p3t4"):   # the containment roof (its own set + room shots)
-            from dc import preview_p3t4
-            preview_p3t4.render_all(BUILT)
-        elif which in ("plan3-t5", "p3t5"):   # the containment doors (their own set + room shots)
-            from dc import preview_p3t5
-            preview_p3t5.render_all(BUILT)
-        elif which in ("plan3-t6", "p3t6"):   # the in-row cooler (its own set, fans, room shots)
-            from dc import preview_p3t6
-            preview_p3t6.render_all(BUILT)
-        elif which in ("plan3-t7", "p3t7"):   # the PDU cabinet and strips (their own set + room shots)
-            from dc import preview_p3t7
-            preview_p3t7.render_all(BUILT)
-        elif which in ("plan3-t8", "p3t8"):   # the signs and labels (their own set + room shots)
-            from dc import preview_p3t8
-            preview_p3t8.render_all(BUILT)
-        elif which in ("plan3-t11", "p3t11"):   # the visual pass's before / after set (DC_T11_PHASE=before|after)
-            from dc import preview_p3t11
-            preview_p3t11.render_all(BUILT)
-        elif which == "showcase":   # the clean presentation stills and clips (dc/preview_showcase.py)
-            from dc import preview_showcase
-            preview_showcase.render_all(BUILT)
-        elif which in ("plan3-t12", "p3t12"):   # the final hero set: the two-aisle hall (dc/preview_p3t12.py)
-            from dc import preview_p3t12
-            preview_p3t12.render_all(BUILT)
-        elif which.startswith("plan3-t"):   # any other plan3-t<N>: the shots in the reference room (dc/preview_room.py)
+            preview_trays.render_all(BUILT, which=TRAY_SETS[which])
+        elif which == "room":   # the reference room's shots (dc/preview_room.py)
             from dc import preview_room
-            preview_room.render_task(BUILT, task=int(which[len("plan3-t"):]))
-        elif which in ("plan2-t1", "p2t1"):
-            from dc import preview_p2t1
-            preview_p2t1.render_all(BUILT)
-        elif which == "zfix":
-            from dc import preview_zfix
-            preview_zfix.render_all(BUILT)
-        elif which == "merge":   # racks (rails, strips, placard) and the CRAC
-            from dc import preview_merge
-            preview_merge.render_all(BUILT)
-        elif which == "pfix":
-            from dc import preview_pfix
-            preview_pfix.render_all(BUILT)
-        elif which == "vp1":
-            from dc import preview_vp1
-            preview_vp1.render_all(BUILT)
-        elif which == "plan4":
-            from dc import preview_plan4
-            preview_plan4.render_all(BUILT)
-        elif which == "task10":
-            from dc import preview_task10
-            preview_task10.render_all(BUILT)
-        elif which == "task9":
-            from dc import preview_task9
-            preview_task9.render_all(BUILT)
-        elif which == "task8":
-            from dc import preview_task8
-            preview_task8.render_all(BUILT)
-        elif which == "task7":
-            from dc import preview_task7
-            preview_task7.render_all(BUILT)
-        elif which == "task6":
-            from dc import preview_task6
-            preview_task6.render_all(BUILT)
-        elif which == "task5":
-            from dc import preview_task5
-            preview_task5.render_all(BUILT)
-        elif which == "task4":
-            from dc import preview_servers
-            preview_servers.render_all(BUILT)
+            preview_room.render_room(BUILT)
         else:
-            from dc import preview
-            preview.render_all(BUILT)
+            import importlib
+            module = PREVIEW_SETS.get(which)
+            if module is None:
+                raise SystemExit(f"unknown DC_PREVIEW {which!r}; one of: "
+                                 + ", ".join(sorted([*PREVIEW_SETS, *TRAY_SETS, "room"])))
+            importlib.import_module(f"dc.{module}").render_all(BUILT)
     print(f"wrote {config.REPORT_PATH} ({len(specs)} blocks)")
 
 

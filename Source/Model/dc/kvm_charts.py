@@ -6,11 +6,11 @@
   kvm_motion_graphs.svg  before | after the feel retune: position AND velocity of the slide (m, m/s) and of the fold
                          (deg, deg/s) for the open, the close and the fast stow.
 
-Both read the CoreTests dumps (Source/Model/preview/plan4/traj/*.csv; the pre-retune copies in traj_before/) and the
+Both read the CoreTests dumps (Source/Model/preview/scripts/traj/*.csv; the pre-retune copies in traj_before/) and the
 tuning from Scripts/Client/Core/KvmMotionTuning.cs (kvm_motion.read_tuning). One y-scale per panel (small multiples,
 never a dual axis); the door is a third row, not a second scale on the slide.
 
-    python3 -m dc.kvm_charts            (from Source/Model) writes both into preview/plan4/
+    python3 -m dc.kvm_charts            (from Source/Model) writes both into preview/scripts/
 """
 import math
 import os
@@ -19,7 +19,7 @@ from xml.sax.saxutils import escape
 from . import kvm_motion as K
 from . import subparts as S
 
-OUT = os.path.join(K.MODEL_DIR, "preview", "plan4")
+OUT = os.path.join(K.MODEL_DIR, "preview", "scripts")
 BEFORE_DIR = os.path.join(OUT, "traj_before")
 # the shipped tuning before the feel retune (commit 2d824cc), for the "before" markers
 BEFORE_TUNING = {"FoldGate": 0.91, "OpenBeat": 0.06, "RetractGate": 0.02, "RetractGateFast": 0.08}
@@ -185,7 +185,7 @@ def timing_svg(path=None, traj_dir=K.TRAJ_DIR):
     trs = {n: K.load(os.path.join(traj_dir, n + ".csv")) for n, _, _ in runs}
     ch = Chart("KVM motion timing (scripted, shipped tuning)",
                "Slide and lid fold from the CoreTests 240 Hz dumps; dashed lines are the sequencer's gates. "
-               f"Door race: the leaves start {DOOR_LEAD:.1f} s before the stow command (P4-4 latency).",
+               f"Door race: the leaves start {DOOR_LEAD:.1f} s before the stow command (the door's start latency).",
                [r[1] for r in runs], ["slide (m)", "lid fold (deg)", "door OpenRatio"], pw=260, ph=130)
     ch.legend([("sw1", "KVM (slide / fold)"), ("sw2", "rack door OpenRatio")])
     for c, (n, label, kind) in enumerate(runs):
@@ -217,11 +217,11 @@ def graphs_svg(path=None, traj_dir=K.TRAJ_DIR, before_dir=BEFORE_DIR):
     runs = [("open", "Open", "open"), ("close", "Close", "close"), ("fast_stow", "Fast stow", "fast")]
     rows = [("slide", "slide (m)"), ("slide_v", "slide speed (m/s)"), ("fold", "lid fold (deg)"),
             ("fold_v", "lid rate (deg/s)")]
-    ch = Chart("KVM motion before and after the Task 7 retune",
+    ch = Chart("KVM motion before and after the retune",
                "Dashed grey: before (drawer omega 11, lid 10 / 10); blue: after (drawer omega 5.2, lid 6.5 open / "
                "8 close, fast 16 / 18). Gate lines: after.",
                [r[1] for r in runs], [r[1] for r in rows], pw=300, ph=120)
-    ch.legend([("swb", "before (2d824cc)"), ("sw1", "after (Task 7)")])
+    ch.legend([("swb", "before (2d824cc)"), ("sw1", "after (retune)")])
     for c, (n, label, kind) in enumerate(runs):
         after = K.load(os.path.join(traj_dir, n + ".csv"))
         before = K.load(os.path.join(before_dir, n + ".csv"))

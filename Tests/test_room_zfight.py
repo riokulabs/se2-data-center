@@ -3,7 +3,7 @@
 The in-game lessons (2026-10-18, commit 4f7288a5): decal elements overlapping in-plane at the same depth,
 decals coplanar with or buried under mesh faces, and a sliding / hinged leaf coplanar with its frame all flicker in
 game; white stencils straight on a light paint read poorly. dc/zfight.py (Tests/test_zfight.py covers the racks
-and servers) audits every built block; dc/zfight_room.py adds the
+and servers) checks every built block; dc/zfight_room.py adds the
 containment door's sliding leaves (closed and open) and the stencil backing check. build_dc.py records both in
 build_report.json "zfight"; these tests re-check the room blocks from it.
 """
@@ -30,7 +30,7 @@ def _zf(name):
         e = json.load(f)["blocks"].get(name, {})
     if not e.get("placement", {}).get("total"):
         pytest.skip(f"{name} not built")
-    assert "zfight" in e, f"{name}: no zfight audit in build_report.json (rebuild with build_dc.py)"
+    assert "zfight" in e, f"{name}: no zfight check in build_report.json (rebuild with build_dc.py)"
     return e["zfight"]
 
 
@@ -85,8 +85,8 @@ def test_contain_door_leaves_have_no_coplanar_faces(name):
 
 @pytest.mark.build
 @pytest.mark.parametrize("name", DOORS)
-def test_contain_door_leaf_audit_poses(name):
-    """The audit placed the leaves where the game does (contain.leaf_boxes, closed and open): their mesh bounds hug the
+def test_contain_door_leaf_check_poses(name):
+    """The check placed the leaves where the game does (contain.leaf_boxes, closed and open): their mesh bounds hug the
     collision boxes along the slide (x) and up (z), so the frame check above ran on the real poses."""
     zf = _zf(name)
     spec = catalog.BY_NAME[name]
@@ -99,7 +99,7 @@ def test_contain_door_leaf_audit_poses(name):
 
 def test_contain_tag_lift_is_the_default():
     """The CONTAINMENT tag's 0.6 mm lift is _contain_rail's DEFAULT, so the
-    racks get it too (test_zfight audits them); the CRAC and the PDU cabinet use the same value."""
+    racks get it too (test_zfight checks them); the CRAC and the PDU cabinet use the same value."""
     import inspect
 
     from dc import crac, pdu, rack

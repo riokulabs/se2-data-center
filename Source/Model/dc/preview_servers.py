@@ -1,6 +1,6 @@
-"""Task-4 preview set: the deco servers alone, in racks, standalone, painted, and next to vanilla.
+"""Server previews: the deco servers alone, in racks, standalone, painted, and next to vanilla.
 
-Writes into Source/Model/preview/task-4/. Same rig and material stand-ins as the Task-3 set (dc/preview.py);
+Writes into Source/Model/preview/servers/. Same rig and material stand-ins as the rack set (dc/preview.py);
 vanilla FBX are imported READ ONLY from tools/vanilla-ref. Needs the four deco servers and both open racks built
 in the same run:  blender -b --python Source/Model/build_dc.py -- DC_Rack42_Open DC_Rack24_Open DC_Srv_Blank
 DC_Srv_Compute DC_Srv_Storage DC_Srv_Switch   (DC_SHOTS=prefix,... renders a subset; DC_FAST=1 half resolution).
@@ -15,7 +15,7 @@ from . import preview as PV
 from . import preview_mats as PM
 from .preview import Rz, Shot, T, human, painted, vanilla, want
 
-OUT = os.path.join(config.PREVIEW_DIR, "task-4")
+OUT = os.path.join(config.PREVIEW_DIR, "servers")
 SERVERS = ("DC_Srv_Blank", "DC_Srv_Compute", "DC_Srv_Storage", "DC_Srv_Switch")
 FULL, HALF = "DC_Rack42_Open", "DC_Rack24_Open"
 LABEL = {"DC_Srv_Blank": "BLANK\nhoneycomb bezel, locator lamp",
@@ -275,7 +275,7 @@ def render_all(built):
         paints(built)
         vanilla_compare(built)
     if missing:
-        print("task-4 previews: not built, skipping the scenes that need them:", missing)
+        print("servers previews: not built, skipping the scenes that need them:", missing)
     if all(n in built for n in SERVERS + (FULL, HALF)):
         in_rack(built)
         ear_closeups(built)

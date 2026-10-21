@@ -26,7 +26,7 @@ from dc.guids import GUIDS_PATH
 
 RACKS = ("DC_Rack42_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear",
          "DC_Rack24_Open", "DC_Rack24_SplitFront", "DC_Rack24_SplitFrontRear")
-PRE_TASK12 = "10455382^"
+BEFORE_PATH_A = "10455382^"
 C_CSP = "Game2:Keen.Game2.Client.WorldObjects.CubeBlocks.Effects.ConditionalSubPartsComponent"
 OB_HIERARCHY = "VRage:Keen.VRage.Core.Game.Components.HierarchyComponentObjectBuilder"
 # the Path A-only rack definitions (the B recipe removes them from Assets/)
@@ -83,13 +83,13 @@ def test_b_needs_no_new_guid(path_b):
 
 
 @pytest.mark.parametrize("name", RACKS)
-def test_b_restores_pre_task12_children(path_b, name):
+def test_b_restores_pre_path_a_children(path_b, name):
     """The B client prefab's Hierarchy children equal the ones committed before Path A (rotors, tray, both sides:
     same keys, composites, transforms and rotor animation keys)."""
     rel = f"Assets/{config.NAME}/{name}/{name}_Client.partialdef"
-    old = _git("show", f"{PRE_TASK12}:{rel}")
+    old = _git("show", f"{BEFORE_PATH_A}:{rel}")
     if old.returncode != 0:
-        pytest.skip(f"commit {PRE_TASK12} is not in this clone's history")
+        pytest.skip(f"commit {BEFORE_PATH_A} is not in this clone's history")
     with open(os.path.join(path_b["stage"], config.NAME, name, f"{name}_Client.partialdef"), encoding="utf-8-sig") as f:
         new = json.load(f)
     assert _hierarchy(new) == _hierarchy(json.loads(old.stdout)), name

@@ -5,7 +5,7 @@ glue is Scripts/Client/Kvm. CoreTests dumps two files next to the trajectories, 
   routing.json        KvmRackSlot's rule per rack kind and slot, against dc/kvm_motion.motion_path_for_slot;
   data_only_open.csv  KvmLinearMotion, against dc/kvm_motion.data_only_trajectory: the very motion the top-slot
                       clearances were measured on (so the runtime's data-only path cannot drift from what was checked).
-Regenerate both with: cd Tests/CoreTests && dotnet run -c Release -- --dump ../../Source/Model/preview/plan4/traj
+Regenerate both with: cd Tests/CoreTests && dotnet run -c Release -- --dump ../../Source/Model/preview/scripts/traj
 (the conftest `trajectories` fixture does it when the dump's content stamp does not match the core sources).
 """
 import glob
@@ -31,7 +31,7 @@ def _need(path):
     trajectories fixture has already regenerated them when dotnet is there)."""
     if not os.path.exists(path):
         pytest.skip(f"{os.path.relpath(path, MOD)} absent: run cd Tests/CoreTests && dotnet run -c Release -- --dump "
-                    "../../Source/Model/preview/plan4/traj")
+                    "../../Source/Model/preview/scripts/traj")
 
 
 def _read(path):
@@ -72,7 +72,7 @@ def test_rack_kind_guids_cover_every_rack():
         assert const in (names(full) if K.has_containment_above(spec) else names(half)), (spec.name, const)
 
 
-def test_data_only_path_is_what_task6_checked():
+def test_data_only_path_matches_the_checked_trajectory():
     """KvmLinearMotion (the data-only path) is exactly dc/kvm_motion.data_only_trajectory at 240 Hz: the top-slot
     clearances hold for the motion the game runs. Adding easing breaks this on purpose: re-dump and re-check."""
     _need(DATA_ONLY_CSV)

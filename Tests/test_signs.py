@@ -503,7 +503,7 @@ def test_rack_label_clear_of_drop_render(drop):
 @pytest.mark.build
 def test_sign_previews_skip_when_absent():
     """Previews are generated on disk, never tracked: nothing here depends on them."""
-    p = os.path.join(config.PREVIEW_DIR, "p3-task-8")
+    p = os.path.join(config.PREVIEW_DIR, "signs")
     if not os.path.isdir(p):
         pytest.skip("no previews rendered")
     assert any(f.endswith(".png") for f in os.listdir(p))

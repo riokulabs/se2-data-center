@@ -17,7 +17,7 @@ TEXCACHE = os.environ.get("DC_TEXCACHE", "/tmp/se2-dc-texcache")
 # player paints (linear RGB); "keen" = the default grey vanilla previews show
 PAINTS = {"keen": (0.40, 0.41, 0.43), "black": (0.022, 0.023, 0.026), "blue": (0.035, 0.12, 0.42),
           "orange": (0.75, 0.22, 0.03), "white": (0.75, 0.76, 0.78), "teal": (0.02, 0.30, 0.28)}
-PAINTS["red"] = (0.50, 0.035, 0.03)   # Plan 3 Task 8: the hot-aisle sign paint (the cold one is "blue")
+PAINTS["red"] = (0.50, 0.035, 0.03)   # the hot-aisle sign paint (the cold one is "blue")
 PAINT_REF = 0.40
 _CACHE = {}
 _IMG = {}
@@ -238,7 +238,7 @@ def get(key):
     elif base in GHOSTS:
         c, a = GHOSTS[base]
         m = simple("pv_" + key, c, 0.4, 0.0, emit=c, estr=0.6, alpha=a)
-    elif base == "Frosted":   # vanilla FrostedGlass stand-in: milky, half see-through, light passes (Plan 3 T4)
+    elif base == "Frosted":   # vanilla FrostedGlass stand-in: milky, half see-through, light passes (the roof panels)
         # the emission fakes the hall light transmitted through the frosting (an alpha blend alone reads as tinted air)
         m = simple("pv_" + key, (0.82, 0.86, 0.90), 0.4, 0.0, emit=(0.74, 0.80, 0.86), estr=0.22, alpha=0.72)
         for attr in ("use_transparent_shadow",):
@@ -246,7 +246,7 @@ def get(key):
                 setattr(m, attr, True)
             except (AttributeError, TypeError):
                 pass
-    elif base == "GlassThin":   # vanilla WindowGlassThin stand-in (Plan 3 T5 door leaves): clear, faintly blue-grey,
+    elif base == "GlassThin":   # vanilla WindowGlassThin stand-in (the containment door leaves): clear, faintly blue-grey,
         # glossy: the aisle reads through it; a little emission so the pane's plane still reads against a dark hall
         m = simple("pv_" + key, (0.62, 0.70, 0.76), 0.08, 0.0, emit=(0.55, 0.62, 0.68), estr=0.05, alpha=0.30)
         try:
@@ -285,7 +285,7 @@ BY_GUID = {
     "0f2772fd-72d6-4ee9-9211-38d1781ba8b9": ("key", "Fractured"),              # FracturedMaterial01: Fracture preset
     "83c075f5-f177-460d-94a7-8aca19fd4d6f": ("key", "GlassThin"),              # WindowGlass (WindowGlass preset)
     "2cc33fe2-00c5-4a64-a648-d1ea7aa8e3ee": ("key", "GratingMetallic:keen"),   # GratingMetallic preset
-    # 4.0 Deformed (Damaged-model) parallax materials: the game's own _cm / _add DDS (Plan 5 Task 3, deformed_mat)
+    # 4.0 Deformed (Damaged-model) parallax materials: the game's own _cm / _add DDS (deformed_mat)
     "d8847d2a-cbb3-4982-9036-ee7785cce3c1": ("deformed", "PaintedMetalColorableDeformed"),
     "ea15e749-58ce-4ca8-95e2-307af0bd273d": ("deformed", "PaintedMetalDarkerDeformed"),
     "4418666d-ba5b-481c-b9a3-e7233fc001a8": ("deformed", "ChromeDeformed"),
@@ -453,7 +453,7 @@ KEEN_MAP = {"PaintedMetalDarker": "Darker", "PaintedMetalGrey": "Grey", "Painted
 # states preview: vanilla analogues' slots, the EventController lamps (EmissiveOff by default), broken glass
 KEEN_MAP.update({"BraidedSteel": "MetalDull", "CarbonFiber": "Plastic2", "Emissive01": "EmOff", "Emissive02": "EmOff",
                  "WindowGlassBroken": "b9db8238-9373-4690-b743-17e37759179e"})
-KEEN_MAP.update({"LCDScreen_Off_4": "EmOff", "LCDScreen_Off_4_Back": "EmOff"})   # Plan 3 Task 8: the signs' 4:1 LCDs
+KEEN_MAP.update({"LCDScreen_Off_4": "EmOff", "LCDScreen_Off_4_Back": "EmOff"})   # the signs' 4:1 LCDs
 
 
 def keen_key(slot_name, paint="keen"):

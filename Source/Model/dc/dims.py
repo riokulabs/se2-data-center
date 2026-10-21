@@ -103,7 +103,7 @@ TOP_ENTRY = (MANAGER_CH_X, (MANAGER_SPINE_Y[1], RACK_TRAY_IY))   # |x| and y of 
 ENTRY_FLANGE = 0.008                          # the brush plate's frame stands this far round the opening
 ENTRY_DROP = 0.001                            # the plate's top sits this far under the rack's top plane
 ENTRY_EDGE = 0.004                            # the Yellow edge: the frame's inner band round the opening
-# the half rack's roof-rail entries (front; mirrored at the rear for the power manager): the visual-pass-1 holes,
+# the half rack's roof-rail entries (front; mirrored at the rear for the power manager): the roof-rail holes,
 # their inner edge moved 4 mm out so the same plate (opening + flange) keeps 4.5 mm of rail toward the slot roof
 HALF_TOP_ENTRY = ((MANAGER_CH_X[0] + 0.016, MANAGER_CH_X[1] - 0.004), (MANAGER_SPINE_Y[1], 0.466))
 

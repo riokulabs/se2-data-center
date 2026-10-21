@@ -1,6 +1,6 @@
 """The scripted KVM sequence, checked in geometry (dc/kvm_motion.py).
 
-The trajectories are the motion core's own (Tests/CoreTests --dump: Source/Model/preview/plan4/traj/*.csv, 240 Hz).
+The trajectories are the motion core's own (Tests/CoreTests --dump: Source/Model/preview/scripts/traj/*.csv, 240 Hz).
 Every clearance below is a LOWER bound over the swept motion (convex hulls of each part over each sample interval,
 inflated by the rotation sagitta and the interpolation slack), so a pass cannot hide a collision between samples.
 """
@@ -75,7 +75,7 @@ def test_trajectories_fresh():
     assert glob.glob(os.path.join(K.CORE_DIR, "*.cs"))
     assert K.dump_stamp() == K.core_sources_digest(), \
         "the trajectories are stale (or unstamped): cd Tests/CoreTests && dotnet run -c Release -- --dump " \
-        "../../Source/Model/preview/plan4/traj"
+        "../../Source/Model/preview/scripts/traj"
 
 
 def test_core_digest_is_by_content(tmp_path):
@@ -379,14 +379,14 @@ def _z_cut(spec, slot):
     return ZT - H / 2 - K.slot_centre_z(spec, slot)
 
 
-def test_sequence_clears_plan3_roof_and_rail(sweep):
+def test_sequence_clears_room_roof_and_rail(sweep):
     """The room's rules over the motion each slot actually runs, in every full rack's two highest slots (no
     lower slot reaches the tray band) and for both facings (the rail and the roof run along front and back):
     - test_kvm_clear_of_rail: wherever any part rises above the slot band, it stays behind the containment rail;
     - test_roof_clears_kvm_and_rack_doors: over the aisle (beyond the cell plane), every part stays under the roof
       (ZT + ROOF_CLEAR).
-    The values come from dims when it defines them, else kvm_motion's fallbacks (kvm_motion.PLAN3_*)."""
-    rail, clear = K.PLAN3_RAIL_Y[0], K.PLAN3_ROOF_CLEAR
+    The values come from dims when it defines them, else kvm_motion's fallbacks (kvm_motion.ROOM_*)."""
+    rail, clear = K.ROOM_RAIL_Y[0], K.ROOM_ROOF_CLEAR
     cases = {}                                      # the three 42U variants share the frame: measure each case once
     for name in ("DC_Rack42_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear"):
         spec = catalog.BY_NAME[name]
@@ -404,4 +404,4 @@ def test_sequence_would_hit_the_rail_in_the_top_slot():
     """Why the full rack's top slot is routed to the data-only path: the sequence's lid folds with the drawer fully
     out and would rise above the slot band in front of the rail. If the sequence ever clears it, drop the routing."""
     spec = catalog.BY_NAME["DC_Rack42_Open"]
-    assert K.max_y_above(K.load("open"), _z_cut(spec, K.nslots(spec))) >= K.PLAN3_RAIL_Y[0]
+    assert K.max_y_above(K.load("open"), _z_cut(spec, K.nslots(spec))) >= K.ROOM_RAIL_Y[0]

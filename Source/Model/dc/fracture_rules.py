@@ -273,8 +273,8 @@ def fbx_same_content(a, b):
 
 
 # --------------------------------------------------------------------------------------------------------- guide checks
-# The guide's checklist (docs/guides/vanilla-fracture-models.md 10.6) on the exported files: T1 recognition, T5
-# Fractured <-> Damaged parity, T8 cut UV density, and the hull-volume rule of 10.3 (5). numpy is imported lazily
+# Checks on the exported files: fracture recognition, Fractured <-> Damaged parity, cut UV density, and the
+# hull-volume rule (a zone's collider follows its solid). numpy is imported lazily
 # (only these need it); the two rules above stay standard library only.
 HELPER_PREFIXES = ("occupancy", "mountpoints")      # ModelProcessorLoader: taken out before fracture matching (B3)
 ENGINE_MAX_FRACTURES = 16                           # ModelProcessorLoader.cs:668-671 (B8)
@@ -395,7 +395,7 @@ def gltf_hulls(path):
 
 
 def recognition_problems(props, collider_names, size=None):
-    """T1, the importer's fracture recognition (ModelProcessorLoader.CollectBreakableCollider): a collider is a
+    """The importer's fracture recognition (ModelProcessorLoader.CollectBreakableCollider): a collider is a
     fracture iff its name equals a LOD0 Group (B4); helpers (occupancy* / mountpoints*) aside, fractures and plain
     colliders may not mix (B9); 2 .. 16 fractures (B7 / B8), and, given the model size, no more than Keen's table
     for it (B13, a warning we keep clear of); plus rule 1 (every ColliderMeshGroups entry names a LOD0 group)."""
@@ -417,7 +417,7 @@ def recognition_problems(props, collider_names, size=None):
 
 
 def cut_uv_density(meshes):
-    """T8: the break faces' texel density, as the guide measured vanilla's (uvstats.py): the area-weighted median
+    """The break faces' texel density, measured as for vanilla's (uvstats.py): the area-weighted median
     of sqrt(UV area / 3D area) over the triangles of every break-face object (ConstructionMeshPreset Fracture).
     None when the model has no break faces."""
     rows = []

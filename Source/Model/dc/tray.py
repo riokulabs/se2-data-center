@@ -487,7 +487,7 @@ def _support_hints(sp, size, k):
         return out
     a = np.asarray(sp.axis, float)
     if abs(abs(a[1]) - 1.0) > 1e-6:
-        return out                              # a turned strut (bends): its piece task adds its hints
+        return out                              # a turned strut (bends): its piece's builder adds its hints
     x = float(sp.position[0])
     zb = float(sp.position[2]) - TP.STRUT_H / 2 - TP.STRUT_LIFT       # the cell plane under the strut
     reach, keep = _hint_reach()

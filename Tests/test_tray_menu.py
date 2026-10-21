@@ -15,7 +15,7 @@ except ImportError:   # the icon pixel checks need Pillow: they FAIL without it 
 
 from dc import catalog, clone, config, integration, menu, names, recipes, tray_plan
 from dc.assetio import read_json
-from test_task10 import UI, alpha_bbox, png_info, report
+from test_icons_menu import UI, alpha_bbox, png_info, report
 
 TRAYS = [b for b in catalog.BLOCKS if b.family in ("tray", "trayrods")]
 DENSITY_GROUPS = [f"tray_{d}" for d in catalog.TRAY_DENSITIES]

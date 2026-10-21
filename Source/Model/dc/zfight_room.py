@@ -1,13 +1,13 @@
-"""Z-fight audit for the room blocks: the containment door's sliding leaves.
+"""Z-fight check for the room blocks: the containment door's sliding leaves.
 
-dc/zfight.py audits every built block's decal elements and the RACK doors' hinged
+dc/zfight.py checks every built block's decal elements and the RACK doors' hinged
 leaves. The containment door (dc/contain.py) has sliding leaves instead: two subparts (ContainLeafL / ContainLeafR)
 that translate along x by contain.leaf_travel. This module adds, with zfight's bpy-free rules:
   contain_leaf_coplanar  same-facing coplanar overlapping faces between two parts of one leaf model (every LOD);
   contain_leaf_frame     the same between a leaf placed in the block frame (closed AND open pose) and the door
                          frame's LOD0 (jambs, pocket covers and back plates, header, sill);
   contain_leaf_leaf      the two leaves against each other in the closed pose (the meeting stiles).
-build_dc.py stores the result in build_report.json "zfight" next to zfight.audit_built's keys.
+build_dc.py stores the result in build_report.json "zfight" next to zfight.check_built's keys.
 """
 from . import zfight as Z
 

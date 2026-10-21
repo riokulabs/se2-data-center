@@ -113,7 +113,7 @@ CORE_PARTS = {"crac": ("core",), "pdu_cabinet": ("core",)}
 #   frame    Fracture_NN_Frame, Split / HiddenUntilSecondSequenceStart: parts that appear in the second sequence;
 #   glass    the zone's own group, a separate object with the WindowGlass preset: glass stays glass while it builds.
 # Zone names never change, so a save's DamagedFractures stay valid. ROLES is per family {role: part names}, matched
-# by exact part name like KEEP_WHOLE; the family tasks fill it (empty here: the mechanism only).
+# by exact part name like KEEP_WHOLE; each family's module fills it (empty here: the mechanism only).
 HIDE_PREFIXES = ("AtlasDecal", "AtlasFont", "Emissive", "Terminal", "LCDScreen")   # vanilla LCDs keep their screen in
 #                                                            a _Hide group too: Fracture_16_Hide-LCDScreen_Off
 ROLE_IDS = ("skin", "hide", "support", "frame", "glass")

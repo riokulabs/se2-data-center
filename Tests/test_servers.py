@@ -14,8 +14,8 @@ pytestmark = pytest.mark.build
 
 DECO = ("DC_Srv_Blank", "DC_Srv_Compute", "DC_Srv_Storage", "DC_Srv_Switch")
 FUNCTIONAL = ("DC_Srv_Timer", "DC_Srv_EventCtl", "DC_Srv_Status")   # same chassis, same checks
-TASK8 = ("DC_Srv_KVM", "DC_Srv_Programmable")                         # base models (KVM subparts: own tests)
-SIX_U = DECO + FUNCTIONAL + TASK8
+KVM_PROG = ("DC_Srv_KVM", "DC_Srv_Programmable")                         # base models (KVM subparts: own tests)
+SIX_U = DECO + FUNCTIONAL + KVM_PROG
 TWELVE_U = ("DC_Srv_UPS",)                                            # same chassis, two slots tall
 SERVERS = SIX_U + TWELVE_U
 RACKS = ("DC_Rack42_Open", "DC_Rack24_Open", "DC_Rack42_SplitFront", "DC_Rack42_SplitFrontRear",

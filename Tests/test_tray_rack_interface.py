@@ -1,6 +1,6 @@
 """The rack <-> cable-tray interface (dc/dims.py) and the racks' top-entry brush plates.
 
-The tray plan (dc/tray_plan.py, later tasks) hangs its Drop blocks over the racks from these numbers alone, so the
+The tray plan (dc/tray_plan.py) hangs its Drop blocks over the racks from these numbers alone, so the
 waterfall bundles must land inside the brush plates the rack build actually made. The build-marked tests check the
 couplings on the MEASURED LOD0 geometry (build_report.json "geometry"["top_entries"], from dc/rack.py's "brush"
 part), the others on the constants only."""
@@ -153,7 +153,7 @@ def test_entries_reuse_existing_materials(name):
 @pytest.mark.parametrize("name", ALL_RACKS)
 def test_entries_match_dims(name):
     """The built openings are the documented ones: the full rack's dims.TOP_ENTRY (the tray plan's interface), the
-    half rack's dims.HALF_TOP_ENTRY (its visual-pass-1 roof-rail holes, re-cut for the same plate)."""
+    half rack's dims.HALF_TOP_ENTRY (its roof-rail holes, re-cut for the same plate)."""
     (ex0, ex1), (ey0, ey1) = DM.TOP_ENTRY if name.startswith("DC_Rack42") else DM.HALF_TOP_ENTRY
     for x0, x1, y0, y1, _ in _entry(name)["geometry"]["top_entries"]:
         ax0, ax1 = sorted((abs(x0), abs(x1)))

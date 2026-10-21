@@ -1,8 +1,8 @@
-"""Visual fix pass: nothing in a built model fights for the same pixels (in-game: the rack side labels flickering into
+"""Nothing in a built model fights for the same pixels (in-game: the rack side labels flickering into
 each other, the door leaves' meeting edge "fighting").
 
 The Blender build tags every decal quad with its element (one stencil line, one atlas sticker, one stripe band) and
-records the built models' audit in build_report.json ("zfight", dc/zfight.py):
+records the built models' check in build_report.json ("zfight", dc/zfight.py):
   elements        each decal element's in-plane box per model / LOD (facing n, plane depth d);
   decal_geometry  decal quads coplanar with, or buried under, a same-facing mesh face they overlap;
   leaf_coplanar   same-facing coplanar overlapping faces between parts of a door leaf model (every LOD);
@@ -52,7 +52,7 @@ def _zf(name):
     e = _report().get(name, {})
     if not e.get("placement", {}).get("total"):
         pytest.skip(f"{name} not built")
-    assert "zfight" in e, f"{name}: no zfight audit in build_report.json (rebuild with build_dc.py)"
+    assert "zfight" in e, f"{name}: no zfight check in build_report.json (rebuild with build_dc.py)"
     return e["zfight"]
 
 
@@ -120,14 +120,14 @@ def test_door_leaves_have_no_coplanar_faces(name):
     """Leaf models (every LOD): no two parts share a same-facing face plane where they overlap (the meeting stile's
     end face and the seal strip did: the in-game edge z-fight); closed and open leaves against the frame too."""
     zf = _zf(name)
-    assert any(e["model"].startswith(doors.LEAF_L) for e in zf["elements"]), "leaf models not audited"
+    assert any(e["model"].startswith(doors.LEAF_L) for e in zf["elements"]), "leaf models not checked"
     assert zf["leaf_coplanar"] == []
     assert zf["leaf_frame"] == []
 
 
 @pytest.mark.build
-def test_side_panel_labels_audited():
-    """Every side panel label reaches the audit (the 24U hatch is the tightest layout)."""
+def test_side_panel_labels_checked():
+    """Every side panel label reaches the check (the 24U hatch is the tightest layout)."""
     els = [e for e in _zf("DC_Rack24_SplitFront")["elements"] if e["model"] == "RackSide_LOD0"]
     labels = {e["label"].split(" ", 1)[1] for e in els}
     assert {"RACK ID", "PDU ACCESS", "ISOLATE BEFORE OPENING", "danger_hv", "caution_maint",
@@ -210,7 +210,7 @@ def test_pdu_feed_band_clears_the_face_plate():
     assert "FACEPLATE_T + 0.0006)" in src     # the LEDs' depth (lit_quad in _decor)
 
 
-# Pre-existing visible coplanar faces of different materials (the catalogue-wide audit added 2026-10-20), per block:
+# Pre-existing visible coplanar faces of different materials (the catalogue-wide check added 2026-10-20), per block:
 # (part a / material, part b / material) with the part names' block prefix and LOD removed. They are known
 # follow-ups; the test fails on any pair not listed, so none can come back or appear new.
 KNOWN_COPLANAR = {
@@ -248,7 +248,7 @@ def test_no_new_visible_coplanar_faces(name):
     materials (they flicker in game) beyond the known follow-ups. The in-game cases are not in the list: the rail
     clips (contain / Darker vs Colorable) and the strip's feed band and LEDs (arrow, lamp vs chan)."""
     zf = _zf(name)
-    assert "coplanar" in zf, "no coplanar audit in build_report.json (rebuild with build_dc.py)"
+    assert "coplanar" in zf, "no coplanar check in build_report.json (rebuild with build_dc.py)"
     fam = catalog.BY_NAME[name].family
     known = KNOWN_COPLANAR.get(fam, set())
     new = sorted({tuple(sorted((_short(r["a"]), _short(r["b"])))) for r in zf["coplanar"]

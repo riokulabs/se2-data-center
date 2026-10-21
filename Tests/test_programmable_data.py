@@ -26,8 +26,8 @@ from dc.material_guids import MATERIAL_GUIDS
 PROG, KVM = "DC_Srv_Programmable", "DC_Srv_KVM"
 # The Programmable's block definition GUID since the core shipped (the clone's GUID map of WallInsertPanel's
 # 399e592a): placed blocks reference their definition by it, so it must never change.
-PRE_PLAN4_BLOCK_DEF = "824c6c77-9b86-4c54-b691-571bc3b6c246"
-PRE_PLAN4_SERVER_PREFAB = "23348530-da41-4f57-bc34-32987f0275d3"
+ORIGINAL_BLOCK_DEF = "824c6c77-9b86-4c54-b691-571bc3b6c246"
+ORIGINAL_SERVER_PREFAB = "23348530-da41-4f57-bc34-32987f0275d3"
 STRUCTURAL_KEY = "786ef564-3cbf-4509-a58c-ad19243fffc1"   # Structural_*Composition: CubeBlockComponent
 TERMINAL_TYPE = "b15d441f-88d0-4722-a377-7adfd75579e7"    # System/DummyTypes: UseTerminal (ControlPanel25, Timer50)
 T_SCRIPTING = "Game2:Keen.Game2.Simulation.Scripting.InGameScriptingComponent"
@@ -122,7 +122,7 @@ def test_script_guids_current(staged):
     for name, prefix in (("KvmDrawerComposite", "e3a9e30c"), ("KvmScreenComposite", "8874b2aa"),
                          ("KvmDrawerTranslationDef", "48311d48"), ("KvmScreenRotationDef", "736752c2")):
         assert consts[name].startswith(prefix), (name, consts[name])
-    assert consts["ProgrammableServerPrefab"] == _info()["server_prefab"] == PRE_PLAN4_SERVER_PREFAB
+    assert consts["ProgrammableServerPrefab"] == _info()["server_prefab"] == ORIGINAL_SERVER_PREFAB
     assert consts["KvmClientPrefab"] == clone.entry(catalog.BY_NAME[KVM])["info"]["client_prefab"]
     assert defs[consts["ProgrammableScriptingDefinition"]].endswith("_InGameScriptingDefinition.def")
     assert defs[consts["ProgrammableSwapper"]].endswith("_BlockMaterialSwapperDefinition.def")
@@ -171,13 +171,13 @@ def test_programmable_is_terminal_powerable(staged):
     assert bd["BaseDefinition"] == integration.POWERABLE_DEF_BASE
     m = bd["Manipulator"]
     assert m["ConsumedResource"] is None
-    assert m["Guid"] == PRE_PLAN4_BLOCK_DEF == _info()["block_def"]       # placed blocks keep their definition
+    assert m["Guid"] == ORIGINAL_BLOCK_DEF == _info()["block_def"]       # placed blocks keep their definition
     for pat in ("_ServerComposition", "_ClientComposition"):
         c = _body(_stage(_file(pat)))
         keys = c["Components"]["Keys"]
         assert integration.POWERABLE_KEY in keys and STRUCTURAL_KEY not in keys, pat
         assert STRUCTURAL_KEY in c["Components"]["Removed"]
-        assert _inserts(c["Components"])[integration.POWERABLE_KEY] == {"Definition": PRE_PLAN4_BLOCK_DEF,
+        assert _inserts(c["Components"])[integration.POWERABLE_KEY] == {"Definition": ORIGINAL_BLOCK_DEF,
                                                                         "Type": integration.T_POWERABLE}
         slots = {s["$Key"]: s["$Value"] for s in c["TagSlots"]["ModifiedKeys"]}
         assert STRUCTURAL_KEY not in slots.values()
@@ -188,7 +188,7 @@ def test_programmable_is_terminal_powerable(staged):
         assert STRUCTURAL_KEY in ob["Removed"] and STRUCTURAL_KEY not in ob["Keys"]
         v = _inserts(ob)[integration.POWERABLE_KEY]
         assert v["$Type"] == integration.OB_POWERABLE and v["Enabled"] is True and "PreviewOnly" not in v
-    assert _body(_stage(_file("_Server.partialdef")))["Guid"] == PRE_PLAN4_SERVER_PREFAB
+    assert _body(_stage(_file("_Server.partialdef")))["Guid"] == ORIGINAL_SERVER_PREFAB
 
 
 def test_programmable_slots_follow_the_structural_template(sdk):

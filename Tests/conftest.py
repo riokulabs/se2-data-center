@@ -154,7 +154,7 @@ def core_tests_lock():
 
 @pytest.fixture(scope="session")
 def trajectories():
-    """The motion core's dump (Source/Model/preview/plan4/traj: the trajectories, routing.json, data_only_open.csv),
+    """The motion core's dump (Source/Model/preview/scripts/traj: the trajectories, routing.json, data_only_open.csv),
     which stays out of git. When its content stamp does not match the core sources on disk (absent, or made from other
     sources), Tests/CoreTests regenerates it, so the geometry checks always run on the motion the game runs, on a fresh
     clone too. Without dotnet an absent dump skips; a stale one is left for test_trajectories_fresh to fail."""
@@ -172,5 +172,5 @@ def trajectories():
             pytest.fail("CoreTests --dump failed, so the trajectories cannot be regenerated:\n" + r.stdout[-4000:])
     elif not os.path.exists(os.path.join(K.TRAJ_DIR, "open.csv")):
         pytest.skip("no trajectories and no dotnet to dump them: cd Tests/CoreTests && dotnet run -c Release -- "
-                    "--dump ../../Source/Model/preview/plan4/traj")
+                    "--dump ../../Source/Model/preview/scripts/traj")
     return K.TRAJ_DIR

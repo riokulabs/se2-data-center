@@ -141,7 +141,7 @@ def _plinth(P, d, lod):
     """Plinth: Darker solid core, flush bottom (mounts), Darker slot-floor deck (flush top = the slot floor),
     louvred kick panels (cooling air intake under the servers) and Colorable side skins with jacking pockets."""
     fr, dk, hw, dec = P["frame"], P["dark"], P["hw"], P["decal"]
-    if lod <= 1:   # visual pass 1: the cabinet stands on four Brushed levelling feet; the base frame clears the
+    if lod <= 1:   # the cabinet stands on four Brushed levelling feet; the base frame clears the
         #            floor by 4 mm, so a shadow line runs under the plinth (collision / mounts are separate boxes)
         G.box(dk, (-W2 + SKIN + 0.02, -YK + 0.02, 0.004), (W2 - SKIN - 0.02, YK - 0.02, 0.014), DARK)
         for fx in (-1, 1):
@@ -890,7 +890,7 @@ def build(spec, lod):
         _lod3_full(P, d)
     else:
         _plinth(P, d, lod)
-        _corners(P, d, lod)   # (the side skins are the static RackSide subpart since visual pass 2: dc/rack_side.py)
+        _corners(P, d, lod)   # (the side skins are the static RackSide subpart: dc/rack_side.py)
         _columns(P, d, lod)
         _hinge_brackets(P, d, lod)
         if d["tray"]:

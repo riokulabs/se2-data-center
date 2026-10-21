@@ -1,4 +1,4 @@
-"""Rack side panels as a STATIC subpart (visual pass 2): its own model and LOD budget, so the 42U frame's cap stops
+"""Rack side panels as a STATIC subpart: its own model and LOD budget, so the 42U frame's cap stops
 blocking the most-seen face (the end of a row). One model, built for the block's +x side in the centred block frame;
 the integration places it twice as static client-prefab children: at the block origin (right side) and turned
 180 deg about the vertical (left side; the hatch then sits toward the rear on that side, as on real paired racks).

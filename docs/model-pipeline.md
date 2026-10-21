@@ -101,6 +101,12 @@ Run everything from the repository root. Each step writes only its own outputs, 
 
 Preview renders land in `Source/Model/preview/`, which is ignored by git. README images go in `docs/media/`.
 
+To render one preview set, build its blocks with `DC_PREVIEW=<set>`, for example
+`DC_PREVIEW=crac blender -b --python Source/Model/build_dc.py -- DC_CRAC`. The set names are listed in
+`PREVIEW_SETS` and `TRAY_SETS` in `build_dc.py` (plus `room` for the reference room); each preview module's
+docstring gives the blocks it needs. The `*_sheet.py` scripts next to `build_dc.py` lay finished renders out on
+contact sheets.
+
 ## Triangle budgets
 
 `docs/triangle-budgets.md` lists each block's triangle count per LOD against its limit. It is generated from the

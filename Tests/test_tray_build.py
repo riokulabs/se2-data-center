@@ -31,14 +31,14 @@ def _export_models_pure():
 
 fracture_zones = _export_models_pure()
 
-T4 = [b.name for b in catalog.CATALOGUE if b.family == "tray" and b.variant in ("StraightS", "StraightL", "Reducer")]
+STRAIGHT_PIECES = [b.name for b in catalog.CATALOGUE if b.family == "tray" and b.variant in ("StraightS", "StraightL", "Reducer")]
 TURNS = ("TurnH", "TurnUp", "TurnDown")
-T6 = [b.name for b in catalog.CATALOGUE if b.family == "tray" and b.variant in TURNS]
+TURN_PIECES = [b.name for b in catalog.CATALOGUE if b.family == "tray" and b.variant in TURNS]
 JUNCTIONS = ("Tee", "Cross")
-T7 = [b.name for b in catalog.CATALOGUE if b.family == "tray" and b.variant in JUNCTIONS]
+JUNCTION_PIECES = [b.name for b in catalog.CATALOGUE if b.family == "tray" and b.variant in JUNCTIONS]
 DROPS = ("Drop", "Chute", "Rods")
-T8 = [b.name for b in catalog.CATALOGUE if b.family in ("tray", "trayrods") and b.variant in DROPS]
-BUILT = T4 + T6 + T7 + T8
+DROP_PIECES = [b.name for b in catalog.CATALOGUE if b.family in ("tray", "trayrods") and b.variant in DROPS]
+BUILT = STRAIGHT_PIECES + TURN_PIECES + JUNCTION_PIECES + DROP_PIECES
 FULL = ["DC_Tray_StraightS_Full", "DC_Tray_StraightL_Full"]
 PER_METRE = (3000, 600, 150)        # LOD0..2 tris per metre of run at Full (plan §Global Constraints)
 FITTING_RUN = 1.0                   # a fitting (the Reducer, the turns) is budgeted as 1 m of run (LOD1, LOD2)
@@ -69,7 +69,7 @@ def report():
 
 # ---------------------------------------------------------------------------------------------------- offline
 def test_t4_blocks():
-    assert len(T4) == 11      # 4 + 4 + 3
+    assert len(STRAIGHT_PIECES) == 11      # 4 + 4 + 3
 
 
 def test_u_stations_rhythm():
@@ -233,7 +233,7 @@ def test_simplify_keeps_ends_and_tolerance():
         assert d <= 0.001 + 1e-9
 
 
-@pytest.mark.parametrize("name", T4)
+@pytest.mark.parametrize("name", STRAIGHT_PIECES)
 def test_collision_layout(name):
     """One physics box (the trough, never the open top), occupancy covering the box, mount hints at the ports,
     under the strut, at each strut end plate and rod plate; every box inside the block."""
@@ -302,7 +302,7 @@ def test_tray_built_matches_plan(name):
 
 
 @pytest.mark.build
-@pytest.mark.parametrize("name", T4)
+@pytest.mark.parametrize("name", STRAIGHT_PIECES)
 def test_tray_mount_faces(name):
     """Mount only where hardware exists (game faces: ports Left/Right, across Forward/Backward). A mount is a whole
     cell face, so the target area coverages (< 5 %, < 10 %) are not reachable on a 2 x 2 face; instead the mounting
@@ -492,7 +492,7 @@ def test_turn_struts_on_u_wires():
     assert sp.extent == pytest.approx((-(TL.U_LEG_S + TL.WIRE_R), TL.U_LEG_S + TL.WIRE_R))
 
 
-@pytest.mark.parametrize("name", T6)
+@pytest.mark.parametrize("name", TURN_PIECES)
 def test_turn_collision(name):
     """Two physics boxes (an L round the arc trough: each half of the path, never the open top), occupancy = the
     plan's cells, mount hints on both port faces and under the floor strut only (TurnH: the centre cell its 45 deg
@@ -532,7 +532,7 @@ def _game_cells(spec, cells, shift):
 
 
 @pytest.mark.build
-@pytest.mark.parametrize("name", T6)
+@pytest.mark.parametrize("name", TURN_PIECES)
 def test_turn_free_cells(name):
     """The built block claims exactly the plan's cells (tray_plan.occupied_cells), in game cell indices: the TurnUp
     leaves the two cells inside its curve free. (The TurnH's inner corner cell is NOT free: with the bend radii
@@ -553,7 +553,7 @@ GAME_DIR = {(-1, 0, 0): "Left", (1, 0, 0): "Right", (0, 1, 0): "Up", (0, -1, 0):
 
 
 @pytest.mark.build
-@pytest.mark.parametrize("name", T6)
+@pytest.mark.parametrize("name", TURN_PIECES)
 def test_turn_ports_mount(name):
     """Each port face mounts (>= 1 group); no other face does, except Down under the floor strut (TurnH, TurnUp;
     the TurnDown's Down face is its port b). A fitting is carried by its neighbours (Decision 8)."""
@@ -611,7 +611,7 @@ FREE = {"Tee": {(0, 2, 0), (3, 2, 0)}, "Cross": {(0, 0, 0), (0, 3, 0), (3, 0, 0)
 
 
 def test_t7_blocks():
-    assert len(T7) == 8
+    assert len(JUNCTION_PIECES) == 8
 
 
 def test_wall_step_between_u_wires():
@@ -754,7 +754,7 @@ def test_corner_floor_and_posts_avoid_free_cells():
             assert TP.corner_graze(pl, cell) <= TP.JUNCTION_GRAZE
 
 
-@pytest.mark.parametrize("name", T7)
+@pytest.mark.parametrize("name", JUNCTION_PIECES)
 def test_junction_collision(name):
     """Physics: each path's trough at the plain 0.10 m wall height over its whole length (it steps down at the ports:
     a neighbour's trough meets it flush) plus one raised box (the Tee: the run between its step-downs at
@@ -787,7 +787,7 @@ def test_junction_collision(name):
 
 
 @pytest.mark.build
-@pytest.mark.parametrize("name", T7)
+@pytest.mark.parametrize("name", JUNCTION_PIECES)
 def test_tee_free_cells(name):
     """The built block leaves exactly its corner cells free (the Tee's two beside the branch, the Cross's four), in
     game cell indices, and no render vertex reaches more than 12 mm into them (a fillet's sliver: its 45 deg point
@@ -803,7 +803,7 @@ def test_tee_free_cells(name):
 
 
 @pytest.mark.build
-@pytest.mark.parametrize("name", T7)
+@pytest.mark.parametrize("name", JUNCTION_PIECES)
 def test_junction_built_heights(name):
     """The render mesh stays >= 1 mm under the cell top; the Cross's saddle deck top, measured on the built mesh, is
     0.045 + 0.095 above the cell plane (+-1 mm)."""
@@ -819,7 +819,7 @@ def test_junction_built_heights(name):
 
 
 @pytest.mark.build
-@pytest.mark.parametrize("name", T7)
+@pytest.mark.parametrize("name", JUNCTION_PIECES)
 def test_junction_ports_mount(name):
     """Every port face mounts; no other face does but Down (the floor strut)."""
     e = report()[name]["placement"]
@@ -1045,12 +1045,12 @@ def test_built_bundles_clear(name):
 
 
 # ------------------------------------------------------------------------------------------------ the rack interface
-DROP_NAMES = [n for n in T8 if catalog.BY_NAME[n].variant == "Drop"]
-RODS_NAMES = [n for n in T8 if catalog.BY_NAME[n].variant == "Rods"]
+DROP_NAMES = [n for n in DROP_PIECES if catalog.BY_NAME[n].variant == "Drop"]
+RODS_NAMES = [n for n in DROP_PIECES if catalog.BY_NAME[n].variant == "Rods"]
 
 
 def test_t8_blocks():
-    assert len(T8) == 7 and len(DROP_NAMES) == 3 and len(RODS_NAMES) == 3
+    assert len(DROP_PIECES) == 7 and len(DROP_NAMES) == 3 and len(RODS_NAMES) == 3
 
 
 def _cells_of(points, size):

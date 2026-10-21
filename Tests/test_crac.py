@@ -461,7 +461,7 @@ def test_crac_caption_is_neutral():
 def test_crac_carries_no_baked_id():
     """The built CRAC's decal labels (build_report zfight elements, every LOD): "CRAC" is there, no numbered ID."""
     zf = _entry().get("zfight")
-    assert zf, "no zfight audit in build_report.json (rebuild with build_dc.py)"
+    assert zf, "no zfight check in build_report.json (rebuild with build_dc.py)"
     labels = {e["label"].split(" ", 1)[1] for e in zf["elements"]}
     import re
     assert "CRAC" in labels and not [lb for lb in labels if re.fullmatch(r"CRAC\s*\d+", lb)], sorted(labels)

@@ -17,7 +17,7 @@ except ImportError:   # the icon pixel checks need Pillow: they FAIL without it,
 
 from dc import catalog, clone, config, integration, menu, names, recipes, texts
 from dc.assetio import read_json
-from test_task10 import SDK, UI, alpha_bbox, png_info, report
+from test_icons_menu import SDK, UI, alpha_bbox, png_info, report
 
 ROOM = [b for b in catalog.BLOCKS if b.family in catalog.ROOM_FAMILIES]
 ROOM_GROUPS = ("floor", "roompower", "contain", "signs")

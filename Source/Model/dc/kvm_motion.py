@@ -1,7 +1,7 @@
 """The scripted KVM motion, checked in geometry. Plain Python, no bpy.
 
 Tests/CoreTests (`dotnet run -c Release -- --dump ...`) writes the game-free sequencer's trajectories
-(Scripts/Client/Core/KvmMotion.cs, 240 Hz) to Source/Model/preview/plan4/traj/<name>.csv as `t,slide,fold,target`
+(Scripts/Client/Core/KvmMotion.cs, 240 Hz) to Source/Model/preview/scripts/traj/<name>.csv as `t,slide,fold,target`
 (slide and fold normalised 0..1). This module places the KVM's two moving parts at those poses and measures them
 against everything they could hit:
 
@@ -52,7 +52,7 @@ from . import subparts as S
 HERE = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.dirname(HERE)                                  # Source/Model
 MOD_DIR = os.path.normpath(os.path.join(MODEL_DIR, "..", ".."))
-TRAJ_DIR = os.path.join(MODEL_DIR, "preview", "plan4", "traj")
+TRAJ_DIR = os.path.join(MODEL_DIR, "preview", "scripts", "traj")
 CORE_DIR = os.path.join(MOD_DIR, "Scripts", "Client", "Core")
 # The game-free shared rules CoreTests also compiles (the surgery and scripting rules): part of the same digest.
 SHARED_CORE_DIR = os.path.join(MOD_DIR, "Scripts", "Simulation", "Shared", "Core")
@@ -612,8 +612,8 @@ def max_z_beyond(traj, y_cut, swept=True):
 SEQUENCED, DATA_ONLY = "sequenced", "data_only"
 
 # The room's containment values: dims' own when it defines them, else these fallbacks.
-PLAN3_RAIL_Y = getattr(DM, "CONTAIN_RAIL_Y", (0.600, 0.624))
-PLAN3_ROOF_CLEAR = getattr(DM, "ROOF_CLEAR", 0.004)
+ROOM_RAIL_Y = getattr(DM, "CONTAIN_RAIL_Y", (0.600, 0.624))
+ROOM_ROOF_CLEAR = getattr(DM, "ROOF_CLEAR", 0.004)
 AISLE_Y = 0.625                     # the rack's cell plane: beyond it, the aisle (under a containment roof)
 
 

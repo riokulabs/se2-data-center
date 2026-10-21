@@ -154,8 +154,8 @@ The 38 tray blocks are in the pipeline (`catalog.PIPELINE_FAMILIES` has `tray` a
   density, written to the block definition) and StructuralSupportStraight (in game 2 Steel Plate: scale 2), with a
   run-length floor for tray pieces (one of each Pipes item per 0.5 m of run, `recipes.RUN_LENGTH`).
   Each tray patches its own cloned recipe file.
-- **Icons:** `DC_PREVIEW=task10 blender -b --python Source/Model/build_dc.py -- "DC_Tray*"` renders the icons
-  (`UI/<name>_Icon.png`) and the store shots (`preview/blocks/`) of the built blocks; `DC_T10_PART=icons|blocks`
+- **Icons:** `DC_PREVIEW=icons blender -b --python Source/Model/build_dc.py -- "DC_Tray*"` renders the icons
+  (`UI/<name>_Icon.png`) and the store shots (`preview/blocks/`) of the built blocks; `DC_ICONS_PART=icons|blocks`
   limits it. Sheets: `python3 Source/Model/icon_sheet.py trays` and `... menu` (written under `preview/`).
 - After a re-export, re-run `blender -b --python Source/Model/check_placement.py -- <names>`
   (`test_exported_placement_matches_report` compares the mtimes).

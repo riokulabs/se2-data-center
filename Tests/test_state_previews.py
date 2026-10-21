@@ -1,4 +1,4 @@
-"""Plan 5 Task 13: the visual pass's `after` render set (states_preview.py --set=after) is complete.
+"""The build- and damage-state `after` render set (states_preview.py --set=after) is complete.
 
 Rendered by `blender -b --python Source/Model/states_preview.py -- --set=after` (every block of the catalogue plus
 every family's vanilla analogues, dc/state_view.ANALOGUE) and laid out by

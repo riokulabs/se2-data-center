@@ -955,7 +955,7 @@ internal static class KvmMotionTests
     // ------------------------------------------------------------------ trajectories (--dump)
 
     /// <summary>
-    /// The six 240 Hz trajectories for Tasks 6 and 7, as <c>t,slide,fold,target</c> CSVs: written only with --dump,
+    /// The six 240 Hz trajectories of the sequenced motion, as <c>t,slide,fold,target</c> CSVs: written only with --dump,
     /// checked always (each one ends settled at the pose its last target names).
     /// </summary>
     public static void Trajectories()
