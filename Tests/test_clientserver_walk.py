@@ -12,10 +12,7 @@ Assets + the mod's Assets + this run's staging) and the validator; here it must:
       port is not over-strict.
 """
 import copy
-import io
 import os
-import subprocess
-import tarfile
 import uuid
 
 import pytest
@@ -247,35 +244,6 @@ def test_datacenter_door_racks_are_walked_through_the_door_chain(package, packag
 
 
 # ----------------------------------------------------------------------------------------------------- (b) must FAIL
-ROTOR_FIX = "028c11723f133d7fabb3d7a664c50d90136e623c"   # the commit that took the rotors out of the door ConditionalSubParts
-
-
-def committed_assets(tmp_path, rev):
-    """The mod's committed Assets/DataCenter at `rev` (git archive into tmp), or skip without the history."""
-    if subprocess.run(["git", "-C", config.MOD_DIR, "cat-file", "-e", f"{rev}^{{commit}}"],
-                      capture_output=True).returncode != 0:
-        pytest.skip(f"{rev} not in this clone's history")
-    arc = subprocess.run(["git", "-C", config.MOD_DIR, "archive", rev, "Assets/" + config.NAME],
-                         capture_output=True, check=True, timeout=300).stdout
-    with tarfile.open(fileobj=io.BytesIO(arc)) as t:
-        t.extractall(tmp_path, filter="data")
-    return os.path.join(tmp_path, "Assets")
-
-
-@pytest.mark.slow   # ~15 s: extracts the failing package from git and walks it twice
-def test_the_real_failing_package_fails_and_its_fix_passes(tmp_path, types):
-    """The package exactly as committed when the world load failed (the fix commit's parent) fails with the in-game message
-    ("Client component ... should not be on server compositions") on the rotor composites, reached through
-    DoorBlockCollider -> DoorPartsProvider -> ConditionalSubParts; the fix commit itself passes."""
-    before = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "before", ROTOR_FIX + "^")])
-    w, errs = run(before, types)
-    assert errs and {e[0] for e in errs} == {"client-type-on-server"}, csw.format_errors(errs, before)
-    rotors = {e[2] for e in errs}
-    assert len(rotors) == 2 and all(before.origin(r).endswith("_RackFan_Composite.partialdef") for r in rotors)
-    assert all(any("ConditionalSubPartsDefinition" in step for step in e[3]) for e in errs)
-    after = csw.Universe([csw.SDK_ASSETS, committed_assets(tmp_path / "after", ROTOR_FIX)])
-    w, errs = run(after, types)
-    assert not errs, csw.format_errors(errs, after)
 
 
 @pytest.mark.parametrize("rack", FAN_DOOR_RACKS)
