@@ -1,8 +1,8 @@
 # Steam Workshop settings for tools/se2publish (see its README.md).
-title = "Data Center"                     # <= 50 characters
+title = "Rioku Labs - Data Center"        # <= 50 characters; matches the live Workshop item
 tags = ["Block"]                          # SE2's fixed set: Armor Audio Asteroid Block Character Material Particles Skybox Other
 summary = ""                              # keep blank: it goes into Keen's metadata, not the Workshop page
 description = "docs/workshop/description.bbcode"
 changelog = "CHANGELOG.md"
 thumbnail = "docs/workshop/thumb.jpg"
-first_visibility = "Unlisted"             # first upload only; go Public after the second-account test
+first_visibility = "Unlisted"             # first upload only (the item is Public since 2026-10-21); updates keep its visibility
