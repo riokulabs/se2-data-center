@@ -8,8 +8,7 @@ All notable changes to Data Center are listed here. The format follows
 
 ## [0.9.0] - 2026-10-20
 
-First Workshop release, built for Space Engineers 2 4.0.0.3155. Find it in the build menu under
-Automation > Data Center.
+First Workshop release. Find it in the build menu under Automation > Data Center.
 
 ### Added
 
@@ -28,7 +27,7 @@ Automation > Data Center.
 ### Changed
 
 - Block names no longer carry sizes ("Server Rack (Open Frame)", "Compute Server", "UPS"); pick the size with the
-  build menu's size selector. Block IDs are unchanged, so test worlds keep working.
+  build menu's size selector.
 
 ### Fixed
 
