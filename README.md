@@ -3,6 +3,8 @@
 Space Engineers 2 mod: data center server racks and rack-mount servers, with the look of real 19-inch racks and
 the function of vanilla automation blocks.
 
+**Get it on the Steam Workshop:** [Rioku Labs - Data Center](https://steamcommunity.com/sharedfiles/filedetails/?id=3824365708)
+
 ## Server Racks
 
 Build menu: Automation > Data Center > Server Racks. Each kind comes in two sizes: 24U (4 slots) and 42U (8 slots,
