@@ -10,8 +10,11 @@
     "Type": "Mod",
     "ProjectID": {
       "Guid": "60cec301-8978-4c07-9b97-8a94a445d05d",
-      "ModId": null,
-      "ServiceId": ""
+      "ModId": {
+        "Id": "00000000-0000-0000-8c30-f3e300000000",
+        "ServiceName": "Steam"
+      },
+      "ServiceId": "Steam"
     },
     "ModSetup": null,
     "ProjectDependencies": [
