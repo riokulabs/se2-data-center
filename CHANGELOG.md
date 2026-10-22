@@ -27,7 +27,7 @@ First Workshop release. Find it in the build menu under Automation > Data Center
 ### Changed
 
 - Block names no longer carry sizes ("Server Rack (Open Frame)", "Compute Server", "UPS"); pick the size with the
-  build menu's size selector. Block IDs are unchanged, so test worlds keep working.
+  build menu's size selector.
 
 ### Fixed
 
