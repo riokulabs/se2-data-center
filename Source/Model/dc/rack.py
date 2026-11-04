@@ -12,7 +12,7 @@ cable manager; a 0.25 m front zone (door leaves, server ears, KVM travel) and a 
     | 0.25 .. ZT       | 8 slots               | 4 slots                         |
     | ZT .. H          | 0.25 m top cable tray | -- (thin render-only roof)      |
 
-Placement design (se2model.placement):
+Placement design (se2modkit.model.placement):
 - Regular collision (physics) = the frame: plinth, the two side columns, the top tray, and (for
   placement) a thin rear stop plate behind each slot column's back plane (4-5 boxes).
 - Free cells: the slot cells (SLOT_CELLS) and, in front of them, the slot columns' front-zone cells, so the block

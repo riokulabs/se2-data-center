@@ -60,7 +60,7 @@ def stencil(p, F, a, b, height, text, d=0.0, align="center", track=0.10, white=T
     """Keen stencil text (decal quads 2 mm proud) on face F, (a, b) = anchor at the cap middle.
 
     white=True uses AtlasFont_BarlowCondensed_CleanWhite (the clean quadrant of the main font atlas as its own
-    1024 px atlas, so the se2model glyph boxes apply at /1024): white text that reads on any paint when it sits on
+    1024 px atlas, so the se2modkit glyph boxes apply at /1024): white text that reads on any paint when it sits on
     a Darker plate. white=False uses the paint-masked main atlas (se2model.decals.text)."""
     w = DC.text_width(height, text, track)
     a0 = a - w / 2 if align == "center" else (a - w if align == "right" else a)
@@ -80,7 +80,7 @@ def stencil(p, F, a, b, height, text, d=0.0, align="center", track=0.10, white=T
     return x
 
 
-# Stickers02 warning triangles as exact triangles: the shared se2model.decals.HAZARD_TRIANGLES (measured there; the
+# Stickers02 warning triangles as exact triangles: the shared se2modkit.model.decals.HAZARD_TRIANGLES (measured there; the
 # atlas interlocks point-up / point-down triangles, so a bounding rectangle catches its neighbours' corners, the
 # in-game "diagonal lines"). Drawn point up (ISO 7010 W012 for tri_electric).
 def hazard_triangle(p, F, a, b, width, key="tri_electric", d=0.0):

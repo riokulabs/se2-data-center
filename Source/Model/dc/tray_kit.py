@@ -179,7 +179,7 @@ def sweep(p, points, profile, material, closed=True, cap0=False, cap1=False, up=
     return rings
 
 
-ngon = G.ngon        # a counter-clockwise regular n-gon of circumradius r (se2model.geom)
+ngon = G.ngon        # a counter-clockwise regular n-gon of circumradius r (se2modkit.model.geom)
 
 
 def wire_profile(r, lod, sides=None):

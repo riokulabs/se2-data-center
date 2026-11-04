@@ -11,8 +11,9 @@ The full reference, with every check the install step runs, is `Source/Model/int
 - Python 3.11+ for the generator, the staging step and the tests.
 - Blender 5.x (the models are built with 5.2 LTS) with the VRAGE Tools add-on for the export step.
 - The Space Engineers 2 Mod SDK (Steam app 3578990) for cloning vanilla definitions and for the final build.
-- `se2model`, the shared modeling library, and `se2mod.py`, the build helper. Both currently live outside this
-  repository (`../../tools`), so on a bare clone only the offline tests that do not import them run.
+- [se2modkit](https://github.com/riokulabs/se2-modkit), the shared modding library (the model code imports
+  `se2modkit.model`): install it (`pip install git+https://github.com/riokulabs/se2-modkit`), or set `SE2MODKIT_SRC`
+  to a checkout's `src/` folder. `se2mod.py`, the build helper, still lives outside this repository (`../../tools`).
 
 ## Folder layout
 

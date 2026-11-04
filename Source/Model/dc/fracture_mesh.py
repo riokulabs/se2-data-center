@@ -655,7 +655,7 @@ def dent(objs, fam, lo, hi, seed):
 # ---------------------------------------------------------------------------------------------------- scaffold
 def scaffold_object(sp, lod, coll, name):
     """The construction scaffold of one Fractured LOD (dc/scaffold.py ScaffoldPlan): its members as open
-    se2model.geom.cylinder tubes (no caps: every end meets a crossing member) in BrushedMetal, ungrouped (vanilla: the
+    se2modkit.model.geom.cylinder tubes (no caps: every end meets a crossing member) in BrushedMetal, ungrouped (vanilla: the
     cage stays when zones die, hence the stage-1.0 damaged-only hide), with the Scaffold / AlwaysVisible /
     Scaffolding props; ob["dc_scaffold"] = 1 marks it for the Damaged copy (which leaves it out). None when the plan
     has no cage at this LOD."""

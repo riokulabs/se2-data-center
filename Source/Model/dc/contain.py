@@ -28,7 +28,7 @@ Part -> purpose (SE-ified: a chunky Colorable frame, Darker hardware, few big pa
              EmissiveWhite diffuser                                  hall luminaires): one batten per rack pitch
 
 Up-face rule (test_roof_faces: nothing mounts on Up or Down): the game's mount generator samples 8 rays per face cell
-on a ring of radius 0.66 x 0.125 m and counts hits within 20 mm of the plane (se2model.placement.sample). Every member
+on a ring of radius 0.66 x 0.125 m and counts hits within 20 mm of the plane (se2modkit.model.placement.sample). Every member
 of the flush top therefore stays within RAY_FREE (48.8 mm) of the cell planes it sits on (the caps are 36..46 mm
 wide; the mullions lie on cell boundaries), and the panes' top stays more than 20 mm under the top plane: no top cell
 gets 4 hits. The underside is 18 mm and more above the bottom plane, so Down gets none either.
