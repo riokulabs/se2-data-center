@@ -12,6 +12,9 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import modkit_path  # noqa: E402
+
+modkit_path.ensure()
 
 from dc import catalog, config, dims as DM, report  # noqa: E402
 

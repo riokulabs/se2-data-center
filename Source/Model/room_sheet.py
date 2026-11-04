@@ -12,6 +12,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import modkit_path  # noqa: E402
+
+modkit_path.ensure()
 
 from dc import dims as DM  # noqa: E402
 from dc import room  # noqa: E402
