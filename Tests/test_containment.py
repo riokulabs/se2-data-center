@@ -106,7 +106,7 @@ def test_roof_layout(name):
 
 def test_roof_up_face_rule():
     """The flush top never mounts: every top member stays within RAY_FREE of the cell plane it sits on, and the
-    panes' top is more than the sampler's 20 mm band under the top plane (se2model.placement.TOL)."""
+    panes' top is more than the sampler's 20 mm band under the top plane (se2modkit.model.placement.TOL)."""
     from se2modkit.model import placement as PL
     assert contain.RAY_FREE == pytest.approx(0.125 - max(abs(a) for a, _ in PL.SAMPLES))
     assert max(contain.CAP_EDGE) < contain.RAY_FREE and max(contain.CAP_END) < contain.RAY_FREE

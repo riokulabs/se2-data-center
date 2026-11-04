@@ -131,7 +131,7 @@ def sweep(p, points, profile, material, closed=True, cap0=False, cap1=False, up=
     counter-clockwise arc). Corners are mitred (the ring is stretched along the bend so the section keeps its
     thickness). smooth: the side faces form one round band (shaded smooth, never bevelled). normals: per profile
     point its exact 2D shading normal (a, b), turned with the twist and written to the per-loop normal hook
-    (se2model.normals: the strands' radial normals). Returns the rings."""
+    (se2modkit.model.normals: the strands' radial normals). Returns the rings."""
     bm = p.bm
     pts = [_v(q) for q in points]
     if fr is None:

@@ -1,6 +1,6 @@
 """The Data Center's shared SE2 design language (racks, servers, room pieces).
 
-Ported from the v2 "SE-ified" mockups (tools/mockups/datacenter/dclib2.py) onto the se2model library:
+Ported from the v2 "SE-ified" mockups (tools/mockups/datacenter/dclib2.py) onto the se2modkit library:
 - player paint: the bodies are PaintedMetalColorable (black is a paint choice, not baked in);
 - material roles (as in vanilla blocks): Colorable shells, Darker housings and recesses, Brushed
   load-bearing steel (rails), MetalDull black-oxide hardware, Yellow as thin trim lines only;
@@ -8,7 +8,7 @@ Ported from the v2 "SE-ified" mockups (tools/mockups/datacenter/dclib2.py) onto 
 - fewer, larger lights: lenses in Darker bezels;
 - Keen stencils (AtlasFont_BarlowCondensed) and decal atlases instead of photoreal print.
 
-All helpers write into se2model Parts (Blender frame: X width, +Y = the block's front = game Forward, Z up).
+All helpers write into se2modkit Parts (Blender frame: X width, +Y = the block's front = game Forward, Z up).
 """
 from se2modkit.model.config import BM, C, DK, FONT, MD, P1, S2, YL
 
@@ -61,7 +61,7 @@ def stencil(p, F, a, b, height, text, d=0.0, align="center", track=0.10, white=T
 
     white=True uses AtlasFont_BarlowCondensed_CleanWhite (the clean quadrant of the main font atlas as its own
     1024 px atlas, so the se2modkit glyph boxes apply at /1024): white text that reads on any paint when it sits on
-    a Darker plate. white=False uses the paint-masked main atlas (se2model.decals.text)."""
+    a Darker plate. white=False uses the paint-masked main atlas (se2modkit.model.decals.text)."""
     w = DC.text_width(height, text, track)
     a0 = a - w / 2 if align == "center" else (a - w if align == "right" else a)
     if not white:

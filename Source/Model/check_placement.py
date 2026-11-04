@@ -4,7 +4,7 @@
 
 For each exported block: imports the LOD0 FBX (the game builds the precise mount-point collider from LOD0), reads
 the collision glTF (regular / occupancy* / mountpoints* nodes) and the Fractured glTF (Fracture_NN hulls), and runs
-se2model.placement with the block's cell bounds and per-axis grid shift. Writes
+se2modkit.model.placement with the block's cell bounds and per-axis grid shift. Writes
 Models/<name>/placement_exported.json:
   nonfractured: the generator on LOD0 + collision only (must equal build_report.json "placement", which was computed
                 from the in-Blender meshes before export; Tests/test_integration.py compares them);

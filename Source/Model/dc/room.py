@@ -107,7 +107,7 @@ def box(p: Placed):
 
 
 def _shift(n):
-    return CELL / 2 if n % 2 == 0 else 0.0   # the game's grid-align step (se2model.placement.shift_for_bounds)
+    return CELL / 2 if n % 2 == 0 else 0.0   # the game's grid-align step (se2modkit.model.placement.shift_for_bounds)
 
 
 def local_centre(s, cell) -> Tuple[float, float, float]:

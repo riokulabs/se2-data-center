@@ -88,7 +88,7 @@ def collision_objects(spec, boxes, coll):
 
 
 def placement(spec, lod0_objs, boxes):
-    """se2model.placement on the LOD0 render mesh + the collision boxes (glTF frame, per-axis grid shift)."""
+    """se2modkit.model.placement on the LOD0 render mesh + the collision boxes (glTF frame, per-axis grid shift)."""
     b = catalog.bounds(spec)
     tris = PL.tris_from_objects(lod0_objs)
 

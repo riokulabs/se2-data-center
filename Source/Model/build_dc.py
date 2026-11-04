@@ -23,7 +23,7 @@ BEVEL_HAZARDS = {}   # object name -> zero-length edges in a bevelled Part (a be
 
 
 def _install_bevel_guard():
-    """se2model bevels use clamp-overlap, which clamps the WHOLE part: one zero-length edge (e.g. oct_pts(..., 0.0))
+    """se2modkit bevels use clamp-overlap, which clamps the WHOLE part: one zero-length edge (e.g. oct_pts(..., 0.0))
     silently kills every bevel of that Part. Wrap part_to_object once and record such edges per object."""
     from se2modkit.model import objects as OB
     if getattr(OB.part_to_object, "_dc_guard", False):

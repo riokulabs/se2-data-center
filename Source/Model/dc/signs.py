@@ -194,7 +194,7 @@ def rod_plates(spec):
 
 
 def _hint_reach():
-    """se2model.placement's ray ring (the rod hanger's own hint pattern, dc/tray.py _hint_reach): a hint reaching
+    """se2modkit.model.placement's ray ring (the rod hanger's own hint pattern, dc/tray.py _hint_reach): a hint reaching
     `reach` past a grid line catches the 4 nearest rays of the cell on that side; `keep` stays clear of the far one."""
     from se2modkit.model import placement as PL
     offs = sorted({round(abs(a), 6) for a, _ in PL.SAMPLES})

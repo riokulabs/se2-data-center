@@ -4,10 +4,10 @@
     Tests/test_states_docs.py                         fails when the doc differs from budget_table.table()
 
 Columns (LOD0 triangles): NF = the plain model, FR = the Fractured model (scaffold and stand-ins included),
-limit = Keen's fractured limit for it (the manifest's budget[0]; for the four unfractured blocks se2model.limits),
+limit = Keen's fractured limit for it (the manifest's budget[0]; for the four unfractured blocks se2modkit.model.limits),
 scaffold / stand-ins = the part of FR LOD0 they take (the stand-ins exist in FR and DM only), DM = the Damaged
 model and its limit (the one the build enforces: the fractured budget[0], Tests/test_damaged_geometry.py; for the
-four unfractured blocks se2model.limits), LODs = the FR LOD count."""
+four unfractured blocks se2modkit.model.limits), LODs = the FR LOD count."""
 import os
 import sys
 
