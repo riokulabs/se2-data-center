@@ -40,8 +40,8 @@ checker gives the 0.5 m material budget, not the 0.25 m one). The pedestals stan
 from . import dims as DM
 
 try:   # geometry needs Blender; the constants and collision() are plain Python (pytest imports them outside)
-    from se2model import geom as G
-    from se2model.geom import Face, Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
 except ImportError:
     G = Face = Part = None
 from .style import DARK, HARDWARE, PAINT, PERF, STEEL, YELLOW, oct_pts, perf_quad, stencil
@@ -89,7 +89,7 @@ def size(spec):
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 

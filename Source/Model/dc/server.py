@@ -21,8 +21,8 @@ Front zone (y > 0.375, inside the rack's 0.25 m front zone, clear of its doors a
 import math
 
 try:   # geometry needs Blender; dims / collision are plain Python
-    from se2model import geom as G
-    from se2model.geom import Face, Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
 except ImportError:
     G = Face = Part = None
 from . import dims as DM
@@ -69,7 +69,7 @@ LOD_COUNT = {}
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 

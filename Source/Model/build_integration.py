@@ -13,7 +13,6 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
 
 from dc import integration, script_guids  # noqa: E402
 

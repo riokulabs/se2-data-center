@@ -66,7 +66,7 @@ def test_server_cells_match_slot_cells(name, rack_name):
     """Bookkeeping: the server's cell box (catalog.bounds) shifted by whole cells in height is exactly each slot's
     rack.SLOT_CELLS, and with each model's own grid shift the metric x / depth boxes coincide. (The built geometry
     couplings are the test_rack_coupling_* tests below.)"""
-    from se2model import placement as PL
+    from se2modkit.model import placement as PL
     from dc import rack
     srv, rk = catalog.BY_NAME[name], catalog.BY_NAME[rack_name]
     (sx0, sy0, sz0), (sx1, sy1, sz1) = catalog.bounds(srv)
@@ -156,7 +156,7 @@ def test_server_clearance(name):
 
 @pytest.mark.parametrize("name", SERVERS)
 def test_server_limits(name):
-    from se2model import limits
+    from se2modkit.model import limits
     spec = catalog.BY_NAME[name]
     e = _entry(name)
     lods = e["lods"]

@@ -20,8 +20,8 @@ import os
 import bpy
 from mathutils import Matrix
 
-from se2model.kit import KitPart
-from se2model.materials import get_mat
+from se2modkit.model.kit import KitPart
+from se2modkit.model.materials import get_mat
 
 from .. import config
 from .. import functional as FN

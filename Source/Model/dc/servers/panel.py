@@ -10,7 +10,7 @@ from .. import server
 from ..style import DARK, lamp, oct_pts
 
 try:
-    from se2model import geom as G
+    from se2modkit.model import geom as G
 except ImportError:
     G = None
 

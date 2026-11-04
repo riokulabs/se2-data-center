@@ -29,9 +29,9 @@ import bmesh
 import numpy as np
 from mathutils import Matrix, Vector
 
-from se2model import decals as DC
-from se2model import geom as G
-from se2model.geom import Part
+from se2modkit.model import decals as DC
+from se2modkit.model import geom as G
+from se2modkit.model.geom import Part
 
 from . import tray_lanes as TL
 from . import tray_plan as TP

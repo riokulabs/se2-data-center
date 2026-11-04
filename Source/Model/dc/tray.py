@@ -22,8 +22,8 @@ from . import tray_lanes as TL
 from . import tray_plan as TP
 
 try:   # geometry needs Blender; collision is plain Python (pytest imports it outside)
-    from se2model import geom as G
-    from se2model.geom import Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Part
     from . import tray_kit as K
 except ImportError:
     G = Part = K = None
@@ -43,7 +43,7 @@ def size(spec):
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 
@@ -64,7 +64,7 @@ def build(spec, lod):
         return [p for p in parts if _move(p, shift)]
     # LOD1 .. n-2: the kit's detail level for this LOD, one step simpler while it would exceed 60 % of Keen's limit
     # for this LOD (the limits follow the measured LOD0: a light LOD0 gets fewer LODs with tighter caps)
-    from se2model import limits
+    from se2modkit.model import limits
     tris0, ext = _LOD0.get(spec.name) or (_tris(dress(pl, 0)), size(spec))
     lims = limits.model_limits(ext, tris0)["lods"]
     cap = lims[min(lod, len(lims) - 1)]["max_tris"]      # (a first pass from the cell box may count more LODs)
@@ -304,7 +304,7 @@ def _clip(lo, hi, size, inset=0.0):
 
 def _cell_boxes(cells, size, inset=0.001):
     """Merge occupied cells into boxes (greedy, se2model.placement.build_groups), box-corner metres."""
-    from se2model.placement import build_groups
+    from se2modkit.model.placement import build_groups
     out = []
     for lo, hi in build_groups(sorted(cells)):
         a = np.array(lo, float) * CELL + inset
@@ -551,7 +551,7 @@ def _hint_reach():
     """From se2model.placement's ray pattern: a hint reaching `reach` to one side of a grid line catches the 4 rays
     of the cell on that side that lie nearest the line (they sit CELL/2 - min|offset| from it), and one reaching
     `keep` past the line stays clear of the far cell's rays (CELL/2 - max|offset| away)."""
-    from se2model import placement as PL
+    from se2modkit.model import placement as PL
     offs = sorted({round(abs(a), 6) for a, _ in PL.SAMPLES})
     return PL.CELL / 2 - offs[0] + 0.005, PL.CELL / 2 - offs[-1] - 0.025
 

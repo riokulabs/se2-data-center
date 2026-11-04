@@ -242,7 +242,7 @@ def _element():
 
 def install():
     """Tag every decal quad with its element id (idempotent)."""
-    from se2model import decals as DC
+    from se2modkit.model import decals as DC
     if getattr(DC._quad, "_dc_zfight", False):
         return
     orig = DC._quad

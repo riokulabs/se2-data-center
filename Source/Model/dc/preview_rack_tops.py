@@ -136,7 +136,7 @@ def _bundle(s, name, pts, r=DM.R_WF, mat="PMC:blue"):
     cu.bevel_resolution = 4
     cu.use_fill_caps = True
     sp = cu.splines.new("POLY")
-    from se2model import geom as G
+    from se2modkit.model import geom as G
     path, _ = G.fillet_path([Vector(p) for p in pts], 0.09, steps_per_90=6)
     sp.points.add(len(path) - 1)
     for k, p in enumerate(path):

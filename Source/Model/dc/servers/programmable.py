@@ -27,7 +27,7 @@ from ..style import DARK, HARDWARE, PAINT, STEEL, YELLOW, lamp, oct_pts, stencil
 from . import deco, panel
 
 try:
-    from se2model import geom as G
+    from se2modkit.model import geom as G
 except ImportError:
     G = None
 

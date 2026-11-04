@@ -230,7 +230,7 @@ def cage(boxes, pitch: float, inset: float) -> list[Member]:
 # ---------------------------------------------------------------------------------------------------- the budget
 def row_margin(size, t0: int, limit: int) -> int:
     """The largest k <= limit with optimal_lods(size, t0 + k) == optimal_lods(size, t0) (0 when limit <= 0)."""
-    from se2model import limits
+    from se2modkit.model import limits
     if limit <= 0:
         return 0
     want = limits.optimal_lods(size, t0)

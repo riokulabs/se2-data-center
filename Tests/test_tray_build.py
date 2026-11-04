@@ -360,7 +360,7 @@ def test_run_budget_per_metre(name):
             caps = cap_tris(name) if i == 0 else 0
             assert (lods[i]["tris"] - caps) / run <= PER_METRE[i], (i, lods[i]["tris"], caps, run)
     if spec.variant in TURNS + JUNCTIONS + ("Drop",):   # LOD0: a share of Keen's (unbiased) limit; a run: run20
-        from se2model import limits
+        from se2modkit.model import limits
         cap = limits.model_limits(e["model_size"])["lods"][0]["max_tris"]
         share = BEND_LOD0 if spec.variant in TURNS else JUNCTION_LOD0
         assert lods[0]["tris"] - cap_tris(name) <= share * cap, (lods[0]["tris"], cap)
@@ -1428,7 +1428,7 @@ def test_port_caps(name):
 def test_caps_within_keen():
     """The caps are outside the plan's LOD0 budgets but inside Keen's: every capped Full piece keeps
     its LOD0 under Keen's limit (and the 60 % rule on the later LODs, which carry no caps)."""
-    from se2model import limits
+    from se2modkit.model import limits
     rep = report()
     assert not XS.CAP_SKIP and XS.CAP_TRIS == 16
     for n in BUILT:

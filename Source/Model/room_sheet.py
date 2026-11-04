@@ -12,7 +12,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))   # se2model (dc.rack)
 
 from dc import dims as DM  # noqa: E402
 from dc import room  # noqa: E402

@@ -20,13 +20,13 @@ can. Fan tray (static subpart, origin on the fan lane's centre on the trough flo
 import math
 
 from mathutils import Matrix
-from se2model import decals as DC
-from se2model import geom as G
-from se2model.geom import Face, Part
+from se2modkit.model import decals as DC
+from se2modkit.model import geom as G
+from se2modkit.model.geom import Face, Part
 
 from . import dims as DM
 from . import doors
-from se2model.config import S1
+from se2modkit.model.config import S1
 
 from .style import DARK, HARDWARE, PAINT, STEEL, oct_pts, perf_quad
 
@@ -206,7 +206,7 @@ def fan_tray(spec, lod):
     Darker housing with the round opening and a MetalDull shroud lip; a finger guard (three rings, four spokes and a
     centre disc carrying the motor and the fan's stencil ID); a power lead to a connector on the plate; a status lamp
     on the housing; the CAUTION MOVING PARTS label on the housing's aisle-side face."""
-    from se2model import decals as DCL
+    from se2modkit.model import decals as DCL
     from .style import LAMP_GREEN, STENCIL_WHITE, lamp, stencil
     P = {k: Part(k) for k in ("plate", "dark", "hw", "cable", "decal")}
     P["decal"].decal = True

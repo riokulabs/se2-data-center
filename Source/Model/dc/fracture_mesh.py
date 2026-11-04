@@ -33,8 +33,8 @@ import bmesh
 import bpy
 from mathutils import Matrix, Vector, noise
 
-from se2model import objects as OB
-from se2model.materials import get_mat
+from se2modkit.model import objects as OB
+from se2modkit.model.materials import get_mat
 
 from . import fracture as FR
 
@@ -659,7 +659,7 @@ def scaffold_object(sp, lod, coll, name):
     cage stays when zones die, hence the stage-1.0 damaged-only hide), with the Scaffold / AlwaysVisible /
     Scaffolding props; ob["dc_scaffold"] = 1 marks it for the Damaged copy (which leaves it out). None when the plan
     has no cage at this LOD."""
-    from se2model.geom import Part, cylinder
+    from se2modkit.model.geom import Part, cylinder
     from . import scaffold as SC
     members = sp.lod_members.get(lod) if sp else None
     if not members:

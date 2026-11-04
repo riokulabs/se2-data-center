@@ -26,7 +26,6 @@ from mathutils import Matrix, Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
 
 from dc import config, fracture as FR  # noqa: E402
 from dc import preview_mats as PM  # noqa: E402

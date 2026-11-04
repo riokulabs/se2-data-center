@@ -19,12 +19,11 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
 
 import bpy  # noqa: E402
 
 from dc import catalog, config  # noqa: E402
-from se2model import placement as PL  # noqa: E402
+from se2modkit.model import placement as PL  # noqa: E402
 
 
 def rep(r):

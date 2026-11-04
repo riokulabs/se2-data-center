@@ -10,12 +10,12 @@ Ported from the v2 "SE-ified" mockups (tools/mockups/datacenter/dclib2.py) onto 
 
 All helpers write into se2model Parts (Blender frame: X width, +Y = the block's front = game Forward, Z up).
 """
-from se2model.config import BM, C, DK, FONT, MD, P1, S2, YL
+from se2modkit.model.config import BM, C, DK, FONT, MD, P1, S2, YL
 
 try:   # the geometry helpers need Blender; the constants do not (pytest imports them outside Blender)
     from mathutils import Vector
-    from se2model import decals as DC
-    from se2model import geom as G
+    from se2modkit.model import decals as DC
+    from se2modkit.model import geom as G
 except ImportError:
     Vector = DC = G = None
 

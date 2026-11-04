@@ -46,9 +46,9 @@ from . import dims as DM
 
 try:   # geometry needs Blender; the constants and collision() are plain Python (pytest imports them outside)
     import bmesh
-    from se2model import decals as DC
-    from se2model import geom as G
-    from se2model.geom import Face, Part
+    from se2modkit.model import decals as DC
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
 except ImportError:
     bmesh = DC = G = Face = Part = None
 from .style import DARK, HARDWARE, PAINT, STEEL, STENCIL_WHITE, stencil  # noqa: F401 (STENCIL_WHITE: the decal slot)
@@ -115,7 +115,7 @@ def size(spec):
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 
@@ -384,7 +384,7 @@ def _release(P, spec, lod):
         a0, a1 = sorted((s * (0.5 - END_IN - 0.006), s * (xi + 0.008)))
         G.box(P["dark"], (a0, yc - 0.052, BEAM_Z0 - 0.003), (a1, yc + 0.052, BEAM_Z0), DARK)
         if lod == 0:
-            from se2model.config import DECAL_OFFSET
+            from se2modkit.model.config import DECAL_OFFSET
             Ft = Face((s * (0.5 - END_IN - END_W / 2 + 0.001), yc, BEAM_Z0 - 0.003), (0, s, 0), (s, 0, 0))
             stencil(P["decal"], Ft, 0.0, 0.0, 0.0105, TAG_TEXT, d=0.0004 - DECAL_OFFSET)
 
@@ -770,7 +770,7 @@ def _pocket(P, spec, s, lod):
     # "KEEP CLOSED" plate at eye height on the cover
     zk, hw_, hh = -DH + 1.62, min(0.12, (xe - xo) / 2 - 0.03), 0.034
     _sb(P["dark"], s, xc - hw_, xc + hw_, COVER_Y[1], COVER_Y[1] + 0.003, zk - hh, zk + hh, DARK)
-    from se2model.config import DECAL_OFFSET
+    from se2modkit.model.config import DECAL_OFFSET
     Fk = Face((s * xc, COVER_Y[1] + 0.003, zk), (-1, 0, 0), (0, 0, 1))
     stencil(P["decal"], Fk, 0.0, 0.0, 0.026, KEEP_TEXT, d=0.0004 - DECAL_OFFSET)
     if lod == 0:
@@ -886,7 +886,7 @@ def _closers(P, spec, lod):
             for a in (a0 + 0.03, a1 - 0.03):
                 for yb in (y0 - 0.002, y1 + 0.002):
                     G.cylinder(P["hw"], (s * a, yb, z1 - 0.0005), (s * a, yb, z1 - 0.004), 0.0055, 6, HARDWARE)
-            from se2model.config import DECAL_OFFSET
+            from se2modkit.model.config import DECAL_OFFSET
             Fc = Face((s * (a0 + a1) / 2, y1, zc), (-1, 0, 0), (0, 0, 1))
             stencil(P["decal"], Fc, 0.0, 0.0, 0.011, CLOSER_TEXT, d=0.0004 - DECAL_OFFSET)
 
@@ -1003,7 +1003,7 @@ def build_leaf(spec, model, lod):
             ub(P["steel"], sum(PULL_U) / 2 - 0.0055, sum(PULL_U) / 2 + 0.0055, ya, yb, PULL_Z - 0.15, PULL_Z + 0.15,
                STEEL)
             if lod == 1:
-                from se2model.config import DECAL_OFFSET
+                from se2modkit.model.config import DECAL_OFFSET
                 F = Face((0, sg * T_, 0), (-sg, 0, 0), (0, 0, 1))
                 for u in (0.0375, 0.1025):
                     DC.stripes(P["decal"], F, -sg * X(u), PULL_Z, 2 * PULL_HH + 0.04, 0.010, "yellow",
@@ -1025,7 +1025,7 @@ def build_leaf(spec, model, lod):
         G.cylinder(dk, (X(uc), yc, PULL_Z - 0.065), (X(uc), yc, PULL_Z + 0.065), 0.0075, n + 2, DARK)
         # yellow chevrons round the pull zone only (the pinch point where the leaves meet)
         if lod == 0:
-            from se2model.config import DECAL_OFFSET
+            from se2modkit.model.config import DECAL_OFFSET
             F = Face((0, sg * T_, 0), (-sg, 0, 0), (0, 0, 1))                     # a = -sg x on the sg face
             A = lambda u: -sg * X(u)  # noqa: E731
             d = STRIPE_D - DECAL_OFFSET

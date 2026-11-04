@@ -2,9 +2,9 @@
 import bpy
 import numpy as np
 
-from se2model import limits
-from se2model import objects as OB
-from se2model import placement as PL
+from se2modkit.model import limits
+from se2modkit.model import objects as OB
+from se2modkit.model import placement as PL
 
 from . import catalog
 

@@ -44,15 +44,15 @@ Purpose of every part (a real in-row chilled-water cooler, SE-styled; the user's
 """
 import math
 
-from se2model.config import DECAL_OFFSET
+from se2modkit.model.config import DECAL_OFFSET
 
 from . import dims as DM
 from . import rack as R
 
 try:   # geometry needs Blender; dims / collision / fan_points are plain Python (pytest imports them outside)
     from mathutils import Matrix
-    from se2model import geom as G
-    from se2model.geom import Face, Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
 except ImportError:
     Matrix = G = Face = Part = None
 from .style import DARK, HARDWARE, PAINT, STEEL, YELLOW, bolt, lamp, oct_pts, perf_quad, stencil
@@ -141,7 +141,7 @@ def size(spec):
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 

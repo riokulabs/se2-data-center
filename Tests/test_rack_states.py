@@ -147,7 +147,7 @@ def test_rack_standins(staged, name):
     (<= 2 cm past it) and the count equals the manifest's; every stand-in vertex lies inside one of its subparts'
     placed LOD0 boxes (parked where the real one spawns); the staged ConditionalSubParts hides exactly them; the FR
     stays within its budget (<= 28 006 at LOD0) with the LOD count unchanged (Keen's for its size and LOD0, = NF's)."""
-    from se2model import limits
+    from se2modkit.model import limits
     man = _man(name)
     fr = man["fractured"]
     for key in ("fractured", "damaged"):
