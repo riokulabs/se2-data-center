@@ -5,7 +5,7 @@ Two faults make two surfaces fight for the same pixels:
   (b) a decal quad, or a mesh face, lies in the plane of another same-facing face it overlaps (coplanar geometry).
 
 The build tags every decal quad with the element it belongs to (install(): a face int layer written by
-se2model.decals._quad, the element = one outermost call of a decal API: decals.element / text / trim / stripes,
+se2modkit.model.decals._quad, the element = one outermost call of a decal API: decals.element / text / trim / stripes,
 style.stencil / hazard_triangle, tray_kit._stencil), measures the built models (check_built), strips the tag again
 before export, and records the result in build_report.json ("zfight"). Tests/test_zfight.py re-checks the recorded
 element boxes with the bpy-free rules below.
@@ -242,7 +242,7 @@ def _element():
 
 def install():
     """Tag every decal quad with its element id (idempotent)."""
-    from se2model import decals as DC
+    from se2modkit.model import decals as DC
     if getattr(DC._quad, "_dc_zfight", False):
         return
     orig = DC._quad

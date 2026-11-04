@@ -40,7 +40,9 @@ from mathutils import Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
+import modkit_path  # noqa: E402
+
+modkit_path.ensure()
 
 _src = open(os.path.join(HERE, "fracture_compare_preview.py")).read()
 _src = _src[:_src.rindex("\nmain(")]                    # the renderer without its own entry point

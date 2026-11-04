@@ -103,7 +103,7 @@ def test_budget_pdu_cabinet():
 
 
 def test_row_margin_is_the_last_safe_k():
-    from se2model import limits
+    from se2modkit.model import limits
     size = (0.5, 0.498, 0.248)                           # a StraightS tray: its LOD0 sits near a row
     t0 = 1144
     k = SC.row_margin(size, t0, 10_000)
@@ -196,7 +196,7 @@ def test_every_cut_block_has_scaffold(name):
 def test_scaffold_keeps_lod_count(name):
     """With its scaffold, the FR keeps Keen's LOD count for its own LOD0 and stays within budget[0];
     each LOD's cage is within the plan's per-LOD triangles (LOD1 only within 90 % of its budget)."""
-    from se2model import limits
+    from se2modkit.model import limits
     m = _man(name)
     fr = m["fractured"]
     t0 = fr["lods"][0]["tris"]
@@ -260,7 +260,7 @@ def test_scaffold_inside_cells(name):
     meshes = FRR.fbx_meshes(_fr_fbx(name))
     skin = [v for m in meshes.values() if m["props"].get("ConstructionMeshType") != "Scaffold" for v in m["verts"]]
     cage = [v for m in _scaffold_meshes(_fr_fbx(name)) for v in m["verts"]]
-    from se2model import limits
+    from se2modkit.model import limits
     fr = _man(name)["fractured"]
     proud = set(fr["scaffold"]["proud"])
     for k in range(3):

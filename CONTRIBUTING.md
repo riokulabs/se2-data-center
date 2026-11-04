@@ -10,7 +10,7 @@ Thanks for looking. Rioku Labs is a small team, and we want more people building
 
 ## Building and testing
 
-**Offline checks (anyone):** `scripts/test.sh` runs the pure-Python tests. Note that some test modules import `se2model`, a shared modeling library that currently lives in the maintainer's workspace (`../../tools/se2model`) and is not in this repository, so on a bare clone part of the suite cannot be collected yet.
+**Offline checks (anyone):** `scripts/test.sh` runs the pure-Python tests. The model code and some tests import [se2modkit](https://github.com/riokulabs/se2-modkit), the shared modding library: install it (`pip install git+https://github.com/riokulabs/se2-modkit`), or set `SE2MODKIT_SRC` to a checkout's `src/` folder.
 
 **Full build (needs the maintainer's setup):**
 

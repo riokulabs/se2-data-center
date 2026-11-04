@@ -29,9 +29,9 @@ import bmesh
 import numpy as np
 from mathutils import Matrix, Vector
 
-from se2model import decals as DC
-from se2model import geom as G
-from se2model.geom import Part
+from se2modkit.model import decals as DC
+from se2modkit.model import geom as G
+from se2modkit.model.geom import Part
 
 from . import tray_lanes as TL
 from . import tray_plan as TP
@@ -131,7 +131,7 @@ def sweep(p, points, profile, material, closed=True, cap0=False, cap1=False, up=
     counter-clockwise arc). Corners are mitred (the ring is stretched along the bend so the section keeps its
     thickness). smooth: the side faces form one round band (shaded smooth, never bevelled). normals: per profile
     point its exact 2D shading normal (a, b), turned with the twist and written to the per-loop normal hook
-    (se2model.normals: the strands' radial normals). Returns the rings."""
+    (se2modkit.model.normals: the strands' radial normals). Returns the rings."""
     bm = p.bm
     pts = [_v(q) for q in points]
     if fr is None:
@@ -179,7 +179,7 @@ def sweep(p, points, profile, material, closed=True, cap0=False, cap1=False, up=
     return rings
 
 
-ngon = G.ngon        # a counter-clockwise regular n-gon of circumradius r (se2model.geom)
+ngon = G.ngon        # a counter-clockwise regular n-gon of circumradius r (se2modkit.model.geom)
 
 
 def wire_profile(r, lod, sides=None):

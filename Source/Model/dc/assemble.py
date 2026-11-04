@@ -2,9 +2,9 @@
 import bpy
 import numpy as np
 
-from se2model import limits
-from se2model import objects as OB
-from se2model import placement as PL
+from se2modkit.model import limits
+from se2modkit.model import objects as OB
+from se2modkit.model import placement as PL
 
 from . import catalog
 
@@ -88,7 +88,7 @@ def collision_objects(spec, boxes, coll):
 
 
 def placement(spec, lod0_objs, boxes):
-    """se2model.placement on the LOD0 render mesh + the collision boxes (glTF frame, per-axis grid shift)."""
+    """se2modkit.model.placement on the LOD0 render mesh + the collision boxes (glTF frame, per-axis grid shift)."""
     b = catalog.bounds(spec)
     tris = PL.tris_from_objects(lod0_objs)
 

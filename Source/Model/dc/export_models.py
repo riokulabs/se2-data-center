@@ -43,8 +43,8 @@ import shutil
 
 import bmesh
 import bpy
-from se2model import export as EX
-from se2model import objects as OB
+from se2modkit.model import export as EX
+from se2modkit.model import objects as OB
 
 from . import catalog, config
 from .fracture import HIDE_PREFIXES, ROLE_IDS, ROLE_SUFFIX, role_of, role_props, skin_carrier  # noqa: F401
@@ -719,7 +719,7 @@ def keep_zone(ob, zi, role):
 def shape_hulls(spec, plan, lod0, size):
     """Each zone's collider shaped to its cut LOD0 geometry (fracture.shaped_hull), inside the block's
     cells, the block's total hull vertices within Keen's fractured collider budget; z.hull = its bounding box."""
-    from se2model import limits
+    from se2modkit.model import limits
     from . import fracture as FR
     from . import fracture_mesh as FM
     whole, caps = lod0
@@ -785,7 +785,7 @@ def _fit_scaffold(family, zones, lo, hi, glo, ghi, size, nf_t0, n_fr, fr_tris, b
     """scaffold.plan on this envelope, its LOD0 shrunk (a lower cap: a coarser pitch) until the FR LOD0 with the cage
     keeps Keen's LOD count for the FR's own size (geometry and cage), the NF-row side of the cut and budget[0].
     reserve: the stand-in triangles per LOD still to come (bake_standins), counted as there (R6)."""
-    from se2model import limits
+    from se2modkit.model import limits
     from . import fracture as FR
     from . import scaffold as SC
     t0 = fr_tris[0] + reserve[0]
@@ -812,7 +812,7 @@ def _export_planned(spec, lods, plan, ops, tmp, man, fr_dir, dm_dir, made, mid, 
     """The cut Fractured model and the dented Damaged model of a planned block (dc/fracture.py), with the block's
     subpart stand-ins (fracture.STANDINS, bake_standins; subparts: the built subpart LODs). Returns the collider
     objects."""
-    from se2model import limits
+    from se2modkit.model import limits
     from . import fracture as FR
     from . import fracture_mesh as FM
     size = tuple(man["nonfractured"]["size"])

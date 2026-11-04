@@ -57,8 +57,8 @@ from typing import Tuple
 from . import dims as DM
 
 try:   # geometry needs Blender; the constants, collision() and screens() are plain Python (pytest imports them)
-    from se2model import geom as G
-    from se2model.geom import Face, Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
 except ImportError:
     G = Face = Part = None
 from .style import DARK, HARDWARE, PAINT, stencil
@@ -146,7 +146,7 @@ def size(spec):
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 
@@ -194,9 +194,9 @@ def rod_plates(spec):
 
 
 def _hint_reach():
-    """se2model.placement's ray ring (the rod hanger's own hint pattern, dc/tray.py _hint_reach): a hint reaching
+    """se2modkit.model.placement's ray ring (the rod hanger's own hint pattern, dc/tray.py _hint_reach): a hint reaching
     `reach` past a grid line catches the 4 nearest rays of the cell on that side; `keep` stays clear of the far one."""
-    from se2model import placement as PL
+    from se2modkit.model import placement as PL
     offs = sorted({round(abs(a), 6) for a, _ in PL.SAMPLES})
     return PL.CELL / 2 - offs[0] + 0.005, PL.CELL / 2 - offs[-1] - 0.025
 
@@ -336,7 +336,7 @@ def _tab_stencil(P, F, a0, a1, hh, d, height, vertical, lod, bc=0.0):
             ca=(a0 + a1) / 2)
     if lod >= 2:
         return
-    from se2model.config import DECAL_OFFSET
+    from se2modkit.model.config import DECAL_OFFSET
     ac = (a0 + a1) / 2
     if vertical:   # reading bottom to top (the glyphs' tops toward the viewer's left)
         Fv = Face(F(ac, bc, 0.0), F.v, -F.u)

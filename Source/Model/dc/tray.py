@@ -11,7 +11,7 @@ is moved to the centred frame at the end. Collision (plan §Review Focus 4, moun
 - occupancy: every cell the plan occupies (dc/tray_plan.occupied_cells), merged into boxes;
 - mount hints: both port faces (s +-0.24, the bottom plane to the wall top); Up at each rod plate; Down under the
   strut; the two across faces at the strut's end plates. A mount is a whole cell face in the game (8 rays per cell,
-  se2model.placement), so each hardware hint is sized to catch ONE cell's rays: the rod plates and end plates sit on
+  se2modkit.model.placement), so each hardware hint is sized to catch ONE cell's rays: the rod plates and end plates sit on
   the grid line at the piece's centre, so the -y one mounts the cell on its -x side and the +y one the cell on its
   +x side (the pattern is the same after a 180 deg turn, as the piece is).
 """
@@ -22,8 +22,8 @@ from . import tray_lanes as TL
 from . import tray_plan as TP
 
 try:   # geometry needs Blender; collision is plain Python (pytest imports it outside)
-    from se2model import geom as G
-    from se2model.geom import Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Part
     from . import tray_kit as K
 except ImportError:
     G = Part = K = None
@@ -43,7 +43,7 @@ def size(spec):
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 
@@ -64,7 +64,7 @@ def build(spec, lod):
         return [p for p in parts if _move(p, shift)]
     # LOD1 .. n-2: the kit's detail level for this LOD, one step simpler while it would exceed 60 % of Keen's limit
     # for this LOD (the limits follow the measured LOD0: a light LOD0 gets fewer LODs with tighter caps)
-    from se2model import limits
+    from se2modkit.model import limits
     tris0, ext = _LOD0.get(spec.name) or (_tris(dress(pl, 0)), size(spec))
     lims = limits.model_limits(ext, tris0)["lods"]
     cap = lims[min(lod, len(lims) - 1)]["max_tris"]      # (a first pass from the cell box may count more LODs)
@@ -303,8 +303,8 @@ def _clip(lo, hi, size, inset=0.0):
 
 
 def _cell_boxes(cells, size, inset=0.001):
-    """Merge occupied cells into boxes (greedy, se2model.placement.build_groups), box-corner metres."""
-    from se2model.placement import build_groups
+    """Merge occupied cells into boxes (greedy, se2modkit.model.placement.build_groups), box-corner metres."""
+    from se2modkit.model.placement import build_groups
     out = []
     for lo, hi in build_groups(sorted(cells)):
         a = np.array(lo, float) * CELL + inset
@@ -429,7 +429,7 @@ def _centred(sh, reg, occ, mnt):
 
 def _cell_face_hint(name, xy, z0, z1):
     """A hint filling the face of the cell column at xy (box-corner metres) between z0 and z1: it catches all of that
-    cell's rays (se2model.placement), so the cell mounts."""
+    cell's rays (se2modkit.model.placement), so the cell mounts."""
     ix, iy = (int(np.floor(v / CELL)) for v in xy)
     return (name, np.array([ix * CELL + 0.001, iy * CELL + 0.001, z0]),
             np.array([(ix + 1) * CELL - 0.001, (iy + 1) * CELL - 0.001, z1]))
@@ -523,7 +523,7 @@ def _bend_strut_hints(sp, size, k):
     """A bend's floor strut: Down only, and only when the strut stands on the block's bottom plane (TurnH, TurnUp;
     the TurnDown's strut is behind its vertical lead, on an inner grid plane, where nothing can be bolted). One
     hint per bottom cell the strut runs at least STRUT_CELL_MIN through, filling that cell's face (a hardware hint
-    must catch 4 of the cell's 8 rays, se2model.placement): TurnH the centre cell under its 45 deg strut, TurnUp the
+    must catch 4 of the cell's 8 rays, se2modkit.model.placement): TurnH the centre cell under its 45 deg strut, TurnUp the
     two cells under its lead's strut. No end-plate hints: a fitting is carried by its neighbours (Decision 8), so
     its across faces never mount."""
     if sp.kind != "floor_strut":
@@ -548,10 +548,10 @@ def _bend_strut_hints(sp, size, k):
 
 
 def _hint_reach():
-    """From se2model.placement's ray pattern: a hint reaching `reach` to one side of a grid line catches the 4 rays
+    """From se2modkit.model.placement's ray pattern: a hint reaching `reach` to one side of a grid line catches the 4 rays
     of the cell on that side that lie nearest the line (they sit CELL/2 - min|offset| from it), and one reaching
     `keep` past the line stays clear of the far cell's rays (CELL/2 - max|offset| away)."""
-    from se2model import placement as PL
+    from se2modkit.model import placement as PL
     offs = sorted({round(abs(a), 6) for a, _ in PL.SAMPLES})
     return PL.CELL / 2 - offs[0] + 0.005, PL.CELL / 2 - offs[-1] - 0.025
 

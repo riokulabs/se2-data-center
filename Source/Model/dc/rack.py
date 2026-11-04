@@ -12,7 +12,7 @@ cable manager; a 0.25 m front zone (door leaves, server ears, KVM travel) and a 
     | 0.25 .. ZT       | 8 slots               | 4 slots                         |
     | ZT .. H          | 0.25 m top cable tray | -- (thin render-only roof)      |
 
-Placement design (se2model.placement):
+Placement design (se2modkit.model.placement):
 - Regular collision (physics) = the frame: plinth, the two side columns, the top tray, and (for
   placement) a thin rear stop plate behind each slot column's back plane (4-5 boxes).
 - Free cells: the slot cells (SLOT_CELLS) and, in front of them, the slot columns' front-zone cells, so the block
@@ -25,7 +25,7 @@ Placement design (se2model.placement):
 """
 import math
 
-from se2model.config import DECAL_OFFSET
+from se2modkit.model.config import DECAL_OFFSET
 
 from . import catalog
 from . import dims as DM
@@ -33,9 +33,9 @@ from . import doors as DR
 
 try:   # geometry needs Blender; SLOT_CELLS / dims / collision are plain Python (pytest imports them outside)
     from mathutils import Matrix
-    from se2model import geom as G
-    from se2model.geom import Face, Part
-    from se2model.config import S2
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
+    from se2modkit.model.config import S2
 except ImportError:
     Matrix = G = Face = Part = S2 = None
 from .style import (CHAMFER_LARGE, DARK, HARDWARE, KEEP_OUT, LAMP_GREEN, PAINT, PARTS, SHADOW_GAP, STEEL, YELLOW,
@@ -778,7 +778,7 @@ def _roof(P, d, lod):
         if lod == 0:
             # the blank write-on tag between the caption and the barcode (Fr: b = -y), on the Darker plate's top
             id_tag(P, Fr, -0.11, 0.11, -0.335, -0.248, 0.0, lod)
-            from se2model import decals as DCL
+            from se2modkit.model import decals as DCL
             DCL.element(P["decal"], Fr, 0.0, -0.215, 0.16, S2, "barcode_long")
     # ---- the roof rails over the side columns
     for sx in (-1, 1):
@@ -859,7 +859,7 @@ LOD_COUNT = {}
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 

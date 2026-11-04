@@ -4,7 +4,7 @@
 
 For each exported block: imports the LOD0 FBX (the game builds the precise mount-point collider from LOD0), reads
 the collision glTF (regular / occupancy* / mountpoints* nodes) and the Fractured glTF (Fracture_NN hulls), and runs
-se2model.placement with the block's cell bounds and per-axis grid shift. Writes
+se2modkit.model.placement with the block's cell bounds and per-axis grid shift. Writes
 Models/<name>/placement_exported.json:
   nonfractured: the generator on LOD0 + collision only (must equal build_report.json "placement", which was computed
                 from the in-Blender meshes before export; Tests/test_integration.py compares them);
@@ -19,12 +19,14 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
+import modkit_path  # noqa: E402
+
+modkit_path.ensure()
 
 import bpy  # noqa: E402
 
 from dc import catalog, config  # noqa: E402
-from se2model import placement as PL  # noqa: E402
+from se2modkit.model import placement as PL  # noqa: E402
 
 
 def rep(r):

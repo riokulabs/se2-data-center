@@ -177,7 +177,7 @@ def test_kvm_popped_envelope():
 @pytest.mark.parametrize("sub", [subparts.DRAWER, subparts.SCREEN])
 def test_kvm_subpart_limits(sub):
     """Each subpart model against its own Keen limits (size-keyed): LOD count, tris, materials, last LOD a box."""
-    from se2model import limits
+    from se2modkit.model import limits
     e = _report(KVM)["subparts"]["models"][sub]
     lods = e["lods"]
     n = limits.model_limits(tuple(e["model_size"]), lods[0]["tris"])["optimal_lods"]

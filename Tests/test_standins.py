@@ -244,7 +244,7 @@ def test_server_support_roles(name):
 def test_fr_budget_with_standins():
     """The stand-ins count in the KVM's Fractured triangles: its LOD0 stays within the fractured budget, and the LOD
     count is still Keen's for the FR's own size and LOD0 (and the NF's)."""
-    from se2model import limits
+    from se2modkit.model import limits
     man = _man(KVM)
     fr = man["fractured"]
     st = fr["standins"]["tris"]
@@ -263,7 +263,7 @@ def test_crac_fan_standins(staged):
     blades' front and back); the staged ConditionalSubParts hides exactly them while the fans run (Functional); the
     FR LOD0 stays within 28 006 triangles and the LOD count is unchanged (Keen's for the FR's size and LOD0, = NF's)."""
     from dc import crac
-    from se2model import limits
+    from se2modkit.model import limits
     man = _man(CRAC)
     fr = man["fractured"]
     fans = ("Fracture_02", "Fracture_03", "Fracture_04")

@@ -359,7 +359,7 @@ def paints(built):
 def ghost_boxes(spec, base, coll_name, mat="GhostSlot"):
     """One box per SLOT_CELLS cell, converted from game cells back to Blender (the real inverse transform), so the
     boxes show exactly where the generator expects the servers; joined per slot into 2x1x3 blocks."""
-    from se2model import placement as PL
+    from se2modkit.model import placement as PL
     shift = PL.shift_for_bounds(catalog.bounds(spec))
     cells = rack.SLOT_CELLS(spec)
     bm = bmesh.new()

@@ -28,9 +28,9 @@ from .style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, YELLOW, hazard_tria
 
 try:
     from mathutils import Matrix
-    from se2model import geom as G
-    from se2model.geom import Part
-    from se2model.config import S2
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Part
+    from se2modkit.model.config import S2
 except ImportError:
     Matrix = G = Part = S2 = None
 
@@ -157,7 +157,7 @@ def _hatch(P, Fs, L, lod):
     stencil(P["decal"], Fs, pc[0], pc[1] + 0.050, 0.022, R.ID_CAPTION, d=HATCH_D[1] + 0.004)
     R.id_tag(P, Fs, pc[0] - 0.135, pc[0] + 0.135, pc[1] - 0.062, pc[1] + 0.030, HATCH_D[1] + 0.004, lod)
     if lod == 0:
-        from se2model import decals as DCL
+        from se2modkit.model import decals as DCL
         sw = 0.15                                                   # DANGER HIGH VOLTAGE sticker width
         sh = sw / DCL.element_aspect(S2, "danger_hv")
         tw = 0.18                                                   # the text block ("PDU ACCESS" at 30 mm cap)
@@ -245,7 +245,7 @@ def _band(P, Fs, L, lod):
     """The service band between the vents and the hatch: grounding stud, maintenance caution, asset barcode."""
     if lod > 0:
         return
-    from se2model import decals as DCL
+    from se2modkit.model import decals as DCL
     m0, m1 = L["m"]
     b = (L["band"][0] + L["band"][1]) / 2
     ga = m0 + 0.05

@@ -150,7 +150,7 @@ def test_rack_front_back_open(name):
 
 @pytest.mark.parametrize("name", ALL_RACKS)
 def test_rack_limits(name):
-    from se2model import limits
+    from se2modkit.model import limits
     spec = catalog.BY_NAME[name]
     lods = _entry(name)["lods"]
     # Keen's size table decides the LOD count from the LOD0 MESH bounds (the checker's "Surface area"): the full

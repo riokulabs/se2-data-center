@@ -22,11 +22,11 @@ import math
 
 from .. import server
 from ..style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, YELLOW, louvre_panel, oct_pts, stencil
-from se2model.config import EM
+from se2modkit.model.config import EM
 
 try:
-    from se2model import geom as G
-    from se2model.geom import Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Part
 except ImportError:
     G = Part = None
 

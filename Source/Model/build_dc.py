@@ -12,7 +12,9 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
+import modkit_path  # noqa: E402
+
+modkit_path.ensure()
 
 from dc import catalog, config, dims as DM, report  # noqa: E402
 
@@ -21,9 +23,9 @@ BEVEL_HAZARDS = {}   # object name -> zero-length edges in a bevelled Part (a be
 
 
 def _install_bevel_guard():
-    """se2model bevels use clamp-overlap, which clamps the WHOLE part: one zero-length edge (e.g. oct_pts(..., 0.0))
+    """se2modkit bevels use clamp-overlap, which clamps the WHOLE part: one zero-length edge (e.g. oct_pts(..., 0.0))
     silently kills every bevel of that Part. Wrap part_to_object once and record such edges per object."""
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     if getattr(OB.part_to_object, "_dc_guard", False):
         return
     orig = OB.part_to_object
@@ -45,7 +47,7 @@ def bevel_guard(spec):
 def build_rack(spec, render):
     import bpy
     from dc import assemble, rack
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, rack.build, rack, root)
     boxes = rack.collision(spec)
@@ -94,8 +96,8 @@ def build_generic_subparts(spec, root, table):
     """{subpart: [(coll, objs)] per LOD} from {name: (builder(spec, lod), last(lo, hi))}: Keen's optimal LOD count
     for each subpart's own measured LOD0 (at least 2); the last LOD is its LOD0 bounding box (12 tris)."""
     from dc import assemble
-    from se2model import limits
-    from se2model import objects as OB
+    from se2modkit.model import limits
+    from se2modkit.model import objects as OB
     out = {}
     for name, (builder, last) in table.items():
         coll = OB.new_collection(f"{spec.name}_{name}_LOD0", root)
@@ -113,8 +115,8 @@ def build_generic_subparts(spec, root, table):
 
 def subpart_rows(sub):
     from dc import assemble
-    from se2model import limits
-    from se2model import objects as OB
+    from se2modkit.model import limits
+    from se2modkit.model import objects as OB
     rep = {}
     for name, lods in sub.items():
         size = assemble.measured_size(lods[0][1])
@@ -322,7 +324,7 @@ def top_entries(objs):
 def build_server(spec, render):
     from dc import assemble, server
     from dc.servers import deco, eventctl, kvm, programmable, status, timer, ups
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     builders = {**{v: deco.build for v in deco.FACES}, "Timer": timer.build, "EventCtl": eventctl.build,
                 "Status": status.build, "UPS": ups.build, "KVM": kvm.build, "Programmable": programmable.build}
     if spec.variant not in builders:
@@ -391,8 +393,8 @@ def build_subparts(spec, root):
     triangles (at least 2); the last LOD is its LOD0 bounding box in one material (12 tris), as vanilla subparts."""
     from dc import assemble
     from dc.servers import kvm
-    from se2model import limits
-    from se2model import objects as OB
+    from se2modkit.model import limits
+    from se2modkit.model import objects as OB
     out = {}
     for name, builder in kvm.SUBPARTS.items():
         coll = OB.new_collection(f"{spec.name}_{name}_LOD0", root)
@@ -415,8 +417,8 @@ def subpart_report(sub):
     from mathutils import Matrix, Vector
     from dc import assemble
     from dc import subparts as S
-    from se2model import limits
-    from se2model import objects as OB
+    from se2modkit.model import limits
+    from se2modkit.model import objects as OB
     rep = {"models": {}}
     for name, lods in sub.items():
         size = assemble.measured_size(lods[0][1])
@@ -462,7 +464,7 @@ def build_tray(spec, render):
     """A cable-tray block (dc/tray.py from its cable plan dc/tray_plan.py, dressed by dc/tray_kit.py)."""
     import bpy
     from dc import assemble, tray
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, tray.build, tray, root)
     boxes = tray.collision(spec)
@@ -595,7 +597,7 @@ def port_sections(objs, ports):
 def build_floor(spec, render):
     """A raised-floor block (dc/floor.py), breakable: in-plane tile zones (dc/fracture.py _floor)."""
     from dc import assemble, floor
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, floor.build, floor, root)
     boxes = floor.collision(spec)
@@ -664,7 +666,7 @@ def floor_geometry(spec, objs):
 def build_contain_roof(spec, render):
     """A containment roof panel (dc/contain.py), breakable: a zone per bay (dc/fracture.py _roof)."""
     from dc import assemble, contain
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, contain.build, contain, root)
     boxes = contain.collision(spec)
@@ -746,7 +748,7 @@ def build_contain_door(spec, render):
     zones (dc/fracture.py _door: the lintel, three pieces per pocket tower, the sill), and its two leaf subparts, each with its own collision box (the vanilla
     DoorBlockCollider compounds them into the block's collider while the door is closed)."""
     from dc import assemble, contain
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, contain.build_door, contain, root)
     boxes = contain.door_collision(spec)
@@ -828,7 +830,7 @@ def build_crac(spec, render):
     _crac: a critical coil core and fan sections, shell plates round them), and its CracFan rotor subpart (spawned
     three times by the cloned ConditionalSubParts, spinning while Working)."""
     from dc import assemble, crac
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, crac.build, crac, root)
     boxes = crac.collision(spec)
@@ -928,7 +930,7 @@ def build_pdu(spec, render):
     """The PDU cabinet and the zero-U rack PDU strips (dc/pdu.py), breakable (dc/fracture.py
     _pdu_cabinet / _pdu_strip)."""
     from dc import assemble, pdu
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, pdu.build, pdu, root)
     boxes = pdu.collision(spec)
@@ -1041,7 +1043,7 @@ def build_sign(spec, render):
     """A sign / label (dc/signs.py), an editable LCD (LCDNarrow50 clone), breakable: in-plane tiles
     along x (dc/fracture.py _sign)."""
     from dc import assemble, signs
-    from se2model import objects as OB
+    from se2modkit.model import objects as OB
     root = OB.new_collection(spec.name)
     lods = assemble.fit_lods(spec, signs.build, signs, root)
     boxes = signs.collision(spec)
@@ -1260,7 +1262,7 @@ def main(argv):
     report.write(config.REPORT_PATH, data)
     if do_export:
         from dc import export_models
-        from se2model import export as EX
+        from se2modkit.model import export as EX
         ops = EX.vrt_ops()
         for name, b in BUILT.items():
             m = export_models.export_block(catalog.BY_NAME[name], b["lods"], b["collision"], b["boxes"], ops,

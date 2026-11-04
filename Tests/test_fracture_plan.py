@@ -214,7 +214,7 @@ def test_exported_lods_follow_keen(name):
     """Every model (NonFractured, Fractured, Damaged) has exactly Keen's LOD count for its own LOD0 and bounds; the
     fractured ones stay within the fractured triangle and material limits; the LastLOD box has one material; the
     Damaged model's bounds equal the intact one's (the dents are pinned there: render bounds, ports, mount faces)."""
-    from se2model import limits
+    from se2modkit.model import limits
     m = _manifest(name)
     for variant in ("nonfractured", "fractured", "damaged"):
         size = m[variant]["size"] if variant != "nonfractured" else m["nonfractured"]["size"]

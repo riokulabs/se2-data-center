@@ -181,7 +181,7 @@ SDK_MATS = os.path.expanduser("~/.steam/debian-installation/steamapps/common/Spa
 
 def fracture_mat(name):
     """Vanilla FracturedMaterial01 (the torn fracture surface): its SDK albedo PNG (read only), box-projected in
-    object space at 2 m per tile (the exported UVs' world scale, se2model UV_SCALE 0.5 / m); a rusty dark stand-in
+    object space at 2 m per tile (the exported UVs' world scale, se2modkit UV_SCALE 0.5 / m); a rusty dark stand-in
     when the SDK is missing."""
     png = os.path.join(SDK_MATS, "FracturedMaterial01", "FracturedMaterial01_albedo.png")
     if not os.path.exists(png):

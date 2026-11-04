@@ -32,8 +32,8 @@ from ..style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, STENCIL_WHITE, YEL
 from . import deco, panel
 
 try:
-    from se2model import geom as G
-    from se2model.geom import Face, Part
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
 except ImportError:
     G = Face = Part = None
 

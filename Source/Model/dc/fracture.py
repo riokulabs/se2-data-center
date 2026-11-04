@@ -792,7 +792,7 @@ def fracture_budget(size, lod0_tris, n_lods):
     """Per LOD, the most triangles a fractured / damaged model of this block may have: Keen's fractured limit
     (x 1.83425) with 5 % headroom, and on LOD0 the row value that keeps Keen's LOD count (the count is keyed on the
     model's own LOD0 triangles: crossing row[bias] would ask for one more LOD)."""
-    from se2model import limits
+    from se2modkit.model import limits
     lim = limits.model_limits(size, lod0_tris)
     frac = limits.model_limits(size, lod0_tris, fractured=True)
     out = [int(frac["lods"][i]["max_tris"] * 0.95) for i in range(n_lods)]
@@ -811,7 +811,7 @@ LOD_ROW_BAND = (0.97, 1.15)
 def lod_row(size, lod0_tris):
     """The row value Keen's LOD count for this LOD0 is keyed on (crossing it changes the count), or None when the
     LOD0 already has lod bias 0 (more triangles cannot ask for more LODs)."""
-    from se2model import limits
+    from se2modkit.model import limits
     b = limits.model_limits(size, lod0_tris)["lod_bias"]
     if b == 0:
         return None

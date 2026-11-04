@@ -1,6 +1,6 @@
 """BlockModelDefinition.BuildProgressModels without the Editor (no Blender needed).
 
-The Data Center's own copy: forked from tools/se2model/construction.py, which is left unchanged and is superseded
+The Data Center's own copy: forked from tools/se2model/construction.py (now se2modkit.pipeline.construction), which is left unchanged and is superseded
 for this mod (tools/ is not versioned with the mod, so fixes live here).
 Changes from the fork: the stage-1.0 ApplyOnlyWhenDamaged hide names exactly the parts passed as `damaged_hide`
 (scaffold_parts: the Scaffold-type mesh parts) and is empty without them (the old stray "Chrome" hide named a

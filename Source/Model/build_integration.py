@@ -13,7 +13,9 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "tools")))
+import modkit_path  # noqa: E402
+
+modkit_path.ensure()
 
 from dc import integration, script_guids  # noqa: E402
 

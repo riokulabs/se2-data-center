@@ -25,7 +25,7 @@ from ..style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, YELLOW, lamp, louv
 from . import cellbay, deco
 
 try:
-    from se2model import geom as G
+    from se2modkit.model import geom as G
 except ImportError:
     G = None
 

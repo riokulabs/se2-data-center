@@ -54,9 +54,9 @@ from . import dims as DM
 
 try:   # geometry needs Blender; the numbers, collision() and hints are plain Python (pytest imports them outside)
     from mathutils import Matrix
-    from se2model import geom as G
-    from se2model.geom import Face, Part
-    from se2model.config import S2
+    from se2modkit.model import geom as G
+    from se2modkit.model.geom import Face, Part
+    from se2modkit.model.config import S2
 except ImportError:
     Matrix = G = Face = Part = S2 = None
 from .style import DARK, HARDWARE, LAMP_GREEN, PAINT, STEEL, YELLOW, bolt, oct_pts, stencil
@@ -723,7 +723,7 @@ def _isolator(P, lod):
     # the placard: Darker plate, the vanilla DANGER HIGH VOLTAGE sticker, the 400 V caption
     pa, pz = PLACARD_C
     G.prism(P["dark"], Fc, oct_pts(pa - 0.125, pz - 0.16, pa + 0.125, pz + 0.10, 0.012), 0.0, 0.002, DARK)
-    from se2model import decals as DCL
+    from se2modkit.model import decals as DCL
     DCL.element(P["sticker"], Fc, pa, pz + 0.01, 0.22, S2, "danger_hv", d=0.002 - 0.0015)
     stencil(P["decal"], Fc, pa, pz - 0.105, 0.030, "400 V", d=0.0005)
     if lod == 0:
@@ -1029,7 +1029,7 @@ def size(spec):
 def n_lods(spec):
     if spec.name in LOD_COUNT:
         return LOD_COUNT[spec.name]
-    from se2model import limits
+    from se2modkit.model import limits
     return limits.model_limits(size(spec))["optimal_lods"]
 
 
