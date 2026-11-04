@@ -18,9 +18,9 @@ Space Engineers 2 mod: server racks, rack-mount servers, cable trays and room pi
 
 ```bash
 python3 -m pytest -q Tests -m "not build and not sdkbuild"                  # offline tests
-blender -b --python Source/Model/build_dc.py -- all --no-render             # models (needs Blender 5.x)
+id=$(se2mod queue submit --load heavy -- blender -b --python Source/Model/build_dc.py -- all --no-render) && se2mod queue wait "$id"  # models (Blender 5.x, through the GPU job queue)
 python3 Source/Model/build_integration.py && bash Source/Model/integration/install.sh        # stage, then dry-run install
-pgrep -x Modern.bin; python3 ../../tools/scripts/se2mod.py build DataCenter  # SDK build (game closed)
+pgrep -x Modern.bin; se2mod build DataCenter  # SDK build (game closed)
 ```
 
 Pytest markers: `build` needs a prior Blender build, `sdkbuild` runs the real SDK build (opt-in with `DC_SDK_BUILD=1`), `scripts` needs `Scripts/`. Some tests import `se2model` from `../../tools`, which exists only in the maintainer's workspace; on a bare clone those modules fail to collect.

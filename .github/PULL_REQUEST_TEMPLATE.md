@@ -10,7 +10,7 @@
 ## Checklist
 
 - [ ] Offline tests pass: `scripts/test.sh` (same as `python3 -m pytest -q Tests -m "not build"` minus the SDK build)
-- [ ] If a definition, model or script changed: the SDK build passes (`pgrep -x Modern.bin` prints nothing, then `python3 ../../tools/scripts/se2mod.py build DataCenter` exits 0 with no DataCenter warnings)
+- [ ] If a definition, model or script changed: the SDK build passes (`pgrep -x Modern.bin` prints nothing, then `se2mod build DataCenter` exits 0 with no DataCenter warnings)
 - [ ] Files under `Assets/` come from the generator (`Source/Model/`), not hand edits; GUIDs are untouched
 - [ ] No preview renders, decompiled code, Keen DLLs, or tokens are committed (`python3 scripts/check_repo_guard.py`)
 - [ ] Built from the main checkout, not a git worktree, and nothing was published

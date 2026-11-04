@@ -11,7 +11,7 @@ Definitions under `Assets/` are game-format files (`.def`, `.partialdef`, `.meta
 1. Read `docs/model-pipeline.md` and the clone section of `Source/Model/integration/INTEGRATION.md`.
 2. Add the entry to the catalogue (`Source/Model/dc/catalog.py`). Every modeled part needs a believable purpose; the block must behave like the vanilla block it is cloned from.
 3. Clone once: `python3 Source/Model/dc/clone.py <BLOCK>`.
-4. Build and export in Blender (windowed): `blender --python Source/Model/build_dc.py -- <BLOCK> --no-render --export`.
+4. Build and export in Blender (windowed), through the GPU job queue, never by starting Blender directly: `id=$(se2mod queue submit --load heavy -- blender --python Source/Model/build_dc.py -- <BLOCK> --no-render --export)`, then `se2mod queue wait "$id"`.
 5. Stage: `python3 Source/Model/build_integration.py`; install: `bash Source/Model/integration/install.sh` (dry run), then `--apply` with the game and Editor closed.
 6. Tests: `python3 -m pytest -q Tests -m "not build"`. Add or extend a test for the new block.
 7. SDK build: `pgrep -x Modern.bin` must print nothing, then `python3 ../../tools/scripts/se2mod.py build <ModName>`.
