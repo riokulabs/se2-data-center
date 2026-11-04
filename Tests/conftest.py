@@ -11,6 +11,9 @@ import pytest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "Source", "Model"))
+import modkit_path  # noqa: E402
+
+modkit_path.ensure()
 CORE_TESTS = os.path.join(HERE, "CoreTests")
 SCRIPTS = os.path.join(HERE, "..", "Scripts")
 # The SDK build (se2mod build / se2modkit sdkbuild) moves Scripts/ here while the builder runs and back afterwards. A run

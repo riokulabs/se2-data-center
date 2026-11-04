@@ -42,7 +42,8 @@ def test_missing_modkit_says_how_to_run(monkeypatch, tmp_path):
 
 def test_blender_entry_scripts_use_it_and_not_the_old_copy():
     for script in ("build_dc.py", "build_integration.py", "check_placement.py", "fracture_compare_preview.py",
-                   "fracture_preview.py", "rack_placement_sheet.py", "room_sheet.py", "states_preview.py"):
+                   "fracture_preview.py", "rack_placement_sheet.py", "room_sheet.py", "states_preview.py",
+                   "dc/budget_table.py"):
         text = (MODEL / script).read_text(encoding="utf-8")
         assert "import modkit_path" in text, script
         assert "se2model import" not in text and '"tools"))' not in text, script

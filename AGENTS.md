@@ -23,7 +23,7 @@ python3 Source/Model/build_integration.py && bash Source/Model/integration/insta
 pgrep -x Modern.bin; python3 ../../tools/scripts/se2mod.py build DataCenter  # SDK build (game closed)
 ```
 
-Pytest markers: `build` needs a prior Blender build, `sdkbuild` runs the real SDK build (opt-in with `DC_SDK_BUILD=1`), `scripts` needs `Scripts/`. Some tests import `se2model` from `../../tools`, which exists only in the maintainer's workspace; on a bare clone those modules fail to collect.
+Pytest markers: `build` needs a prior Blender build, `sdkbuild` runs the real SDK build (opt-in with `DC_SDK_BUILD=1`), `scripts` needs `Scripts/`. The model code and some tests import `se2modkit`: installed, or from `$SE2MODKIT_SRC` or the workspace's `tools/se2-modkit/src` (`Source/Model/modkit_path.py` looks there, for the tests and for scripts Blender runs directly).
 
 `scripts/test.sh` runs the offline checks. CI runs the same on GitHub-hosted runners, which have no game, SDK or Blender.
 
