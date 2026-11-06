@@ -13,6 +13,6 @@ Do these in order and stop before anything leaves the machine.
 3. Draft the changelog section: `scripts/changelog.sh <version>`. Edit the wording for users, then add it under the right heading in `CHANGELOG.md` (format: `## [x.y.z] - YYYY-MM-DD`, Keep a Changelog groups).
    Also update `docs/workshop/` text and the version in `ModProject.modhub-metadata` if it carries one, and run the SDK build from the main checkout. The maintainer publishes to the Workshop with the publish tool; do not publish.
 4. Commit as `chore(release): <version>`.
-5. Show the maintainer the tag command (`git tag -s v<version>` or `git tag -a`) and stop. The maintainer pushes the tag; pushing a `v*` tag makes CI draft a GitHub release from the notes.
+5. Stop here. The release is tagged by the publish tool, not by hand: `se2publish publish DataCenter --version <version>` uploads to the Workshop, then tags the published commit, pushes the tag and publishes the GitHub release. Never push a `v*` tag before the upload; the tag must point at the commit that shipped.
 
 Never push, tag or publish yourself.

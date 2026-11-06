@@ -1,6 +1,8 @@
 # managed by riokulabs/.github - edit there (templates/), not here
 # Drafts a GitHub release from the Conventional Commits since the previous tag. It only drafts: you read the notes,
 # edit them if needed and publish by hand. Publishing to Steam Workshop is a separate, manual step (se2publish).
+# se2publish tags the commit it uploaded and publishes that tag's release itself; when a release for the tag
+# already exists, this workflow leaves it alone.
 name: release
 on:
   push:
@@ -33,5 +35,11 @@ jobs:
       - name: Create draft release
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
           TAG: ${{ github.ref_name }}
-        run: gh release create "$TAG" --draft --title "$TAG" --notes-file RELEASE_NOTES.md --verify-tag
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "A release for $TAG already exists; leaving it as it is."
+            exit 0
+          fi
+          gh release create "$TAG" --draft --title "$TAG" --notes-file RELEASE_NOTES.md --verify-tag
