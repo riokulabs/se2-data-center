@@ -134,7 +134,8 @@ visual (each client shows its own KVM motion for the same server state), but it 
 - **Nothing changed:** the game was started without `-loadScripts`. Check the launch options, and that the log has
   `[DataCenter]` lines at world load (for example `[DataCenter] script the KVM: 3 edit(s): ...`).
 - **`Error when loading scripts for DataCenter` in the game log:** the scripts did not compile (usually after a game
-  update changed an API). The mod then behaves exactly like scripts OFF. Report it with the log lines.
+  update changed an API), and the game stops loading the world (`Aborting Game Data load`). Until the mod is updated,
+  start the game without `-loadScripts`: the world then loads with the data-only behavior. Report it with the log lines.
 - **A `[DataCenter]` line saying something "keeps the data-only motion" or "could not ...":** a reflection target or
   a definition was not found; that feature fell back to its data-only behavior, once, and the game is unaffected.
 - **Probe:** with a world loaded, `tools/scripts/se2game.py exec -f Tests/InGame/probe_scripts.csx` prints one
